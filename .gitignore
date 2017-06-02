@@ -1,0 +1,7 @@
+/doc/
+/lib/
+/bin/
+/.shards/
+.DS_Store
+sentry
+site_ah

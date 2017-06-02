@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+        <!-- js -->
+    	   <script src="./js/jquery-2.1.0.min.js"></script>
+		    <script src="https://cdnjs.cloudflare.com/ajax/libs/scrollify/1.0.14/jquery.scrollify.min.js"></script>
+        <script src="./js/prism.min.js"></script>
+    		<script src="http://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+		<script>
+			var currentPage = parseInt(window.location.href.slice(-1), 10) - 1;
+			document.addEventListener('DOMContentLoaded', function() {
+				particlesJS("particles", {
+					"particles": {
+						"number": {
+							"value": 135,
+							"density": {
+								"enable": true,
+								"value_area": 1000
+							}
+						},
+						"color": {
+							"value": ['#69b7eb', '#b3dbd3', '#f4d6db', '#cfecd0', '#ffc5ca', '#f598a8', '#aea4e3']
+						},
+
+						"shape": {
+							"type": "polygon",
+							"polygon": {
+								"nb_sides": 7
+							}
+						},
+						"opacity": {
+							"value": 0.9,
+							"random": false,
+							"anim": {
+								"enable": true,
+								"speed": 1,
+								"opacity_min": 0.25,
+								"sync": false
+							}
+						},
+						"size": {
+							"value": 2.5,
+							"random": true,
+							"anim": {
+								"enable": false
+							}
+						},
+						"line_linked": {
+							"enable": true,
+							"distance": 120,
+							"color": "#ffffff",
+							"opacity": 0.4,
+							"width": 1
+						},
+						"move": {
+							"enable": true,
+							"speed": 10 / 4.5,
+							"random": true,
+							"direction": "top-right",
+							"straight": false,
+							"out_bounce": "bounce",
+							"bounce": true
+						}
+					},
+					"interactivity": {
+						"detect_on": "window",
+						"events": {
+							"onhover": {
+								"enable": true,
+								"mode": ["grab", "repulse"]
+							},
+							"onclick": {
+								"enable": true,
+								"mode": "push"
+							},
+							"resize": true
+						},
+						"modes": {
+							"grab": {
+								"distance": 175,
+								"line_linked": {
+									"opacity": 1
+								}
+							},
+							"repulse": {
+								"distance": 150,
+								"duration": 0.4
+							},
+							"push": {
+								"particles_nb": 8
+							},
+							"remove": {
+								"particles_nb": 2
+							}
+						}
+					},
+					"retina_detect": true
+				});
+
+				if (currentPage == 0) {
+					$('#svg').hide();
+					$('.header, .outerWrapper').hide();
+				} else if (currentPage == 1) {
+					$('#particles canvas').hide();
+					$('.header, .outerWrapper').hide();
+				} else if (currentPage == 2) {
+					$('#particles canvas').hide();
+					$('#svg').hide();
+				} else if (currentPage == 3) {
+					$('#particles canvas').hide();
+					$('#svg').hide();
+					$('.info').addClass('slid-up');
+				} let scrolled = false;
+				$(function() {
+					$.scrollify({
+						section : ".scroll-container",
+						easing: "easeOutExpo",
+						scrollSpeed: 750,
+						setHeights: false,
+						overflowScroll: false,
+						before: (page, ar) => {
+
+							$('.mouse').addClass('scrolled').text( ((page == 3) ? '3.1' : `${page + 1}`) + ' | 3');
+
+							if (currentPage == 0 && page == 1) {
+								$('#particles canvas').hide();
+								$('#svg').show();
+							} else if (currentPage == 1 && page == 2) {
+								$('.header, .outer-wrapper').show();
+								$('#svg').hide();
+							} else if (currentPage == 2 && page == 1) {
+								$('.header, .outerWrapper').hide();
+								$('#svg').show();
+							} else if (currentPage == 1 && page == 0) {
+								$('#particles canvas').show();
+								$('#svg').hide();
+							} else if (currentPage == 2 && page == 3) {
+								$('.info').addClass('slid-up');
+							} else if (currentPage == 3 && page == 2) {
+								$('.info').removeClass('slid-up');
+							}
+
+							currentPage = page;
+						}
+					});
+				});
+			}, false);
+			document.addEventListener('mousedown', function(e) {
+				e.preventDefault();
+			});
+		</script>
+
+		<style>
+			#particles {
+				width: 100%;
+				height: 100%;
+				overflow: hidden;
+				position: absolute;
+				z-index: -1;
+			}
+			::-webkit-scrollbar {
+				display: none;
+			}
+			.mouse {
+				width: 0.8em;
+				height: 1.6em;
+				border: 1px solid #fff;
+				border-radius: 0.8em;
+				position: absolute;
+				left: 50%;
+				bottom: -5px;
+				font-family: Monaco, Dejavu Sans Mono, monospace;
+				-webkit-transform: translateX(-50%);
+				transform: translateX(-50%)
+			}
+			.mouse:before {
+				content: '';
+				width: 1px;
+				height: 5px;
+				border-radius: 2px;
+				background: #fff;
+				position: absolute;
+				left: 50%;
+				top: 25%;
+				-webkit-transform: translate(-50%, -50%);
+				transform: translate(-50%, -50%);
+				-webkit-animation: scroll 4s infinite;
+				animation: scroll 4s infinite;
+			}
+			.mouse.scrolled, .mouse.scrolled:before {
+				border: 0;
+				width: 5em;
+				bottom: 2px;
+				text-align: center;
+				transition: border 1s ease;
+				font-size: 0.8em;
+				background: transparent
+			}
+			.mouse.touch {
+				border: 0;
+				bottom: 2px;
+			}
+			.mouse.touch:before {
+				height: 5px;
+				width: 5px;
+				border-radius: 3px;
+				top: 100%;
+				-webkit-animation: touch-scroll 4s infinite;
+				animation: touch-scroll 4s infinite;
+			}
+			@-webkit-keyframes touch-scroll {
+				0% {
+					top: 100%;
+					opacity: 1
+				}
+				25%, 100% {
+					top: 0%;
+					opacity: 0
+				}
+			}
+			@keyframes touch-scroll {
+				0% {
+					top: 100%;
+					opacity: 1
+				}
+				25%, 100% {
+					top: 0%;
+					opacity: 0
+				}
+			}
+			@-webkit-keyframes scroll {
+				0% {
+					top: 25%;
+					opacity: 1
+				}
+				25%, 100% {
+					top: 50%;
+					opacity: 0
+				}
+			}
+			@keyframes scroll {
+				0% {
+					top: 25%;
+					opacity: 1
+				}
+				25%, 100% {
+					top: 50%;
+					opacity: 0
+				}
+			}
+			.info {
+				position: fixed;
+				left: 3%;
+				right: 3%;
+				bottom: 4%;
+				font-family: Quicksand;
+				font-size: 0.8em;
+				line-height: 2em;
+				-webkit-transition: 0.75s linear;
+				transition: 0.75s linear
+			}
+			.info.slid-up {
+				bottom: 12%;
+				-webkit-transition: 0.75s linear;
+				transition: 0.75s linear
+			}
+			@keyframes rotate {
+				0% {
+					transform: rotate(0deg) scale(1);
+				} 100% {
+					transform: rotate(360deg) scale(5);
+				}
+			}
+			@-webkit-keyframes rotate {
+				0% {
+					transform: rotate(0deg) scale(1);
+				} 100% {
+					transform: rotate(360deg) scale(5);
+				}
+			}
+			@media (max-width:767px) {
+				.info {
+					left: 10%;
+					right: 10%
+				}
+				.mobile-text {
+					font-size: 3.5vw;
+				}
+			}
+
+			.outer-wrapper {
+				width: 100vmin;
+				height: 27.5vmin;
+				position: relative;
+				margin: auto
+			}
+			.wrapper {
+				width: 80%;
+				height: 100%;
+				position: relative;
+				-webkit-animation: float 3s cubic-bezier(0.5, 0.5, 0.5, 0.5) infinite;
+				-moz-animation: float 3s cubic-bezier(0.5, 0.5, 0.5, 0.5) infinite;
+				animation: float 3s cubic-bezier(0.5, 0.5, 0.5, 0.5) infinite;
+				margin: auto
+			}
+			.header {
+				position: absolute;
+				width: 100%;
+				height: 25%;
+				top: -5%;
+				background: gainsboro;
+				-webkit-animation: tide 3s infinite;
+				-moz-animation: tide 3s infinite;
+				animation: tide 3s infinite;
+				transform: rotate(-2deg)
+			}
+			.wave {
+				position: absolute;
+				bottom: 0;
+				left: 0px;
+				right: 0px;
+				height: 20px;
+				background: url(./img/wave.svg);
+				background-position: -60px 0px;
+			}
+			.pause {
+				animation-play-state: paused
+			}
+			.wrapper .whale_body {
+				border-radius: 250px 80px 10px 10px;
+				background: white;
+				height: 100%;
+				width: 54%;
+				float: right;
+				position: relative;
+			}
+			.wrapper .connect {
+				width: 65%;
+				height: 30%;
+				border-radius: 30px;
+				background: white;
+				position: absolute;
+				top: -35%;
+				right: -10%;
+				opacity: 0;
+				transform: translateY(20%);
+				-webkit-transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.1s;
+						transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.1s
+			}
+			.whale_body:hover ~ .connect, .connect:hover {
+				opacity: 1;
+				transform: translateY(0);
+				-webkit-transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.1s;
+						transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.1s
+			}
+			.wrapper .whale_body .whale_mouth {
+				width: 50%;
+				height: 4%;
+				background: lightgrey;
+				position: absolute;
+				right: 0;
+				bottom: 10%;
+				border-radius: 10px 0px 0 10px;
+			}
+			.wrapper .whale_body .whale_eye {
+				width: 4.5%;
+				height: 7%;
+				background: lightgrey;
+				position: absolute;
+				right: 43%;
+				top: 70%;
+				border-radius: 100%;
+			}
+			.wrapper .whale_tail_split_1, .wrapper .whale_tail_split_2 {
+				width: 20%;
+				height: 30%;
+				background: darkgrey;
+				margin-left: 20%;
+				-webkit-transform: rotate(-120deg);
+				border-radius: 30px 0 30px 25%;
+				position: absolute;
+				bottom: 18%;
+				left: 0%;
+				-webkit-animation: spin-less 3s linear infinite;
+				-moz-animation: spin-less 3s linear infinite;
+				animation: spin-less 3s linear infinite;
+			}
+			.wrapper .whale_tail_split_2 {
+				-webkit-transform: rotate(-15deg);
+				background: white;
+				left: 0%;
+				border-radius: 0 30px 50% 30px;
+				bottom: -2%;
+				-webkit-animation: spin 3s linear infinite;
+				-moz-animation: spin 3s linear infinite;
+				animation: spin 3s linear infinite;
+			}
+			@-moz-keyframes spin {
+				50% {
+					-moz-transform: rotate(10deg);
+				}
+			}
+			@-webkit-keyframes spin {
+				50% {
+					-webkit-transform: rotate(10deg);
+				}
+			}
+			@keyframes spin {
+				50% {
+					-webkit-transform: rotate(-30deg);
+					transform: rotate(-30deg);
+				}
+			}
+			@-moz-keyframes spin-less {
+				50% {
+					-moz-transform: rotate(-95deg);
+				}
+			}
+			@-webkit-keyframes spin-less {
+				50% {
+					-webkit-transform: rotate(-95deg);
+				}
+			}
+			@keyframes spin-less {
+				50% {
+					-webkit-transform: rotate(-110deg);
+					transform: rotate(-110deg);
+				}
+			}
+			.whale_fin {
+				width: 10%;
+				height: 15%;
+				background: white;
+				-webkit-transform: rotate(-110deg);
+				border-radius: 30px 0 30px 0;
+				position: absolute;
+				z-index: 1;
+				bottom: -10%;
+				left: 60%;
+				-webkit-animation: fin-spin 4s linear infinite;
+				-moz-animation: fin-spin 4s linear infinite;
+				animation: fin-spin 4s linear infinite;
+			}
+			.white_tail_1, .white_tail_2 {
+				width: 20%;
+				height: 7%;
+				background: white;
+				-webkit-transform: rotate(0deg);
+				position: absolute;
+				bottom: 0;
+				left: 30%;
+				border-radius: 0 80% 0 100%;
+			}
+			.white_tail_2 {
+				-webkit-transform: rotate(-34deg);
+				height: 30%;
+				left: 35%;
+			}
+			.speech-bubble {
+				position: absolute;
+				width: 25%;
+				height: 50%;
+				right: -29%;
+				bottom: 20%;
+				background: ghostwhite;
+				border-radius: 20px 20px 20px 0;
+				-webkit-animation: normalize-float cubic-bezier(0.5, 0.5, 0.5, 0.5) 3s infinite;
+				animation: normalize-float cubic-bezier(0.5, 0.5, 0.5, 0.5) 3s infinite;
+			}
+			.speech-bubble-handle {
+				position: absolute;
+				width: 10%;
+				height: 10%;
+				background: ghostwhite;
+				bottom: calc(-10% + 1px);
+				border-radius: 0 0 80%;
+			}
+			.me {
+				position: absolute;
+				top: 50%; right: 50%;
+				font-family: Monaco, Dejavu Sans Mono, monospace;
+				display: block;
+				transform: scaleX(-1) translate(-50%, -50%);
+				-webkit-transform: scaleX(-1) translate(-50%, -50%)
+			}
+			.twitter, .twitter:hover, .twitter:active, .twitter:visited {
+				color: #1DA1F2
+			}
+			a, div, div:focus {
+				-webkit-tap-highlight-color: rgba(0,0,0,0);
+				-webkit-touch-callout: none;
+			}
+			@-moz-keyframes swim {
+				0% {
+					-moz-transform: translateX(26%)
+				}
+				60% {
+					-moz-transform: translateX(-130%)
+				}
+				60.000001% {
+					-moz-transform: translateX(130%)
+				}
+				100% {
+					-moz-transform: translateX(26%)
+				}
+			}
+			@-webkit-keyframes swim {
+				0% {
+					-webkit-transform: translateX(26%)
+				}
+				60% {
+					-webkit-transform: translateX(-130%)
+				}
+				60.000001% {
+					-webkit-transform: translateX(130%)
+				}
+				100% {
+					-webkit-transform: translateX(26%)
+				}
+			}
+			@keyframes swim {
+				0% {
+					transform: translateX(26%)
+				}
+				60% {
+					transform: translateX(-130%)
+				}
+				60.000001% {
+					transform: translateX(130%)
+				}
+				100% {
+					transform: translateX(26%)
+				}
+			}
+			@-moz-keyframes fin-spin {
+				50% {
+					-moz-transform: rotate(-100deg);
+				}
+			}
+			@-webkit-keyframes fin-spin {
+				50% {
+					-webkit-transform: rotate(-100deg);
+				}
+			}
+			@keyframes fin-spin {
+				50% {
+					-webkit-transform: rotate(-100deg);
+					transform:rotate(-100deg);
+				}
+			}
+			@-moz-keyframes tide {
+				50% {
+					height: 23%;
+					transform: rotate(2deg)
+				}
+			}
+			@-webkit-keyframes tide {
+				50% {
+					height: 23%;
+					transform: rotate(2deg)
+				}
+			}
+			@keyframes tide {
+				50% {
+					height: 23%;
+					transform: rotate(2deg)
+				}
+			}
+			@-moz-keyframes float {
+				0% {
+					-moz-transform: translateY(0) scaleX(-1) translateX(-25%) rotate(0);
+				}
+				25% {
+					-moz-transform: translateY(-2.5%) scaleX(-1) translateX(-25%) rotate(-5deg);
+				}
+				50% {
+					-moz-transform: translateY(-5%) scaleX(-1) translateX(-25%) rotate(0);
+				}
+				75% {
+					-moz-transform: translateY(-2.5%) scaleX(-1) translateX(-25%) rotate(5deg);
+				}
+				100% {
+					-moz-transform: translateY(0) scaleX(-1) translateX(-25%) rotate(0);
+				}
+			}
+			@-webkit-keyframes float {
+				0% {
+					-webkit-transform: translateY(0) scaleX(-1) translateX(-25%) rotate(0);
+				}
+				25% {
+					-webkit-transform: translateY(-2.5%) scaleX(-1) translateX(-25%) rotate(-5deg);
+				}
+				50% {
+					-webkit-transform: translateY(-5%) scaleX(-1) translateX(-25%) rotate(0);
+				}
+				75% {
+					-webkit-transform: translateY(-2.5%) scaleX(-1) translateX(-25%) rotate(5deg);
+				}
+				100% {
+					-webkit-transform: translateY(0) scaleX(-1) translateX(-25%) rotate(0);
+				}
+			}
+			@keyframes float {
+				0% {
+					-webkit-transform: translateY(0) scaleX(-1) translateX(-25%) rotate(0);
+					transform: translateY(0) scaleX(-1) translateX(-25%) rotate(0);
+				}
+				25% {
+					-webkit-transform: translateY(-2.5%) scaleX(-1) translateX(-25%) rotate(-5deg);
+					transform: translateY(-2.5%) scaleX(-1) translateX(-25%) rotate(-5deg);
+				}
+				50% {
+					-webkit-transform: translateY(-5%) scaleX(-1) translateX(-25%) rotate(0);
+					transform: translateY(-5%) scaleX(-1) translateX(-25%) rotate(0);
+				}
+				75% {
+					-webkit-transform: translateY(-2.5%) scaleX(-1) translateX(-25%) rotate(5deg);
+					transform: translateY(-2.5%) scaleX(-1) translateX(-25%) rotate(5deg);
+				}
+				100% {
+					-webkit-transform: translateY(0) scaleX(-1) translateX(-25%) rotate(0);
+					transform: translateY(0) scaleX(-1) translateX(-25%) rotate(0);
+				}
+			}
+			@-moz-keyframes normalize-float {
+				0% {
+					-moz-transform: rotate(2deg);
+				}
+				25% {
+					-moz-transform: rotate(7deg);
+				}
+				50% {
+					-moz-transform: rotate(4deg);
+				}
+				75% {
+					-moz-transform: rotate(-3deg);
+				}
+				100% {
+					-moz-transform: rotate(2deg)
+				}
+			}
+			@-webkit-keyframes normalize-float {
+				0% {
+					-webkit-transform: rotate(2deg);
+				}
+				25% {
+					-webkit-transform: rotate(7deg);
+				}
+				50% {
+					-webkit-transform: rotate(4deg);
+				}
+				75% {
+					-webkit-transform: rotate(-3deg);
+				}
+				100% {
+					-webkit-transform: rotate(2deg);
+				}
+			}
+			@keyframes normalize-float {
+				0% {
+					-webkit-transform: rotate(2deg);
+					transform: rotate(2deg);
+				}
+				25% {
+					-webkit-transform: rotate(7deg);
+					transform: rotate(7deg);
+				}
+				50% {
+					-webkit-transform: rotate(4deg);
+					transform: rotate(4deg);
+				}
+				75% {
+					-webkit-transform: rotate(-3deg);
+					transform: rotate(-3deg);
+				}
+				100% {
+					-webkit-transform: rotate(2deg);
+					transform: rotate(2deg);
+				}
+			}
+		</style>
+
+    </head>
+
+    <body>
+
+	<div class="scroll-container" style="width:100%;height:100%;position:relative">
+		<div id="particles"></div>
+
+		<div class="centerDisplay">
+<pre id="prenav" class="full-width-unit bracket-nav language- hidden-mobile" style="background:transparent;border:0;font-size:1.2em;position:static;padding-left:0"><code class="navtrack text-center"><span class="text-center"><code class="podddina" style="margin-left:2.5%;margin-right:2.5%;vertical-align:top;line-height:1.8em;padding: .1em .25em;font-size:0.8em">Родддина</code><span class="krew" style="margin-left:2.5%;margin-right:2.5%;font-size:1em"></span><span class="meetHere_2" style="margin-left:2.5%;margin-right:2.5%;font-size:0.95em"></span><span class="coiter" style="margin-left:2.5%;margin-right:2.5%;font-size:1.1em"></span><span style="font-family:DejaVu Sans Mono !important;margin-left:2.5%;margin-right:2.5%;color:white;">lano.js</span><span style="color:inherit;font-family:'Montserrat',sans-serif;margin-left:2.5%;margin-right:2.5%;"><span style="color:black;">PW</span><span style="color:#035299;">NHS</span></span><span style="color:inherit;font-family:'Montserrat',sans-serif;margin-left:2.5%;margin-right:2.5%;"><span style="color:#d30044; font-family: 'Montserrat', sans-serif !important;">p</span><span style="color:#ff6418; font-family: 'Montserrat', sans-serif !important;">r</span><span style="color:#186418; font-family: 'Montserrat', sans-serif !important;">o</span><span style="color:#0081ab; font-family: 'Montserrat', sans-serif !important;">j</span><span style="color:grey; font-family: 'Montserrat', sans-serif !important;">X</span></span><span class="navsnap" href="#prnt" style="margin-left:2.5%;margin-right:2.5%;color:beige;font-family:Montserrat;">PRxNT</span></span></code></pre>
+<br class="hidden-mobile">
+    <div style="width:460px; max-width:90%;margin:auto">
+<pre class="language- cblock"><code><span style="color:#ae81ff">fn </span><span style="color:palevioletred">run_hash</span> <span style="color:#ae81ff">$</span><span style="color:#0070c9">=</span>
+    (./host/<span style="color:#fd971f">func.podd</span>) <span style="color:burlywood;">{</span>
+        <span style="color:default;opacity:0.5"># this ~ Salt.1</span>
+        <span style="color:paleturquoise;">under</span> <span style="color:#69b7eb;">this</span> <span style="color:#ae81ff">$</span>!<span style="color:#0070c9">=</span> <span style="color:#e6db74;">Salt</span><span style="color:#FF6961;">.1</span>(<span style="color:#69b7eb;">this</span>) <span style="color:burlywood;">{</span>
+            <span style="color:#e6db74;">noise</span>(<span style="color:darksalmon;">Salt</span>)
+        <span style="color:burlywood;">}</span> <span style="color:paleturquoise;">over</span> <span style="color:burlywood;">{</span>
+            <span style="color:#e6db74;">EXEC</span>(./host/<span style="color:#fd971f">.config</span>)(<span style="color:#69b7eb;">this</span>):
+            	<span style="color:#e6db74;">_</span><span style="color:#FF6961;">.assert</span>(<span style="color:#69b7eb;">self</span>)
+        <span style="color:burlywood;">}</span>
+    <span style="color:burlywood;">}</span></code></pre>
+    </div>
+			<br>
+			<span style="font-size:0.8em;font-family:Monaco, Dejavu Sans Mono, monospace">
+				<span style="color:rgba(248,28,229,0.8)">&#9660; ></span> from tx import dl
+			</span>
+		</div>
+	</div>
+
+	<div class="scroll-container" style="width:100%;height:100%;position:relative;background:lemonchiffon">
+		<svg id="svg" version="1.1" xmlns="http://www.w3.org/2000/svg"></svg>
+		<div class="centerDisplay" style="color:#fff;mix-blend-mode:difference">
+    <div style="width:460px; max-width:90%;margin:auto">
+		<blockquote style="background-color:darkblue!important">
+			<div style="text-align:center">$\frac{d\phi}{d\theta} = e^{\phi-\theta}\sec(\phi)(1+\theta^2)\ \ \ \colon\ \  \phi(0) = 0$</div> <br>
+			...it's everywhere now: Electron is using it to build desktop apps, massive graphical frameworks exploit its accessibility, and even pratical neural networks have been formed from its core.
+		</blockquote>
+			<br>
+			<span style="font-size:0.8em;font-family:Monaco, Dejavu Sans Mono, monospace">
+				<span style="color:rgba(248,28,229,0.8)">&#9660; ></span> from ru import ms
+			</span>
+    </div>
+		</div>
+	</div>
+
+	<div class="scroll-container" style="width:100%;height:100%;position:relative;background:#abdcfb;overflow:hidden">
+		<div class="header">
+			<div class="wave"></div>
+		</div>
+		<div class="centerDisplay">
+			<div class="outer-wrapper">
+				<div class="wrapper">
+					<div class="whale_body">
+						<div style="position:absolute;top:0;width:6.25%;height:3%;right:27.5%;border:2px solid lightgray;border-top: 0;border-radius:0 0 10px 10px;background:lightgrey;opacity:0.5"></div>
+						<div class="whale_mouth"></div>
+						<div class="whale_eye"></div>
+					</div>
+					<div class="white_tail_1"></div>
+					<div class="white_tail_2">
+						<div style="width:50%;height:120%;position:absolute;left:45%;border-right:3px solid lightgrey;border-radius:0 80% 30% 0;top:13%"></div>
+					</div>
+					<div class="whale_tail_split_1"></div>
+					<div class="whale_tail_split_2">
+						<div style="width:50%;height:92.5%;position:absolute;right:0;border:3px solid lightgrey;border-radius:0 30px 50%;border-left:0;border-bottom:0;border-top:0"></div>
+					</div>
+					<div class="whale_fin">
+						<div style="width:51%;height:100%;position:absolute;border:3px solid lightgrey;right:-3px;bottom:-3px;border-radius:30px 0;border-top:0;border-left:0"></div>
+						<div style="width:40%;height:100%;position:absolute;border-top:3px solid lightgrey;right:-4%;bottom:0"></div>
+						<div style="position:absolute;right:-3px;top:-3px;width:3px;height:3px;background:lightgrey"></div>
+					</div>
+					<div class="speech-bubble mobile-text">
+						<span class="me"><span style="color:palevioletred">a</span>.<span style="color:mediumaquamarine">hafiz</span><br><span class="forall" style="font-family:Quicksand">&forall;&forall;&exist;&exist;</span></span>
+						<div class="speech-bubble-handle"></div>
+					</div>
+					<!--div class="connect"></div-->
+				</div>
+			</div>
+		</div>
+		<span class="info" style="color:#FFF;mix-blend-mode:difference;transition:0.5s ease">
+			<span class="octicon" style="font-size:1em;vertical-align:middle;float:left;display:block"></span>
+			<span class="year" style="font-size:1em;vertical-align:middle;float:right;display:block;font:1em/1 Monaco, Dejavu Sans Mono, monospace">2017</span>
+			<div class="mouse" style="vertical-align:bottom"></div>
+		</span>
+		<span class="centerDisplay" style="font-size:0.8em;font-family:Monaco, Dejavu Sans Mono, monospace;top:9%">
+			<span style="color:rgba(248,28,229,0.8)">&#9660; ></span> id(me,[dl,ms])
+		</span>
+	</div>
+
+	<div class="scroll-container self" style="width:100%;height:10%;position:relative;background:aliceblue">
+		<div class="centerDisplay mobile-text social" style="top:calc(50% - 5px)">
+		</div>
+	</div>
+
+		<div class="border" style="position:fixed;left:0;top:0;height:100%;width:10px;background:#FFF"></div>
+		<div class="border" style="position:fixed;left:0;top:0;width:100%;height:10px;background:#FFF"></div>
+		<div class="border" style="position:fixed;left:0;bottom:0;width:100%;height:10px;background:#FFF"></div>
+		<div class="border" style="position:fixed;right:0;top:0;height:100%;width:10px;background:#FFF"></div>
+
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/octicons/4.4.0/font/octicons.css">
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenLite.min.js"></script>
+		<script src="./js/app.js"></script>
+
+    </body>
+</html>

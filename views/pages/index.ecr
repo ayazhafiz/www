@@ -1,0 +1,245 @@
+<script src="http://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+<script>
+  var currentPage = parseInt(window.location.href.slice(-1), 10) - 1;
+  document.addEventListener('DOMContentLoaded', function() {
+    particlesJS("particles", {
+      "particles": {
+        "number": {
+          "value": 135,
+          "density": {
+            "enable": true,
+            "value_area": 1000
+          }
+        },
+        "color": {
+          "value": ['#69b7eb', '#b3dbd3', '#f4d6db', '#cfecd0', '#ffc5ca', '#f598a8', '#aea4e3']
+        },
+
+        "shape": {
+          "type": "polygon",
+          "polygon": {
+            "nb_sides": 7
+          }
+        },
+        "opacity": {
+          "value": 0.9,
+          "random": false,
+          "anim": {
+            "enable": true,
+            "speed": 1,
+            "opacity_min": 0.25,
+            "sync": false
+          }
+        },
+        "size": {
+          "value": 2.5,
+          "random": true,
+          "anim": {
+            "enable": false
+          }
+        },
+        "line_linked": {
+          "enable": true,
+          "distance": 120,
+          "color": "#ffffff",
+          "opacity": 0.4,
+          "width": 1
+        },
+        "move": {
+          "enable": true,
+          "speed": 10 / 4.5,
+          "random": true,
+          "direction": "top-right",
+          "straight": false,
+          "out_bounce": "bounce",
+          "bounce": true
+        }
+      },
+      "interactivity": {
+        "detect_on": "window",
+        "events": {
+          "onhover": {
+            "enable": true,
+            "mode": ["grab", "repulse"]
+          },
+          "onclick": {
+            "enable": true,
+            "mode": "push"
+          },
+          "resize": true
+        },
+        "modes": {
+          "grab": {
+            "distance": 175,
+            "line_linked": {
+              "opacity": 1
+            }
+          },
+          "repulse": {
+            "distance": 150,
+            "duration": 0.4
+          },
+          "push": {
+            "particles_nb": 8
+          },
+          "remove": {
+            "particles_nb": 2
+          }
+        }
+      },
+      "retina_detect": true
+    });
+
+    if (currentPage == 0) {
+      $('#svg').hide();
+      $('.header, .outerWrapper').hide();
+    } else if (currentPage == 1) {
+      $('#particles canvas').hide();
+      $('.header, .outerWrapper').hide();
+    } else if (currentPage == 2) {
+      $('#particles canvas').hide();
+      $('#svg').hide();
+    } else if (currentPage == 3) {
+      $('#particles canvas').hide();
+      $('#svg').hide();
+      $('.info').addClass('slid-up');
+    } let scrolled = false;
+
+    $(function() {
+      $.scrollify({
+        section : ".scroll-container",
+        easing: "easeOutExpo",
+        scrollSpeed: 750,
+        setHeights: false,
+        overflowScroll: false,
+        before: (page, ar) => {
+
+          $('.mouse').addClass('scrolled').text( ((page == 3) ? '3.1' : `${page + 1}`) + ' | 3');
+
+          if (currentPage == 0 && page == 1) {
+            $('#particles canvas').hide();
+            $('#svg').show();
+          } else if (currentPage == 1 && page == 2) {
+            $('.header, .outer-wrapper').show();
+            $('#svg').hide();
+          } else if (currentPage == 2 && page == 1) {
+            $('.header, .outerWrapper').hide();
+            $('#svg').show();
+          } else if (currentPage == 1 && page == 0) {
+            $('#particles canvas').show();
+            $('#svg').hide();
+          } else if (currentPage == 2 && page == 3) {
+            $('.info').addClass('slid-up');
+          } else if (currentPage == 3 && page == 2) {
+            $('.info').removeClass('slid-up');
+          }
+
+          currentPage = page;
+        }
+      });
+    });
+  }, false);
+  document.addEventListener('mousedown', function(e) {
+    e.preventDefault();
+  });
+</script>
+
+<div class="scroll-container" style="width:100%;height:100%;position:relative">
+<div id="particles"></div>
+
+<div class="centerDisplay">
+<pre id="prenav" class="full-width-unit bracket-nav language- hidden-mobile" style="background:transparent;border:0;font-size:1.2em;position:static;padding-left:0"><code class="navtrack text-center"><span class="text-center"><code class="podddina" style="margin-left:2.5%;margin-right:2.5%;vertical-align:top;line-height:1.8em;padding: .1em .25em;font-size:0.8em">Родддина</code><span class="krew" style="margin-left:2.5%;margin-right:2.5%;font-size:1em"></span><span class="meetHere_2" style="margin-left:2.5%;margin-right:2.5%;font-size:0.95em"></span><span class="coiter" style="margin-left:2.5%;margin-right:2.5%;font-size:1.1em"></span><span style="font-family:DejaVu Sans Mono !important;margin-left:2.5%;margin-right:2.5%;color:white;">lano.js</span><span style="color:inherit;font-family:'Montserrat',sans-serif;margin-left:2.5%;margin-right:2.5%;"><span style="color:black;">PW</span><span style="color:#035299;">NHS</span></span><span style="color:inherit;font-family:'Montserrat',sans-serif;margin-left:2.5%;margin-right:2.5%;"><span style="color:#d30044; font-family: 'Montserrat', sans-serif !important;">p</span><span style="color:#ff6418; font-family: 'Montserrat', sans-serif !important;">r</span><span style="color:#186418; font-family: 'Montserrat', sans-serif !important;">o</span><span style="color:#0081ab; font-family: 'Montserrat', sans-serif !important;">j</span><span style="color:grey; font-family: 'Montserrat', sans-serif !important;">X</span></span><span class="navsnap" href="#prnt" style="margin-left:2.5%;margin-right:2.5%;color:beige;font-family:Montserrat;">PRxNT</span></span></code></pre>
+<br class="hidden-mobile">
+<div style="width:460px; max-width:90%;margin:auto">
+<pre class="language- cblock"><code><span style="color:#ae81ff">fn </span><span style="color:palevioletred">run_hash</span> <span style="color:#ae81ff">$</span><span style="color:#0070c9">=</span>
+(./host/<span style="color:#fd971f">func.podd</span>) <span style="color:burlywood;">{</span>
+    <span style="color:default;opacity:0.5"># this ~ Salt.1</span>
+    <span style="color:paleturquoise;">under</span> <span style="color:#69b7eb;">this</span> <span style="color:#ae81ff">$</span>!<span style="color:#0070c9">=</span> <span style="color:#e6db74;">Salt</span><span style="color:#FF6961;">.1</span>(<span style="color:#69b7eb;">this</span>) <span style="color:burlywood;">{</span>
+        <span style="color:#e6db74;">noise</span>(<span style="color:darksalmon;">Salt</span>)
+    <span style="color:burlywood;">}</span> <span style="color:paleturquoise;">over</span> <span style="color:burlywood;">{</span>
+        <span style="color:#e6db74;">EXEC</span>(./host/<span style="color:#fd971f">.config</span>)(<span style="color:#69b7eb;">this</span>):
+          <span style="color:#e6db74;">_</span><span style="color:#FF6961;">.assert</span>(<span style="color:#69b7eb;">self</span>)
+    <span style="color:burlywood;">}</span>
+<span style="color:burlywood;">}</span></code></pre>
+</div>
+  <br>
+  <span style="font-size:0.8em;font-family:Monaco, Dejavu Sans Mono, monospace">
+    <span style="color:rgba(248,28,229,0.8)">&#9660; ></span> from tx import dl
+  </span>
+</div>
+</div>
+
+<div class="scroll-container" style="width:100%;height:100%;position:relative;background:lemonchiffon">
+<svg id="svg" version="1.1" xmlns="http://www.w3.org/2000/svg"></svg>
+<div class="centerDisplay" style="color:#fff;mix-blend-mode:difference">
+<div style="width:460px; max-width:90%;margin:auto">
+<blockquote style="background-color:darkblue!important">
+  <div style="text-align:center">$\frac{d\phi}{d\theta} = e^{\phi-\theta}\sec(\phi)(1+\theta^2)\ \ \ \colon\ \  \phi(0) = 0$</div> <br>
+  ...it's everywhere now: Electron is using it to build desktop apps, massive graphical frameworks exploit its accessibility, and even pratical neural networks have been formed from its core.
+</blockquote>
+  <br>
+  <span style="font-size:0.8em;font-family:Monaco, Dejavu Sans Mono, monospace">
+    <span style="color:rgba(248,28,229,0.8)">&#9660; ></span> from ru import ms
+  </span>
+</div>
+</div>
+</div>
+
+<div class="scroll-container" style="width:100%;height:100%;position:relative;background:#abdcfb;overflow:hidden">
+<div class="header">
+  <div class="wave"></div>
+</div>
+<div class="centerDisplay">
+  <div class="outer-wrapper">
+    <div class="wrapper">
+      <div class="whale_body">
+        <div style="position:absolute;top:0;width:6.25%;height:3%;right:27.5%;border:2px solid lightgray;border-top: 0;border-radius:0 0 10px 10px;background:lightgrey;opacity:0.5"></div>
+        <div class="whale_mouth"></div>
+        <div class="whale_eye"></div>
+      </div>
+      <div class="white_tail_1"></div>
+      <div class="white_tail_2">
+        <div style="width:50%;height:120%;position:absolute;left:45%;border-right:3px solid lightgrey;border-radius:0 80% 30% 0;top:13%"></div>
+      </div>
+      <div class="whale_tail_split_1"></div>
+      <div class="whale_tail_split_2">
+        <div style="width:50%;height:92.5%;position:absolute;right:0;border:3px solid lightgrey;border-radius:0 30px 50%;border-left:0;border-bottom:0;border-top:0"></div>
+      </div>
+      <div class="whale_fin">
+        <div style="width:51%;height:100%;position:absolute;border:3px solid lightgrey;right:-3px;bottom:-3px;border-radius:30px 0;border-top:0;border-left:0"></div>
+        <div style="width:40%;height:100%;position:absolute;border-top:3px solid lightgrey;right:-4%;bottom:0"></div>
+        <div style="position:absolute;right:-3px;top:-3px;width:3px;height:3px;background:lightgrey"></div>
+      </div>
+      <div class="speech-bubble mobile-text">
+        <span class="me"><span style="color:palevioletred">a</span>.<span style="color:mediumaquamarine">hafiz</span><br><span class="forall" style="font-family:Quicksand">&forall;&forall;&exist;&exist;</span></span>
+        <div class="speech-bubble-handle"></div>
+      </div>
+      <!--div class="connect"></div-->
+    </div>
+  </div>
+</div>
+<span class="info" style="color:#FFF;mix-blend-mode:difference;transition:0.5s ease">
+  <span class="octicon" style="font-size:1em;vertical-align:middle;float:left;display:block"></span>
+  <span class="year" style="font-size:1em;vertical-align:middle;float:right;display:block;font:1em/1 Monaco, Dejavu Sans Mono, monospace">2017</span>
+  <div class="mouse" style="vertical-align:bottom"></div>
+</span>
+<span class="centerDisplay" style="font-size:0.8em;font-family:Monaco, Dejavu Sans Mono, monospace;top:9%">
+  <span style="color:rgba(248,28,229,0.8)">&#9660; ></span> id(me,[dl,ms])
+</span>
+</div>
+
+<div class="scroll-container self" style="width:100%;height:10%;position:relative;background:aliceblue">
+<div class="centerDisplay mobile-text social" style="top:calc(50% - 5px)">
+</div>
+</div>
+
+<div class="border" style="position:fixed;left:0;top:0;height:100%;width:10px;background:#FFF"></div>
+<div class="border" style="position:fixed;left:0;top:0;width:100%;height:10px;background:#FFF"></div>
+<div class="border" style="position:fixed;left:0;bottom:0;width:100%;height:10px;background:#FFF"></div>
+<div class="border" style="position:fixed;right:0;top:0;height:100%;width:10px;background:#FFF"></div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/octicons/4.4.0/font/octicons.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenLite.min.js"></script>
+<script src="/js/app.js"></script>

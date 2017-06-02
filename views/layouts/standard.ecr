@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <%= _meta %>
+    <% content_for "/" do %><%= _webapp %><% end %>
+    <%= _styles %>
+    <%= _fonts %>
+    <%= custom %>
+  </head>
+  <body>
+    <%= content %>
+  </body>
+</html>
