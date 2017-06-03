@@ -4,7 +4,12 @@
   "description": "personal site",
   "main": "index.js",
   "scripts": {
-    "start": "./app --port $PORT"
+    "compile:css": "node-sass src/css/index.scss -o public/css/ --output-style compressed",
+    "build": "npm-run-all compile:css",
+    "deploy": "./app --port $PORT",
+    "deploy:dev": "./sentry",
+    "start": "npm-run-all build deploy",
+    "start:dev": "npm-run-all build deploy:dev"
   },
   "repository": {
     "type": "git",
@@ -17,7 +22,8 @@
   },
   "homepage": "https://github.com/ayazhafiz/crystal-ah#readme",
   "dependencies": {
-    "node-sass": "^4.5.3"
+    "node-sass": "^4.5.3",
+    "npm-run-all": "^4.0.2"
   },
   "engines": {
     "node": "7.9.0",

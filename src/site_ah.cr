@@ -1,9 +1,5 @@
-require "./bin/build.cr"
-
 require "./kemal/partials.cr"
 require "./vector.cr"
-
-Build.build
 
 include Partials
 
