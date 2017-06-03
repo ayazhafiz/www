@@ -107,13 +107,13 @@ let intersects = circle => {
 			return true;
 	}
 	return false;
-}
+};
 
 (function() {
 	for (let i = 0; i < 20; i++) {
 
 		var circle = new Circle(),
-			overlapping = false
+				overlapping = false;
 
 		if (!intersects(circle)) {
 			circles.push(circle);
@@ -122,7 +122,9 @@ let intersects = circle => {
 			circle.updateColor();
 
 			circle.animate();
-		} else i--;
+		} else {
+			i--;
+		}
 	}
 
 	var blob = new Blob(w * 0.5, h);
