@@ -1,0 +1,38 @@
+@import '../base/vars';
+
+.scroll-container {
+  width: 100%;
+  height: 100%;
+  position: relative
+}
+
+.twitter, .twitter:hover, .twitter:active, .twitter:visited {
+  color: $twitter;
+  &:hover, &:active, &:visited {
+    color: $twitter;
+  }
+}
+
+.info {
+  position: fixed;
+  left: 3%;
+  right: 3%;
+  bottom: 4%;
+  font-family: $base-font;
+  font-size: 0.8em;
+  line-height: 2em;
+  transition: 0.75s linear;
+
+  &.slid-up {
+    bottom: 12%;
+    transition: 0.75s linear
+  }
+}
+
+.me {
+  position: absolute;
+  top: 50%; right: 50%;
+  font-family: $code-font;
+  display: block;
+  transform: scaleX(-1) translate(-50%, -50%);
+}

@@ -1,0 +1,15 @@
+@media (max-width:767px) {
+	.hidden-mobile {
+		display: none;
+	}
+	pre[class*="language-"].block {
+		font-size: 3.25vmin;
+	}
+  .info {
+    left: 10%;
+    right: 10%
+  }
+  .mobile-text {
+    font-size: 3.5vw;
+	 }
+}

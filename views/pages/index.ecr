@@ -145,24 +145,29 @@
   });
 </script>
 
-<div class="scroll-container" style="width:100%;height:100%;position:relative">
+<div class="scroll-container">
+
 <div id="particles"></div>
 
-<div class="centerDisplay">
-<pre id="prenav" class="full-width-unit bracket-nav language- hidden-mobile" style="background:transparent;border:0;font-size:1.2em;position:static;padding-left:0"><code class="navtrack text-center"><span class="text-center"><code class="podddina" style="margin-left:2.5%;margin-right:2.5%;vertical-align:top;line-height:1.8em;padding: .1em .25em;font-size:0.8em">Родддина</code><span class="krew" style="margin-left:2.5%;margin-right:2.5%;font-size:1em"></span><span class="meetHere_2" style="margin-left:2.5%;margin-right:2.5%;font-size:0.95em"></span><span class="coiter" style="margin-left:2.5%;margin-right:2.5%;font-size:1.1em"></span><span style="font-family:DejaVu Sans Mono !important;margin-left:2.5%;margin-right:2.5%;color:white;">lano.js</span><span style="color:inherit;font-family:'Montserrat',sans-serif;margin-left:2.5%;margin-right:2.5%;"><span style="color:black;">PW</span><span style="color:#035299;">NHS</span></span><span style="color:inherit;font-family:'Montserrat',sans-serif;margin-left:2.5%;margin-right:2.5%;"><span style="color:#d30044; font-family: 'Montserrat', sans-serif !important;">p</span><span style="color:#ff6418; font-family: 'Montserrat', sans-serif !important;">r</span><span style="color:#186418; font-family: 'Montserrat', sans-serif !important;">o</span><span style="color:#0081ab; font-family: 'Montserrat', sans-serif !important;">j</span><span style="color:grey; font-family: 'Montserrat', sans-serif !important;">X</span></span><span class="navsnap" href="#prnt" style="margin-left:2.5%;margin-right:2.5%;color:beige;font-family:Montserrat;">PRxNT</span></span></code></pre>
+<div class="center-display">
+
+<%= PROJECTS_ %>
+
 <br class="hidden-mobile">
+
 <div style="width:460px; max-width:90%;margin:auto">
-<pre class="language- cblock"><code><span style="color:#ae81ff">fn </span><span style="color:palevioletred">run_hash</span> <span style="color:#ae81ff">$</span><span style="color:#0070c9">=</span>
-(./host/<span style="color:#fd971f">func.podd</span>) <span style="color:burlywood;">{</span>
-    <span style="color:default;opacity:0.5"># this ~ Salt.1</span>
-    <span style="color:paleturquoise;">under</span> <span style="color:#69b7eb;">this</span> <span style="color:#ae81ff">$</span>!<span style="color:#0070c9">=</span> <span style="color:#e6db74;">Salt</span><span style="color:#FF6961;">.1</span>(<span style="color:#69b7eb;">this</span>) <span style="color:burlywood;">{</span>
+<pre class="language- block"><code><span style="color:#ae81ff">fn </span><span style="color:palevioletred">run_hash</span> <span style="color:#ae81ff">$</span><span style="color:#0070c9">=</span>
+    (./host/<span style="color:#fd971f">func.podd</span>) <span style="color:burlywood;">{</span>
+      <span style="color:default;opacity:0.5"># this ~ Salt.1</span>
+      <span style="color:paleturquoise;">under</span> <span style="color:#69b7eb;">this</span> <span style="color:#ae81ff">$</span>!<span style="color:#0070c9">=</span> <span style="color:#e6db74;">Salt</span><span style="color:#FF6961;">.1</span>(<span style="color:#69b7eb;">this</span>) <span style="color:burlywood;">{</span>
         <span style="color:#e6db74;">noise</span>(<span style="color:darksalmon;">Salt</span>)
-    <span style="color:burlywood;">}</span> <span style="color:paleturquoise;">over</span> <span style="color:burlywood;">{</span>
-        <span style="color:#e6db74;">EXEC</span>(./host/<span style="color:#fd971f">.config</span>)(<span style="color:#69b7eb;">this</span>):
-          <span style="color:#e6db74;">_</span><span style="color:#FF6961;">.assert</span>(<span style="color:#69b7eb;">self</span>)
-    <span style="color:burlywood;">}</span>
-<span style="color:burlywood;">}</span></code></pre>
+      <span style="color:burlywood;">}</span> <span style="color:paleturquoise;">over</span> <span style="color:burlywood;">{</span>
+        <span style="color:#e6db74;">EXEC</span>(./host/<span style="color:#fd971f">.config</span>)(<span style="color:#69b7eb;">this</span>) <span style="color:#ae81ff">do</span> <span style="color:#e6db74;">_</span>:
+          <span style="color:#69b7eb;">this</span> &lt;&lt; <span style="color:#e6db74;">_</span><span style="color:#FF6961;">.assert</span>
+      <span style="color:burlywood;">}</span>
+    <span style="color:burlywood;">}</span></code></pre>
 </div>
+
   <br>
   <span style="font-size:0.8em;font-family:Monaco, Dejavu Sans Mono, monospace">
     <span style="color:rgba(248,28,229,0.8)">&#9660; ></span> from tx import dl
@@ -170,9 +175,9 @@
 </div>
 </div>
 
-<div class="scroll-container" style="width:100%;height:100%;position:relative;background:lemonchiffon">
+<div class="scroll-container" style="background:lemonchiffon">
 <svg id="svg" version="1.1" xmlns="http://www.w3.org/2000/svg"></svg>
-<div class="centerDisplay" style="color:#fff;mix-blend-mode:difference">
+<div class="center-display" style="color:#fff;mix-blend-mode:difference">
 <div style="width:460px; max-width:90%;margin:auto">
 <blockquote style="background-color:darkblue!important">
   <div style="text-align:center">$\frac{d\phi}{d\theta} = e^{\phi-\theta}\sec(\phi)(1+\theta^2)\ \ \ \colon\ \  \phi(0) = 0$</div> <br>
@@ -186,11 +191,11 @@
 </div>
 </div>
 
-<div class="scroll-container" style="width:100%;height:100%;position:relative;background:#abdcfb;overflow:hidden">
+<div class="scroll-container" style="background:#abdcfb;overflow:hidden">
 <div class="header">
   <div class="wave"></div>
 </div>
-<div class="centerDisplay">
+<div class="center-display">
   <div class="outer-wrapper">
     <div class="wrapper">
       <div class="whale_body">
@@ -224,13 +229,13 @@
   <span class="year" style="font-size:1em;vertical-align:middle;float:right;display:block;font:1em/1 Monaco, Dejavu Sans Mono, monospace">2017</span>
   <div class="mouse" style="vertical-align:bottom"></div>
 </span>
-<span class="centerDisplay" style="font-size:0.8em;font-family:Monaco, Dejavu Sans Mono, monospace;top:9%">
+<span class="center-display" style="font-size:0.8em;font-family:Monaco, Dejavu Sans Mono, monospace;top:9%">
   <span style="color:rgba(248,28,229,0.8)">&#9660; ></span> id(me,[dl,ms])
 </span>
 </div>
 
 <div class="scroll-container self" style="width:100%;height:10%;position:relative;background:aliceblue">
-<div class="centerDisplay mobile-text social" style="top:calc(50% - 5px)">
+<div class="center-display mobile-text social" style="top:calc(50% - 5px)">
 </div>
 </div>
 

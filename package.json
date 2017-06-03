@@ -4,7 +4,8 @@
   "description": "personal site",
   "main": "index.js",
   "scripts": {
-    "compile:css": "node-sass src/css/index.scss -o public/css/ --output-style compressed",
+    "precompile:css": "node-sass src/css/index.scss -o public/css/ --output-style compressed",
+    "compile:css": "postcss public/css/*.css --use autoprefixer -d public/css/ --no-map",
     "build": "npm-run-all compile:css",
     "deploy": "./app --port $PORT",
     "deploy:dev": "./sentry",
@@ -22,8 +23,10 @@
   },
   "homepage": "https://github.com/ayazhafiz/crystal-ah#readme",
   "dependencies": {
+    "autoprefixer": "^7.1.1",
     "node-sass": "^4.5.3",
-    "npm-run-all": "^4.0.2"
+    "npm-run-all": "^4.0.2",
+    "postcss-cli": "^4.0.0"
   },
   "engines": {
     "node": "7.9.0",

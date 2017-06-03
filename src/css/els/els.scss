@@ -1,0 +1,40 @@
+@import './custom-els';
+@import '../base/vars';
+
+a {
+    text-decoration: none;
+    &:hover, &:active, &:visited {
+      text-decoration: none;
+    }
+}
+a, div, div:focus {
+  -webkit-tap-highlight-color: $no-color;
+  -webkit-touch-callout: none;
+}
+blockquote {
+	padding: 1em;
+	margin: .5em 0;
+	overflow: auto;
+	position: relative;
+	box-shadow:  0 0 4px 0 $shadow;
+	text-align: justify;
+	hyphens: auto;
+  &:before {
+  	content: '';
+  	position: absolute;
+  	top: 0;
+  	left: 0;
+  	width: 2%;
+  	height: 100%;
+  	background: $bq-border;
+  }
+  &:after {
+  	content: '';
+  	position: absolute;
+  	top: 0;
+  	right: 0;
+  	width: 0.75%;
+  	height: 100%;
+  	background: $bq-border;
+  }
+}

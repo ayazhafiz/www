@@ -1,0 +1,149 @@
+@import './whale-anim';
+
+$whale-primary: white;
+$whale-secondary: lightgrey;
+$fin-emphasis: darkgrey;
+$sky-bg: gainsboro;
+$speech-bg: ghostwhite;
+
+.outer-wrapper {
+  width: 100vmin;
+  height: 27.5vmin;
+  position: relative;
+  margin: auto
+}
+.header {
+  position: absolute;
+  width: 100%;
+  height: 25%;
+  top: -5%;
+  background: $sky-bg;
+  animation: tide 3s infinite;
+  transform: rotate(-2deg);
+}
+.wave {
+  position: absolute;
+  bottom: 0;
+  left: 0px;
+  right: 0px;
+  height: 20px;
+  background: url(/img/wave.svg);
+  background-position: -60px 0px;
+}
+.wrapper {
+  width: 80%;
+  height: 100%;
+  position: relative;
+  animation: float 3s cubic-bezier(0.5, 0.5, 0.5, 0.5) infinite;
+  margin: auto;
+
+  & .whale_body {
+    border-radius: 250px 80px 10px 10px;
+    background: $whale-primary;
+    height: 100%;
+    width: 54%;
+    float: right;
+    position: relative;
+
+    & .whale_mouth {
+      width: 50%;
+      height: 4%;
+      background: $whale-secondary;
+      position: absolute;
+      right: 0;
+      bottom: 10%;
+      border-radius: 10px 0px 0 10px;
+    }
+    & .whale_eye {
+      width: 4.5%;
+      height: 7%;
+      background: $whale-secondary;
+      position: absolute;
+      right: 43%;
+      top: 70%;
+      border-radius: 100%;
+    }
+  }
+  & .connect {
+    width: 65%;
+    height: 30%;
+    border-radius: 30px;
+    background: $whale-primary;
+    position: absolute;
+    top: -35%;
+    right: -10%;
+    opacity: 0;
+    transform: translateY(20%);
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.1s;
+  }
+  & .whale_tail_split_1, & .whale_tail_split_2 {
+    width: 20%;
+    height: 30%;
+    background: darkgrey;
+    margin-left: 20%;
+    -webkit-transform: rotate(-120deg);
+    border-radius: 30px 0 30px 25%;
+    position: absolute;
+    bottom: 18%;
+    left: 0%;
+    animation: spin-less 3s linear infinite;
+  }
+  & .whale_tail_split_2 {
+    transform: rotate(-15deg);
+    background: $whale-primary;
+    left: 0%;
+    border-radius: 0 30px 50% 30px;
+    bottom: -2%;
+    animation: spin 3s linear infinite;
+  }
+}
+.whale_body:hover ~ .connect, .connect:hover {
+  opacity: 1;
+  transform: translateY(0);
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.1s
+}
+.whale_fin {
+  width: 10%;
+  height: 15%;
+  background: $whale-primary;
+  transform: rotate(-110deg);
+  border-radius: 30px 0 30px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: -10%;
+  left: 60%;
+  animation: fin-spin 4s linear infinite;
+}
+.white_tail_1, .white_tail_2 {
+  width: 20%;
+  height: 7%;
+  background: $whale-primary;
+  transform: rotate(0deg);
+  position: absolute;
+  bottom: 0;
+  left: 30%;
+  border-radius: 0 80% 0 100%;
+}
+.white_tail_2 {
+  transform: rotate(-34deg);
+  height: 30%;
+  left: 35%;
+}
+.speech-bubble {
+  position: absolute;
+  width: 25%;
+  height: 50%;
+  right: -29%;
+  bottom: 20%;
+  background: $speech-bg;
+  border-radius: 20px 20px 20px 0;
+  animation: normalize-float cubic-bezier(0.5, 0.5, 0.5, 0.5) 3s infinite;
+}
+.speech-bubble-handle {
+  position: absolute;
+  width: 10%;
+  height: 10%;
+  background: $speech-bg;
+  bottom: calc(-10% + 1px);
+  border-radius: 0 0 80%;
+}

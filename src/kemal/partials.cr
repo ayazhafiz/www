@@ -4,9 +4,10 @@ module Partials
 
   extend self
 
-  META_ = render "./views/includes/meta.ecr"
-  WEBAPP_ = render "./views/includes/webapp.ecr"
-  FONTS_ = render "./views/includes/fonts.ecr"
-  PRISM_ = render "./views/includes/prism.ecr"
-  MATHJAX_ = render "./views/includes/js/mathjax.ecr"
+  META_ = render "./views/head/meta.ecr"
+  WEBAPP_ = render "./views/head/webapp.ecr"
+  PRISM_ = render "./views/head/prism.ecr"
+  MATHJAX_ = render "./views/head/js/mathjax.ecr"
+
+  PROJECTS_ = render "./views/includes/projects.ecr"
 end

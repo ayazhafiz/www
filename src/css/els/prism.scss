@@ -5,16 +5,18 @@
  * @author ocodia
  */
 
+ @import '../base/vars';
+
 code[class*="language-"],
 pre[class*="language-"] {
 	color: #f8f8f2;
 	background: none;
 	text-shadow: 0 1px rgba(0, 0, 0, 0.3);
-	font-family: Menlo, DejaVu Sans Mono, sans-serif;
+	font-family: $code-font;
 	text-align: left;
-    align-self: center;
-    align-content: center;
-    align-items: center;
+  align-self: center;
+  align-content: center;
+  align-items: center;
 	white-space: pre;
 	word-spacing: normal;
 	word-break: normal;
@@ -37,6 +39,11 @@ pre[class*="language-"] {
 	margin: .5em 0;
 	overflow: auto;
 	border-radius: 0.3em;
+
+	&.block {
+		background: rgba(0,0,0,0.25);
+		border-color: rgba(0,0,0,0.15);
+	}
 }
 
 :not(pre) > code[class*="language-"] {
