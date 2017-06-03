@@ -3,7 +3,9 @@
   "version": "0.0.1",
   "description": "personal site",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "start": "./app --port $PORT"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ayazhafiz/crystal-ah.git"
