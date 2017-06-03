@@ -1,6 +1,7 @@
 /doc/
 /lib/
 /bin/
+/node_modules/
 /.shards/
 .DS_Store
 sentry

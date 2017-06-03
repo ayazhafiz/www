@@ -3,8 +3,7 @@
   "version": "0.0.1",
   "description": "personal site",
   "main": "index.js",
-  "scripts": {
-  },
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ayazhafiz/crystal-ah.git"
@@ -14,5 +13,12 @@
   "bugs": {
     "url": "https://github.com/ayazhafiz/crystal-ah/issues"
   },
-  "homepage": "https://github.com/ayazhafiz/crystal-ah#readme"
+  "homepage": "https://github.com/ayazhafiz/crystal-ah#readme",
+  "dependencies": {
+    "node-sass": "^4.5.3"
+  },
+  "engines": {
+    "node": "7.9.0",
+    "npm": "4.2.0"
+  }
 }
