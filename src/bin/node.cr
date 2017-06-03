@@ -1,3 +1,3 @@
 def node_install
-  Process.run %{node install && echo "yo" > public/yo.txt}, shell: true
+  Process.run %{node-sass public/css/index.css -o public/}, shell: true
 end
