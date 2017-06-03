@@ -1,9 +1,11 @@
 require "./spec_helper"
 
-describe SiteAh do
-  # TODO: Write tests
+describe "Site" do
+  it "instantiates vector" do
+    typeof(gen_vector).should eq Vector3D
+  end
 
-  it "works" do
-    false.should eq(true)
+  it "properly declares vector" do
+    (Vector3D.new).to_s.should eq "<1, 1, 1>"
   end
 end

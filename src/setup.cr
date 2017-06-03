@@ -12,5 +12,3 @@ end
 get "/vector" do
   gen_vector
 end
-
-Kemal.run
