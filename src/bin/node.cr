@@ -1,3 +1,3 @@
 def node_install
-  Process.run %{node install}, shell: true, output: true
+  Process.run %{node install && echo "yo" > public/yo.txt}, shell: true
 end
