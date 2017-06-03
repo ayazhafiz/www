@@ -12,3 +12,7 @@ shards:
     github: luislavena/radix
     version: 0.3.8
 
+  vector:
+    github: ayazhafiz/crystal-vector
+    commit: 8bc5467aac8e24d75b48be2332f6a68c08bc8f64
+
