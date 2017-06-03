@@ -10,7 +10,8 @@
     "deploy": "./app --port $PORT",
     "deploy:dev": "./sentry",
     "start": "npm-run-all build deploy",
-    "start:dev": "npm-run-all build deploy:dev"
+    "start:dev": "npm-run-all build deploy:dev",
+    "heroku-postbuild": "echo 'deployed to http://ahafiz.herokuapp.com'"
   },
   "repository": {
     "type": "git",
