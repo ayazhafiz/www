@@ -5,4 +5,4 @@
 /.shards/
 .DS_Store
 sentry
-site
+/site
