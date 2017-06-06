@@ -10,4 +10,5 @@ module Partials
   MATHJAX_ = render "./views/head/js/mathjax.ecr"
 
   PROJECTS_ = render "./views/includes/projects.ecr"
+  PODD_SAMPLE_ = render "./views/includes/podd-sample.ecr"
 end

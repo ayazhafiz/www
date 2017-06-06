@@ -155,18 +155,7 @@
 
 <br class="hidden-mobile">
 
-<div style="width:460px; max-width:90%;margin:auto">
-<pre class="language- block"><code><span style="color:#ae81ff">fn </span><span style="color:palevioletred">run_hash</span> <span style="color:#ae81ff">$</span><span style="color:#0070c9">=</span>
-    (./host/<span style="color:#fd971f">func.podd</span>) <span style="color:burlywood;">{</span>
-      <span style="color:default;opacity:0.5"># this ~ Salt.1</span>
-      <span style="color:paleturquoise;">under</span> <span style="color:#69b7eb;">this</span> <span style="color:#ae81ff">$</span>!<span style="color:#0070c9">=</span> <span style="color:#e6db74;">Salt</span><span style="color:#FF6961;">.1</span>(<span style="color:#69b7eb;">this</span>) <span style="color:burlywood;">{</span>
-        <span style="color:#e6db74;">noise</span>(<span style="color:darksalmon;">Salt</span>)
-      <span style="color:burlywood;">}</span> <span style="color:paleturquoise;">over</span> <span style="color:burlywood;">{</span>
-        <span style="color:#e6db74;">EXEC</span>(./host/<span style="color:#fd971f">.config</span>)(<span style="color:#69b7eb;">this</span>) <span style="color:#ae81ff">do</span> <span style="color:#e6db74;">_</span>:
-          <span style="color:#69b7eb;">this</span> &lt;&lt; <span style="color:#e6db74;">_</span><span style="color:#FF6961;">.assert</span>
-      <span style="color:burlywood;">}</span>
-    <span style="color:burlywood;">}</span></code></pre>
-</div>
+<%= PODD_SAMPLE_ %>
 
   <br>
   <span style="font-size:0.8em;font-family:Monaco, Dejavu Sans Mono, monospace">
