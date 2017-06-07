@@ -10,6 +10,7 @@
   bottom: -5px;
   font-family: $code-font;
   transform: translateX(-50%);
+  vertical-align:bottom;
 
   &:before {
     content: '';

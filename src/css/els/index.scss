@@ -3,7 +3,27 @@
 .scroll-container {
   width: 100%;
   height: 100%;
-  position: relative
+  position: relative;
+  overflow: hidden;
+  &.two {
+    background: lemonchiffon
+  }
+  &.three {
+    background: #ABDCFB;
+    .shell {
+      top: 9%
+    }
+  }
+  &.self {
+    height: 10%;
+    background: aliceblue;
+  }
+}
+
+.sample-container {
+  width: 460px;
+  max-width: 90%;
+  margin: auto
 }
 
 .twitter, .twitter:hover, .twitter:active, .twitter:visited {
@@ -11,6 +31,10 @@
   &:hover, &:active, &:visited {
     color: $twitter;
   }
+}
+
+.social {
+  top: calc(50% - 5px)
 }
 
 .info {
@@ -21,11 +45,25 @@
   font-family: $base-font;
   font-size: 0.8em;
   line-height: 2em;
-  transition: 0.75s linear;
-
+  color: $white;
+  mix-blend-mode: difference;
+  transition: 0.5s ease;
   &.slid-up {
     bottom: 12%;
     transition: 0.75s linear
+  }
+  .octicon {
+     font-size: 1em;
+     vertical-align: middle;
+     float: left;
+     display: block;
+  }
+  .year {
+    font-size: 1em;
+    vertical-align: middle;
+    float: right;
+    display: block;
+    font: 1em/1 $code-font;
   }
 }
 
@@ -35,4 +73,55 @@
   font-family: $code-font;
   display: block;
   transform: scaleX(-1) translate(-50%, -50%);
+  .first {
+    color: palevioletred;
+  }
+  .last {
+    color: mediumaquamarine;
+  }
+  .forall {
+    font-family: $base-font;
+  }
+}
+
+.shell {
+  font-size: 0.8em;
+  font-family: $code-font;
+  .prompt {
+    color: $shell-prompt
+  }
+}
+
+.difference-filter {
+  color: $white;
+  mix-blend-mode: difference
+}
+
+.border {
+  position: fixed;
+  background: $white;
+  &.top {
+    left: 0;
+    top: 0;
+    height: 10px;
+    width: 100%;
+  }
+  &.right {
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 10px;
+  }
+  &.bottom {
+    left: 0;
+    bottom: 0;
+    height: 10px;
+    width: 100%;
+  }
+  &.left {
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 10px;
+  }
 }

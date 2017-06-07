@@ -1,3 +1,3 @@
-require "./setup.cr"
+require "./setup"
 
 Kemal.run

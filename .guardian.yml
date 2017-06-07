@@ -1,0 +1,5 @@
+files: ./shard.yml
+run: crystal deps
+---
+files: ./src/**/*.scss
+run: npm run compile:css

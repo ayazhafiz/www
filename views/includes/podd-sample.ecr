@@ -1,10 +1,12 @@
-<pre class="language- block"><code><span style="color:#ae81ff">fn </span><span style="color:palevioletred">run_hash</span> <span style="color:#ae81ff">$</span><span style="color:#0070c9">=</span>
-    (./host/<span style="color:#fd971f">func.podd</span>) <span style="color:burlywood;">{</span>
-      <span style="color:default;opacity:0.5"># this ~ Salt.1</span>
-      <span style="color:paleturquoise;">under</span> <span style="color:#69b7eb;">this</span> <span style="color:#ae81ff">$</span>!<span style="color:#0070c9">=</span> <span style="color:#e6db74;">Salt</span><span style="color:#FF6961;">.1</span>(<span style="color:#69b7eb;">this</span>) <span style="color:burlywood;">{</span>
-        <span style="color:#e6db74;">noise</span>(<span style="color:darksalmon;">Salt</span>)
+<pre class="language- block"><code><!--
+--><span class="fn">fn</span> <span class="def">run_hash</span> <span class="fn">$</span><span class="call">=</span>
+    (./host/<span class="fs">func.podd</span>) <span class="blk">{</span>
+      <span class="cmt"># this ~ Salt.1</span>
+      <span class="op">under</span> <span class="kw">this</span> <span class="fn">$</span>!<span class="call">=</span> <span class="mod">Salt</span><span class="method">.1</span>(<span class="kw">this</span>) <span class="blk">{</span>
+        <span class="mod">noise</span>(<span style="color:darksalmon;">Salt</span>)
       <span style="color:burlywood;">}</span> <span style="color:paleturquoise;">over</span> <span style="color:burlywood;">{</span>
-        <span style="color:#e6db74;">EXEC</span>(./host/<span style="color:#fd971f">.config</span>)(<span style="color:#69b7eb;">this</span>) <span style="color:#ae81ff">do</span> <span style="color:#e6db74;">_</span>:
-          <span style="color:#69b7eb;">this</span> &lt;&lt; <span style="color:#e6db74;">_</span><span style="color:#FF6961;">.assert</span>
-      <span style="color:burlywood;">}</span>
-    <span style="color:burlywood;">}</span></code></pre>
+        <span class="mod">EXEC</span>(./host/<span class="fs">.config</span>)(<span class="kw">this</span>) <span class="fn">do</span> <span class="mod">_</span>:
+          <span class="kw">this</span> &lt;&lt; <span class="mod">_</span><span class="method">.assert</span>
+      <span class="blk">}</span>
+    <span class="blk">}</span><!--
+--></code></pre>

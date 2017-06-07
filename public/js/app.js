@@ -2,7 +2,7 @@ let colors = ['#247BA0', '#70C1B3', '#B2DBBF', '#F3FFBD', '#FF1654'],
 	w = window.innerWidth,
 	h = window.innerHeight,
 	circles = [];
-const svgT = document.getElementById('svg');
+const svgT = document.getElementById('tween-svg');
 
 svgT.style.width = w;
 svgT.style.height = h;

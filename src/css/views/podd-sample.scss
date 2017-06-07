@@ -1,5 +1,44 @@
-.podd-sample-container {
-  width: 460px;
-  max-width: 90%;
-  margin: auto
+$fn: #AE81FF;
+$def: palevioletred;
+$call: #0070C9;
+$fs: #FD971F;
+$blk: burlywood;
+$cmt: default;
+$op: paleturquoise;
+$kw: #69B7EB;
+$mod: #E6DB74;
+$method: #FF6961;
+
+pre[class*="language-"] {
+  .fn {
+    color: $fn
+  }
+  .def {
+    color: $def
+  }
+  .call {
+    color: $call
+  }
+  .fs {
+    color: $fs
+  }
+  .blk {
+    color: $blk
+  }
+  .cmt {
+    color: $cmt;
+    opacity: 0.5
+  }
+  .op {
+    color: $op
+  }
+  .kw {
+    color: $kw
+  }
+  .mod {
+    color: $mod
+  }
+  .method {
+    color: $method
+  }
 }

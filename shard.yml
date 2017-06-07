@@ -5,8 +5,8 @@ authors:
   - ayazhafiz <ayaz.hafiz.1@gmail.com>
 
 targets:
-  site_ah:
-    main: src/site_ah.cr
+  site:
+    main: src/site.cr
 
 dependencies:
   kemal:

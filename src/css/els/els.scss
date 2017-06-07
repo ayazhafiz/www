@@ -19,6 +19,7 @@ blockquote {
 	box-shadow:  0 0 4px 0 $shadow;
 	text-align: justify;
 	hyphens: auto;
+  background-color: darkblue;
   &:before {
   	content: '';
   	position: absolute;

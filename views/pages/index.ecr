@@ -1,3 +1,5 @@
+<% prompt = %{<span class="prompt">&#9660; &gt;</span>} %>
+
 <script src="http://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 
 <script>
@@ -92,17 +94,17 @@
     });
 
     if (currentPage == 0) {
-      $('#svg').hide();
+      $('#tween-svg').hide();
       $('.header, .outerWrapper').hide();
     } else if (currentPage == 1) {
       $('#particles canvas').hide();
       $('.header, .outerWrapper').hide();
     } else if (currentPage == 2) {
       $('#particles canvas').hide();
-      $('#svg').hide();
+      $('#tween-svg').hide();
     } else if (currentPage == 3) {
       $('#particles canvas').hide();
-      $('#svg').hide();
+      $('#tween-svg').hide();
       $('.info').addClass('slid-up');
     } let scrolled = false;
 
@@ -119,16 +121,16 @@
 
           if (currentPage == 0 && page == 1) {
             $('#particles canvas').hide();
-            $('#svg').show();
+            $('#tween-svg').show();
           } else if (currentPage == 1 && page == 2) {
             $('.header, .outer-wrapper').show();
-            $('#svg').hide();
+            $('#tween-svg').hide();
           } else if (currentPage == 2 && page == 1) {
             $('.header, .outerWrapper').hide();
-            $('#svg').show();
+            $('#tween-svg').show();
           } else if (currentPage == 1 && page == 0) {
             $('#particles canvas').show();
-            $('#svg').hide();
+            $('#tween-svg').hide();
           } else if (currentPage == 2 && page == 3) {
             $('.info').addClass('slid-up');
           } else if (currentPage == 3 && page == 2) {
@@ -146,92 +148,69 @@
 </script>
 
 <div class="scroll-container">
+  <div id="particles"></div>
+  <div class="center-display">
+    <%= PROJECTS_ %>
 
-<div id="particles"></div>
+    <br class="hidden-mobile">
 
-<div class="center-display">
+    <div class="sample-container">
+      <%= PODD_SAMPLE_ %>
+    </div>
 
-<%= PROJECTS_ %>
+    <br>
 
-<br class="hidden-mobile">
-
-<div class="podd-sample-container"><%= PODD_SAMPLE_ %></div>
-
-  <br>
-  <span style="font-size:0.8em;font-family:Monaco, Dejavu Sans Mono, monospace">
-    <span style="color:rgba(248,28,229,0.8)">&#9660; ></span> from tx import dl
-  </span>
-</div>
-</div>
-
-<div class="scroll-container" style="background:lemonchiffon">
-<svg id="svg" version="1.1" xmlns="http://www.w3.org/2000/svg"></svg>
-<div class="center-display" style="color:#fff;mix-blend-mode:difference">
-<div style="width:460px; max-width:90%;margin:auto">
-<blockquote style="background-color:darkblue!important">
-  <div style="text-align:center">$\frac{d\phi}{d\theta} = e^{\phi-\theta}\sec(\phi)(1+\theta^2)\ \ \ \colon\ \  \phi(0) = 0$</div> <br>
-  ...it's everywhere now: Electron is using it to build desktop apps, massive graphical frameworks exploit its accessibility, and even pratical neural networks have been formed from its core.
-</blockquote>
-  <br>
-  <span style="font-size:0.8em;font-family:Monaco, Dejavu Sans Mono, monospace">
-    <span style="color:rgba(248,28,229,0.8)">&#9660; ></span> from ru import ms
-  </span>
-</div>
-</div>
+    <span class="shell">
+      <%= prompt %> from tx import dl
+    </span>
+  </div>
 </div>
 
-<div class="scroll-container" style="background:#abdcfb;overflow:hidden">
-<div class="header">
-  <div class="wave"></div>
-</div>
-<div class="center-display">
-  <div class="outer-wrapper">
-    <div class="wrapper">
-      <div class="whale_body">
-        <div style="position:absolute;top:0;width:6.25%;height:3%;right:27.5%;border:2px solid lightgray;border-top: 0;border-radius:0 0 10px 10px;background:lightgrey;opacity:0.5"></div>
-        <div class="whale_mouth"></div>
-        <div class="whale_eye"></div>
-      </div>
-      <div class="white_tail_1"></div>
-      <div class="white_tail_2">
-        <div style="width:50%;height:120%;position:absolute;left:45%;border-right:3px solid lightgrey;border-radius:0 80% 30% 0;top:13%"></div>
-      </div>
-      <div class="whale_tail_split_1"></div>
-      <div class="whale_tail_split_2">
-        <div style="width:50%;height:92.5%;position:absolute;right:0;border:3px solid lightgrey;border-radius:0 30px 50%;border-left:0;border-bottom:0;border-top:0"></div>
-      </div>
-      <div class="whale_fin">
-        <div style="width:51%;height:100%;position:absolute;border:3px solid lightgrey;right:-3px;bottom:-3px;border-radius:30px 0;border-top:0;border-left:0"></div>
-        <div style="width:40%;height:100%;position:absolute;border-top:3px solid lightgrey;right:-4%;bottom:0"></div>
-        <div style="position:absolute;right:-3px;top:-3px;width:3px;height:3px;background:lightgrey"></div>
-      </div>
-      <div class="speech-bubble mobile-text">
-        <span class="me"><span style="color:palevioletred">a</span>.<span style="color:mediumaquamarine">hafiz</span><br><span class="forall" style="font-family:Quicksand">&forall;&forall;&exist;&exist;</span></span>
-        <div class="speech-bubble-handle"></div>
-      </div>
-      <!--div class="connect"></div-->
+<div class="scroll-container two">
+  <svg id="tween-svg" version="1.1" xmlns="http://www.w3.org/2000/svg"></svg>
+  <div class="center-display difference-filter">
+    <div class="sample-container">
+      <blockquote>
+        <div class="text-center">$\frac{d\phi}{d\theta} = e^{\phi-\theta}\sec(\phi)(1+\theta^2)\ \ \ \colon\ \  \phi(0) = 0$</div>
+        <br>
+        ...it's everywhere now: Electron is using it to build desktop apps, massive graphical frameworks exploit its accessibility, and even pratical neural networks have been formed from its core.
+      </blockquote>
+
+      <br>
+
+      <span class="shell">
+        <%= prompt %> from ru import ms
+      </span>
     </div>
   </div>
 </div>
-<span class="info" style="color:#FFF;mix-blend-mode:difference;transition:0.5s ease">
-  <span class="octicon" style="font-size:1em;vertical-align:middle;float:left;display:block"></span>
-  <span class="year" style="font-size:1em;vertical-align:middle;float:right;display:block;font:1em/1 Monaco, Dejavu Sans Mono, monospace">2017</span>
-  <div class="mouse" style="vertical-align:bottom"></div>
-</span>
-<span class="center-display" style="font-size:0.8em;font-family:Monaco, Dejavu Sans Mono, monospace;top:9%">
-  <span style="color:rgba(248,28,229,0.8)">&#9660; ></span> id(me,[dl,ms])
-</span>
+
+<div class="scroll-container three">
+  <div class="header">
+    <div class="wave"></div>
+  </div>
+  <div class="center-display">
+    <%= WHALE_ %>
+  </div>
+
+  <span class="center-display shell">
+    <%= prompt %> id(me,[dl,ms])
+  </span>
+
+  <span class="info">
+    <span class="octicon"></span>
+    <span class="year">2017</span>
+    <div class="mouse"></div>
+  </span>
 </div>
 
-<div class="scroll-container self" style="width:100%;height:10%;position:relative;background:aliceblue">
-<div class="center-display mobile-text social" style="top:calc(50% - 5px)">
-</div>
+<div class="scroll-container self">
+  <div class="center-display mobile-text social"></div>
 </div>
 
-<div class="border" style="position:fixed;left:0;top:0;height:100%;width:10px;background:#FFF"></div>
-<div class="border" style="position:fixed;left:0;top:0;width:100%;height:10px;background:#FFF"></div>
-<div class="border" style="position:fixed;left:0;bottom:0;width:100%;height:10px;background:#FFF"></div>
-<div class="border" style="position:fixed;right:0;top:0;height:100%;width:10px;background:#FFF"></div>
+<% ["top", "right", "bottom", "left"].each do |side| %>
+  <div class="border <%= side %>"></div>
+<% end %>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/octicons/4.4.0/font/octicons.css">
 

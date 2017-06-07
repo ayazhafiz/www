@@ -11,4 +11,5 @@ module Partials
 
   PROJECTS_ = render "./views/includes/projects.ecr"
   PODD_SAMPLE_ = render "./views/includes/podd-sample.ecr"
+  WHALE_ = render "./views/includes/whale.ecr"
 end
