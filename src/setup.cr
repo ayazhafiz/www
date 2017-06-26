@@ -1,13 +1,17 @@
 require "./kemal/partials"
 require "./vector"
 
+require "is_mobile"
 require "json"
 
 include Partials
 
-get "/" do
+get "/" do |env|
   title = "Ayaz Hafiz"
   custom_head = render "./views/head/_for-index.ecr"
+
+  user_agent = env.request.headers["user-agent"]
+  puts is_mobile user_agent
   render "./views/pages/index.ecr", "./views/layouts/standard.ecr"
 end
 

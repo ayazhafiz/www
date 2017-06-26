@@ -1,4 +1,4 @@
-import particlesJS from '../third-party/particles.min.js';
+import '../third-party/particles.min.js';
 
 export default function() {
   particlesJS("particles", {

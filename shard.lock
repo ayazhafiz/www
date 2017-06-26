@@ -1,12 +1,16 @@
 version: 1.0
 shards:
+  is_mobile:
+    github: ayazhafiz/is_mobile
+    commit: 579ffbbaddee6ded4f95d340d04c6e1af20b38ac
+
   kemal:
     github: kemalcr/kemal
-    commit: 0724e07c22513790fbeefeca3bf8e1a8407d44b2
+    commit: eb3e83d5903ce8f18d796a97ae200009fdf2c9a2
 
   kilt:
     github: jeromegn/kilt
-    version: 0.3.3
+    version: 0.4.0
 
   radix:
     github: luislavena/radix
@@ -14,5 +18,5 @@ shards:
 
   vector:
     github: ayazhafiz/crystal-vector
-    commit: 8bc5467aac8e24d75b48be2332f6a68c08bc8f64
+    commit: 0d332f02447be67561bfd67e8ef70e09f8a43851
 
