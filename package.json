@@ -8,7 +8,7 @@
     "compile:css": "postcss public/css/*.css --use autoprefixer -d public/css/ --no-map",
     "build": "npm-run-all compile:css",
     "deploy": "./app --port $PORT",
-    "deploy:dev": "./sentry -w './views/**/*.ecr'",
+    "deploy:dev": "./sentry -w './src/**/*.cr' -w './views/**/*.ecr'",
     "start": "npm-run-all build deploy",
     "start:dev": "npm-run-all build deploy:dev",
     "test": "crystal spec",
@@ -26,9 +26,14 @@
   "homepage": "https://github.com/ayazhafiz/crystal-ah#readme",
   "dependencies": {
     "autoprefixer": "^7.1.1",
-    "node-sass": "^4.5.3",
+    "babel-core": "^6.24.1",
+    "babel-loader": "^7.0.0",
+    "babel-preset-env": "^1.5.2",
+    "jquery": "^3.2.1",
+    "node-sass": "4.5.3",
     "npm-run-all": "^4.0.2",
-    "postcss-cli": "^4.0.0"
+    "postcss-cli": "^4.0.0",
+    "webpack": "^2.6.1"
   },
   "engines": {
     "node": "7.9.0",

@@ -3,5 +3,9 @@
 /bin/
 /node_modules/
 /.shards/
+podddina
 .DS_Store
 /site
+/dev/
+sentry
+guardian

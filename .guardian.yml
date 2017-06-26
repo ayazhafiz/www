@@ -3,3 +3,12 @@ run: crystal deps
 ---
 files: ./src/**/*.scss
 run: npm run compile:css
+---
+files: ./src/**/*.js
+run: npm run compile:js
+---
+files: ./src/**/*.cr
+run: crystal build ./src/site.cr && ./site
+---
+files: ./views/**/*.ecr
+run: crystal build ./src/site.cr && ./site
