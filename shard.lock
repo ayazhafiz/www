@@ -2,7 +2,7 @@ version: 1.0
 shards:
   is_mobile:
     github: ayazhafiz/is_mobile
-    commit: 579ffbbaddee6ded4f95d340d04c6e1af20b38ac
+    commit: d955160c0fa8a24bb9094588ee3717f9c800cefb
 
   kemal:
     github: kemalcr/kemal
