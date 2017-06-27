@@ -11,7 +11,7 @@ get "/" do |env|
   custom_head = render "./views/head/_for-index.ecr"
 
   user_agent = env.request.headers["user-agent"]
-  puts is_mobile user_agent
+  puts is_mobile? user_agent
   render "./views/pages/index.ecr", "./views/layouts/standard.ecr"
 end
 
