@@ -1,14 +1,15 @@
 require "kemal"
 
 module Partials
-
   extend self
 
-  META_ = render "./views/head/meta.ecr"
-  WEBAPP_ = render "./views/head/webapp.ecr"
-  MATHJAX_ = render "./views/head/js/mathjax.ecr"
-
-  PROJECTS_ = render "./views/includes/projects.ecr"
-  PODD_SAMPLE_ = render "./views/includes/podd-sample.ecr"
-  WHALE_ = render "./views/includes/whale.ecr"
+  PARTIALS = {
+    meta:        "./views/head/meta.ecr",
+    webapp:      "./views/head/webapp.ecr",
+    mathjax:     "./views/head/js/mathjax.ecr",
+    projects:    "./views/includes/projects.ecr",
+    podd_sample: "./views/includes/podd-sample.ecr",
+    whale:       "./views/includes/whale.ecr",
+    index_head:  "./views/head/_for-index.ecr",
+  }
 end

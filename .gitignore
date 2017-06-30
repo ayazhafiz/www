@@ -9,5 +9,4 @@ podddina
 /dev/
 sentry
 guardian
-public/css/index.css
-public/js/index.js
+public/**/index.*

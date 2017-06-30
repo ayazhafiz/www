@@ -2,9 +2,11 @@
 <html>
   <head>
     <title><%= title %></title>
-    <%= META_ %>
-    <% content_for "/" do %><%= WEBAPP_ %><% end %>
-    <%= custom_head %>
+    <%= render {{ PARTIALS[:meta] }} %>
+    <%- if env.request.path == "/" -%>
+      <%= render {{ PARTIALS[:webapp] }} %>
+      <%= render {{ PARTIALS[:index_head] }} %>
+    <%- end -%>
   </head>
   <body>
     <%= content %>

@@ -8,14 +8,12 @@ include Partials
 
 get "/" do |env|
   title = "Ayaz Hafiz"
-  custom_head = render "./views/head/_for-index.ecr"
+  mobile = is_mobile? env.request.headers["user-agent"]
 
-  user_agent = env.request.headers["user-agent"]
-  puts is_mobile? user_agent
   render "./views/pages/index.ecr", "./views/layouts/standard.ecr"
 end
 
 get "/vector" do |env|
   env.response.content_type = "application/json"
-  get_vector_json vect_1: gen_vector, vect_2: gen_vector
+  get_vector_json vect_1: get_vector, vect_2: get_vector
 end

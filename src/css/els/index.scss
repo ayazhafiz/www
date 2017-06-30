@@ -26,15 +26,28 @@
   margin: auto
 }
 
-.twitter, .twitter:hover, .twitter:active, .twitter:visited {
-  color: $twitter;
-  &:hover, &:active, &:visited {
-    color: $twitter;
-  }
-}
-
 .social {
-  top: calc(50% - 5px)
+  top: calc(50% - 5px);
+  .email {
+    padding-right: 5%;
+  }
+  .twitter, .twitter:hover, .twitter:active, .twitter:visited {
+    color: $twitter;
+    padding-left: 5%;
+    &:hover, &:active, &:visited {
+      color: $twitter;
+    }
+  }
+  .desktop {
+    width: 50%;
+    float: left;
+    &.left {
+      text-align: right;
+    }
+    &.right {
+      text-align: left;
+    }
+  }
 }
 
 .info {
@@ -81,6 +94,9 @@
   }
   .forall {
     font-family: $base-font;
+    &.desktop {
+      font-size: 1.2em;
+    }
   }
 }
 
