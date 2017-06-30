@@ -3,13 +3,17 @@ require "kemal"
 module Partials
   extend self
 
+  HEAD = "./views/head"
+  INCL = "./views/includes"
+  LAYT = "./views/layouts"
+
   PARTIALS = {
-    meta:        "./views/head/meta.ecr",
-    webapp:      "./views/head/webapp.ecr",
-    mathjax:     "./views/head/js/mathjax.ecr",
-    projects:    "./views/includes/projects.ecr",
-    podd_sample: "./views/includes/podd-sample.ecr",
-    whale:       "./views/includes/whale.ecr",
-    index_head:  "./views/head/_for-index.ecr",
+    meta:        "#{HEAD}/meta.ecr",
+    webapp:      "#{HEAD}/webapp.ecr",
+    mathjax:     "#{HEAD}/js/mathjax.ecr",
+    projects:    "#{INCL}/projects.ecr",
+    podd_sample: "#{INCL}/podd-sample.ecr",
+    whale:       "#{INCL}/whale.ecr",
+    index_head:  "#{HEAD}/_for-index.ecr",
   }
 end

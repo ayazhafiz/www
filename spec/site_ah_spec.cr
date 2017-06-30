@@ -2,7 +2,7 @@ require "./spec_helper"
 
 describe "Site" do
   it "instantiates vector" do
-    typeof(gen_vector).should eq Vector3D
+    typeof(get_vector).should eq Vector3D
   end
 
   it "properly declares vector" do

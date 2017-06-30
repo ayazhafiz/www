@@ -17,3 +17,8 @@ get "/vector" do |env|
   env.response.content_type = "application/json"
   get_vector_json vect_1: get_vector, vect_2: get_vector
 end
+
+get "/vector3D" do |env|
+  env.response.content_type = "application/json"
+  get_vector_json vect_1: (get_vector "3D"), vect_2: (get_vector "3D"), dim: "3D"
+end
