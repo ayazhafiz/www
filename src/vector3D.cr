@@ -4,10 +4,12 @@ require "./util/vector_util"
 
 include VectorUtil
 
+# Generates a 3D vector
 def get_vector3D : Vector3D
   Vector3D.new i: get_rand, j: get_rand, k: get_rand
 end
 
+# Generates JSON about two 3D vectors' relationships
 def get_vector3D_json(vect_1 : Vector3D, vect_2 : Vector3D) : String
   angle = vect_1.angle_between vect_2
   {

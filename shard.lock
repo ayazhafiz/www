@@ -2,7 +2,7 @@ version: 1.0
 shards:
   is_mobile:
     github: ayazhafiz/is_mobile
-    commit: d955160c0fa8a24bb9094588ee3717f9c800cefb
+    commit: 530fb9ad7a5fed903b8f300a3cc2a0d0b3d3ba8d
 
   kemal:
     github: kemalcr/kemal
@@ -18,5 +18,5 @@ shards:
 
   vector:
     github: ayazhafiz/crystal-vector
-    commit: 0d332f02447be67561bfd67e8ef70e09f8a43851
+    commit: 0eae7014f4e496dff2b80aacbd66c2efe53f78bd
 

@@ -1,6 +1,6 @@
 import $ from 'jquery';
+import 'jquery-scrollify';
 import { currentPage as tPage } from './currentPage.js';
-import '../third-party/jquery.scrollify.min.js';
 
 export default function() {
   let currentPage = tPage;
@@ -12,6 +12,7 @@ export default function() {
     overflowScroll: false,
     before: (page, ar) => {
 
+      // on scroll, update page number
       $('.mouse').addClass('scrolled').text(
         ((page == 3) ? '3.1' : `${page + 1}`) + ' | 3'
       );

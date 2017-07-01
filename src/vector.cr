@@ -5,6 +5,7 @@ require "./vector3D"
 
 include VectorUtil
 
+# Generates a 2D or 3D vector, depending on specified dimension
 def get_vector(dim : String = "2D") : Vector | Vector3D
   if dim.upcase == "3D"
     get_vector3D
@@ -13,12 +14,15 @@ def get_vector(dim : String = "2D") : Vector | Vector3D
   end
 end
 
+# Generates JSON about two vector relationships
+#
+# Type inferencing done by limiting type scope in each block, but if both
+# vectors are not of identical type, an inoperable exception is raised
 def get_vector_json(vect_1 : Vector | Vector3D,
-                    vect_2 : Vector | Vector3D,
-                    dim : String = "not") : String
-  if dim.upcase == "3D" && vect_1.is_a?(Vector3D) && vect_2.is_a?(Vector3D)
+                    vect_2 : Vector | Vector3D) : String
+  if vect_1.is_a? Vector3D && vect_2.is_a? Vector3D
     get_vector3D_json vect_1: vect_1, vect_2: vect_2
-  elsif vect_1.is_a?(Vector2D) && vect_2.is_a?(Vector2D)
+  elsif vect_1.is_a? Vector2D && vect_2.is_a? Vector2D
     angle = vect_1.angle_between vect_2
     {
       one:       vect_1.to_s,
@@ -33,6 +37,6 @@ def get_vector_json(vect_1 : Vector | Vector3D,
       angle_deg: (Vector.to_deg angle),
     }.to_json
   else
-    raise "Vectors are inoperable!"
+    raise Exception.new "Vectors are inoperable!"
   end
 end
