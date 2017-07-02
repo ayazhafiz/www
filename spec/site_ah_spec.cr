@@ -14,14 +14,14 @@ describe "Vector API" do
   end
 
   it "generates accurate 2D vector json" do
-    get_vector_json(
+    get_vector_rels(
       vect_1: (Vector2D.from_json %({"i":1,"j":1})),
       vect_2: (Vector2D.from_json %({"i":1,"j":1}))
     ).should eq %({"one":"<1, 1>","two":"<1, 1>","mag_one":1.4142135623730951,"mag_two":1.4142135623730951,"add":"<2, 2>","sub":"0","dot":2.0,"cross":"0.0","angle_rad":0.0,"angle_deg":0.0})
   end
 
   it "generates accurate 3D vector json" do
-    get_vector_json(
+    get_vector_rels(
       vect_1: (Vector3D.from_json %({"i":1,"j":1,"k":1})),
       vect_2: (Vector3D.from_json %({"i":1,"j":1,"k":1}))
     ).should eq %({"one":"<1, 1, 1>","two":"<1, 1, 1>","mag_one":1.7320508075688772,"mag_two":1.7320508075688772,"add":"<2, 2, 2>","sub":"0","dot":3.0,"cross":"0","angle_rad":0.0,"angle_deg":0.0})

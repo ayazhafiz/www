@@ -1,6 +1,4 @@
-require "kemal"
-
-module Partials
+module KemalUtil
   extend self
 
   PARTIALS = {
