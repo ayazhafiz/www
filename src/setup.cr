@@ -3,7 +3,6 @@ require "json"
 require "uri"
 require "is_mobile"
 require "./vector"
-require "./emoji"
 require "./util/kemal_util"
 
 include KemalUtil
