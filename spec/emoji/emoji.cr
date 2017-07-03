@@ -16,8 +16,10 @@ describe "/emoji" do
     response.headers["content_type"].should eq "application/json"
     resp = JSON.parse response.body
     resp["query"].should eq "diamonds"
-    EmojiCNT.each do |key|
-      resp["emoji"][key]?.nil?.should eq false
+    resp["emoji"].each do |emoji|
+      EmojiCNT.each do |key|
+        emoji[key]?.nil?.should eq false
+      end
     end
   end
 end

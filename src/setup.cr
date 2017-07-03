@@ -29,7 +29,7 @@ get "/vector" do |env|
   get_vector_rels(
     vect_1: (get_vector dim: dim),
     vect_2: (get_vector dim: dim)
-  )
+  ).to_json
 end
 
 # Returns information about two specified vectors (2D or 3D) via POST. Request

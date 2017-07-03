@@ -18,7 +18,7 @@ end
 
 # Generates JSON about two 2D vector relationships
 def get_vector_rels(vect_1 : Vector | Vector3D,
-                    vect_2 : Vector | Vector3D) : String
+                    vect_2 : Vector | Vector3D) : NamedTuple
   if vect_1.is_a? Vector3D && vect_2.is_a? Vector3D
     get_vector3D_json vect_1: vect_1, vect_2: vect_2
   elsif vect_1.is_a? Vector2D && vect_2.is_a? Vector2D
@@ -40,7 +40,7 @@ def get_vector_rels(vect_1 : Vector | Vector3D,
       dot:       (vect_1.dot vect_2),
       angle_rad: angle,
       angle_deg: (Vector.to_deg angle),
-    }.to_json
+    }
   else
     raise Exception.new "Vectors are inoperable!"
   end
@@ -50,7 +50,7 @@ end
 # with error handling included for web APIs
 def process_vector_request(vect_1 : Hash | Nil = nil,
                            vect_2 : Hash | Nil = nil,
-                           path : String = "/vector") : String
+                           path : String = "/vector") : NamedTuple
   if vect_1 && vect_2
     if vect_1.size == vect_2.size
       if (vect_1.keys == ["i", "j"] || vect_1.keys == ["i", "j", "k"]) &&
@@ -70,18 +70,18 @@ def process_vector_request(vect_1 : Hash | Nil = nil,
         {
           error:   4,
           message: api_error path, VectorUtil::Error::NOT_OF_FORM,
-        }.to_json
+        }
       end
     else
       {
         error:   3,
         message: api_error path, VectorUtil::Error::NOT_DIMENSIONAL,
-      }.to_json
+      }
     end
   else
     {
       error:   2,
       message: api_error path, VectorUtil::Error::NOT_PLURAL,
-    }.to_json
+    }
   end
 end

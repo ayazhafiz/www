@@ -4,4 +4,4 @@ EmojiCNT_RND = [
   "code",
 ]
 
-EmojiCNT = EmojiCNT_RND << "relevance"
+EmojiCNT = EmojiCNT_RND.clone << "relevance"

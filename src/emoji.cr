@@ -9,9 +9,10 @@ include EmojiUtil
 
 alias HashJSON = Hash(String, String | JSON::Any)
 alias MassJSON = Hash(String, String | Array(HashJSON))
+alias Err = NamedTuple(error: Int32, message: String)
 
 # Retrieves one, random emoji
-def get_emoji : HashJSON | String
+def get_emoji : HashJSON
   emoji = EMOJI.sample(1)[0]
   emoji = def_emoji emoji: emoji
   emoji
@@ -19,7 +20,7 @@ end
 
 # Retrieves emoji relevant to some specified query
 def get_emoji(query : String,
-              path : String = "emoji") : MassJSON | String
+              path : String = "emoji") : MassJSON | Err
   params = HTTP::Params.build do |form|
     form.add API_QUERY, query
   end
@@ -36,7 +37,7 @@ def get_emoji(query : String,
     {
       error:   1,
       message: api_error path, EmojiUtil::Error::NOT_CONNECTED,
-    }.to_json
+    }
   else
     emoji = JSON.parse response.body
     emoji = process_response response: emoji["results"], query: query
