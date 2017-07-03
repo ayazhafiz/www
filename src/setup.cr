@@ -43,7 +43,7 @@ post "/vector" do |env|
     vect_1: vect_1,
     vect_2: vect_2,
     path: env.request.path
-  )
+  ).to_json
 end
 
 # Returns a list of emoji related to a specified query. Multiple queries are
@@ -55,9 +55,8 @@ get "/emoji" do |env|
   env.response.content_type = "application/json"
   query = env.params.query["like"]? || env.params.query["q"]?
 
-  query ? get_emoji(
+  (query ? get_emoji(
     query: query,
-    type: "json",
     path: env.request.path
-  ) : get_random_emoji(type: "json")
+  ) : get_emoji).to_json
 end

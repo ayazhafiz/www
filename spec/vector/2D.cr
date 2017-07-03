@@ -6,7 +6,8 @@ describe "/vector::2D" do
     get "/vector"
     response.headers["content_type"].should eq "application/json"
     rels = JSON.parse response.body
-    CNT.each do |key|
+    puts rels, typeof(rels)
+    VectorCNT.each do |key|
       rels[key]?.nil?.should eq false
     end
   end

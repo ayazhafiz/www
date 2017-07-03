@@ -10,9 +10,15 @@ include EmojiUtil
 alias HashJSON = Hash(String, String | JSON::Any)
 alias MassJSON = Hash(String, String | Array(HashJSON))
 
+# Retrieves one, random emoji
+def get_emoji : HashJSON | String
+  emoji = EMOJI.sample(1)[0]
+  emoji = def_emoji emoji: emoji
+  emoji
+end
+
 # Retrieves emoji relevant to some specified query
 def get_emoji(query : String,
-              type : String = "Array",
               path : String = "emoji") : MassJSON | String
   params = HTTP::Params.build do |form|
     form.add API_QUERY, query
@@ -34,15 +40,8 @@ def get_emoji(query : String,
   else
     emoji = JSON.parse response.body
     emoji = process_response response: emoji["results"], query: query
-    process_type value: emoji, type: type
+    emoji
   end
-end
-
-# Retrieves one, random emoji
-def get_random_emoji(type : String = "Hash") : HashJSON | String
-  emoji = EMOJI.sample(1)[0]
-  emoji = def_emoji emoji: emoji
-  process_type value: emoji, type: type
 end
 
 # Generates Array of relevant emoji information by comparing and compiling
@@ -79,13 +78,4 @@ private def bundle_query(value : HashJSON | Array(HashJSON),
     "query" => query,
     "emoji" => value,
   }
-end
-
-# Returns json-ified version of some value if requested
-private def process_type(value, type : String = "NotJSON")
-  unless type.downcase == "json"
-    value
-  else
-    value.to_json
-  end
 end
