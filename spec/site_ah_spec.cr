@@ -1,29 +1,61 @@
 require "./spec_helper"
 
-describe "Vector API" do
-  it "can create vector" do
-    typeof(get_vector).should eq Vector2D | Vector3D
+CNT = [
+  "one",
+  "two",
+  "mag_one",
+  "mag_two",
+  "add",
+  "sub",
+  "cross",
+  "dot",
+  "angle_rad",
+  "angle_deg",
+]
+
+describe "Cr-AH" do
+  describe "/" do
+    it "renders /" do
+      get "/"
+      response.headers["content_type"].should eq "text/html"
+    end
   end
 
-  it "properly declares 2D vector" do
-    (Vector.new).to_s.should eq "<1, 1>"
-  end
+  describe "/vector" do
+    it "generates random 2D vector rels" do
+      get "/vector"
+      response.headers["content_type"].should eq "application/json"
+      rels = JSON.parse response.body
+      CNT.each do |key|
+        rels[key]?.nil?.should eq false
+      end
+    end
 
-  it "properly declares 3D vector" do
-    (Vector3D.new).to_s.should eq "<1, 1, 1>"
-  end
+    it "generates random 3D vector rels" do
+      get "/vector?dim=3D"
+      response.headers["content_type"].should eq "application/json"
+      rels = JSON.parse response.body
+      CNT.each do |key|
+        rels[key]?.nil?.should eq false
+      end
+    end
 
-  it "generates accurate 2D vector json" do
-    get_vector_rels(
-      vect_1: (Vector2D.from_json %({"i":1,"j":1})),
-      vect_2: (Vector2D.from_json %({"i":1,"j":1}))
-    ).should eq %({"one":"<1, 1>","two":"<1, 1>","mag_one":1.4142135623730951,"mag_two":1.4142135623730951,"add":"<2, 2>","sub":"0","dot":2.0,"cross":"0.0","angle_rad":0.0,"angle_deg":0.0})
-  end
+    describe "generates specified 2D vector rels" do
+      it "properly responds" do
+      end
 
-  it "generates accurate 3D vector json" do
-    get_vector_rels(
-      vect_1: (Vector3D.from_json %({"i":1,"j":1,"k":1})),
-      vect_2: (Vector3D.from_json %({"i":1,"j":1,"k":1}))
-    ).should eq %({"one":"<1, 1, 1>","two":"<1, 1, 1>","mag_one":1.7320508075688772,"mag_two":1.7320508075688772,"add":"<2, 2, 2>","sub":"0","dot":3.0,"cross":"0","angle_rad":0.0,"angle_deg":0.0})
+      describe "handles errors" do
+        it "handles missing vectors" do
+          post "/vector"
+          response.headers["content_type"].should eq "application/json"
+          err = JSON.parse response.body
+          err["error"].should eq 2
+          err["message"].should eq "/vector: One or more vectors missing"
+        end
+
+        it "handles dimension mismatch" do
+        end
+      end
+    end
   end
 end
