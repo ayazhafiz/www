@@ -1,4 +1,4 @@
-VectorCNT = [
+CNT = [
   "one",
   "two",
   "mag_one",

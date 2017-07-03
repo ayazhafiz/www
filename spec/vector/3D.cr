@@ -6,7 +6,7 @@ describe "/vector::3D" do
     get "/vector?dim=3D"
     response.headers["content_type"].should eq "application/json"
     rels = JSON.parse response.body
-    VectorCNT.each do |key|
+    CNT.each do |key|
       rels[key]?.nil?.should eq false
     end
   end
