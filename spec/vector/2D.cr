@@ -11,7 +11,7 @@ describe "/vector::2D" do
     end
   end
 
-  describe "generates specified 2D vector rels" do
+  it "generates specified 2D vector rels" do
     body = {
       vect_1: {
         i: 1,

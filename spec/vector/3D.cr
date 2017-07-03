@@ -11,7 +11,7 @@ describe "/vector::3D" do
     end
   end
 
-  describe "generates specified 3D vector rels" do
+  it "generates specified 3D vector rels" do
     body = {
       vect_1: {
         i: 1,
@@ -33,9 +33,9 @@ describe "/vector::3D" do
     resp["mag_two"].should eq 1.7320508075688772
     resp["add"]["vector"].should eq ({"i" => 2.0, "j" => 2.0, "k" => 2.0})
     resp["add"]["string"].should eq "<2, 2, 2>"
-    resp["sub"]["vector"].should eq ({"i" => 0.0, "j" => 0.0, "k" => 2.0})
+    resp["sub"]["vector"].should eq ({"i" => 0.0, "j" => 0.0, "k" => 0.0})
     resp["sub"]["string"].should eq "0"
-    resp["cross"]["vector"].should eq ({"i" => 0.0, "j" => 0.0, "k" => 2.0})
+    resp["cross"]["vector"].should eq ({"i" => 0.0, "j" => 0.0, "k" => 0.0})
     resp["cross"]["string"].should eq "0"
     resp["dot"].should eq 3.0
     resp["angle_deg"].should eq 0.0
