@@ -16,12 +16,9 @@ def get_vector(dim : String = "2D") : Vector | Vector3D
   end
 end
 
-# Generates JSON about two vector relationships
-#
-# Type inferencing done by limiting type scope in each block, but if both
-# vectors are not of identical type, an inoperable exception is raised
-def get_vector_rels(vect_1 : Vector | Vector3D | String,
-                    vect_2 : Vector | Vector3D | String) : String
+# Generates JSON about two 2D vector relationships
+def get_vector_rels(vect_1 : Vector | Vector3D,
+                    vect_2 : Vector | Vector3D) : String
   if vect_1.is_a? Vector3D && vect_2.is_a? Vector3D
     get_vector3D_json vect_1: vect_1, vect_2: vect_2
   elsif vect_1.is_a? Vector2D && vect_2.is_a? Vector2D
