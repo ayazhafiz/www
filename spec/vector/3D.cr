@@ -1,17 +1,16 @@
 require "../spec_helper"
-require "./util"
 
 describe "/vector::3D" do
-  it "generates random 3D vector rels" do
+  it "generates random 3D vector rels - GET" do
     get "/vector?dim=3D"
     response.headers["content_type"].should eq "application/json"
     rels = JSON.parse response.body
-    VectorCNT.each do |key|
+    VectorUtil::Test::CNT.each do |key|
       rels[key]?.nil?.should eq false
     end
   end
 
-  it "generates specified 3D vector rels" do
+  it "generates specified 3D vector rels - POST" do
     body = {
       vect_1: {
         i: 1,
@@ -24,7 +23,7 @@ describe "/vector::3D" do
         k: 1,
       },
     }
-    post "/vector", headers: JSON_HEADERS, body: body.to_json
+    post "/vector", headers: VectorUtil::Test::JSON_HEADERS, body: body.to_json
     response.headers["content_type"].should eq "application/json"
     resp = JSON.parse response.body
     resp["one"].should eq "<1, 1, 1>"

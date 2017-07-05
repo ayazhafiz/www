@@ -7,4 +7,4 @@ test:
   pre:
     - crystal-0.22.0-1/bin/crystal deps
   override:
-    - crystal-0.22.0-1/bin/crystal spec
+    - KEMAL_ENV=test crystal-0.22.0-1/bin/crystal spec

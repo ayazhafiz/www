@@ -1,3 +1,5 @@
+require "./api_util"
+
 module EmojiUtil
   extend self
 
@@ -15745,9 +15747,35 @@ module EmojiUtil
   API_PATH  = "/api/emoji"
   API_QUERY = "q"
 
+  DEF_PATH = "/emoji"
+
+  QUERY_FORM = %(`like` or `q`)
+
+  module Alias
+    alias HashJSON = Hash(String, String | JSON::Any)
+    alias MassJSON = Hash(String, String | Array(HashJSON))
+    alias Err = NamedTuple(error: Int32, message: String)
+    alias Any = MassJSON | HashJSON | Err
+  end
+
   module Error
     extend self
 
     NOT_CONNECTED = "Failed to connect to external API"
+    NOT_OF_FORM   = "One or more queries missing the key #{QUERY_FORM}"
+  end
+
+  module Test
+    extend self
+
+    include APIUtil::Test
+
+    CNT_RND = [
+      "char",
+      "name",
+      "code",
+    ]
+
+    CNT = CNT_RND.clone << "relevance"
   end
 end
