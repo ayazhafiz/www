@@ -8,11 +8,11 @@
     "compile:css": "postcss public/css/*.css --use autoprefixer -d public/css/ --no-map",
     "compile:js": "webpack -p",
     "build": "npm-run-all compile:css compile:js",
-    "deploy": "./app --port $PORT",
+    "deploy": "KEMAL_ENV=production ./app --port $PORT",
     "deploy:dev": "./sentry -w './src/**/*.cr' -w './views/**/*.ecr'",
     "start": "npm-run-all build deploy",
     "start:dev": "npm-run-all build deploy:dev",
-    "test": "crystal spec",
+    "test": "KEMAL_ENV=test crystal spec",
     "heroku-postbuild": "echo 'deployed to http://ahafiz.herokuapp.com'"
   },
   "repository": {
