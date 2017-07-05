@@ -6,10 +6,4 @@ module APIUtil
       "#{path}: #{error}"
     end
   end
-
-  module Test
-    JSON_HEADERS = HTTP::Headers{
-      "content_type" => "application/json",
-    }
-  end
 end

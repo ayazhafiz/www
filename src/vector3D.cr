@@ -10,7 +10,7 @@ def get_vector3D : Vector3D
 end
 
 # Generates JSON about two 3D vectors' relationships
-def get_vector3D_json(vect_1 : Vector3D, vect_2 : Vector3D) : NamedTuple
+def get_vector3D_json(vect_1 : Vector3D, vect_2 : Vector3D) : String
   angle = (vect_1.angle_between vect_2)
   angle = 0.0 if angle.nan?
   {
@@ -33,5 +33,5 @@ def get_vector3D_json(vect_1 : Vector3D, vect_2 : Vector3D) : NamedTuple
     dot:       (vect_1.dot vect_2),
     angle_rad: angle,
     angle_deg: (Vector3D.to_deg angle),
-  }
+  }.to_json
 end

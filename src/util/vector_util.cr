@@ -1,5 +1,3 @@
-require "./api_util"
-
 module VectorUtil
   extend self
 
@@ -18,22 +16,5 @@ module VectorUtil
     NOT_PLURAL      = "One or more vectors missing"
     NOT_DIMENSIONAL = "Vectors not of the same dimension"
     NOT_OF_FORM     = "One or more vectors not in the form #{VECTOR_FORM}"
-  end
-
-  module Test
-    extend self
-    include APIUtil::Test
-    CNT = [
-      "one",
-      "two",
-      "mag_one",
-      "mag_two",
-      "add",
-      "sub",
-      "cross",
-      "dot",
-      "angle_rad",
-      "angle_deg",
-    ]
   end
 end
