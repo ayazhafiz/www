@@ -13,7 +13,9 @@ module HTTP::Emoji
   include EmojiUtil::Alias
   include APIUtil::Error
 
-  # Retrieves one, random emoji
+  # Handles all emoji queries
+  #
+  # Sources handling different data types via type inference
   def emoji_like(query : JSON::Type,
                  path : String = DEF_PATH) : Any | Array(Any)
     if query.nil?

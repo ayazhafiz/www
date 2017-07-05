@@ -10,6 +10,9 @@ module HTTP::Client::Emoji
   include EmojiUtil::Alias
   include APIUtil::Error
 
+  # Sends and processes request for emoji from an external API
+  #
+  # Current API used is [Dango](https://getdango.com)
   def get_emoji(query : String,
                 path : String = DEF_PATH) : JSON::Any | Err
     params = HTTP::Params.build do |form|
