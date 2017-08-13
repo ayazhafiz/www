@@ -4,10 +4,12 @@
 
 My personal site, written in [Crystal](https://crystal-lang.org).
 
+The repo is reset to an initial commit after each 100 commits, or after major feature (X.x) introduction.
+
 TODO:
 - [x]  finish modularization
 - [x]  add Node as build service
 - [ ]  add API
   - [x]  Vector
-  - [ ]  Emoji
+  - [x]  Emoji
   - [ ]  Math
