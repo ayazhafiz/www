@@ -1,0 +1,22 @@
+# development and modules
+/doc/
+/lib/
+/bin/
+/rod/
+/node_modules/
+/.shards/
+
+# system files
+.DS_Store
+
+# binaries
+podddina
+sentry
+guardian
+/site
+/dev/
+
+# generated files
+/public/css/*
+/public/js/*
+webpack-manifest.json

@@ -1,0 +1,55 @@
+@keyframes spin {
+  50% {
+    transform: rotate(-30deg);
+  }
+}
+@keyframes spin-less {
+  50% {
+    transform: rotate(-110deg);
+  }
+}
+@keyframes fin-spin {
+  50% {
+    transform:rotate(-100deg);
+  }
+}
+@keyframes tide {
+  50% {
+    height: 23%;
+    transform: rotate(2deg)
+  }
+}
+@keyframes float {
+  0% {
+    transform: translateY(0) scaleX(-1) translateX(-25%) rotate(0);
+  }
+  25% {
+    transform: translateY(-2.5%) scaleX(-1) translateX(-25%) rotate(-5deg);
+  }
+  50% {
+    transform: translateY(-5%) scaleX(-1) translateX(-25%) rotate(0);
+  }
+  75% {
+    transform: translateY(-2.5%) scaleX(-1) translateX(-25%) rotate(5deg);
+  }
+  100% {
+    transform: translateY(0) scaleX(-1) translateX(-25%) rotate(0);
+  }
+}
+@keyframes normalize-float {
+  0% {
+    transform: rotate(2deg);
+  }
+  25% {
+    transform: rotate(7deg);
+  }
+  50% {
+    transform: rotate(4deg);
+  }
+  75% {
+    transform: rotate(-3deg);
+  }
+  100% {
+    transform: rotate(2deg);
+  }
+}

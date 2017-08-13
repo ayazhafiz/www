@@ -1,0 +1,87 @@
+@import './custom-els';
+@import '../base/vars';
+
+a {
+  border-bottom: 1px solid;
+  display: inline-block;
+  overflow-x: hidden;
+  padding: 0.25em 0;
+  position: relative;
+  text-decoration: none;
+  &:before {
+    content: '';
+    display: block;
+    height: calc(100% + 0.5em);
+    width: 100%;
+    top: -0.25em;
+    left: 0;
+    opacity: 0.2;
+    position: absolute;
+    transform: translateX(-100%);
+    transition: 50ms linear;
+    z-index: -100;
+  }
+  &:hover,
+  &:active {
+    &:before {
+      transform: translateX(0);
+      transition: 50ms linear;
+    }
+    &,
+    &:visited {
+      text-decoration: none;
+    }
+  }
+}
+a,
+div,
+div:focus {
+  -webkit-tap-highlight-color: $no-color;
+  -webkit-touch-callout: none;
+}
+blockquote {
+  padding: 1em;
+  margin: .5em 0;
+  overflow: auto;
+  position: relative;
+  box-shadow: 0 0 4px 0 $shadow;
+  text-align: justify;
+  hyphens: auto;
+  background-color: darkblue;
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 2%;
+    height: 100%;
+    background: $bq-border;
+  }
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0.75%;
+    height: 100%;
+    background: $bq-border;
+  }
+}
+
+@keyframes slidein {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideout {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}

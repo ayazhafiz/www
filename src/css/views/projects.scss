@@ -1,0 +1,106 @@
+@import '../base/vars';
+
+@mixin img-def {
+  margin-bottom: 2px;
+  vertical-align: middle;
+  line-height: 1em;
+  display: inline-block;
+  background-size: cover;
+}
+
+@mixin brand-margin {
+  margin-left: 2.5%;
+  margin-right: 2.5%;
+}
+
+pre[class*="language-"].brand {
+	padding-left: 0;
+	padding-right: 0;
+  background: transparent;
+  border: 0;
+  font-size: 1.2em;
+  position: static;
+
+  code {
+    white-space: nowrap;
+  }
+
+  code.podddina{
+    @include brand-margin;
+    font-family: $code-font;
+    font-size: 0.8em;
+    color: $white;
+    white-space: nowrap;
+    background: $podd-bg !important;
+    border: 1px solid $podd-border;
+    border-radius: 5px;
+    vertical-align: top;
+    line-height: 1.8em;
+    padding: 0 .25em;
+  }
+  .krew {
+    @include img-def;
+    @include brand-margin;
+  	width: 1em;
+  	height: 1.3em;
+    background-image: url(/img/krew.png);
+    font-size: 1em;
+  }
+  .meet-here {
+    @include img-def;
+    @include brand-margin;
+    width: 1.05em;
+    height: 1.5em;
+    background-image: url(/img/meetHere.svg);
+    font-size: 0.95em;
+  }
+  .coit {
+    @include img-def;
+    @include brand-margin;
+  	width: 2.08em;
+  	height: 1.03em;
+    background-image: url(/img/coit.png);
+    font-size: 1.1em;
+  }
+  .lano {
+    @include brand-margin;
+    font-family: 'Dejavu Sans Mono';
+    color: $white;
+  }
+  .pwnhs {
+    @include brand-margin;
+    color: inherit;
+    font-family: 'Montserrat', sans-serif;
+    & .pw {
+      color: $black;
+    }
+    & .nhs {
+      color: $west;
+    }
+  }
+  .projx {
+    @include brand-margin;
+    color: inherit;
+    font-family: 'Montserrat', sans-serif;
+    & .p {
+      color: #d30044;
+    }
+    & .r {
+      color: #ff6418;
+    }
+    & .o {
+      color: #186418;
+    }
+    & .j {
+      color: #0081ab;
+    }
+    & .x {
+      color: grey;
+    }
+  }
+  .prxnt {
+    @include brand-margin;
+    color: beige;
+    font-family: 'Montserrat', sans-serif;
+  }
+}

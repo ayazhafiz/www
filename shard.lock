@@ -1,0 +1,30 @@
+version: 1.0
+shards:
+  is_mobile:
+    github: ayazhafiz/is_mobile
+    commit: d831af9ad58cd4c4cec92db04b620578e11321c8
+
+  kemal:
+    github: kemalcr/kemal
+    commit: cd5fab8c2f7e279a9e5caaef8efeb46f187f7e0e
+
+  kilt:
+    github: jeromegn/kilt
+    version: 0.4.0
+
+  radix:
+    github: luislavena/radix
+    version: 0.3.8
+
+  rod:
+    github: ayazhafiz/rod
+    commit: 05d907278dfa2e9f3da11c3da17fd2e1864caef9
+
+  spec-kemal:
+    github: kemalcr/spec-kemal
+    commit: 05cc810f5f5ed890f16bcb06461000b97c625959
+
+  vector:
+    github: ayazhafiz/crystal-vector
+    commit: 0eae7014f4e496dff2b80aacbd66c2efe53f78bd
+

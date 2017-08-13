@@ -1,0 +1,50 @@
+{
+  "name": "cr-ayazhafiz.com",
+  "version": "0.0.1",
+  "description": "personal site",
+  "main": "index.js",
+  "scripts": {
+    "compile": "webpack -p",
+    "deploy": "KEMAL_ENV=production ./app --port $PORT",
+    "deploy:dev": "./sentry -w './src/**/*.cr' -w './views/**/*.ecr' -w './lib/**/*.cr'",
+    "make": "make rod -B",
+    "start": "npm-run-all compile deploy",
+    "start:dev": "npm-run-all compile deploy:dev",
+    "test": "KEMAL_ENV=test crystal spec",
+    "heroku-postbuild": "echo 'deployed to http://ahafiz.herokuapp.com'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ayazhafiz/crystal-ah.git"
+  },
+  "author": "Hafiz",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ayazhafiz/crystal-ah/issues"
+  },
+  "homepage": "https://github.com/ayazhafiz/crystal-ah#readme",
+  "dependencies": {
+    "autoprefixer": "^7.1.1",
+    "css-loader": "^0.28.4",
+    "extract-text-webpack-plugin": "^3.0.0",
+    "file-saver": "^1.3.3",
+    "gsap": "^1.19.1",
+    "jquery": "^3.2.1",
+    "jquery-scrollify": "^1.0.14",
+    "node-sass": "4.5.3",
+    "npm-run-all": "^4.0.2",
+    "particles.js": "^2.0.0",
+    "postcss-loader": "^2.0.6",
+    "prismjs": "^1.6.0",
+    "sass-loader": "^6.0.6",
+    "ts-loader": "^2.3.2",
+    "typed.js": "2.0.0",
+    "typescript": "^2.4.2",
+    "webpack": "^3.2.0",
+    "webpack-manifest-plugin": "^1.3.0"
+  },
+  "engines": {
+    "node": "7.10.1",
+    "npm": "4.2.0"
+  }
+}

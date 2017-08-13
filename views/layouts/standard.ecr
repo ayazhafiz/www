@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <%= render {{ PARTIAL[:meta] }} %>
+    <%= render {{ PARTIAL[:webapp] }} %>
+    <%- if env.request.path === "/" -%>
+      <%= render {{ PARTIAL[:index_head] }} %>
+    <%- end -%>
+    <%- unless env.request.path.split('/')[1]? === "try" &&
+      ![404, 500].includes? title -%>
+      <link href=<%= "/css/#{MANIFEST["#{page}.css"]}" %> rel="stylesheet" type="text/css" media="all">
+      <script src=<%= "/js/#{MANIFEST["#{page}.js"]}" %>></script>
+    <%- end -%>
+  </head>
+  <body>
+    <%= content %>
+
+    <%- if env.request.path.split('/')[1] === "try" &&
+      ![404, 500].includes? title -%>
+      <link href=<%= "/css/#{MANIFEST["#{page}.css"]}" %> rel="stylesheet" type="text/css" media="all">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.28.0/codemirror.css" type="text/css" />
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.28.0/theme/material.css" type="text/css" />
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.28.0/codemirror.js"></script>
+      <script src=<%= "/js/#{MANIFEST["#{page}.js"]}" %>></script>
+    <%- end -%>
+  </body>
+</html>

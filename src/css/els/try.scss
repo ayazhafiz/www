@@ -1,0 +1,50 @@
+@import "../base/vars";
+
+body {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  background: $shell-bg;
+}
+.CodeMirror {
+  position: static;
+  min-width: 20%;
+  width: auto;
+  max-width: 60%;
+  min-height: 40%;
+  height: auto;
+  max-height: 80%;
+  padding-top: 1em;
+  box-shadow: 1px 0 0 rgba($shell-shadow, 0.5),
+    -1px 0 0 rgba($shell-shadow, 0.5), 0 1px 0 rgba($shell-shadow, 0.5),
+    0 -1px 0 rgba($shell-shadow, 0.5), 0 3px 13px rgba(26, 27, 34, 0.5);
+}
+.CodeMirror:first-of-type {
+  margin-right: 2%;
+}
+.CodeMirror.cm-s-material.eval {
+  background: rgba($material-bg, 0.5);
+}
+.CodeMirror.cm-s-material.eval .CodeMirror-gutters {
+  background: rgba($material-bg, 0);
+}
+.CodeMirror,
+.CodeMirror * {
+  font-family: 'SF Mono', $code-font;
+}
+.run {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  vertical-align: middle;
+  line-height: 1em;
+  background: $material-red;
+  padding: 0.5em;
+  cursor: pointer;
+  z-index: 9999999999999;
+
+  &.download {
+    background: $material-dark;
+  }
+}

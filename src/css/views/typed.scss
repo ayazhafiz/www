@@ -1,0 +1,17 @@
+@import '../base/vars';
+
+.typed-cursor {
+  line-height: 1.25em;
+  text-decoration: underline;
+  color: $shell-prompt;
+  vertical-align: top;
+  animation: none;
+  &.anim {
+    animation: blink 1s step-start 0s infinite;
+  }
+}
+@keyframes blink {
+  50% {
+    opacity: 0.0;
+  }
+}

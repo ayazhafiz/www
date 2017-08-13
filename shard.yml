@@ -1,0 +1,32 @@
+name: site
+version: 0.1.0
+
+authors:
+  - hafiz
+
+targets:
+  site:
+    main: src/site.cr
+  rod:
+    main: rod/src/app.cr
+
+dependencies:
+  spec-kemal:
+    github: kemalcr/spec-kemal
+    branch: master
+  kemal:
+    github: kemalcr/kemal
+    branch: master
+  vector:
+    github: ayazhafiz/crystal-vector
+    branch: master
+  is_mobile:
+    github: ayazhafiz/is_mobile
+    branch: master
+  rod:
+    github: ayazhafiz/rod
+    branch: master
+
+crystal: 0.22.0
+
+license: MIT

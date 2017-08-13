@@ -1,0 +1,174 @@
+@import '../base/vars';
+
+.scroll-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  &.two {
+    background: lemonchiffon;
+  }
+  &.three {
+    background: #abdcfb;
+    .shell {
+      top: 9%;
+    }
+  }
+  &.self {
+    background: aliceblue;
+    display: flex;
+    height: 10%;
+  }
+}
+
+.sample-container {
+  width: 460px;
+  max-width: 90%;
+  margin: auto;
+}
+
+.social {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: $base-font;
+  letter-spacing: 0.1em;
+  top: calc(50% - 5px);
+  width: 100%;
+  a {
+    margin-top: -1em;
+  }
+  .email,
+  .email:hover,
+  .email:active,
+  .email:visited {
+    color: $slate;
+    margin-right: 5%;
+    .interp {
+      color: $code-interp;
+      .string {
+        color: $code-string;
+      }
+    }
+    &:before {
+      background-color: $slate;
+    }
+  }
+  .twitter,
+  .twitter:hover,
+  .twitter:active,
+  .twitter:visited {
+    color: $twitter;
+    margin-left: 5%;
+    &:before {
+      background-color: $twitter;
+    }
+  }
+  .desktop {
+    width: 50%;
+    float: left;
+    &.left {
+      text-align: right;
+    }
+    &.right {
+      text-align: left;
+    }
+  }
+}
+
+.info {
+  position: fixed;
+  left: 3%;
+  right: 3%;
+  bottom: 3%;
+  font-family: $base-font;
+  font-size: 0.8em;
+  line-height: 2em;
+  color: $white;
+  mix-blend-mode: difference;
+  //transition: 0.5s ease;
+  @media screen and (max-width: $base-break) {
+    left: 10%;
+    right: 10%;
+  }
+  &.slid-up {
+    bottom: 12%;
+    //transition: 0.75s linear;
+  }
+  .octicon {
+    font-size: 1em;
+    vertical-align: middle;
+    float: left;
+    display: block;
+  }
+  .year {
+    font-size: 1em;
+    vertical-align: middle;
+    float: right;
+    display: block;
+    font: 1em/1 $code-font;
+  }
+}
+
+.me {
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  font-family: $code-font;
+  display: block;
+  transform: scaleX(-1) translate(-50%, -50%);
+  .first {
+    color: palevioletred;
+  }
+  .last {
+    color: mediumaquamarine;
+  }
+  .forall {
+    font-family: $base-font;
+    &.desktop {
+      font-size: 1.2em;
+    }
+  }
+}
+
+.shell {
+  font-size: 0.8em;
+  font-family: $code-font;
+  .prompt {
+    color: $shell-prompt;
+  }
+}
+
+.difference-filter {
+  color: $white;
+  mix-blend-mode: difference;
+}
+
+.border {
+  position: fixed;
+  background: $white;
+  &.top {
+    left: 0;
+    top: 0;
+    height: 10px;
+    width: 100%;
+  }
+  &.right {
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 10px;
+  }
+  &.bottom {
+    left: 0;
+    bottom: 0;
+    height: 10px;
+    width: 100%;
+  }
+  &.left {
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 10px;
+  }
+}
