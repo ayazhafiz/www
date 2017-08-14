@@ -8,7 +8,7 @@ a {
   padding: 0.25em 0;
   position: relative;
   text-decoration: none;
-  &:before {
+  &::after {
     content: '';
     display: block;
     height: calc(100% + 0.5em);
@@ -23,7 +23,7 @@ a {
   }
   &:hover,
   &:active {
-    &:before {
+    &::after {
       transform: translateX(0);
       transition: 50ms linear;
     }

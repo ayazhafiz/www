@@ -44,13 +44,14 @@
   .email:visited {
     color: $slate;
     margin-right: 5%;
+    z-index: 1;
     .interp {
       color: $code-interp;
       .string {
         color: $code-string;
       }
     }
-    &:before {
+    &::after {
       background-color: $slate;
     }
   }
@@ -60,7 +61,8 @@
   .twitter:visited {
     color: $twitter;
     margin-left: 5%;
-    &:before {
+    z-index: 1;
+    &::after {
       background-color: $twitter;
     }
   }
