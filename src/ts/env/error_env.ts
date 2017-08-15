@@ -7,11 +7,16 @@ const matchClass = 'path';
 const animClass = 'anim';
 const shadowSlashClass = 'shadow-slash';
 const cursorChar = '&nbsp;';
-const knownPaths = ['/', '/emoji', '/try', '/vector'];
+const knownPaths = ['/', '/atomas', '/emoji', '/meethere', '/try', '/vector'];
 const knownSubPaths = {
   '/try': ['/rod']
 };
-const knownFullPaths = ['/', '/emoji', '/try/rod', '/vector'];
+const knownFullPaths = knownPaths.reduce((full, path) => {
+  if (knownSubPaths[path]) {
+    return full.concat(knownSubPaths[path].map(sub => `${path}${sub}`));
+  }
+  return full.concat([path]);
+}, []);
 const firstEl = '#open-1';
 const secondEl = '#path-1';
 const thirdEl = '#open-2';

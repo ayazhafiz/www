@@ -1,28 +1,25 @@
 {
   "name": "cr-ayazhafiz.com",
   "version": "0.0.1",
-  "description": "personal site",
-  "main": "index.js",
+  "private": true,
+  "description": "Crystal implementation of my personal site",
+  "main": "src/site.cr",
   "scripts": {
-    "compile": "webpack -p",
-    "deploy": "KEMAL_ENV=production ./app --port $PORT",
-    "deploy:dev": "./sentry -w './src/**/*.cr' -w './views/**/*.ecr' -w './lib/**/*.cr'",
-    "make": "make rod -B",
-    "start": "npm-run-all compile deploy",
-    "start:dev": "npm-run-all compile deploy:dev",
+    "start": "./build.sh",
     "test": "KEMAL_ENV=test crystal spec",
-    "heroku-postbuild": "echo 'deployed to http://ahafiz.herokuapp.com'"
+    "heroku-postbuild": "echo 'deployed to https://ayazhafiz.com'",
+    "hi": "./hi.sh"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ayazhafiz/crystal-ah.git"
   },
-  "author": "Hafiz",
+  "author": "hafiz",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/ayazhafiz/crystal-ah/issues"
   },
-  "homepage": "https://github.com/ayazhafiz/crystal-ah#readme",
+  "homepage": "https://ayazhafiz.com",
   "dependencies": {
     "autoprefixer": "^7.1.1",
     "css-loader": "^0.28.4",
