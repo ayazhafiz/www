@@ -1,14 +1,20 @@
 import * as FileSaver from 'file-saver';
 import { $ } from '../ts/page/el';
+import '../ts/third-party/codemirror.rod';
 
 import './try.rod.scss';
 
-declare const CodeMirror: any;
+const INTRO = `^^^^^^^+     ;; 0 -> 65
+		    /    ;; print, 65 -> 0
+(			       ;; LOOP
+  +,		     ;;   [[65]] -> [& +1]
+  +++***+	   ;;   <- 25
+)			       ;; LOOP
 
-const HELLO_WORLD = `^^^^+***/+++*+**+&/+++*+(,++)+++&/
-_
-^^^+**+*+*+/+++***&/+++&/+++**+*+**/+++***+**/^^^^^^+/`;
-const HELLO_WORLD_RES = 'Hello World!';
+>
+++++++(+,+++***++)`;
+const FONT =
+  'SF Mono, Dejavu Sans Mono, Menlo, Monaco, Consolas, Courier New, monospace';
 const HEADERS = new Headers({
   'Content-Type': 'application/json'
 });
@@ -42,20 +48,23 @@ const save = (str: string): void => {
   FileSaver.saveAs(blob, `${fileName}.fish`);
 };
 
-document.addEventListener('DOMContentLoaded', (): void => {
+document.addEventListener('DOMContentLoaded', async () => {
   State.rodEditor = CodeMirror(document.body, {
-    value: HELLO_WORLD,
+    value: INTRO,
     lineNumbers: true,
-    theme: 'material'
+    tabSize: 2,
+    theme: 'material',
+    mode: 'rod'
   });
 
   State.rodEval = CodeMirror(document.body, {
-    value: HELLO_WORLD_RES,
+    value: await evaluate(INTRO),
     lineNumbers: true,
     theme: 'material',
-    readOnly: 'nocursor'
+    readOnly: 'nocursor',
+    mode: 'text'
   });
-  State.rodEval.display.wrapper.className += ' eval';
+  State.rodEval.display.wrapper.classList.add('eval');
 
   const execute = document.createElement('div');
   execute.classList.add('run');
@@ -66,6 +75,10 @@ document.addEventListener('DOMContentLoaded', (): void => {
   (<HTMLElement>download).classList.add('download');
   (<HTMLElement>download).innerText = 'download `.fish`';
   State.rodEval.display.wrapper.appendChild(download);
+
+  [State.rodEditor, State.rodEval].forEach(
+    a => (a.display.wrapper.style.fontFamily = FONT)
+  );
 
   document.addEventListener('keydown', async (evt: KeyboardEvent) => {
     if (

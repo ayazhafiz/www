@@ -1,4 +1,4 @@
-@import "../base/vars";
+@import '../base/vars';
 
 body {
   display: flex;
@@ -8,6 +8,7 @@ body {
   background: $shell-bg;
 }
 .CodeMirror {
+  line-height: 1em;
   position: static;
   min-width: 20%;
   width: auto;
@@ -28,10 +29,6 @@ body {
 }
 .CodeMirror.cm-s-material.eval .CodeMirror-gutters {
   background: rgba($material-bg, 0);
-}
-.CodeMirror,
-.CodeMirror * {
-  font-family: 'SF Mono', $code-font;
 }
 .run {
   position: absolute;
