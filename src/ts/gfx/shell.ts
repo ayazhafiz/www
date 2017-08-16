@@ -12,7 +12,7 @@ import {
   knownFullPaths,
   matchClass,
   animClass
-} from '../env/error_env';
+} from '../env/error';
 
 const range = (start: number, end: number): Array<number> =>
   Array.from(new Array(end - start + 1), (n, i) => start + i);

@@ -1,6 +1,6 @@
 import { $ } from '../page/el';
 import { Viewer3D } from '../third-party/viewer3D';
-import { crystalLogoEl as logo } from '../env/error_env';
+import { crystalLogoEl as logo } from '../env/error';
 
 // (c) Crystal Lang, licensed under the Apache License 2.0
 const LOGO_PATH =

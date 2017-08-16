@@ -1,6 +1,6 @@
 import { $ } from './el';
 import { page as getPage } from './currentPage';
-import { whale } from '../env/index_env';
+import { whale } from '../env/index';
 import * as scrollify from 'jquery-scrollify';
 
 const scroll = (speed: number): void => {

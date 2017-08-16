@@ -6,7 +6,7 @@ shards:
 
   kemal:
     github: kemalcr/kemal
-    commit: cd5fab8c2f7e279a9e5caaef8efeb46f187f7e0e
+    commit: fc4c97aafd9aa8aa0fe2f112dd8af9f47777b1c9
 
   kilt:
     github: jeromegn/kilt
@@ -18,7 +18,7 @@ shards:
 
   rod:
     github: ayazhafiz/rod
-    commit: 05d907278dfa2e9f3da11c3da17fd2e1864caef9
+    commit: a8eeab21c62560459ed5356db41aa1edfce11584
 
   spec-kemal:
     github: kemalcr/spec-kemal

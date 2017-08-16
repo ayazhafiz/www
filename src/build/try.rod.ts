@@ -18,8 +18,8 @@ const State = {
   last: null
 };
 
-const evaluate = (str: string): Promise<any> => {
-  return fetch('', {
+const evaluate = async (str: string): Promise<string> => {
+  return await fetch('', {
     method: 'POST',
     headers: HEADERS,
     body: JSON.stringify({
@@ -33,7 +33,7 @@ const evaluate = (str: string): Promise<any> => {
 const setResult = (str: string): void => {
   State.rodEval.getDoc().setValue(str);
 };
-const dload = (str: string): void => {
+const save = (str: string): void => {
   setResult(str);
   const fileName = (str.length < 16 ? str : str.substr(0, 16))
     .trim()
@@ -63,25 +63,25 @@ document.addEventListener('DOMContentLoaded', (): void => {
   State.rodEditor.display.wrapper.appendChild(execute);
 
   const download = execute.cloneNode(true);
-  (<Element>download).classList.add('download');
-  (<Element>download).innerText = 'download `.fish`';
+  (<HTMLElement>download).classList.add('download');
+  (<HTMLElement>download).innerText = 'download `.fish`';
   State.rodEval.display.wrapper.appendChild(download);
 
-  document.addEventListener('keydown', (evt: KeyboardEvent): void => {
+  document.addEventListener('keydown', async (evt: KeyboardEvent) => {
     if (
       (evt.keyCode === 13 || evt.which === 13) &&
       (evt.metaKey || evt.ctrlKey) &&
       State.rodEditor.getValue() !== State.last
     ) {
-      evaluate((State.last = State.rodEditor.getValue())).then(setResult);
+      setResult(await evaluate((State.last = State.rodEditor.getValue())));
     }
   });
-  execute.addEventListener('click', (): void => {
+  execute.addEventListener('click', async () => {
     if (State.rodEditor.getValue() !== State.last) {
-      evaluate((State.last = State.rodEditor.getValue())).then(setResult);
+      setResult(await evaluate((State.last = State.rodEditor.getValue())));
     }
   });
-  download.addEventListener('click', (): void => {
-    evaluate((State.last = State.rodEditor.getValue())).then(dload);
+  download.addEventListener('click', async () => {
+    save(await evaluate((State.last = State.rodEditor.getValue())));
   });
 });

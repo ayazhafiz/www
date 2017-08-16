@@ -19,20 +19,6 @@ interface Face {
 
 type Matrix = Array<Float32Array | Uint8ClampedArray>;
 
-namespace Func {
-  export const sortByNormal = (viewer): Uint8ClampedArray => {
-    return new Uint8ClampedArray(
-      Array.from(new Array(viewer.faces.length), (n, i) => i).sort((a, b) => {
-        const deltaNormal =
-          viewer.faces[b].transform.normal.z -
-          viewer.faces[a].transform.normal.z;
-        if (deltaNormal === 0) return 0;
-        return deltaNormal < 0 ? 1 : -1;
-      })
-    );
-  };
-}
-
 class FlatShader {
   private readonly light: Light;
 
@@ -85,7 +71,7 @@ class FlatShader {
   };
 
   readonly render = (viewer): void => {
-    const order = Func.sortByNormal(viewer);
+    const order = viewer.sortByNormal();
     for (let step of <any>order) {
       const face = viewer.faces[step];
       if (face.transform.normal.z > 0) {
@@ -170,17 +156,22 @@ function Viewer3D(container: HTMLCanvasElement): void {
     self.shader = new FlatShader();
   };
 
-  self.toScreenX = (x: number, z: number): number =>
-    self.width / 2 + self.scale * x / (self.distance - z);
-
-  self.toScreenY = (y: number, z: number): number =>
-    self.height / 2 + self.scale * y / (self.distance - z);
-
   self.setContrast = (value: number): number => {
     if (value === null) {
       return self.contrast;
     }
     self.contrast = Math.max(-1, Math.min(1, value));
+  };
+
+  self.sortByNormal = (): Uint8ClampedArray => {
+    return new Uint8ClampedArray(
+      Array.from(new Array(this.faces.length), (n, i) => i).sort((a, b) => {
+        const deltaNormal =
+          this.faces[b].transform.normal.z - this.faces[a].transform.normal.z;
+        if (deltaNormal === 0) return 0;
+        return deltaNormal < 0 ? 1 : -1;
+      })
+    );
   };
 
   const rotate = (point3D: Vector): Vector => {
@@ -319,8 +310,7 @@ function Viewer3D(container: HTMLCanvasElement): void {
     );
     render();
     if (self.dragging) {
-      self.yaw = 0;
-      self.pitch = 0;
+      self.yaw = self.pitch = 0;
     } else {
       const restart = self.pitch === 0 && self.yaw === 0;
       self.yaw = decelerate(self.yaw, restart);

@@ -16,7 +16,7 @@ import {
   cursorChar,
   pathString,
   openString
-} from '../ts/env/error_env';
+} from '../ts/env/error';
 
 import './error.scss';
 

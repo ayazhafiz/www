@@ -6,9 +6,7 @@
   "main": "src/site.cr",
   "scripts": {
     "start": "./build.sh",
-    "test": "KEMAL_ENV=test crystal spec",
-    "heroku-postbuild": "echo 'deployed to https://ayazhafiz.com'",
-    "hi": "./hi.sh"
+    "test": "KEMAL_ENV=test crystal spec"
   },
   "repository": {
     "type": "git",

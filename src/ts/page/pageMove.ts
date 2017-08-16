@@ -1,5 +1,5 @@
 import { $ } from './el';
-import { whale } from '../env/index_env';
+import { whale } from '../env/index';
 
 const pageMove = (page: number): void => {
   switch (page) {
