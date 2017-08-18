@@ -7,7 +7,6 @@ CodeMirror.defineSimpleMode('rod', {
     { regex: /\/|_|>/, token: 'attribute' },
     { regex: /-|\+|\^|\*/, token: 'number' },
     { regex: /;;.*/, token: 'comment' },
-    { regex: /<|:|!/, token: 'tag' },
-    { regex: /&/, token: 'variable' }
+    { regex: /<|:|!/, token: 'tag' }
   ]
 });

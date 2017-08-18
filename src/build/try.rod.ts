@@ -36,9 +36,12 @@ const evaluate = async (str: string): Promise<string> => {
     .then(resp => (resp.error ? resp.error : resp.success))
     .catch(err => err);
 };
-const setResult = (str: string): void => {
-  State.rodEval.getDoc().setValue(str);
-};
+
+const getValue = (from: any = State.rodEditor): string =>
+  from.getValue().replace(/\s|;;.*|[^+\-*^/_><&(),:!;]/g, '');
+
+const setResult = (str: string): void => State.rodEval.getDoc().setValue(str);
+
 const save = (str: string): void => {
   setResult(str);
   const fileName = (str.length < 16 ? str : str.substr(0, 16))
@@ -58,7 +61,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 
   State.rodEval = CodeMirror(document.body, {
-    value: await evaluate(INTRO),
+    value: await evaluate(
+      (State.last = State.rodEditor
+        .getValue()
+        .replace(/\s|;;.*|[^+\-*^/_><&(),:!;]/g, ''))
+    ),
     lineNumbers: true,
     theme: 'material',
     readOnly: 'nocursor',
@@ -84,14 +91,16 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (
       (evt.keyCode === 13 || evt.which === 13) &&
       (evt.metaKey || evt.ctrlKey) &&
-      State.rodEditor.getValue() !== State.last
+      getValue() !== State.last
     ) {
-      setResult(await evaluate((State.last = State.rodEditor.getValue())));
+      console.log('+1');
+      setResult(await evaluate((State.last = getValue())));
     }
   });
   execute.addEventListener('click', async () => {
-    if (State.rodEditor.getValue() !== State.last) {
-      setResult(await evaluate((State.last = State.rodEditor.getValue())));
+    if (getValue() !== State.last) {
+      console.log('+1');
+      setResult(await evaluate((State.last = getValue())));
     }
   });
   download.addEventListener('click', async () => {
