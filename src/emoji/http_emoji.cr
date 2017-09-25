@@ -102,7 +102,7 @@ module HTTP::Emoji
   # Generates defenition of an emoji given its master list key and optional
   # relevance to specified query
   private def define(emoji : NamedTuple,
-                     base : JSON::Any | Nil = nil) : HashJSON
+                     base : JSON::Any? = nil) : HashJSON
     entry = {} of String => String | JSON::Any
     entry["char"] = emoji[:char]
     entry["name"] = emoji[:name]

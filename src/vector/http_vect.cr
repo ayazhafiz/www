@@ -40,8 +40,8 @@ module HTTP::Vect
 
   # Processes two vectors as hashes to generate JSON about their relationships,
   # with error handling included for web APIs
-  def rels(vect_1 : Hash | Nil = nil,
-           vect_2 : Hash | Nil = nil,
+  def rels(vect_1 : Hash? = nil,
+           vect_2 : Hash? = nil,
            path = DEF_PATH) : NamedTuple
     if vect_1 && vect_2
       if vect_1.size === vect_2.size

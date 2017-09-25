@@ -15753,7 +15753,7 @@ module EmojiUtil
     alias HashJSON = Hash(String, String | JSON::Any)
     alias MassJSON = Hash(String, String | Array(HashJSON))
     alias Err = NamedTuple(error: Int32, message: String)
-    alias Any = MassJSON | HashJSON | Err | Nil
+    alias Any = MassJSON? | HashJSON? | Err?
   end
 
   module Error
