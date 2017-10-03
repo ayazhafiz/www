@@ -11,10 +11,12 @@ module APIUtil
       path = path.as(String)
       log = Logger.new STDOUT
       log.level = Logger::WARN
-      log.warn <<-WARNING
-      #{path.colorize(:yellow)}: #{error[:message].colorize(:cyan)}
-      Additional information:  #{msg.colorize(:cyan)}
-      WARNING
+      (
+        log.warn <<-WARNING
+        #{path.colorize(:yellow)}: #{error[:message].colorize(:cyan)}
+        Additional information:  #{msg.colorize(:cyan)}
+        WARNING
+      ) unless Kemal.config.env === "test"
       {
         error:   error[:code],
         message: "#{path}: #{error[:message]}",

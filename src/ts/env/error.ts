@@ -7,7 +7,16 @@ const matchClass = 'path';
 const animClass = 'anim';
 const shadowSlashClass = 'shadow-slash';
 const cursorChar = '&nbsp;';
-const knownPaths = ['/', '/atomas', '/emoji', '/meethere', '/try', '/vector'];
+const knownPaths = [
+  '/',
+  '/atomas',
+  '/blog',
+  '/cc',
+  '/emoji',
+  '/meethere',
+  '/try',
+  '/vector'
+];
 const knownSubPaths = {
   '/try': ['/rod']
 };

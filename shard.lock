@@ -6,7 +6,7 @@ shards:
 
   kemal:
     github: kemalcr/kemal
-    commit: fc4c97aafd9aa8aa0fe2f112dd8af9f47777b1c9
+    commit: 61caa077b733a2c1dc64db2361ba96737c4431aa
 
   kilt:
     github: jeromegn/kilt
@@ -22,7 +22,7 @@ shards:
 
   spec-kemal:
     github: kemalcr/spec-kemal
-    commit: 05cc810f5f5ed890f16bcb06461000b97c625959
+    commit: 93ab608228ea6619d15555d1c77a3bcff29f1dba
 
   vector:
     github: ayazhafiz/crystal-vector
