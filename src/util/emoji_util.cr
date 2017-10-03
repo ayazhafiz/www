@@ -15754,6 +15754,8 @@ module EmojiUtil
     alias MassJSON = Hash(String, String | Array(HashJSON))
     alias Err = NamedTuple(error: Int32, message: String)
     alias Any = MassJSON? | HashJSON? | Err?
+    alias Query = JSON::Type | EmojiUtil::Alias::Err
+    alias Env = HTTP::Server::Context
   end
 
   module Error

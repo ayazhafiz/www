@@ -1,11 +1,19 @@
 require "kemal"
 require "json"
 require "./emoji/*"
+require "./util/emoji_util"
 
 before_all "/emoji" do |env|
   env.response.content_type = "application/json"
   env.set "path", "#{env.request.method} #{env.request.path}"
 end
+
+EMOJI = ->(env : EmojiUtil::Alias::Env, query : EmojiUtil::Alias::Query) {
+  HTTP::Emoji.like(
+    query: query,
+    path: env.get "path"
+  ).to_json
+}
 
 # Returns a list of emoji related to a specified query. Multiple queries are
 # better manipulated with `POST`.
@@ -18,10 +26,7 @@ get "/emoji" do |env|
     path: env.get "path"
   )
 
-  HTTP::Emoji.like(
-    query: query,
-    path: env.get "path"
-  ).to_json
+  EMOJI.call(env, query)
 end
 
 # Returns a list of emoji related to one or more specified queries via POST.
@@ -32,8 +37,5 @@ post "/emoji" do |env|
     path: env.get "path"
   )
 
-  HTTP::Emoji.like(
-    query: req,
-    path: env.get "path"
-  ).to_json
+  EMOJI.call(env, req)
 end

@@ -1,6 +1,6 @@
 require "../spec_helper"
 
-describe "Redirect::301" do
+describe "Redirect::302" do
   it "redirects atomas" do
     get "/atomas"
     response.headers["Location"].should eq "https://ayazhafiz.github.io/atomas"

@@ -11,11 +11,13 @@ end
 
 # Processes and returns a string through `rod`
 post "/try/rod" do |env|
-  (if env.params.json["arg"]?
-    try_rod env.params.json["arg"].as String
-  else
-    {
-      error: "Must supply argument.",
-    }
-  end).to_json
+  rod = if env.params.json["arg"]?
+          try_rod env.params.json["arg"].as String
+        else
+          {
+            error: "Must supply argument.",
+          }
+        end
+
+  rod.to_json
 end

@@ -15,7 +15,7 @@ module HTTP::Emoji
   # Handles all emoji queries
   #
   # Sources handling different data types via type inference
-  def like(query : JSON::Type | Err,
+  def like(query : Query,
            path = DEF_PATH) : Any | Array(Any)
     if query.is_a? Err
       query
