@@ -27,7 +27,7 @@ module Anoop
     name = name.strip
     return error("Anoop is one name!") if /\s/ =~ name
     return error("Capitalize the FUCKING name!") if name[0] === 'a'
-    if (name.split("") | "Anoop".split("") != "Anop".split("")) &&
+    if (name.split("") | "Anoop".split("") != "Anop".split("")) ||
        (name.split("") & "Anoop".split("") != "Anop".split(""))
       return error("Bitch, his name is spelled with `A`, `n`, `o`, and `p`.")
     end
