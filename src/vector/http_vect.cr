@@ -45,8 +45,8 @@ module HTTP::Vect
            path = DEF_PATH) : NamedTuple
     if vect_1 && vect_2
       if vect_1.size === vect_2.size
-        if (vect_1.keys === ["i", "j"] || vect_1.keys === ["i", "j", "k"]) &&
-           (vect_2.keys === ["i", "j"] || vect_2.keys === ["i", "j", "k"])
+        if vect_1.keys & ["i", "j"] == ["i", "j"] &&
+           vect_2.keys & ["i", "j"] == ["i", "j"]
           if vect_1.keys === ["i", "j"]
             HTTP::Vect.json(
               vect_1: (Vector2D.from_json (vect_1.to_json)),

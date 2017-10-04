@@ -19,9 +19,9 @@ module KemalUtil
   }
 
   PAGE = {
-    error:   "./views/pages/error.ecr",
-    index:   "./views/pages/index.ecr",
-    try_rod: "./views/pages/try.rod.ecr",
+    error: "./views/pages/error.ecr",
+    index: "./views/pages/index.ecr",
+    try:   "./views/pages/try.ecr",
   }
 
   LAYOUT = {

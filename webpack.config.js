@@ -9,6 +9,7 @@ module.exports = {
   entry: {
     index: path.join(__dirname, 'src/build/index'),
     error: path.join(__dirname, 'src/build/error'),
+    'try.anoop': path.join(__dirname, 'src/build/try.anoop'),
     'try.rod': path.join(__dirname, 'src/build/try.rod')
   },
   output: {

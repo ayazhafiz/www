@@ -18,7 +18,7 @@ const knownPaths = [
   '/vector'
 ];
 const knownSubPaths = {
-  '/try': ['/rod']
+  '/try': ['/anoop', '/rod']
 };
 const knownFullPaths = knownPaths.reduce((full, path) => {
   if (knownSubPaths[path]) {
