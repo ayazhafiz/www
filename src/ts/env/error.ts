@@ -14,6 +14,7 @@ const knownPaths = [
   '/cc',
   '/emoji',
   '/meethere',
+  '/movie-emoji',
   '/try',
   '/vector'
 ];
