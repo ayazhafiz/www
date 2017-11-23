@@ -4,7 +4,14 @@ require "uri"
 module HTTP::Mail
   extend self
 
-  def valid_user?(username user : String,
+  def user_exists?(username user : String, database db) : Bool
+    rs = db.query "SELECT username FROM users WHERE username=$1", user
+    result = rs.move_next
+    rs.close
+    result
+  end
+
+  def user_valid?(username user : String,
                   password pass : String?,
                   database db) : Bool
     return false if !pass

@@ -93,13 +93,11 @@ document.addEventListener('DOMContentLoaded', async () => {
       (evt.metaKey || evt.ctrlKey) &&
       getValue() !== State.last
     ) {
-      console.log('+1');
       setResult(await evaluate((State.last = getValue())));
     }
   });
   execute.addEventListener('click', async () => {
     if (getValue() !== State.last) {
-      console.log('+1');
       setResult(await evaluate((State.last = getValue())));
     }
   });

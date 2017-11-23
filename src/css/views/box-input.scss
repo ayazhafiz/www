@@ -1,0 +1,61 @@
+@import '../base/vars';
+
+$padding: 2em;
+
+.box {
+  position: relative;
+  cursor: pointer;
+  position: relative;
+  padding: 1.6em $padding;
+  text-align: center;
+  border: none;
+  transition: 0.15s ease-in-out;
+  background-color: #c8dadf;
+
+  &.nofile {
+    background-color: $shell-err;
+  }
+
+  &.has-advanced-upload {
+    outline: 1px dashed #92b0b3;
+    outline-offset: -0.5em;
+    width: calc(95% - 2 * #{$padding});
+    transition: 0.15s ease-in-out;
+    overflow: hidden !important;
+    color: #666 !important;
+    text-overflow: ellipsis !important;
+
+    &.is-dragover {
+      background-color: white;
+      outline-color: #92b0b3;
+      outline-offset: -0.9em;
+      transition: 0.15s ease-in-out;
+    }
+
+    &:hover {
+      outline-color: #719498;
+      outline-offset: -0.7em;
+      background-color: #dae7eb;
+      transition: 0.15s ease-in-out;
+    }
+  }
+
+  span {
+    color: #666 !important;
+  }
+
+  input[type='file'] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    background: red;
+    cursor: inherit;
+    display: block;
+  }
+}

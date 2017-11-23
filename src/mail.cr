@@ -44,7 +44,7 @@ DB.open ENV["HAFIZMAIL_DB"] do |db|
     username = env.params.url["username"].as String
     key = env.params.query["key"]?
 
-    if res = HTTP::Mail.valid_user?(
+    if res = HTTP::Mail.user_valid?(
          username: username,
          password: key,
          database: db)
@@ -60,7 +60,51 @@ DB.open ENV["HAFIZMAIL_DB"] do |db|
     password = env.params.json["password"].as String
 
     {
-      valid: HTTP::Mail.valid_user? username, password, db,
+      valid: HTTP::Mail.user_valid? username, password, db,
     }.to_json
+  end
+
+  # Attempts file upload
+  post "/mail/send" do |env|
+    file = env.params.files["file"]
+    recipient = env.params.body["recipient"]
+    user = env.params.body["user"]
+    escaped_key = env.params.body["escaped-key"]
+
+    filename = file.filename
+
+    if !filename.is_a? String
+      {
+        file:       "",
+        successful: true,
+        error:      "no filename",
+      }.to_json
+    elsif !HTTP::Mail.user_valid?(
+            username: user,
+            password: escaped_key,
+            database: db)
+      {
+        file:       filename,
+        successful: false,
+        error:      "invalid credentials",
+      }.to_json
+    elsif !HTTP::Mail.user_exists?(username: recipient, database: db)
+      {
+        file:       filename,
+        successful: false,
+        error:      "recipient dne",
+      }.to_json
+    else
+      file_path = File.join [Kemal.config.public_folder, "uploads/", filename]
+      File.open(file_path, "w") do |f|
+        IO.copy(file.tmpfile, f)
+      end
+
+      {
+        file:       filename,
+        successful: true,
+        error:      "",
+      }.to_json
+    end
   end
 end

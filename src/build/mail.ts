@@ -1,87 +1,140 @@
+import * as dragula from 'dragula';
 import { $ } from '../ts/page/el';
+import { SubmitButton, toggleSpinner } from '../ts/gfx/submit-button';
 
 import './mail.scss';
 
-type loginAttempt = { valid: boolean };
+type uploadAttempt = { file: string; successful: boolean; error: string };
 
-const Login: {
-  attr: { username: string; password: string };
-  submit_button: { el: string; arrows: string[]; spinners: string[] };
-} = {
-  attr: {
-    username: 'input#username',
-    password: 'input#password'
-  },
-  submit_button: {
-    el: 'div.next',
-    arrows: ['div.arrow', 'div.arrow-head'],
-    spinners: ['.double-bounce1', '.double-bounce2']
-  }
+const Data = {
+  form: 'div.box',
+  label: 'div.box span',
+  file: 'input#file',
+  recipient: 'input#to',
+  submit: 'div.next'
 };
 
-document.addEventListener('DOMContentLoaded', addListeners, false);
+document.addEventListener('DOMContentLoaded', init, false);
 
-function addListeners(): void {
-  Object.entries(Login.attr).forEach(list => {
-    ($(list[1]) as HTMLInputElement).onfocus = function() {
-      (this as HTMLInputElement).placeholder = '';
-    };
+function init() {
+  setTimeout(function() {
+    removeEntryAnims();
+  }, 500);
+  allowDragging();
+  enableDragnDrop();
 
-    ($(list[1]) as HTMLInputElement).onblur = function() {
-      (this as HTMLInputElement).placeholder = list[0];
-    };
-  });
-
-  ($(Login.submit_button.el) as HTMLElement).onclick = attemptLogin;
-
-  document.removeEventListener('DOMContentLoaded', addListeners, false);
+  ($(SubmitButton.el) as HTMLElement).onclick = function() {
+    if (($(Data.file) as HTMLInputElement).files.length > 0) {
+      attemptSubmission();
+    } else {
+      $(Data.form).addClass('nofile');
+      setTimeout(() => $(Data.form).removeClass('nofile'), 500);
+    }
+  };
 }
 
-async function submitLoginRequest(): Promise<loginAttempt> {
-  return fetch('/mail/verify', {
+function removeEntryAnims() {
+  const divs = document.querySelectorAll(
+    '.col div.title, .col > div:not(.title)'
+  );
+  for (let i = 0; i < divs.length; ++i) {
+    (divs[i] as HTMLDivElement).style.animation = 'none';
+  }
+}
+
+function allowDragging(): void {
+  dragula([$('body')], {
+    direction: 'horizontal'
+  });
+}
+
+function enableDragnDrop(): void {
+  for (let event of [
+    'drag',
+    'dragstart',
+    'dragend',
+    'dragover',
+    'dragenter',
+    'dragleave',
+    'drop'
+  ]) {
+    $(Data.form).addEventListener(event, function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+    });
+  }
+  for (let event of ['dragover', 'dragenter']) {
+    $(Data.form).addEventListener(event, function() {
+      $(Data.form).addClass('is-dragover');
+    });
+  }
+  for (let event of ['dragleave', 'dragend', 'drop']) {
+    $(Data.form).addEventListener(event, function() {
+      $(Data.form).removeClass('is-dragover');
+    });
+  }
+
+  ($(Data.file) as HTMLInputElement).onchange = updateFileValue;
+}
+
+function updateFileValue() {
+  const label = this.value.replace(/\\/g, '/').replace(/.*\//, '');
+  $(Data.label).innerText = label;
+}
+
+async function uploadFile(): Promise<uploadAttempt> {
+  let form = new FormData();
+  form.append('file', ($(Data.file) as HTMLInputElement).files[0]);
+  form.append('user', window.location.pathname.split('/mail/')[1]);
+  form.append('escaped-key', decodeURI(window.location.search.split('=')[1]));
+  form.append('recipient', ($(Data.recipient) as HTMLInputElement).value);
+
+  return fetch('/mail/send', {
     headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json'
+      Accept: 'application/json'
     },
     method: 'POST',
-    body: JSON.stringify({
-      username: ($(Login.attr.username) as HTMLInputElement).value,
-      password: ($(Login.attr.password) as HTMLInputElement).value
-    })
+    body: form
   }).then(data => data.json());
 }
 
-async function attemptLogin() {
+async function attemptSubmission() {
   toggleSpinner('block', 'none', 'transparent');
-  (await submitLoginRequest()).valid ? redirectToMail() : showIncorrect();
+  const result = await uploadFile();
+  if (result.successful) {
+    showUploadSuccess.bind($(Data.recipient) as HTMLInputElement)();
+  } else if (result.error === 'invalid credentials') {
+    window.location.href = `/mail/${
+      window.location.pathname.split('/mail/')[1]
+    }`;
+  } else if (result.error === 'recipient dne') {
+    showIncorrect.bind($(Data.recipient) as HTMLInputElement)();
+  }
 }
 
-function redirectToMail(): void {
-  window.location.href =
-    `/mail/` +
-    `${encodeURIComponent(
-      ($(Login.attr.username) as HTMLInputElement).value
-    )}?` +
-    `key=${encodeURIComponent(
-      ($(Login.attr.password) as HTMLInputElement).value
-    )}`;
+function resetFileInput() {
+  ($(Data.file) as HTMLInputElement).type = 'text';
+  ($(Data.file) as HTMLInputElement).type = 'file';
+}
+
+function showUploadSuccess(): void {
+  toggleSpinner('none', 'block', '#fff');
+  resetFileInput();
+  $(Data.label).innerText = 'Drop file';
+  this.value = '';
+  this.addClass('success');
+  setTimeout(() => {
+    this.removeClass('success');
+  }, 1000);
 }
 
 function showIncorrect(): void {
   toggleSpinner('none', 'block', '#fff');
-  Object.values(Login.attr).forEach(el => {
-    ($(el) as HTMLInputElement).value = '';
-    $(el).addClass('wrong');
-    setTimeout(() => $(el).removeClass('wrong'), 500);
-  });
-}
-
-function toggleSpinner(spinnerDisp, arrowDisp, buttonColor) {
-  for (let el of Login.submit_button.spinners) {
-    ($(el) as HTMLElement).style.display = spinnerDisp;
-  }
-  for (let el of Login.submit_button.arrows) {
-    ($(el) as HTMLElement).style.display = arrowDisp;
-  }
-  ($(Login.submit_button.el) as HTMLElement).style.background = buttonColor;
+  this.value = '';
+  this.placeholder = 'User not found';
+  this.addClass('wrong');
+  setTimeout(() => {
+    this.removeClass('wrong');
+    this.placeholder = 'recipient';
+  }, 1000);
 }

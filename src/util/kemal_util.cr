@@ -30,22 +30,19 @@ module KemalUtil
     standard: "./views/layouts/standard.ecr",
   }
 
-  MANIFEST = if File.file? "./src/build/webpack-manifest.json"
-               JSON.parse File.read "./src/build/webpack-manifest.json"
-             else
-               {
-                 "error.css"      => "error.css",
-                 "error.js"       => "error.js",
-                 "index.css"      => "index.css",
-                 "index.js"       => "index.js",
-                 "mail.css"       => "mail.css",
-                 "mail.js"        => "mail.js",
-                 "mail_login.css" => "mail_login.css",
-                 "mail_login.js"  => "mail_login.js",
-                 "try.rod.css"    => "try.rod.css",
-                 "try.rod.js"     => "try.rod.js",
-               }
-             end
+  MANIFEST =
+    {
+      "error.css"      => "error.css",
+      "error.js"       => "error.js",
+      "index.css"      => "index.css",
+      "index.js"       => "index.js",
+      "mail.css"       => "mail.css",
+      "mail.js"        => "mail.js",
+      "mail_login.css" => "mail_login.css",
+      "mail_login.js"  => "mail_login.js",
+      "try.rod.css"    => "try.rod.css",
+      "try.rod.js"     => "try.rod.js",
+    }
 
   def inline(text : String) : String
     %{<span class="interp">\#{<span class="string">#{text}</span>}</span>}

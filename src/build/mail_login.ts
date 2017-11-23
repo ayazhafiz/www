@@ -1,4 +1,5 @@
 import { $ } from '../ts/page/el';
+import { SubmitButton, toggleSpinner } from '../ts/gfx/submit-button';
 
 import './mail_login.scss';
 
@@ -6,16 +7,10 @@ type loginAttempt = { valid: boolean };
 
 const Login: {
   attr: { username: string; password: string };
-  submit_button: { el: string; arrows: string[]; spinners: string[] };
 } = {
   attr: {
     username: 'input#username',
     password: 'input#password'
-  },
-  submit_button: {
-    el: 'div.next',
-    arrows: ['div.arrow', 'div.arrow-head'],
-    spinners: ['.double-bounce1', '.double-bounce2']
   }
 };
 
@@ -32,7 +27,7 @@ function addListeners(): void {
     };
   });
 
-  ($(Login.submit_button.el) as HTMLElement).onclick = attemptLogin;
+  ($(SubmitButton.el) as HTMLElement).onclick = attemptLogin;
 
   document.removeEventListener('DOMContentLoaded', addListeners, false);
 }
@@ -74,14 +69,4 @@ function showIncorrect(): void {
     $(el).addClass('wrong');
     setTimeout(() => $(el).removeClass('wrong'), 500);
   });
-}
-
-function toggleSpinner(spinnerDisp, arrowDisp, buttonColor) {
-  for (let el of Login.submit_button.spinners) {
-    ($(el) as HTMLElement).style.display = spinnerDisp;
-  }
-  for (let el of Login.submit_button.arrows) {
-    ($(el) as HTMLElement).style.display = arrowDisp;
-  }
-  ($(Login.submit_button.el) as HTMLElement).style.background = buttonColor;
 }

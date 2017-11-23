@@ -31,11 +31,87 @@ a:visited {
     margin-left: 0;
   }
 
-  div.title {
+  div.recipient {
+    margin-top: 0;
+    position: relative;
+    overflow: visible;
+
+    input {
+      width: calc(100% - 5em);
+    }
+
+    .next {
+      height: 1.75em;
+      width: 1.75em;
+      background: $white;
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      right: 0;
+      bottom: -0.5em;
+      transform: translatey(-50%);
+      margin: 0;
+      margin-top: 0.125em;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+
+      .arrow {
+        margin: 0;
+        padding: 0;
+        background: $mail-bg;
+        width: 35%;
+        height: 15%;
+      }
+
+      .arrow-head {
+        margin: 0;
+        padding: 0;
+        content: '';
+        width: 0;
+        height: 0;
+        border-top: 0.35em solid transparent;
+        border-bottom: 0.35em solid transparent;
+        border-left: 0.45em solid $mail-bg;
+      }
+
+      .double-bounce1,
+      .double-bounce2 {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background-color: $white;
+        opacity: 0.6;
+        position: absolute;
+        top: 0;
+        left: 0;
+        margin: 0;
+
+        animation: sk-bounce 2s infinite ease-in-out;
+      }
+
+      .double-bounce2 {
+        animation-delay: -1s;
+      }
+
+      @keyframes sk-bounce {
+        0%,
+        100% {
+          transform: scale(0);
+        }
+        50% {
+          transform: scale(1);
+        }
+      }
+    }
+  }
+
+  & > div.title {
     animation: bounceInLeft 0.5s;
   }
 
-  div:not(.title) {
+  & > div:not(.title) {
     animation: bounceInDown 0.5s;
   }
 
@@ -43,6 +119,7 @@ a:visited {
     margin: 2em 2em 0.5em;
     white-space: nowrap;
     overflow-x: auto;
+    width: 95%;
 
     span {
       color: $sub-color;
@@ -77,7 +154,6 @@ div > div.title {
   color: $white;
   padding-bottom: 0.5em;
   border-bottom: 0.2em solid $white;
-  width: 95%;
 }
 
 .upload {
