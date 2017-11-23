@@ -19,10 +19,11 @@ module KemalUtil
   }
 
   PAGE = {
-    error: "./views/pages/error.ecr",
-    index: "./views/pages/index.ecr",
-    mail:  "./views/pages/mail.ecr",
-    try:   "./views/pages/try.ecr",
+    error:      "./views/pages/error.ecr",
+    index:      "./views/pages/index.ecr",
+    mail:       "./views/pages/mail.ecr",
+    mail_login: "./views/pages/mail-login.ecr",
+    try:        "./views/pages/try.ecr",
   }
 
   LAYOUT = {
@@ -37,6 +38,8 @@ module KemalUtil
                  "error.js"       => "error.js",
                  "index.css"      => "index.css",
                  "index.js"       => "index.js",
+                 "mail.css"       => "mail.css",
+                 "mail.js"        => "mail.js",
                  "mail_login.css" => "mail_login.css",
                  "mail_login.js"  => "mail_login.js",
                  "try.rod.css"    => "try.rod.css",

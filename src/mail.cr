@@ -13,7 +13,16 @@ private def render_login(env, username : String = "")
   page = "mail_login"
   title = "Mail"
 
-  render {{ PAGE[:mail] }}, {{ LAYOUT[:standard] }}
+  render {{ PAGE[:mail_login] }}, {{ LAYOUT[:standard] }}
+end
+
+# Render user's email
+private def render_mail(env, username : String, database db)
+  page = "mail"
+  title = "#{username}'s Mail"
+  files, links, senders, dates = HTTP::Mail.get_mail for: username, database: db
+
+  render {{ PAGE[:mail] }}, {{LAYOUT[:standard]}}
 end
 
 # Redirect to home if on mobile
@@ -35,12 +44,11 @@ DB.open ENV["HAFIZMAIL_DB"] do |db|
     username = env.params.url["username"].as String
     key = env.params.query["key"]?
 
-    if res = HTTP::Mail.valid_user? username, key, db
-      {
-        user:  username,
-        key:   key,
-        valid: res,
-      }.to_json
+    if res = HTTP::Mail.valid_user?(
+         username: username,
+         password: key,
+         database: db)
+      render_mail env, username: username, database: db
     else
       render_login env, username: username
     end
