@@ -13,3 +13,7 @@ TODO:
   - [x]  Vector
   - [x]  Emoji
   - [ ]  Math
+- [ ]  mail service
+  - [x]  UI
+  - [x]  file transaction
+  - [ ]  S3 storage
