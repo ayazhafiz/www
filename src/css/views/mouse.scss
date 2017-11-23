@@ -25,7 +25,8 @@
     animation: scroll 4s infinite;
   }
 
-  &.scrolled, &.scrolled:before {
+  &.scrolled,
+  &.scrolled:before {
     border: 0;
     width: 5em;
     bottom: 2px;
@@ -53,20 +54,22 @@
 @keyframes touch-scroll {
   0% {
     transform: translate(-50%, 350%);
-    opacity: 1
+    opacity: 1;
   }
-  25%, 100% {
+  25%,
+  100% {
     transform: translate(-50%, -50%);
-    opacity: 0
+    opacity: 0;
   }
 }
 @keyframes scroll {
   0% {
     transform: translate(-50%, -50%);
-    opacity: 1
+    opacity: 1;
   }
-  25%, 100% {
+  25%,
+  100% {
     transform: translate(-50%, 50%);
-    opacity: 0
+    opacity: 0;
   }
 }

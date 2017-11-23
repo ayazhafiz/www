@@ -10,13 +10,13 @@
 }
 @keyframes fin-spin {
   50% {
-    transform:rotate(-100deg);
+    transform: rotate(-100deg);
   }
 }
 @keyframes tide {
   50% {
     height: 23%;
-    transform: rotate(2deg)
+    transform: rotate(2deg);
   }
 }
 @keyframes float {

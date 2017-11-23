@@ -1,44 +1,44 @@
-$fn: #AE81FF;
+$fn: #ae81ff;
 $def: palevioletred;
-$call: #0070C9;
-$fs: #FD971F;
+$call: #0070c9;
+$fs: #fd971f;
 $blk: burlywood;
 $cmt: default;
 $op: paleturquoise;
-$kw: #69B7EB;
-$mod: #E6DB74;
-$method: #FF6961;
+$kw: #69b7eb;
+$mod: #e6db74;
+$method: #ff6961;
 
-pre[class*="language-"] {
+pre[class*='language-'] {
   .fn {
-    color: $fn
+    color: $fn;
   }
   .def {
-    color: $def
+    color: $def;
   }
   .call {
-    color: $call
+    color: $call;
   }
   .fs {
-    color: $fs
+    color: $fs;
   }
   .blk {
-    color: $blk
+    color: $blk;
   }
   .cmt {
     color: $cmt;
-    opacity: 0.5
+    opacity: 0.5;
   }
   .op {
-    color: $op
+    color: $op;
   }
   .kw {
-    color: $kw
+    color: $kw;
   }
   .mod {
-    color: $mod
+    color: $mod;
   }
   .method {
-    color: $method
+    color: $method;
   }
 }

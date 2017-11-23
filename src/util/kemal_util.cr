@@ -21,6 +21,7 @@ module KemalUtil
   PAGE = {
     error: "./views/pages/error.ecr",
     index: "./views/pages/index.ecr",
+    mail:  "./views/pages/mail.ecr",
     try:   "./views/pages/try.ecr",
   }
 
@@ -32,12 +33,14 @@ module KemalUtil
                JSON.parse File.read "./src/build/webpack-manifest.json"
              else
                {
-                 "error.css"   => "error.css",
-                 "error.js"    => "error.js",
-                 "index.css"   => "index.css",
-                 "index.js"    => "index.js",
-                 "try.rod.css" => "try.rod.css",
-                 "try.rod.js"  => "try.rod.js",
+                 "error.css"      => "error.css",
+                 "error.js"       => "error.js",
+                 "index.css"      => "index.css",
+                 "index.js"       => "index.js",
+                 "mail_login.css" => "mail_login.css",
+                 "mail_login.js"  => "mail_login.js",
+                 "try.rod.css"    => "try.rod.css",
+                 "try.rod.js"     => "try.rod.js",
                }
              end
 

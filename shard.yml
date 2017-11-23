@@ -9,20 +9,23 @@ targets:
     main: src/site.cr
 
 dependencies:
-  spec-kemal:
-    github: kemalcr/spec-kemal
-    branch: master
-  kemal:
-    github: kemalcr/kemal
-    branch: master
-  vector:
-    github: ayazhafiz/crystal-vector
-    branch: master
   is_mobile:
     github: ayazhafiz/is_mobile
     branch: master
+  kemal:
+    github: kemalcr/kemal
+    version: 0.21.0
+  pg:
+    github: will/crystal-pg
+    branch: master
   rod:
     github: ayazhafiz/rod
+    branch: master
+  spec-kemal:
+    github: kemalcr/spec-kemal
+    branch: master
+  vector:
+    github: ayazhafiz/crystal-vector
     branch: master
 
 crystal: 0.22.0

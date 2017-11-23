@@ -1,16 +1,24 @@
 version: 1.0
 shards:
+  db:
+    github: crystal-lang/crystal-db
+    version: 0.4.3
+
   is_mobile:
     github: ayazhafiz/is_mobile
     commit: d831af9ad58cd4c4cec92db04b620578e11321c8
 
   kemal:
     github: kemalcr/kemal
-    commit: 61caa077b733a2c1dc64db2361ba96737c4431aa
+    version: 0.21.0
 
   kilt:
     github: jeromegn/kilt
     version: 0.4.0
+
+  pg:
+    github: will/crystal-pg
+    commit: 22a6f1317b00195b4302d79b3b3d47b36c883099
 
   radix:
     github: luislavena/radix
