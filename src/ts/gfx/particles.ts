@@ -3,6 +3,10 @@ import 'particles.js';
 
 declare const particlesJS;
 
+/**
+ * Loads an arbitrary particles.js canvas
+ * @function
+ */
 const particles = (num: number): void =>
   particlesJS('particles', {
     particles: {

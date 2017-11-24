@@ -1,5 +1,5 @@
 import * as FileSaver from 'file-saver';
-import { $ } from '../ts/page/el';
+import { $ } from '../ts/util/el';
 import '../ts/third-party/codemirror.rod';
 
 import './try.anoop.scss';

@@ -1,8 +1,12 @@
-import { $ } from './el';
+import { $ } from '../util/el';
 import { page as getPage } from './currentPage';
-import { whale } from '../env/index';
+import { whale } from '../gfx/whale';
 import * as scrollify from 'jquery-scrollify';
 
+/**
+ * Manages memory and application load during pagination of the index view
+ * @function
+ */
 const scroll = (speed: number): void => {
   let currentPage = getPage();
   scrollify({

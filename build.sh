@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-: "${NODE_ENV=development}"
+: "${NODE_ENV:="development"}"
 KEMAL_ENV=$NODE_ENV
 
 if [ "$KEMAL_ENV" == "production" ]; then

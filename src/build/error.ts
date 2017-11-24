@@ -1,11 +1,12 @@
 import * as Typed from 'typed.js';
-import { $ } from '../ts/page/el';
+import { $ } from '../ts/util/el';
 import * as Shell from '../ts/gfx/shell';
-import { make as crystalModel } from '../ts/gfx/crystal';
+import { loadCrystalLogo } from '../ts/gfx/crystal';
 import {
   shellEl,
   shellParentEl,
   cursorEl,
+  crystalLogoEl,
   mobileSelectorEl,
   firstEl,
   secondEl,
@@ -40,7 +41,9 @@ const firstType = (): void => {
     cursorChar: cursorChar,
     smartBackspace: true,
     onStringTyped: (): void => {
-      $(firstEl).removeClass('unknown').addClass('known');
+      $(firstEl)
+        .removeClass('unknown')
+        .addClass('known');
     },
     onComplete: (): void => {
       $(cursorEl).remove();
@@ -78,7 +81,9 @@ const thirdType = (): void => {
     cursorChar: cursorChar,
     smartBackspace: true,
     onStringTyped: (): void => {
-      $(thirdEl).removeClass('unknown').addClass('known');
+      $(thirdEl)
+        .removeClass('unknown')
+        .addClass('known');
     },
     onComplete: (): void => {
       $(cursorEl).remove();
@@ -109,7 +114,7 @@ document.addEventListener(
     for (let el of [loadErrorEl, loadMessageEl, userPromptEl]) {
       $(el).mask();
     }
-    crystalModel();
+    loadCrystalLogo($(crystalLogoEl) as HTMLCanvasElement);
     firstType();
   },
   false

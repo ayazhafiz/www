@@ -1,11 +1,19 @@
-import { $ } from '../page/el';
+import { $ } from '../util/el';
 
+/**
+ * Stores the elements of the submit button
+ * @constant
+ */
 const SubmitButton: { el: string; arrows: string[]; spinners: string[] } = {
   el: 'div.next',
   arrows: ['div.arrow', 'div.arrow-head'],
   spinners: ['.double-bounce1', '.double-bounce2']
 };
 
+/**
+ * Toggles between submit button and its spinner
+ * @function
+ */
 function toggleSpinner(spinnerDisp, arrowDisp, buttonColor) {
   for (let el of SubmitButton.spinners) {
     ($(el) as HTMLElement).style.display = spinnerDisp;

@@ -1,6 +1,10 @@
-import { $ } from './el';
-import { whale } from '../env/index';
+import { $ } from '../util/el';
+import { whale } from '../gfx/whale';
 
+/**
+ * Handles navigation between different pages on the index view
+ * @function
+ */
 const pageMove = (page: number): void => {
   switch (page) {
     case 0:

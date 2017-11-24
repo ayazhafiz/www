@@ -1,5 +1,6 @@
 import * as Typed from 'typed.js';
-import { $ } from '../page/el';
+import '../util/array';
+import { $ } from '../util/el';
 import {
   shellEl,
   shellParentEl,
@@ -14,58 +15,109 @@ import {
   animClass
 } from '../env/error';
 
-const range = (start: number, end: number): Array<number> =>
-  Array.from(new Array(end - start + 1), (n, i) => start + i);
-
-// keyspace for keystroke auth
+/**
+ * Acceptable keystrokes within a shell
+ * @constant
+ */
 const KEY = {
   backspace: 8,
   tab: 9,
   enter: 13,
   space: 32,
   delete: 46,
-  digits: range(48, 57),
-  letters: range(65, 90),
-  extraneous: range(186, 192).concat(range(219, 222))
+  digits: [48, 57].range,
+  letters: [65, 90].range,
+  extraneous: [186, 192].range.concat([219, 222].range)
 };
-const SLASH = '/';
+/**
+ * Required keystroke timeout
+ * @constant
+ */
 const MIN_PAUSE = 500;
+const SLASH = '/';
 
+/**
+ * Stores the State of the KeystrokeBuffer
+ * @class
+ */
 class State {
+  /**
+   * Stores the current buffer
+   * @static
+   */
   static buffer = '';
+  /**
+   * Stores the current subPath
+   * @static
+   */
   static subPath = '';
-  static sug = {
+  /**
+   * Stores the current suggestions, and which suggestion is currently shown
+   * @static
+   */
+  static sug: { paths: string[]; index: number } = {
     paths: knownPaths,
     index: 0
   };
-  static key = {
-    pressed: null,
-    timePressed: 0,
-    lastKey: KEY['tab']
-  };
-  static el = {
-    cursor: cursorEl,
-    shell: shellEl
-  };
+  /**
+   * Stores current paths and subpaths for mobile view
+   * @static
+   */
   static mobile = {
     pathEls: [],
     subPaths: ['']
   };
+  /**
+   * Stores whether a key was pressed, the time it was pressed, and its last
+   * keycode value
+   * @static
+   */
+  static key: { pressed: boolean; timePressed: number; lastKey: number } = {
+    pressed: null,
+    timePressed: 0,
+    lastKey: KEY['tab']
+  };
 
+  /**
+   * Stores environment elements of the KeystrokeBuffer
+   * @static @constant
+   */
+  static get el(): { cursor: string; shell: string } {
+    return {
+      cursor: cursorEl,
+      shell: shellEl
+    };
+  }
+  /**
+   * Resets the KeystrokeBuffer index
+   * @private @static @function
+   */
   private static resetIndex(): void {
     this.sug.index = 0;
   }
+  /**
+   * Resets the KeystrokeBuffer index
+   * @private @static @function
+   */
   private static incIndex(): void {
-    this.sug.index++;
+    ++this.sug.index;
     if (this.sug.index >= this.sug.paths.length) {
       this.sug.index = 0;
     }
   }
+  /**
+   * Gets the next suggested path of the KeystrokeBuffer
+   * @static @function
+   */
   static get nextPath(): string {
-    const pt = this.sug.paths[this.sug.index];
+    const path = this.sug.paths[this.sug.index];
     State.incIndex();
-    return pt || '';
+    return path || '';
   }
+  /**
+   * Gets suggested paths of the KeystrokeBuffer
+   * @static @function
+   */
   static set pathsLike(query: string) {
     this.sug.paths = knownPaths.filter(pt => pt.startsWith(query));
     const idx = query.lastIndexOf('/');
@@ -82,21 +134,32 @@ class State {
   }
 }
 
-// returns the path/text of an element and whether the path has a leading slash
-const getPath = (el: string): [string, boolean] => {
-  const path = $(el).innerText;
-  const leadingSlash = path.slice(0, 1) === SLASH;
-  return [path, leadingSlash];
-};
+/**
+ * Returns whether a string has a leading slash
+ * @function
+ */
+const hasLeadingSlash = (str: string): boolean => str.slice(0, 1) === SLASH;
 
-// sanitizes the path of an element by forcing leading slash
+/**
+ * Returns the text path of an element and if it has a leading slash
+ * @function
+ */
+const getPath = (el: string): string => $(el).innerText;
+
+/**
+ * Sanitizes the path of an element by forcing leading slash
+ * @function
+ */
 const sanitize = (el: string): string => {
-  const [path, leadingSlash] = getPath(el);
-  const sanitizedPath = leadingSlash ? path : `${SLASH}${path}`;
-  return sanitizedPath;
+  const path = getPath(el);
+  return hasLeadingSlash(path) ? path : `${SLASH}${path}`;
 };
 
-// updates a particular element with the buffer and adds match-to-path state
+/**
+ * Updates an element with the KeystrokeBuffer and updates the State's path
+ * suggestions to match the Buffer
+ * @function
+ */
 const update = (el: string): void => {
   $(el).innerText = State.buffer;
 
@@ -105,6 +168,10 @@ const update = (el: string): void => {
   checkForShadow(el, sanitizedPath);
 };
 
+/**
+ * Checks for match between the KeystrokeBuffer and current known paths
+ * @function
+ */
 const checkForMatch = (el: string, path: string): void => {
   if (knownFullPaths.some(pt => pt.startsWith(path))) {
     $(el).addClass(matchClass);
@@ -113,17 +180,28 @@ const checkForMatch = (el: string, path: string): void => {
   }
 };
 
+/**
+ * Checks for match between the KeystrokeBuffer and current known subpaths
+ * @function
+ */
 const checkForShadow = (el: string, path: string): void => {
-  $(cursorEl).removeClass(shadowSlashClass).text(' ');
+  $(cursorEl)
+    .removeClass(shadowSlashClass)
+    .text(' ');
   if (knownSubPaths[path]) {
-    $(cursorEl).addClass(shadowSlashClass).text('');
+    $(cursorEl)
+      .addClass(shadowSlashClass)
+      .text('');
   }
 };
 
-// updates the buffer to its match-to-path state string
+/**
+ * Updates the buffer to its closest path suggestion
+ * @function
+ */
 const tabBuffer = (el: string): void => {
   const sanitizedPath = sanitize(el);
-  const leadingSlash = getPath(el)[1];
+  const leadingSlash = hasLeadingSlash(getPath(el));
   if (State.key.lastKey !== KEY['tab']) {
     State.pathsLike = sanitizedPath;
   }
@@ -135,11 +213,18 @@ const tabBuffer = (el: string): void => {
   }
 };
 
+/**
+ * Redirects the page to a new path
+ * @function
+ */
 const redirect = (path: string): void => {
   window.location.replace(`${window.location.origin}${path}`);
 };
 
-// updates the buffer based on a variety of keystrokes
+/**
+ * Updates the KeystrokeBuffer based on a user's keystroke
+ * @function
+ */
 const updateBuffer = (evt: KeyboardEvent, el: string): void => {
   let code = evt.keyCode || evt.which;
   const sanitizedPath = sanitize(el);
@@ -176,7 +261,10 @@ const updateBuffer = (evt: KeyboardEvent, el: string): void => {
   State.key.lastKey = code;
 };
 
-// shuffle key through buffer process
+/**
+ * Process user's keydown
+ * @function
+ */
 const handleKeyDown = (evt: KeyboardEvent): void => {
   evt.preventDefault();
   State.key.pressed = true;
@@ -186,16 +274,27 @@ const handleKeyDown = (evt: KeyboardEvent): void => {
   scrollIntoView(shellParentEl, State.el.cursor);
 };
 
+/**
+ * Process user's keyup
+ * @function
+ */
 const handleKeyUp = (): void => {
   blinkCursorWhileNotTyping();
 };
 
+/**
+ * Scroll KeystrokeBuffer path into view
+ * @function
+ */
 const scrollIntoView = (shell: string, cursor: string): void => {
   if ($(shell)) $(shell).scrollLeft = 0;
   if ($(cursor)) $(cursor).scrollIntoView();
 };
 
-// blink cursor if no key has been pressed for some time
+/**
+ * Show cursor blinking if no key has been pressed for `some` time
+ * @function
+ */
 const blinkCursorWhileNotTyping = (): void => {
   setTimeout((): void => {
     if (performance.now() - State.key.timePressed >= MIN_PAUSE) {
@@ -206,21 +305,35 @@ const blinkCursorWhileNotTyping = (): void => {
   }, 50);
 };
 
-// don't blink cursor if key is pressed
+/**
+ * Hide cursor blinking if key is pressed
+ * @function
+ */
 const pauseCursorWhileTyping = (): void => {
   State.key.timePressed = performance.now();
   pauseCursor();
 };
 
+/**
+ * Blink cursor
+ * @function
+ */
 const blinkCursor = (): void => {
   $(State.el.cursor).addClass(animClass);
 };
 
+/**
+ * Pause cursor blinking
+ * @function
+ */
 const pauseCursor = (): void => {
   $(State.el.cursor).removeClass(animClass);
 };
 
-// motivate user to type in shell if not done yet
+/**
+ * Motivate user to type in shell
+ * @function
+ */
 const motivateShell = (): void => {
   $(State.el.cursor).remove();
   new Typed(State.el.shell, {
@@ -236,18 +349,30 @@ const motivateShell = (): void => {
   });
 };
 
+/**
+ * Allow user to input to KeystrokeBuffer
+ * @function
+ */
 const initKeyPress = (): void => {
   blinkCursor();
   document.addEventListener('keydown', handleKeyDown);
   document.addEventListener('keyup', handleKeyUp);
 };
 
+/**
+ * Prevent user from input to KeystrokeBuffer
+ * @function
+ */
 const preventKeyPress = (): void => {
   pauseCursor();
   document.removeEventListener('keydown', handleKeyDown);
   document.removeEventListener('keyup', handleKeyUp);
 };
 
+/**
+ * Initiate user shell
+ * @function
+ */
 const init = (shell: string = State.el.shell): void => {
   State.el.shell = shell;
   State.key.pressed = false;
@@ -261,26 +386,10 @@ const init = (shell: string = State.el.shell): void => {
   }, 3000);
 };
 
-function handleMobilePathClick(): void {
-  processAnimations(mobileSelectorEl, 'finally');
-  if (knownSubPaths[this.innerText]) {
-    State.mobile.subPaths.push(this.innerText);
-    addMobilePaths(mobileSelectorEl);
-  } else {
-    $(shellEl).text(
-      `${State.mobile.subPaths[State.mobile.subPaths.length - 1]}${this
-        .innerText}`
-    );
-    redirect($(shellEl).innerText);
-  }
-}
-
-function handleBackClick(): void {
-  processAnimations(mobileSelectorEl, 'finally');
-  State.mobile.subPaths.pop();
-  addMobilePaths(mobileSelectorEl);
-}
-
+/**
+ * Apply an animation to some element
+ * @function
+ */
 const processAnimations = (selector: string, cl: string): void => {
   $(selector).removeClass(cl);
   setTimeout((): void => {
@@ -288,8 +397,12 @@ const processAnimations = (selector: string, cl: string): void => {
   }, 200);
 };
 
+/**
+ * Clear suggested paths on mobile
+ * @function
+ */
 const clearMobilePaths = (container: string): void => {
-  for (let i = State.mobile.pathEls.length - 1; i >= 0; i--) {
+  for (let i = State.mobile.pathEls.length - 1; i >= 0; --i) {
     State.mobile.pathEls[i].removeEventListener('click', handleMobilePathClick);
     State.mobile.pathEls[i].removeEventListener('click', handleBackClick);
     State.mobile.pathEls[i].remove();
@@ -303,6 +416,10 @@ const clearMobilePaths = (container: string): void => {
   }
 };
 
+/**
+ * Add a suggested path on mobile
+ * @function
+ */
 const addSubPathEl = (sub: string): void => {
   $(shellEl).text('');
   if (knownSubPaths[sub]) {
@@ -310,6 +427,10 @@ const addSubPathEl = (sub: string): void => {
   }
 };
 
+/**
+ * Add `back` to suggested paths on mobile
+ * @function
+ */
 const addBackEl = (container: string, sub: string): void => {
   if (knownSubPaths[sub]) {
     let backWrap = document.createElement('div');
@@ -323,6 +444,10 @@ const addBackEl = (container: string, sub: string): void => {
   }
 };
 
+/**
+ * Add suggested paths on mobile
+ * @function
+ */
 const addMobilePaths = (container: string): void => {
   clearMobilePaths(container);
   const subPath = State.mobile.subPaths[State.mobile.subPaths.length - 1];
@@ -341,10 +466,43 @@ const addMobilePaths = (container: string): void => {
   addBackEl(container, subPath);
 };
 
+/**
+ * Initiliaze shell and KeystrokeBuffer on mobile
+ * @function
+ */
 const mobile = (container: string): void => {
   addMobilePaths(container);
   $(container).addClass('finally');
   $(cursorEl).addClass('anim');
 };
+
+/**
+ * Handle press of suggested paths on mobile
+ * @function
+ */
+function handleMobilePathClick(): void {
+  processAnimations(mobileSelectorEl, 'finally');
+  if (knownSubPaths[this.innerText]) {
+    State.mobile.subPaths.push(this.innerText);
+    addMobilePaths(mobileSelectorEl);
+  } else {
+    $(shellEl).text(
+      `${State.mobile.subPaths[State.mobile.subPaths.length - 1]}${
+        this.innerText
+      }`
+    );
+    redirect($(shellEl).innerText);
+  }
+}
+
+/**
+ * Handle press of `back` on suggested paths on mobile
+ * @function
+ */
+function handleBackClick(): void {
+  processAnimations(mobileSelectorEl, 'finally');
+  State.mobile.subPaths.pop();
+  addMobilePaths(mobileSelectorEl);
+}
 
 export { init, mobile, scrollIntoView };

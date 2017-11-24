@@ -1,5 +1,5 @@
 import * as dragula from 'dragula';
-import { $ } from '../ts/page/el';
+import { $ } from '../ts/util/el';
 import { SubmitButton, toggleSpinner } from '../ts/gfx/submit-button';
 
 import './mail.scss';

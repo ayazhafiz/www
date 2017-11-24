@@ -1,7 +1,13 @@
-import { $ } from '../page/el';
+import { $ } from '../util/el';
 
 let whale;
-function getWhale() {
+
+/**
+ * Determines components of a rendered whale
+ *
+ * @function
+ */
+function getWhale(): void {
   whale = [
     $('.header'),
     ...[].slice.call(document.querySelectorAll('.outer-wrapper *'))
