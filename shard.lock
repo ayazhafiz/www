@@ -1,12 +1,20 @@
 version: 1.0
 shards:
+  awscr-s3:
+    github: taylorfinnell/awscr-s3
+    version: 0.1.2
+
+  awscr-signer:
+    github: taylorfinnell/awscr-signer
+    version: 0.3.9
+
   db:
     github: crystal-lang/crystal-db
     version: 0.4.3
 
   is_mobile:
     github: ayazhafiz/is_mobile
-    commit: d831af9ad58cd4c4cec92db04b620578e11321c8
+    version: 0.1.0
 
   kemal:
     github: kemalcr/kemal
@@ -18,7 +26,7 @@ shards:
 
   pg:
     github: will/crystal-pg
-    commit: 22a6f1317b00195b4302d79b3b3d47b36c883099
+    version: 0.13.4
 
   radix:
     github: luislavena/radix
@@ -26,11 +34,11 @@ shards:
 
   rod:
     github: ayazhafiz/rod
-    commit: a8eeab21c62560459ed5356db41aa1edfce11584
+    version: 0.2.0
 
   spec-kemal:
     github: kemalcr/spec-kemal
-    commit: 93ab608228ea6619d15555d1c77a3bcff29f1dba
+    version: 0.4.0
 
   vector:
     github: ayazhafiz/crystal-vector

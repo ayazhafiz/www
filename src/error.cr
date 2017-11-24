@@ -1,11 +1,11 @@
 require "kemal"
 require "uri"
 require "is_mobile"
-require "./util/kemal_util"
+require "./util/http_util"
 
-include KemalUtil
+include HTTP::Util
 
-# Handles 404 error
+# Renders error 404, 500 pages
 [404, 500].each do |code|
   error(code) do |env|
     page = "error"
@@ -16,14 +16,14 @@ include KemalUtil
   end
 end
 
-# Error rendering for tests and development
+# Renders accessible error 404, 500 pages for tests and development
 unless ENV["KEMAL_ENV"] === "production"
-  status = ->(env : HTTP::Server::Context) {
+  set_error = ->(env : HTTP::Server::Context) {
     env.response.status_code = env.params.url["code"].to_i
   }
 
   ["/error/:code"].each do |path|
-    get(path, &status)
-    post(path, &status)
+    get path, &set_error
+    post path, &set_error
   end
 end

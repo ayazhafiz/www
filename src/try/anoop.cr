@@ -1,3 +1,4 @@
+# Describes the Anoop programming language
 module Anoop
   extend self
 
@@ -23,6 +24,9 @@ module Anoop
   MULTIPLIER = 1.5
   LETTER     = "o"
 
+  # Validates parser input and passes it to the interpreter
+  #
+  # Acts as the frontend of the language
   def name(name : String)
     name = name.strip
     return error("Anoop is one name!") if /\s/ =~ name
@@ -37,6 +41,7 @@ module Anoop
     anoop(name)
   end
 
+  # Interprets input in the Anoop programming language
   private def anoop(name : String)
     os = MUSTACHE.split("\n").map { |line| line.split "" }
     amt = count(os, LETTER)
@@ -53,17 +58,20 @@ module Anoop
     os.map { |line| line.join "" }.join("\n")
   end
 
+  # Counts the number of occurences of a character in a String Array
   private def count(arr : Array(Array(String)), char : String)
     arr.reduce(0) { |acc, row|
       acc + (row.reduce(0) { |sum, ch| ch === char ? sum + 1 : sum + 0 })
     }
   end
 
+  # Handles parse errors
   private def error(message : String)
     message
   end
 end
 
+# API wrapper for the Anoop programming language
 def try_anoop(str)
   res = Anoop.name str
   {

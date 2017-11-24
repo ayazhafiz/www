@@ -8,7 +8,7 @@ describe "/emoji::Spec" do
     unless resp["error"]? === 1
       resp["query"].should eq "diamonds"
       resp["emoji"].each do |emoji|
-        EmojiUtil::Test::CNT.each do |key|
+        Emoji::Util::Test::CNT.each do |key|
           emoji[key]?.should_not eq nil
         end
       end
@@ -19,13 +19,13 @@ describe "/emoji::Spec" do
     body = {
       like: "diamonds in the rough",
     }
-    post "/emoji", headers: EmojiUtil::Test::JSON_HEADERS, body: body.to_json
+    post "/emoji", headers: Emoji::Util::Test::JSON_HEADERS, body: body.to_json
     response.headers["content_type"].should eq "application/json"
     resp = JSON.parse response.body
     unless resp["error"]? === 1
       resp["query"].should eq "diamonds in the rough"
       resp["emoji"].each do |emoji|
-        EmojiUtil::Test::CNT.each do |key|
+        Emoji::Util::Test::CNT.each do |key|
           emoji[key]?.should_not eq nil
         end
       end
@@ -39,7 +39,7 @@ describe "/emoji::Spec" do
         "a description of love",
       ],
     }
-    post "/emoji", headers: EmojiUtil::Test::JSON_HEADERS, body: body.to_json
+    post "/emoji", headers: Emoji::Util::Test::JSON_HEADERS, body: body.to_json
     response.headers["content_type"].should eq "application/json"
     resp = JSON.parse response.body
     unless resp[0]["error"]? === 1
@@ -47,7 +47,7 @@ describe "/emoji::Spec" do
       resp[1]["query"].should eq "a description of love"
       resp.each do |ct|
         ct["emoji"].each do |emoji|
-          EmojiUtil::Test::CNT.each do |key|
+          Emoji::Util::Test::CNT.each do |key|
             emoji[key]?.should_not eq nil
           end
         end

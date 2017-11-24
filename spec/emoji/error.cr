@@ -13,7 +13,7 @@ describe "/emoji::Error" do
     body = {
       "similar_to": "a fallen ship",
     }
-    post "/emoji", headers: EmojiUtil::Test::JSON_HEADERS, body: body.to_json
+    post "/emoji", headers: Emoji::Util::Test::JSON_HEADERS, body: body.to_json
     response.headers["content_type"].should eq "application/json"
     err = JSON.parse response.body
     err["error"].should eq 2

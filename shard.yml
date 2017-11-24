@@ -9,21 +9,24 @@ targets:
     main: src/site.cr
 
 dependencies:
+  awscr-s3:
+    github: taylorfinnell/awscr-s3
+    version: ~> 0.1.2
   is_mobile:
     github: ayazhafiz/is_mobile
-    branch: master
+    version: ~> 0.1.0
   kemal:
     github: kemalcr/kemal
-    version: 0.21.0
+    version: ~> 0.21.0
   pg:
     github: will/crystal-pg
-    branch: master
+    version: ~> 0.13.4
   rod:
     github: ayazhafiz/rod
-    branch: master
+    version: ~> 0.2.0
   spec-kemal:
     github: kemalcr/spec-kemal
-    branch: master
+    version: ~> 0.4.0
   vector:
     github: ayazhafiz/crystal-vector
     branch: master

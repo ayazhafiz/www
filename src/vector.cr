@@ -2,6 +2,8 @@ require "kemal"
 require "json"
 require "./vector/*"
 
+# Sets all responses to be of JSON type
+# Stores the REST method used in the request
 before_all "/vector" do |env|
   env.response.content_type = "application/json"
   env.set "path", "#{env.request.method} #{env.request.path}"

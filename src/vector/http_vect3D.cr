@@ -2,12 +2,13 @@ require "vector"
 require "json"
 require "../util/vector_util"
 
+# Descibes methods for internal handling of the Vector(3D) API
 module HTTP::Vect3D
   extend self
 
-  include VectorUtil
+  include Vector::Util
 
-  # Generates a 3D vector
+  # Generates a random Vector(3D)
   def self.new : Vector3D
     Vector3D.new(
       i: get_rand,
@@ -16,7 +17,7 @@ module HTTP::Vect3D
     )
   end
 
-  # Generates JSON about two 3D vectors' relationships
+  # JSON wrapper for the Vector(3D) API
   def json(vect_1 : Vector3D,
            vect_2 : Vector3D) : NamedTuple
     angle = (vect_1.angle_between vect_2)

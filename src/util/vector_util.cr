@@ -1,6 +1,8 @@
 require "./api_util"
+require "vector"
 
-module VectorUtil
+# Describes utility methods for the Vector API
+module Vector::Util
   extend self
 
   DEF_PATH    = "/vector"
@@ -11,14 +13,16 @@ module VectorUtil
     (rand * 21 - 10).to_i32
   end
 
+  # Describes Vector API types
   module Alias
     alias Vector2D = Vector
   end
 
+  # Describes errors of the Vector API
   module Error
     extend self
 
-    include APIUtil::Error
+    include API::Util::Error
 
     NOT_PLURAL = {
       code:    2,
@@ -34,9 +38,10 @@ module VectorUtil
     }
   end
 
+  # Describes constants for testing of the Vector API
   module Test
     extend self
-    include APIUtil::Test
+    include API::Util::Test
     CNT = [
       "one",
       "two",

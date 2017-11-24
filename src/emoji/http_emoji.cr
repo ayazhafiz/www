@@ -6,11 +6,12 @@ require "./http_request_emoji"
 require "../util/emoji_util"
 require "../util/api_util"
 
+# Descibes methods for internal handling of the Enoji API
 module HTTP::Emoji
   extend self
 
-  include EmojiUtil
-  include EmojiUtil::Alias
+  include Emoji::Util
+  include Emoji::Util::Alias
 
   # Handles all emoji queries
   #

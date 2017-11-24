@@ -4,9 +4,9 @@ require "kemal"
 require "is_mobile"
 require "json"
 require "./mail/*"
-require "./util/kemal_util"
+require "./util/http_util"
 
-include KemalUtil
+include HTTP::Util
 
 # Render login page
 private def render_login(env, username : String = "")
@@ -20,31 +20,32 @@ end
 private def render_mail(env, username : String, database db)
   page = "mail"
   title = "#{username}'s Mail"
-  files, links, senders, dates = HTTP::Mail.get_mail for: username, database: db
+  files, links, senders, dates = HTTP::Mail.load for: username, database: db
 
   render {{ PAGE[:mail] }}, {{LAYOUT[:standard]}}
 end
 
-# Redirect to home if on mobile
-["/mail", "/mail/:username"].each do |path|
-  before_all path do |env|
-    mobile = is_mobile? env.request.headers["user-agent"]?
-    env.redirect "/" if mobile
-  end
-end
-
-# Renders mail login page
-get "/mail" do |env|
-  render_login env
-end
-
+# Open Database and REST APIs
 DB.open ENV["HAFIZMAIL_DB"] do |db|
+  # Redirect to home if on mobile
+  ["/mail", "/mail/:username"].each do |path|
+    before_all path do |env|
+      mobile = is_mobile? env.request.headers["user-agent"]?
+      env.redirect "/" if mobile
+    end
+  end
+
+  # Renders mail login page
+  get "/mail" do |env|
+    render_login env
+  end
+
   # Renders mail viewing page
   get "/mail/:username" do |env|
     username = env.params.url["username"].as String
     key = env.params.query["key"]?
 
-    if res = HTTP::Mail.user_valid?(
+    if res = HTTP::Mail::User.valid?(
          username: username,
          password: key,
          database: db)
@@ -60,7 +61,7 @@ DB.open ENV["HAFIZMAIL_DB"] do |db|
     password = env.params.json["password"].as String
 
     {
-      valid: HTTP::Mail.user_valid? username, password, db,
+      valid: HTTP::Mail::User.valid? username, password, db,
     }.to_json
   end
 
@@ -71,40 +72,13 @@ DB.open ENV["HAFIZMAIL_DB"] do |db|
     user = env.params.body["user"]
     escaped_key = env.params.body["escaped-key"]
 
-    filename = file.filename
-
-    if !filename.is_a? String
-      {
-        file:       "",
-        successful: true,
-        error:      "no filename",
-      }.to_json
-    elsif !HTTP::Mail.user_valid?(
-            username: user,
-            password: escaped_key,
-            database: db)
-      {
-        file:       filename,
-        successful: false,
-        error:      "invalid credentials",
-      }.to_json
-    elsif !HTTP::Mail.user_exists?(username: recipient, database: db)
-      {
-        file:       filename,
-        successful: false,
-        error:      "recipient dne",
-      }.to_json
-    else
-      file_path = File.join [Kemal.config.public_folder, "uploads/", filename]
-      File.open(file_path, "w") do |f|
-        IO.copy(file.tmpfile, f)
-      end
-
-      {
-        file:       filename,
-        successful: true,
-        error:      "",
-      }.to_json
-    end
+    HTTP::Mail.send(
+      file: file,
+      filename: file.filename,
+      from: user,
+      to: recipient,
+      key: escaped_key,
+      database: db
+    ).to_json
   end
 end

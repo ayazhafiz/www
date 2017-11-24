@@ -1,38 +1,14 @@
-require "crypto/bcrypt/password"
-require "uri"
-
+# Describes methods for internal handling of the mail API
 module HTTP::Mail
   extend self
 
-  def user_exists?(username user : String, database db) : Bool
-    rs = db.query "SELECT username FROM users WHERE username=$1", user
-    result = rs.move_next
-    rs.close
-    result
-  end
-
-  def user_valid?(username user : String,
-                  password pass : String?,
-                  database db) : Bool
-    return false if !pass
-
-    begin
-      valid_key = Crypto::Bcrypt::Password.new(db.query_one(
-        "SELECT key FROM users WHERE username=$1;",
-        user,
-        as: String))
-      return valid_key == URI.unescape pass
-    rescue
-      return false
-    end
-  end
-
-  def get_mail(for user : String, database db)
-    files = [] of String
-    links = [] of String
-    senders = [] of String
-    dates = [] of String
-    db.query "SELECT file, link, u_from, date FROM files WHERE u_to=$1;", user do |rs|
+  # Loads file mail for a user
+  def load(for user : String, database db)
+    files, links, senders, dates = {
+      [] of String, [] of String, [] of String, [] of String,
+    }
+    db.query("SELECT file, link, u_from, date FROM files WHERE u_to=$1;",
+      user) do |rs|
       rs.each do
         files << rs.read String
         links << rs.read String
@@ -41,5 +17,47 @@ module HTTP::Mail
       end
     end
     return {files, links, senders, dates}
+  end
+
+  # Sends a file to S3 storage
+  def send(file : Kemal::FileUpload,
+           filename : String?,
+           from user : String,
+           to recipient : String,
+           key : String,
+           database db)
+    if !filename.is_a? String
+      {
+        successful: true,
+        error:      "no filename",
+      }
+    elsif recipient === user
+      {
+        successful: false,
+        error:      "self send",
+      }
+    elsif !HTTP::Mail::User.valid?(
+            username: user,
+            password: key,
+            database: db)
+      {
+        successful: false,
+        error:      "invalid credentials",
+      }
+    elsif !HTTP::Mail::User.exists? username: recipient, database: db
+      {
+        successful: false,
+        error:      "recipient dne",
+      }
+    else
+      file_path = File.join [Kemal.config.public_folder, "uploads/", filename]
+      File.open(file_path, "w") do |f|
+        IO.copy(file.tmpfile, f)
+      end
+      {
+        file:       filename,
+        successful: true,
+      }
+    end
   end
 end

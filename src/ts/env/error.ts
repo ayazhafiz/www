@@ -13,6 +13,7 @@ const knownPaths = [
   '/blog',
   '/cc',
   '/emoji',
+  '/mail',
   '/meethere',
   '/movie-emoji',
   '/try',

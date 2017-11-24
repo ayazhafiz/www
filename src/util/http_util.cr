@@ -1,11 +1,15 @@
 require "json"
 require "file"
 
-module KemalUtil
+# Describes utility methods for the web server
+module HTTP::Util
   extend self
 
+  # We're in development! Probably.
   ENV["KEMAL_ENV"] ||= "development"
 
+  # Table of partial views
+  #
   # Using __DIR__ would be much easier, but the Crystal Heroku buildpack
   # saves directory state so this won't work ):
   PARTIAL = {
@@ -18,6 +22,7 @@ module KemalUtil
     whale:       "./views/includes/whale.ecr",
   }
 
+  # Table of page views
   PAGE = {
     error:      "./views/pages/error.ecr",
     index:      "./views/pages/index.ecr",
@@ -26,10 +31,21 @@ module KemalUtil
     try:        "./views/pages/try.ecr",
   }
 
+  # Table of layout views
   LAYOUT = {
     standard: "./views/layouts/standard.ecr",
   }
 
+  # Table of values to code 302 redirect
+  RD_302 = {
+    "/atomas"      => "https://ayazhafiz.github.io/atomas",
+    "/blog"        => "https://cc.ayazhafiz.com",
+    "/cc"          => "https://cc.ayazhafiz.com",
+    "/meethere"    => "https://meethere.js.org",
+    "/movie-emoji" => "https://ayazhafiz.github.io/movie-emoji",
+  }
+
+  # Manifest of compiled assets
   MANIFEST = if File.file? "./src/build/webpack-manifest.json"
                JSON.parse File.read "./src/build/webpack-manifest.json"
              else
@@ -47,7 +63,11 @@ module KemalUtil
                }
              end
 
-  def inline(text : String) : String
-    %{<span class="interp">\#{<span class="string">#{text}</span>}</span>}
+  # Describes methods for handling ECR on the web server
+  module ECR
+    # Inlines text for the ECR template
+    def inline(text : String) : String
+      %{<span class="interp">\#{<span class="string">#{text}</span>}</span>}
+    end
   end
 end

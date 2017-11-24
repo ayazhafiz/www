@@ -1,15 +1,13 @@
 require "kemal"
 require "json"
 require "./try/*"
+require "./util/emoji_util"
 
-NO_ARG = {
-  error: "Must supply argument.",
-}
-
-read_arg = ->(env : HTTP::Server::Context) {
+READ_ARG = ->(env : HTTP::Server::Context) {
   env.params.json["arg"].as String
 }
 
+# Renders a playground for the `Anoop` programming language
 get "/try/anoop" do |env|
   page = "try.anoop"
   title = "Try Anoop"
@@ -17,17 +15,18 @@ get "/try/anoop" do |env|
   render {{ PAGE[:try] }}, {{ LAYOUT[:standard] }}
 end
 
-# Processes and returns a string through `Anoop`
+# Processes a string through the `Anoop` programming language
 post "/try/anoop" do |env|
   rod = if env.params.json["arg"]?
-          try_anoop read_arg.call(env)
+          try_anoop READ_ARG.call(env)
         else
-          NO_ARG
+          Try::Util::Error::NO_ARG
         end
 
   rod.to_json
 end
 
+# Renders a playground for the `rod` programming language
 get "/try/rod" do |env|
   page = "try.rod"
   title = "Try rod"
@@ -35,12 +34,12 @@ get "/try/rod" do |env|
   render {{ PAGE[:try] }}, {{ LAYOUT[:standard] }}
 end
 
-# Processes and returns a string through `rod`
+# Processes a string through the `rod` programming language
 post "/try/rod" do |env|
   rod = if env.params.json["arg"]?
-          try_rod read_arg.call(env)
+          try_rod READ_ARG.call(env)
         else
-          NO_ARG
+          Try::Util::Error::NO_ARG
         end
 
   rod.to_json

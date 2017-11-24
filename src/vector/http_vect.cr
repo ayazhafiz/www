@@ -4,12 +4,14 @@ require "../util/api_util"
 require "../util/vector_util"
 require "./http_vect3D"
 
+# Descibes methods for internal handling of the Vector(2D) API
 module HTTP::Vect
   extend self
 
-  include VectorUtil
-  include VectorUtil::Alias
+  include Vector::Util
+  include Vector::Util::Alias
 
+  # Generates a random Vector(2D)
   def self.new : Vector2D
     Vector2D.new(
       i: get_rand,
@@ -78,6 +80,7 @@ module HTTP::Vect
     end
   end
 
+  # JSON wrapper for the Vector(2D) API
   def json(vect_1 : Vector2D,
            vect_2 : Vector2D) : NamedTuple
     angle = (vect_1.angle_between vect_2)

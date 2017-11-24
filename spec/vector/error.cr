@@ -21,7 +21,7 @@ describe "/vector::Error" do
         k: 1,
       },
     }
-    post "/vector", headers: VectorUtil::Test::JSON_HEADERS, body: body.to_json
+    post "/vector", headers: Vector::Util::Test::JSON_HEADERS, body: body.to_json
     response.headers["content_type"].should eq "application/json"
     err = JSON.parse response.body
     err["error"].should eq 3
@@ -39,7 +39,7 @@ describe "/vector::Error" do
         y: 1,
       },
     }
-    post "/vector", headers: VectorUtil::Test::JSON_HEADERS, body: body.to_json
+    post "/vector", headers: Vector::Util::Test::JSON_HEADERS, body: body.to_json
     response.headers["content_type"].should eq "application/json"
     err = JSON.parse response.body
     err["error"].should eq 4
@@ -61,7 +61,7 @@ describe "/vector::Error" do
         z: 1,
       },
     }
-    post "/vector", headers: VectorUtil::Test::JSON_HEADERS, body: body.to_json
+    post "/vector", headers: Vector::Util::Test::JSON_HEADERS, body: body.to_json
     response.headers["content_type"].should eq "application/json"
     err = JSON.parse response.body
     err["error"].should eq 4

@@ -4,7 +4,7 @@ import { SubmitButton, toggleSpinner } from '../ts/gfx/submit-button';
 
 import './mail.scss';
 
-type uploadAttempt = { file: string; successful: boolean; error: string };
+type uploadAttempt = { file?: string; successful: boolean; error?: string };
 
 const Data = {
   form: 'div.box',
