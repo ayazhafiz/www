@@ -1,13 +1,12 @@
 require "./http_emoji"
-require "../util/emoji_util"
-require "../util/api_util"
+require "../util/emoji"
 
 # Describes methods for internal handling of Emoji API requests
 module HTTP::Request::Emoji
   extend self
 
-  include Emoji::Util
-  include Emoji::Util::Alias
+  include Util::Emoji
+  include Util::Emoji::Alias
 
   # Grabs the query of an emoji request
   def query(body : HTTP::Params | JSON::Type,

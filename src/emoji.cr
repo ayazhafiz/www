@@ -10,7 +10,7 @@ before_all "/emoji" do |env|
 end
 
 # Returns JSON object of an emoji query
-private def get_emoji(env : Emoji::Util::Alias::Env, query : Emoji::Util::Alias::Query)
+private def get_emoji(env : HTTP::Server::Context, query : Util::Emoji::Alias::Query)
   HTTP::Emoji.like(
     query: query,
     path: env.get "path"

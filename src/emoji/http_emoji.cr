@@ -3,15 +3,14 @@ require "json"
 require "uri"
 require "./http_client_emoji"
 require "./http_request_emoji"
-require "../util/emoji_util"
-require "../util/api_util"
+require "../util/emoji"
 
 # Descibes methods for internal handling of the Enoji API
 module HTTP::Emoji
   extend self
 
-  include Emoji::Util
-  include Emoji::Util::Alias
+  include Util::Emoji
+  include Util::Emoji::Alias
 
   # Handles all emoji queries
   #

@@ -1,6 +1,6 @@
 require "kemal"
-require "./util/http_util"
+require "./util/http"
 
-HTTP::Util::RD_302.each do |path, redirect|
+Util::HTTP::RD_302.each do |path, redirect|
   get(path) { |env| env.redirect redirect }
 end

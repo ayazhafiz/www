@@ -1,12 +1,12 @@
 require "vector"
 require "json"
-require "../util/vector_util"
+require "../util/vector"
 
 # Descibes methods for internal handling of the Vector(3D) API
 module HTTP::Vect3D
   extend self
 
-  include Vector::Util
+  include Util::Vector
 
   # Generates a random Vector(3D)
   def self.new : Vector3D

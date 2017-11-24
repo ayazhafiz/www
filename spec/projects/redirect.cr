@@ -19,4 +19,9 @@ describe "Redirect::302" do
     get "/meethere"
     response.headers["Location"].should eq "https://meethere.js.org"
   end
+  it "redirects Movie Emoji" do
+    get "/movie-emoji"
+    response.headers["Location"].should(
+      eq "https://ayazhafiz.github.io/movie-emoji")
+  end
 end

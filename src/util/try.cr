@@ -1,14 +1,14 @@
-require "./api_util"
+require "./api"
 
 # Describes utility methods for the Try(Lang) API
-module Try::Util
+module Util::Try
   extend self
 
   # Describes errors of the Try API
   module Error
     extend self
 
-    include API::Util::Error
+    include Util::API::Error
 
     NO_ARG = {
       error: "Must supply argument.",

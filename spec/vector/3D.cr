@@ -5,7 +5,7 @@ describe "/vector::3D" do
     get "/vector?dim=3D"
     response.headers["content_type"].should eq "application/json"
     rels = JSON.parse response.body
-    Vector::Util::Test::CNT.each do |key|
+    Util::Vector::Test::CNT.each do |key|
       rels[key]?.should_not eq nil
     end
   end
@@ -23,7 +23,9 @@ describe "/vector::3D" do
         k: 1,
       },
     }
-    post "/vector", headers: Vector::Util::Test::JSON_HEADERS, body: body.to_json
+    post("/vector",
+      headers: HTTP::Headers{"content_type" => "application/json"},
+      body: body.to_json)
     response.headers["content_type"].should eq "application/json"
     resp = JSON.parse response.body
     resp["one"].should eq "<1, 1, 1>"

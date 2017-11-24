@@ -1,13 +1,12 @@
 require "http/client"
-require "../util/emoji_util"
-require "../util/api_util"
+require "../util/emoji"
 
 # Describes methods for internal handling of external Emoji API
 module HTTP::Client::Emoji
   extend self
 
-  include Emoji::Util
-  include Emoji::Util::Alias
+  include Util::Emoji
+  include Util::Emoji::Alias
 
   # Sends and processes request for emoji from an external API
   #

@@ -4,9 +4,9 @@ require "kemal"
 require "is_mobile"
 require "json"
 require "./mail/*"
-require "./util/http_util"
+require "./util/http"
 
-include HTTP::Util
+include Util::HTTP
 
 # Render login page
 private def render_login(env, username : String = "")

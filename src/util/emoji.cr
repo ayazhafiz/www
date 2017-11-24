@@ -1,9 +1,9 @@
-require "./api_util"
-require "json"
 require "http/server"
+require "json"
+require "../util/api"
 
 # Describes utility methods for the Emoji API
-module Emoji::Util
+module Util::Emoji
   extend self
 
   EMOJI = [
@@ -15754,19 +15754,20 @@ module Emoji::Util
 
   # Describes Emoji API types
   module Alias
+    extend self
+
     alias HashJSON = Hash(String, String | JSON::Any)
     alias MassJSON = Hash(String, String | Array(HashJSON))
     alias Err = NamedTuple(error: Int32, message: String)
     alias Any = MassJSON? | HashJSON? | Err?
-    alias Query = JSON::Type | Emoji::Util::Alias::Err
-    alias Env = HTTP::Server::Context
+    alias Query = JSON::Type | Util::Emoji::Alias::Err
   end
 
   # Describes errors of the Emoji API
   module Error
     extend self
 
-    include API::Util::Error
+    include Util::API::Error
 
     NOT_CONNECTED = {
       code:    0,
@@ -15785,8 +15786,6 @@ module Emoji::Util
   # Describes constants for testing of the Emoji API
   module Test
     extend self
-
-    include API::Util::Test
 
     CNT_RND = [
       "char",

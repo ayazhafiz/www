@@ -1,12 +1,14 @@
-require "logger"
 require "colorize"
+require "logger"
 
 # Describes utility methods for APIs
-module API::Util
+module Util::API
   extend self
 
   # Describes methods for handling API errors
   module Error
+    extend self
+
     # Logs API errors to STDOUT and returns an error message
     def api(error : NamedTuple,
             path,
@@ -25,12 +27,5 @@ module API::Util
         message: "#{path}: #{error[:message]}",
       }
     end
-  end
-
-  # Describes constants for testing of APIs
-  module Test
-    JSON_HEADERS = HTTP::Headers{
-      "content_type" => "application/json",
-    }
   end
 end

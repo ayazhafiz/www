@@ -1,7 +1,7 @@
 require "kemal"
 require "json"
 require "./try/*"
-require "./util/emoji_util"
+require "./util/try"
 
 READ_ARG = ->(env : HTTP::Server::Context) {
   env.params.json["arg"].as String
@@ -17,10 +17,11 @@ end
 
 # Processes a string through the `Anoop` programming language
 post "/try/anoop" do |env|
+  env.response.content_type = "application/json"
   rod = if env.params.json["arg"]?
           try_anoop READ_ARG.call(env)
         else
-          Try::Util::Error::NO_ARG
+          Util::Try::Error::NO_ARG
         end
 
   rod.to_json
@@ -36,10 +37,11 @@ end
 
 # Processes a string through the `rod` programming language
 post "/try/rod" do |env|
+  env.response.content_type = "application/json"
   rod = if env.params.json["arg"]?
           try_rod READ_ARG.call(env)
         else
-          Try::Util::Error::NO_ARG
+          Util::Try::Error::NO_ARG
         end
 
   rod.to_json

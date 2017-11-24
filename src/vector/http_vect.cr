@@ -1,15 +1,15 @@
 require "vector"
 require "json"
-require "../util/api_util"
-require "../util/vector_util"
+require "../util/api"
+require "../util/vector"
 require "./http_vect3D"
 
 # Descibes methods for internal handling of the Vector(2D) API
 module HTTP::Vect
   extend self
 
-  include Vector::Util
-  include Vector::Util::Alias
+  include Util::Vector
+  include Util::Vector::Alias
 
   # Generates a random Vector(2D)
   def self.new : Vector2D

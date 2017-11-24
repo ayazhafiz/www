@@ -1,8 +1,8 @@
 require "kemal"
 require "is_mobile"
-require "./util/http_util"
+require "./util/http"
 
-include HTTP::Util
+include Util::HTTP
 
 # Renders index page
 get "/" do |env|

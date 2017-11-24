@@ -2,7 +2,7 @@ require "json"
 require "file"
 
 # Describes utility methods for the web server
-module HTTP::Util
+module Util::HTTP
   extend self
 
   # We're in development! Probably.
@@ -65,6 +65,8 @@ module HTTP::Util
 
   # Describes methods for handling ECR on the web server
   module ECR
+    extend self
+
     # Inlines text for the ECR template
     def inline(text : String) : String
       %{<span class="interp">\#{<span class="string">#{text}</span>}</span>}

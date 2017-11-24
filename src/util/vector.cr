@@ -1,8 +1,11 @@
-require "./api_util"
-require "vector"
+require "./api"
+require "vector/2D"
+
+# Referencing `Vector` in the Util::Vector module refers to the module
+alias Vector2D_ = Vector
 
 # Describes utility methods for the Vector API
-module Vector::Util
+module Util::Vector
   extend self
 
   DEF_PATH    = "/vector"
@@ -15,14 +18,16 @@ module Vector::Util
 
   # Describes Vector API types
   module Alias
-    alias Vector2D = Vector
+    extend self
+
+    alias Vector2D = Vector2D_
   end
 
   # Describes errors of the Vector API
   module Error
     extend self
 
-    include API::Util::Error
+    include Util::API::Error
 
     NOT_PLURAL = {
       code:    2,
@@ -41,7 +46,7 @@ module Vector::Util
   # Describes constants for testing of the Vector API
   module Test
     extend self
-    include API::Util::Test
+
     CNT = [
       "one",
       "two",
