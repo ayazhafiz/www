@@ -10,6 +10,10 @@ const PARTICLE_DENSITY = 135;
 const NUM_CIRCLES = 20;
 const SCROLL_SPEED = 750;
 
+/**
+ * Build the pages of the index view
+ * @event
+ */
 function build() {
   // apply gfx
   particles(PARTICLE_DENSITY);

@@ -1,6 +1,5 @@
 import { $ } from '../util/el';
 import { Viewer3D } from '../third-party/viewer3D';
-import { crystalLogoEl as logo } from '../env/error';
 
 /**
  * XML definition of the crystal logo

@@ -1,6 +1,5 @@
 // (c) Crystal Lang, licensed under the Apache License 2.0
 // Rewritten to ES6/TypeScript by Ayaz Hafiz (hafiz)
-// @nodoc
 interface Vector {
   x: number;
   y: number;

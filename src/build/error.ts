@@ -21,8 +21,16 @@ import {
 
 import './error.scss';
 
+/**
+ * Default Typed type speed
+ * @constant
+ */
 const TYPE_SPEED = 55;
 
+/**
+ * Verifies scroll position of shell
+ * @function
+ */
 const verifyScrollPosition = (): void => {
   setTimeout((): void => {
     Shell.scrollIntoView(shellParentEl, cursorEl);
@@ -30,6 +38,10 @@ const verifyScrollPosition = (): void => {
   }, TYPE_SPEED);
 };
 
+/**
+ * Types the first command into the shell
+ * @function
+ */
 const firstType = (): void => {
   verifyScrollPosition();
   new Typed(firstEl, {
@@ -52,6 +64,10 @@ const firstType = (): void => {
   });
 };
 
+/**
+ * Types the second command into the shell
+ * @function
+ */
 const secondType = (): void => {
   new Typed(secondEl, {
     strings: pathString,
@@ -71,6 +87,10 @@ const secondType = (): void => {
   });
 };
 
+/**
+ * Types the third command into the shell
+ * @function
+ */
 const thirdType = (): void => {
   new Typed(thirdEl, {
     strings: openString,
@@ -92,6 +112,10 @@ const thirdType = (): void => {
   });
 };
 
+/**
+ * Initiates typing in the shell
+ * @function
+ */
 const shellType = (): void => {
   new Typed(shellEl, {
     strings: [''],
@@ -108,6 +132,10 @@ const shellType = (): void => {
   });
 };
 
+/**
+ * Loads Crystal logo and Shell
+ * @event
+ */
 document.addEventListener(
   'DOMContentLoaded',
   (): void => {

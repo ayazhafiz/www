@@ -1,8 +1,5 @@
 declare const CodeMirror: any;
 
-/**
- * @nodoc
- */
 CodeMirror.defineSimpleMode('rod', {
   start: [
     { regex: /&/, token: 'variable' },

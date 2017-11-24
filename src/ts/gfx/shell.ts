@@ -25,9 +25,9 @@ const KEY = {
   enter: 13,
   space: 32,
   delete: 46,
-  digits: [48, 57].range,
-  letters: [65, 90].range,
-  extraneous: [186, 192].range.concat([219, 222].range)
+  digits: [48, 57].range(),
+  letters: [65, 90].range(),
+  extraneous: [186, 192].range().concat([219, 222].range())
 };
 /**
  * Required keystroke timeout

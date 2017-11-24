@@ -4,18 +4,38 @@ import '../ts/third-party/codemirror.rod';
 
 import './try.anoop.scss';
 
+/**
+ * Initial Anoop STDIN
+ * @constant
+ */
 const INTRO = 'Anooop';
+/**
+ * Code fonts
+ * @constant
+ */
 const FONT =
   'SF Mono, Dejavu Sans Mono, Menlo, Monaco, Consolas, Courier New, monospace';
+/**
+ * Request headers
+ * @constant
+ */
 const HEADERS = new Headers({
   'Content-Type': 'application/json'
 });
+/**
+ * Anoop editor and interpreter State
+ * @constant
+ */
 const State = {
   rodEditor: null,
   rodEval: null,
   last: null
 };
 
+/**
+ * Evaluates an Anoop expression
+ * @async @function
+ */
 const evaluate = async (str: string): Promise<string> => {
   return await fetch('/try/anoop', {
     method: 'POST',
@@ -29,10 +49,22 @@ const evaluate = async (str: string): Promise<string> => {
     .catch(err => err);
 };
 
+/**
+ * Gets an Anoop expression from the editor
+ * @function
+ */
 const getValue = (from: any = State.rodEditor): string => from.getValue();
 
+/**
+ * Displays the interpreted Anoop expression
+ * @async @function
+ */
 const setResult = (str: string): void => State.rodEval.getDoc().setValue(str);
 
+/**
+ * Saves an interpreted Anoop expression
+ * @function
+ */
 const save = (str: string): void => {
   const fileName = (str.length < 16 ? str : str.substr(0, 16))
     .trim()
@@ -41,6 +73,10 @@ const save = (str: string): void => {
   FileSaver.saveAs(blob, `${fileName}.anoop`);
 };
 
+/**
+ * Loads the Anoop editor and interpreter display
+ * @event
+ */
 document.addEventListener('DOMContentLoaded', async () => {
   State.rodEditor = CodeMirror(document.body, {
     value: INTRO,
