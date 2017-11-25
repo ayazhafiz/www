@@ -22,7 +22,7 @@
   <% files.size.times do |idx| %>
     <div>
       <a href="<%= links[idx] %>"><%= files[idx] %></a>
-      <span>&nbsp;-&nbsp;<%= links[idx] %></span>
+      <span>&nbsp;-&nbsp;<%= (URI.parse links[idx]).host %></span>
     </div>
 	<% end %>
 </div>
