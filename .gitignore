@@ -2,6 +2,7 @@
 /doc/
 /lib/
 /bin/
+/target/
 /node_modules/
 /.shards/
 
