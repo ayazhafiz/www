@@ -17,10 +17,10 @@ dependencies:
     version: ~> 0.1.0
   kemal:
     github: kemalcr/kemal
-    version: ~> 0.21.0
+    branch: master
   pg:
     github: will/crystal-pg
-    version: ~> 0.13.4
+    version: ~> 0.14.0
   rod:
     github: ayazhafiz/rod
     version: ~> 0.2.0

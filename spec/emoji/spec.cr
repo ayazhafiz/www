@@ -17,7 +17,7 @@ describe "/emoji::Spec" do
 
   it "generates emoji relevant to some query - POST" do
     body = {
-      like: "diamonds in the rough",
+      "like": "diamonds in the rough",
     }
     post("/emoji",
       headers: HTTP::Headers{"content_type" => "application/json"},

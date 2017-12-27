@@ -15,9 +15,17 @@ module HTTP::RMath
   def evaluate(program : String? = nil,
                path = DEF_PATH)
     if program
-      {
-        result: String.new Librcalc.calc(program),
-      }
+      result = String.new Librcalc.calc(program)
+      if result.to_f?
+        {
+          result: result,
+        }
+      else
+        Error.api(
+          error: Error.gen(result),
+          path: path
+        )
+      end
     else
       Error.api(
         error: Error::NOT_EMBEDDED,

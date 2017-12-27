@@ -6,7 +6,9 @@ describe "/emoji::Error" do
     response.headers["content_type"].should eq "application/json"
     err = JSON.parse response.body
     err["error"].should eq 2
-    err["message"].should eq "GET /emoji: Query is missing the key `like` or `q`"
+    err["message"].should eq <<-ERR
+    GET /emoji: Query is missing the key `like` or `q`
+    ERR
   end
 
   it "handles incorrect form - POST" do
@@ -19,6 +21,8 @@ describe "/emoji::Error" do
     response.headers["content_type"].should eq "application/json"
     err = JSON.parse response.body
     err["error"].should eq 2
-    err["message"].should eq "POST /emoji: Query is missing the key `like` or `q`"
+    err["message"].should eq <<-ERR
+    POST /emoji: Query is missing the key `like` or `q`
+    ERR
   end
 end

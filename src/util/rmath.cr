@@ -16,5 +16,12 @@ module Util::RMath
       code:    1,
       message: "Expression not specified",
     }
+
+    def gen(msg)
+      {
+        code:    2,
+        message: msg,
+      }
+    end
   end
 end
