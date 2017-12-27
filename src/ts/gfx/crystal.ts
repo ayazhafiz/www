@@ -8,7 +8,7 @@ import { Viewer3D } from '../third-party/viewer3D';
  */
 const LOGO_PATH =
   'https://cdn.rawgit.com/crystal-lang/crystal-website/' +
-  'unstable/xml/polyhedron/icosahedron.xml';
+  '62baf9411714ede982ded0f992f6f3ec37a17165/xml/polyhedron/icosahedron.xml';
 
 /**
  * Loads the Crystal logo on an arbitrary element model
@@ -16,9 +16,9 @@ const LOGO_PATH =
  */
 const loadCrystalLogo = (element: HTMLCanvasElement): void => {
   const model = new Viewer3D(element);
-  model.setShader();
+  model.shader('flat', 255, 255, 255);
   model.insertModel(LOGO_PATH);
-  model.setContrast(0.9);
+  model.contrast(0.9);
 };
 
 export { loadCrystalLogo };

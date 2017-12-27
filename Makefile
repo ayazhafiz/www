@@ -1,6 +1,6 @@
 site: clean
 	cargo build --release
-	crystal build ./src/site.cr
+	./build.sh
 
 clean:
 	rm -f ./site

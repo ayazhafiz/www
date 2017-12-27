@@ -1,243 +1,133 @@
-// (c) Crystal Lang, licensed under the Apache License 2.0
-// Rewritten to ES6/TypeScript by Ayaz Hafiz (hafiz)
-interface Vector {
-  x: number;
-  y: number;
-  z: number;
-}
+function Viewer3D(container) {
+  var _container = container;
+  var self = this;
+  self.width = _container.width;
+  self.height = _container.height;
 
-interface Transform {
-  normal: Vector;
-  centroid: Vector;
-}
+  var _vertices,
+    _faces,
+    _canvas,
+    _shader,
+    _req,
+    _renderInterval,
+    _dragging,
+    _container;
+  var _min = 0.01;
+  var _yaw = _min;
+  var _pitch = _min;
+  var _distance = 4;
+  var _scale = self.width * (4 / 3);
+  var _r = [[1, 0, 0], [0, 1, 0], [0, 0, 1]];
+  var _loaded = false;
+  var _start;
+  var _contrast = 0;
 
-interface Face {
-  vertices: Array<number>;
-  centroid: Vector;
-  transform: Transform;
-}
-
-type Matrix = Array<Float32Array | Uint8ClampedArray>;
-
-class FlatShader {
-  private readonly light: Light;
-
-  constructor() {
-    this.light = new Light(-5, -5, 20, 140, 140, 140);
-  }
-
-  private static readonly applyContrast = (
-    channel: number,
-    contrast: number
-  ): number =>
-    (contrast > 0
-      ? (channel / 255 - 0.5) / (1 - contrast) + 0.5
-      : (channel / 255 - 0.5) * (1 + contrast) + 0.5) * 255;
-
-  private readonly fill = (face: Face, viewer): string => {
-    const cos =
-      face.transform.normal.x * this.light.x +
-      face.transform.normal.y * this.light.y +
-      face.transform.normal.z * this.light.z;
-    const r = Math.max(
-      0,
-      Math.min(
-        255,
-        Math.round(
-          FlatShader.applyContrast(cos * this.light.r, viewer.contrast)
-        )
-      )
-    );
-    const g = Math.max(
-      0,
-      Math.min(
-        255,
-        Math.round(
-          FlatShader.applyContrast(cos * this.light.g, viewer.contrast)
-        )
-      )
-    );
-    const b = Math.max(
-      0,
-      Math.min(
-        255,
-        Math.round(
-          FlatShader.applyContrast(cos * this.light.b, viewer.contrast)
-        )
-      )
-    );
-
-    return ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).substring(1);
-  };
-
-  readonly render = (viewer): void => {
-    const order = viewer.sortByNormal();
-    for (let step of <any>order) {
-      const face = viewer.faces[step];
-      if (face.transform.normal.z > 0) {
-        const color = this.fill(face, viewer);
-        viewer.canvas.strokeStyle = color;
-        viewer.canvas.fillStyle = color;
-        viewer.canvas.lineWidth = 0.5;
-        viewer.canvas.beginPath();
-        for (let j = 0; j < face.vertices.length; ++j) {
-          const vertex = viewer.vertices[face.vertices[j]];
-          if (!j) {
-            viewer.canvas.moveTo(vertex.screenX, vertex.screenY);
-          }
-          viewer.canvas.lineTo(vertex.screenX, vertex.screenY);
-        }
-        viewer.canvas.closePath();
-        viewer.canvas.fill();
-        viewer.canvas.stroke();
-      }
-    }
-  };
-}
-
-class Light {
-  readonly x: number;
-  readonly y: number;
-  readonly z: number;
-  readonly r: number;
-  readonly g: number;
-  readonly b: number;
-  constructor(
-    x: number,
-    y: number,
-    z: number,
-    r: number,
-    g: number,
-    b: number
-  ) {
-    const length = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z, 2));
-    this.x = x / length;
-    this.y = y / length;
-    this.z = z / length;
-    this.r = r;
-    this.g = g;
-    this.b = b;
-  }
-}
-
-function Viewer3D(container: HTMLCanvasElement): void {
-  let self = this;
-  self.container = container;
-  self.width = self.container.width;
-  self.height = self.container.height;
-
-  self.vertices;
-  self.faces;
-  self.last;
-  self.canvas;
-  self.shader;
-  self.req;
-  self.renderInterval;
-  self.dragging;
-  self.min = 0.01;
-  self.yaw = self.min;
-  self.pitch = self.min;
-  self.distance = 4;
-  self.scale = self.width * (4 / 3);
-  self.rmat = [[1, 0, 0], [0, 1, 0], [0, 0, 1]];
-  self.loaded = false;
-  self.start;
-  self.contrast = 0;
-
-  self.insertModel = (url: string): void => {
-    window.clearInterval(self.renderInterval);
-    self.renderInterval = undefined;
-    self.container.addEventListener('mousedown', mouseDownHandler, false);
-    self.canvas = self.container.getContext('2d');
+  self.insertModel = function(url) {
+    window.clearInterval(_renderInterval);
+    _renderInterval = undefined;
+    _container.addEventListener('mousedown', mouseDownHandler, false);
+    _canvas = _container.getContext('2d');
     fetchXML(url);
   };
 
-  self.setShader = (): void => {
-    self.shader = new FlatShader();
-  };
-
-  self.setContrast = (value: number): number => {
-    if (value === null) {
-      return self.contrast;
-    }
-    self.contrast = Math.max(-1, Math.min(1, value));
-  };
-
-  self.sortByNormal = (): Uint8ClampedArray => {
-    return new Uint8ClampedArray(
-      Array.from(new Array(this.faces.length), (n, i) => i).sort((a, b) => {
-        const deltaNormal =
-          this.faces[b].transform.normal.z - this.faces[a].transform.normal.z;
-        if (deltaNormal === 0) return 0;
-        return deltaNormal < 0 ? 1 : -1;
-      })
-    );
-  };
-
-  const rotate = (point3D: Vector): Vector => {
-    const x =
-      point3D.x * self.rmat[0][0] +
-      point3D.y * self.rmat[0][1] +
-      point3D.z * self.rmat[0][2];
-    const y =
-      point3D.x * self.rmat[1][0] +
-      point3D.y * self.rmat[1][1] +
-      point3D.z * self.rmat[1][2];
-    const z =
-      point3D.x * self.rmat[2][0] +
-      point3D.y * self.rmat[2][1] +
-      point3D.z * self.rmat[2][2];
-    return <Vector>{ x: x, y: y, z: z };
-  };
-
-  const matrixMultiply = (a: Matrix, b: Matrix): Matrix => {
-    return [
-      new Float32Array([0, 0, 0]),
-      new Float32Array([0, 0, 0]),
-      new Float32Array([0, 0, 0])
-    ].map((o, i) =>
-      o.map((v, j) => [0, 1, 2].reduce((sum, k) => sum + a[i][k] * b[k][j], 0))
-    );
-  };
-
-  const transformVertices = (): void => {
-    for (let vertex of self.vertices) {
-      const xp =
-        vertex.x * self.rmat[0][0] +
-        vertex.y * self.rmat[0][1] +
-        vertex.z * self.rmat[0][2];
-      const yp =
-        vertex.x * self.rmat[1][0] +
-        vertex.y * self.rmat[1][1] +
-        vertex.z * self.rmat[1][2];
-      const zp =
-        vertex.x * self.rmat[2][0] +
-        vertex.y * self.rmat[2][1] +
-        vertex.z * self.rmat[2][2];
-      vertex.screenX = self.width / 2 + self.scale * xp / (self.distance - zp);
-      vertex.screenY = self.height / 2 + self.scale * yp / (self.distance - zp);
+  self.shader = function(id, r, g, b) {
+    switch (id) {
+      case 'transparent':
+        _shader = new TransparentShader(r, g, b);
+        break;
+      case 'flat':
+        _shader = new FlatShader(r, g, b);
+        break;
     }
   };
 
-  const render = (): void => {
-    self.canvas.clearRect(0, 0, self.width, self.height);
+  self.toScreenX = function(x, z) {
+    return self.width / 2 + _scale * x / (_distance - z);
+  };
+
+  self.toScreenY = function(y, z) {
+    return self.height / 2 + _scale * y / (_distance - z);
+  };
+
+  self.contrast = function(value) {
+    if (value == null) {
+      return _contrast;
+    }
+    _contrast = Math.max(-1, Math.min(1, value));
+  };
+
+  //Geometry
+
+  function rotate(point3D) {
+    var x = point3D.x * _r[0][0] + point3D.y * _r[0][1] + point3D.z * _r[0][2];
+    var y = point3D.x * _r[1][0] + point3D.y * _r[1][1] + point3D.z * _r[1][2];
+    var z = point3D.x * _r[2][0] + point3D.y * _r[2][1] + point3D.z * _r[2][2];
+    return { x: x, y: y, z: z };
+  }
+
+  function matrixMultiply(a, b) {
+    var matrix = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
+    for (var i = 0; i < 3; i++) {
+      for (var j = 0; j < 3; j++) {
+        for (var k = 0; k < 3; k++) {
+          matrix[i][j] += a[i][k] * b[k][j];
+        }
+      }
+    }
+    return matrix;
+  }
+
+  function transformVertices() {
+    for (var i = 0; i < _vertices.length; i++) {
+      var vertex = _vertices[i];
+      var xp = vertex.x * _r[0][0] + vertex.y * _r[0][1] + vertex.z * _r[0][2];
+      var yp = vertex.x * _r[1][0] + vertex.y * _r[1][1] + vertex.z * _r[1][2];
+      var zp = vertex.x * _r[2][0] + vertex.y * _r[2][1] + vertex.z * _r[2][2];
+      vertex.screenX = self.width / 2 + _scale * xp / (_distance - zp);
+      vertex.screenY = self.height / 2 + _scale * yp / (_distance - zp);
+    }
+  }
+
+  function render() {
+    _canvas.clearRect(0, 0, self.width, self.height);
     transformVertices();
     rotateVectors();
-    self.shader.render(this);
-  };
+    _shader.render();
+  }
 
-  const rotateVectors = (): void => {
-    for (let face of self.faces) {
-      face.transform = <Transform>{
-        normal: rotate(face.normal),
-        centroid: rotate(face.centroid)
-      };
+  function rotateVectors() {
+    for (var i = 0; i < _faces.length; i++) {
+      var face = _faces[i];
+      face.transform = new Object();
+      face.transform.normal = rotate(face.normal);
+      face.transform.centroid = rotate(face.centroid);
     }
-  };
+  }
 
-  const computeCentroid = (face: Face): Vector => {
-    const centroid = <Vector>{ x: 0, y: 0, z: 0 };
-    for (let vertex of face.vertices.map(id => self.vertices[id])) {
+  function sortByNormal() {
+    var order = new Array();
+    for (var i = 0; i < _faces.length; i++) {
+      order[i] = i;
+    }
+    order.sort(function(a, b) {
+      var deltaNormal =
+        _faces[b].transform.normal.z - _faces[a].transform.normal.z;
+      if (deltaNormal > 0) {
+        return -1;
+      } else if (deltaNormal < 0) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
+    return order;
+  }
+
+  function computeCentroid(face) {
+    var centroid = { x: 0, y: 0, z: 0 };
+    for (var i = 0; i < face.vertices.length; i++) {
+      var id = face.vertices[i];
+      var vertex = _vertices[id];
       centroid.x += vertex.x;
       centroid.y += vertex.y;
       centroid.z += vertex.z;
@@ -246,174 +136,313 @@ function Viewer3D(container: HTMLCanvasElement): void {
     centroid.y /= face.vertices.length;
     centroid.z /= face.vertices.length;
     return centroid;
-  };
+  }
 
-  const computeCentroids = (): void =>
-    self.faces.forEach(face => (face.centroid = computeCentroid(face)));
+  function computeCentroids() {
+    for (var i = 0; i < _faces.length; i++) {
+      var face = _faces[i];
+      face.centroid = computeCentroid(face);
+    }
+  }
 
-  const computeNormal = (face: Face): Vector => {
-    const vertex0 = self.vertices[face.vertices[0]];
-    const vertex1 = self.vertices[face.vertices[1]];
-    const vertex2 = self.vertices[face.vertices[2]];
-    const a = <Vector>{
+  function computeNormal(face) {
+    var vertex0 = _vertices[face.vertices[0]];
+    var vertex1 = _vertices[face.vertices[1]];
+    var vertex2 = _vertices[face.vertices[2]];
+    var a = {
       x: vertex1.x - vertex0.x,
       y: vertex1.y - vertex0.y,
       z: vertex1.z - vertex0.z
     };
-    const b = <Vector>{
+    var b = {
       x: vertex2.x - vertex0.x,
       y: vertex2.y - vertex0.y,
       z: vertex2.z - vertex0.z
     };
-    const normal = <Vector>{
-      x: a.y * b.z - a.z * b.y,
-      y: a.z * b.x - a.x * b.z,
-      z: a.x * b.y - a.y * b.x
-    };
-    const magnitude = Math.sqrt(
+    var normal: { x?: number; y?: number; z?: number } = new Object();
+    normal.x = a.y * b.z - a.z * b.y;
+    normal.y = a.z * b.x - a.x * b.z;
+    normal.z = a.x * b.y - a.y * b.x;
+    var magnitude = Math.sqrt(
       normal.x * normal.x + normal.y * normal.y + normal.z * normal.z
     );
     normal.x /= magnitude;
     normal.y /= magnitude;
     normal.z /= magnitude;
-    if (
+    var flip =
       normal.x * face.centroid.x +
         normal.y * face.centroid.y +
         normal.z * face.centroid.z <
-      0
-    ) {
+      0;
+    if (flip) {
       normal.x = -normal.x;
       normal.y = -normal.y;
       normal.z = -normal.z;
     }
     return normal;
-  };
+  }
 
-  const computeNormals = (): void =>
-    self.faces.forEach(face => (face.normal = computeNormal(face)));
+  function computeNormals() {
+    for (var i = 0; i < _faces.length; i++) {
+      var face = _faces[i];
+      face.normal = computeNormal(face);
+    }
+  }
 
-  const animate = (): void => {
-    self.rmat = matrixMultiply(
+  function animate() {
+    _r = matrixMultiply(
       [
-        new Uint8ClampedArray([1, 0, 0]),
-        new Float32Array([0, Math.cos(self.pitch), -Math.sin(self.pitch)]),
-        new Float32Array([0, Math.sin(self.pitch), Math.cos(self.pitch)])
+        [Math.cos(_yaw), 0, -Math.sin(_yaw)],
+        [0, 1, 0],
+        [Math.sin(_yaw), 0, Math.cos(_yaw)]
       ],
-      matrixMultiply(
-        [
-          new Float32Array([Math.cos(self.yaw), 0, -Math.sin(self.yaw)]),
-          new Uint8ClampedArray([0, 1, 0]),
-          new Float32Array([Math.sin(self.yaw), 0, Math.cos(self.yaw)])
-        ],
-        self.rmat
-      )
+      _r
+    );
+    _r = matrixMultiply(
+      [
+        [1, 0, 0],
+        [0, Math.cos(_pitch), -Math.sin(_pitch)],
+        [0, Math.sin(_pitch), Math.cos(_pitch)]
+      ],
+      _r
     );
     render();
-    if (self.dragging) {
-      self.yaw = self.pitch = 0;
+    if (_dragging) {
+      _yaw = 0;
+      _pitch = 0;
     } else {
-      const restart = self.pitch === 0 && self.yaw === 0;
-      self.yaw = decelerate(self.yaw, restart);
-      self.pitch = decelerate(self.pitch, restart);
+      var restart = _pitch == 0 && _yaw == 0;
+      _yaw = decelerate(_yaw, restart);
+      _pitch = decelerate(_pitch, restart);
     }
-    if (self.renderInterval === undefined) {
-      self.renderInterval = window.setInterval(animate, 20);
+    if (_renderInterval == undefined) {
+      _renderInterval = window.setInterval(animate, 20);
     }
-  };
+  }
 
-  const decelerate = (value: number, restart: boolean): number => {
+  function decelerate(value, restart) {
     if (restart) {
-      return 1e-4 * (Math.round(Math.random()) ? 1 : -1);
-    } else if (Math.abs(value) < self.min) {
-      return value * 1.01;
+      return 0.0001 * (Math.round(Math.random()) ? 1 : -1);
+    } else if (Math.abs(value) < _min) {
+      value *= 1.01;
     } else {
       value *= 0.99;
       if (value < 0) {
-        return Math.min(value, -self.min);
+        value = Math.min(value, -_min);
       } else {
-        return Math.max(value, self.min);
+        value = Math.max(value, _min);
       }
     }
-  };
+    return value;
+  }
 
-  const fetchXML = (url: string): void => {
-    self.req = getXMLRequestObject();
-    self.req.onreadystatechange = function() {
+  //Shaders
+
+  function TransparentShader(r, g, b) {
+    var _stroke = 'rgb(' + r + ',' + g + ',' + b + ')';
+    this.render = function() {
+      var edges = new Array();
+      for (var i = 0; i < _faces.length; i++) {
+        var face = _faces[i];
+        var isFrontface: any =
+          face.transform.centroid.x * face.transform.normal.x +
+            face.transform.centroid.y * face.transform.normal.y +
+            (face.transform.centroid.z - _distance) * face.transform.normal.z <
+          0;
+        for (var j = 0; j < face.vertices.length; j++) {
+          var a = face.vertices[j];
+          var b =
+            j + 1 < face.vertices.length
+              ? face.vertices[j + 1]
+              : face.vertices[0];
+          var key = Math.min(a, b) + ' ' + Math.max(a, b);
+          edges[key] = edges[key] || isFrontface;
+        }
+      }
+      _canvas.fillStyle = 'transparent';
+      _canvas.strokeStyle = _stroke;
+      for (var key in edges) {
+        var ids = key.split(' ');
+        var isFrontface = edges[key];
+        _canvas.lineWidth = isFrontface ? 0.5 : 0.1;
+        _canvas.beginPath();
+        _canvas.moveTo(_vertices[ids[0]].screenX, _vertices[ids[0]].screenY);
+        _canvas.lineTo(_vertices[ids[1]].screenX, _vertices[ids[1]].screenY);
+        _canvas.closePath();
+        _canvas.stroke();
+      }
+    };
+  }
+
+  function FlatShader(r, g, b) {
+    var _lights = new Array();
+    _lights.push(new Light(-5, -5, 20, 140, 140, 140));
+
+    this.fill = function(face) {
+      var r = 0;
+      var g = 0;
+      var b = 0;
+      for (var i = 0; i < _lights.length; i++) {
+        var cos =
+          face.transform.normal.x * _lights[i].x +
+          face.transform.normal.y * _lights[i].y +
+          face.transform.normal.z * _lights[i].z;
+        //if(cos > 0) {
+        r = Math.max(
+          0,
+          Math.min(
+            255,
+            Math.round(applyContrast(r + cos * _lights[i].r, _contrast))
+          )
+        );
+        g = Math.max(
+          0,
+          Math.min(
+            255,
+            Math.round(applyContrast(g + cos * _lights[i].g, _contrast))
+          )
+        );
+        b = Math.max(
+          0,
+          Math.min(
+            255,
+            Math.round(applyContrast(b + cos * _lights[i].b, _contrast))
+          )
+        );
+        //}
+      }
+      var value =
+        '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).substring(1);
+      return value;
+    };
+
+    this.render = function() {
+      var order = sortByNormal();
+      for (var i = 0; i < order.length; i++) {
+        var face = _faces[order[i]];
+        var isBackface = face.transform.normal.z <= 0;
+        if (!isBackface) {
+          var color = this.fill(face);
+          _canvas.strokeStyle = color;
+          _canvas.fillStyle = color;
+          _canvas.lineWidth = 0.5;
+          _canvas.beginPath();
+          for (var j = 0; j < face.vertices.length; j++) {
+            var id = face.vertices[j];
+            var vertex = _vertices[id];
+            if (!j) {
+              _canvas.moveTo(vertex.screenX, vertex.screenY);
+            }
+            _canvas.lineTo(vertex.screenX, vertex.screenY);
+          }
+          _canvas.closePath();
+          _canvas.fill();
+          _canvas.stroke();
+        }
+      }
+    };
+  }
+
+  function Light(x, y, z, r, g, b) {
+    var length = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z, 2));
+    this.x = x / length;
+    this.y = y / length;
+    this.z = z / length;
+    this.r = r;
+    this.g = g;
+    this.b = b;
+  }
+
+  function applyContrast(channel, contrast) {
+    var value = channel / 255 - 0.5;
+    if (contrast > 0) {
+      return (value / (1 - contrast) + 0.5) * 255;
+    } else {
+      return (value * (1 + contrast) + 0.5) * 255;
+    }
+  }
+
+  //Model
+
+  function fetchXML(url) {
+    _req = getXMLRequestObject();
+    _req.onreadystatechange = function() {
       loadGeometry();
     };
-    self.req.open('GET', url, true);
-    self.req.send('');
-  };
+    _req.open('GET', url, true);
+    _req.send('');
+  }
 
-  const loadGeometry = (): void => {
-    if (self.req.readyState === 4) {
-      if (self.req.status === 200) {
-        const xml = self.req.responseXML;
-        const vertices = xml.getElementsByTagName('p');
-        self.vertices = new Array(vertices.length);
-        for (let i = 0; i < vertices.length; ++i) {
-          self.vertices[i] = <Vector>{
-            x: Number(vertices[i].getAttribute('x')),
-            y: Number(vertices[i].getAttribute('y')),
-            z: Number(vertices[i].getAttribute('z'))
-          };
+  function loadGeometry() {
+    if (_req.readyState == 4) {
+      if (_req.status == 200) {
+        var xml = _req.responseXML;
+        var vertices = xml.getElementsByTagName('p');
+        _vertices = new Array();
+        for (var i = 0; i < vertices.length; i++) {
+          var vertex: { x?: number; y?: number; z?: number } = new Object();
+          vertex.x = Number(vertices[i].getAttribute('x'));
+          vertex.y = Number(vertices[i].getAttribute('y'));
+          vertex.z = Number(vertices[i].getAttribute('z'));
+          _vertices[i] = vertex;
         }
-        const faces = xml.getElementsByTagName('f');
-        self.faces = new Array(faces.length);
-        for (let i = 0; i < faces.length; ++i) {
-          self.faces[i] = { vertices: new Array() };
-          for (let j = 0; j < faces[i].childNodes.length; ++j) {
-            self.faces[i].vertices[j] =
-              faces[i].childNodes[j].firstChild.nodeValue;
+        var faces = xml.getElementsByTagName('f');
+        _faces = new Array();
+        for (var i = 0; i < faces.length; i++) {
+          _faces[i] = { vertices: new Array() };
+          for (var j = 0; j < faces[i].childNodes.length; j++) {
+            _faces[i].vertices[j] = faces[i].childNodes[j].firstChild.nodeValue;
           }
         }
         computeCentroids();
         computeNormals();
         animate();
       } else {
-        alert(`xml request error: ${self.req.statusText}`);
+        alert('xml request error: ' + _req.statusText);
       }
     }
-  };
+  }
 
-  const getXMLRequestObject = (): XMLHttpRequest => {
+  function getXMLRequestObject() {
     if ((<any>window).XMLHttpRequest) {
-      return new (<any>window).XMLHttpRequest();
+      return new XMLHttpRequest();
     } else if ((<any>window).ActiveXObject) {
       return new (<any>window).ActiveXObject('Microsoft.XMLHTTP');
     }
-    throw new Error("Can't find XML Http Request object!");
-  };
+    alert("Can't find XML Http Request object!");
+  }
 
   function mouseDownHandler(event) {
-    const bounds = self.container.getBoundingClientRect();
-    const x = event.clientX - bounds.left;
-    const y = event.clientY - bounds.top;
-    self.dragging = true;
-    self.last = { point: { x: x, y: y } };
+    var bounds = _container.getBoundingClientRect();
+    var x = event.clientX - bounds.left;
+    var y = event.clientY - bounds.top;
+    _dragging = true;
+    self._last = { point: { x: x, y: y } };
     window.addEventListener('mousemove', mouseMoveHandler, false);
     window.addEventListener('mouseup', mouseUpHandler, false);
   }
 
   function mouseUpHandler(event) {
-    self.dragging = false;
+    _dragging = false;
     window.removeEventListener('mousemove', mouseMoveHandler, false);
     window.removeEventListener('mouseup', mouseUpHandler, false);
   }
 
   function mouseMoveHandler(event) {
-    const bounds = self.container.getBoundingClientRect();
-    const x = event.clientX - bounds.left;
-    const y = event.clientY - bounds.top;
-    const depth = self.scale / self.distance / 4;
-    self.yaw =
-      Math.atan2(self.last.point.x - self.width / 4, depth) -
+    var bounds = _container.getBoundingClientRect();
+    var x = event.clientX - bounds.left;
+    var y = event.clientY - bounds.top;
+    var depth = _scale / _distance / 4;
+    _yaw =
+      Math.atan2(self._last.point.x - self.width / 4, depth) -
       Math.atan2(x - self.width / 4, depth);
-    self.pitch =
-      Math.atan2(self.last.point.y - self.height / 4, depth) -
+    _pitch =
+      Math.atan2(self._last.point.y - self.height / 4, depth) -
       Math.atan2(y - self.height / 4, depth);
-    self.last = { point: { x: x, y: y } };
+    self._last = { point: { x: x, y: y } };
   }
+
+  self.shader('flat', 200, 200, 200);
 }
 
 export { Viewer3D };

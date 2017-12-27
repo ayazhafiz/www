@@ -15,11 +15,9 @@ sentry
 guardian
 /site
 /dev/
+*.dwarf
 
 # generated files
 /public/css/*
 /public/js/*
 webpack-manifest.json
-
-#jess-lang
-jess.cr

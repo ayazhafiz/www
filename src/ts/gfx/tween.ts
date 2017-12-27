@@ -40,8 +40,8 @@ const initLoadedVars = (): void => {
   WINDOW_WIDTH = window.innerWidth;
   WINDOW_HEIGHT = window.innerHeight;
   SVG_EL = $('#tween-svg') as SVGElement;
-  SVG_EL.style.width = String(WINDOW_WIDTH);
-  SVG_EL.style.height = String(WINDOW_HEIGHT);
+  SVG_EL.style.width = `${WINDOW_WIDTH}px`;
+  SVG_EL.style.height = `${WINDOW_HEIGHT}px`;
 };
 
 /**
