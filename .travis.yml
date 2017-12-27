@@ -3,3 +3,10 @@ language: crystal
 os:
   - linux
   - osx
+
+before_script:
+  - curl https://sh.rustup.rs -sSf > rustup.sh
+  - chmod u+x rustup.sh
+  - ./rustup.sh -y --default-toolchain stable
+  - PATH="~/.cargo/bin:$PATH"
+  - cargo build --release

@@ -1,10 +1,12 @@
 [![Build Status](https://travis-ci.org/ayazhafiz/crystal-ah.svg?branch=master)](https://travis-ci.org/ayazhafiz/crystal-ah)
-[![CircleCI](https://circleci.com/gh/ayazhafiz/crystal-ah.svg?style=svg)](https://circleci.com/gh/ayazhafiz/crystal-ah)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/87cb11d1771047d59063940b71ea3e3d)](https://www.codacy.com/app/ayazhafiz/crystal-ah?utm_source=github.com&utm_medium=referral&utm_content=ayazhafiz/crystal-ah&utm_campaign=badger)
 
-My personal site, written in [Crystal](https://crystal-lang.org).
+My personal site, written in [Crystal](https://crystal-lang.org),
+[Rust](https://rust-lang.org), and [TypeScript](https://www.typescriptlang.org)
+(amongst other languages).
 
-The repo is reset to an initial commit after each 100 commits, or after major feature (X.x) introduction.
+The repo is reset to an initial commit after each 100 commits, or after major
+feature (X.x) introduction.
 
 TODO:
 
