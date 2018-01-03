@@ -17,8 +17,9 @@ $base-break: 767px;
 $base-font: Quicksand;
 $code-font: 'Dejavu Sans Mono', Menlo, Monaco, Consolas, 'Courier New',
   monospace;
-$system-font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
-  Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+$system-font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+  'Helvetica Neue', Helvetica, Arial, sans-serif, 'Apple Color Emoji',
+  'Segoe UI Emoji', 'Segoe UI Symbol';
 
 $material-bg: rgb(38, 50, 56);
 $material-red: rgb(247, 118, 105);
@@ -42,3 +43,4 @@ $shell-font: Menlo, $code-font;
 $code-base: rgb(39, 40, 34);
 $code-interp: rgb(228, 85, 70);
 $code-string: rgb(81, 162, 77);
+

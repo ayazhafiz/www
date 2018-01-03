@@ -4,7 +4,7 @@
     <title><%= title %></title>
     <%= render {{ PARTIAL[:meta] }} %>
     <%= render {{ PARTIAL[:webapp] }} %>
-    <%- if env.request.path === "/" -%>
+    <%- if page === "index_ui" -%>
       <%= render {{ PARTIAL[:index_head] }} %>
     <%- end -%>
     <link href=<%= "/css/#{MANIFEST["#{page}.css"]}" %> rel="stylesheet" type="text/css" media="all">

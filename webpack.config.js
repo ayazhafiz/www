@@ -8,6 +8,7 @@ const ENV = process.env.NODE_ENV || 'development';
 module.exports = {
   entry: {
     index: path.join(__dirname, 'src/build/index'),
+    index_ui: path.join(__dirname, 'src/build/index_ui'),
     error: path.join(__dirname, 'src/build/error'),
     mail: path.join(__dirname, 'src/build/mail'),
     mail_login: path.join(__dirname, 'src/build/mail_login'),

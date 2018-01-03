@@ -4,11 +4,17 @@ require "./util/http"
 
 include Util::HTTP
 
-# Renders index page
+# Renders landing page
 get "/" do |env|
-  page = "index"
+  ui? = env.request.query === "ui"
+  page = ui? ? "index_ui" : "index"
+
   title = "Ayaz Hafiz"
   mobile = is_mobile? env.request.headers["user-agent"]?
 
-  render {{ PAGE[:index] }}, {{ LAYOUT[:standard] }}
+  if ui?
+    render {{ PAGE[:index_ui] }}, {{ LAYOUT[:standard] }}
+  else
+    render {{ PAGE[:index] }}, {{ LAYOUT[:standard] }}
+  end
 end
