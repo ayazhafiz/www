@@ -1,80 +1,34 @@
-<%-
-# { &#9660; &gt; } # => { ▼ > }
-prompt = %{<span class="prompt">&#9660; &gt;</span>}
-email = %{<a class="email" href="mailto:ayaz.hafiz.1@gmail.com?subject=Hi!">#{Util::HTTP::ECR.inline "first"}.#{Util::HTTP::ECR.inline "last"}.1@gmail.com</a>}
-twitter = %{<a class="twitter" href="https://twitter.com/dvmvnds" target="_blank">@dvmvnds</a>}
-octicon_device = "octicon-device-" + (mobile ? "mobile" : "desktop")
-touch_scroll? = "touch" if mobile
--%>
+<div class="content">
+  Hey! I'm <span class="quasi name"></span>. I make stuff, currently at
+  <a href="https://vanderbilt.edu">Vanderbilt</a>, where my studies concentrate on <span class="quasi major"></span>
+  <br /> My current research is focused on <a class="tonglab" href="#TongLab">designing neural networks</a> to model human vision.
+  <br />
+  <br /> Work is louder than words, so below you can <span class="quasi expand"></span> the things I've done (and see who I'm about).
+  <br /> To get started, <a href="/?ui">here's a feel for my style</a>.
+  <br />
+  <br />
 
-<div class="scroll-container">
-  <div id="particles"></div>
-  <div class="center-display">
-    <%= render {{ PARTIAL[:projects] }} %>
+  <div id="<%= PARTIAL[:section][0][:tag] %>" class="tab">
+    <input id="tab-0" type="checkbox" name="<%= PARTIAL[:section][0][:tag] %>">
+    <label for="tab-0"><h3><span class="hash">###</span> <%= PARTIAL[:section][0][:title] %></h3></label>
+    <div class="tab-content <%= PARTIAL[:section][0][:tag] %>"><%= render {{ PARTIAL[:section][0][:view] }} %></div>
+  </div>
 
-    <br class="hidden-mobile">
+  <div id="<%= PARTIAL[:section][1][:tag] %>" class="tab">
+    <input id="tab-1" type="checkbox" name="<%= PARTIAL[:section][1][:tag] %>">
+    <label for="tab-1"><h3><span class="hash">###</span> <%= PARTIAL[:section][1][:title] %></h3></label>
+    <div class="tab-content <%= PARTIAL[:section][1][:tag] %>"><%= render {{ PARTIAL[:section][1][:view] }} %></div>
+  </div>
 
-    <div class="sample-container">
-      <%= render {{ PARTIAL[:podd_sample] }} %>
-    </div>
+  <div id="<%= PARTIAL[:section][2][:tag] %>" class="tab">
+    <input id="tab-2" type="checkbox" name="<%= PARTIAL[:section][2][:tag] %>">
+    <label for="tab-2"><h3><span class="hash">###</span> <%= PARTIAL[:section][2][:title] %></h3></label>
+    <div class="tab-content <%= PARTIAL[:section][2][:tag] %>"><%= render {{ PARTIAL[:section][2][:view] }} %></div>
+  </div>
 
-    <br>
-
-    <span class="shell">
-      <%= prompt %> from tx import dl
-    </span>
+  <div id="<%= PARTIAL[:section][3][:tag] %>" class="tab">
+    <input id="tab-3" type="checkbox" name="<%= PARTIAL[:section][3][:tag] %>">
+    <label for="tab-3"><h3><span class="hash">###</span> <%= PARTIAL[:section][3][:title] %></h3></label>
+    <div class="tab-content <%= PARTIAL[:section][3][:tag] %>"><%= render {{ PARTIAL[:section][3][:view] }} %></div>
   </div>
 </div>
-
-<div class="scroll-container two">
-  <svg id="tween-svg" version="1.1" xmlns="http://www.w3.org/2000/svg"></svg>
-  <div class="center-display difference-filter">
-    <div class="sample-container">
-      <blockquote>
-        <div class="text-center">$\frac{d\phi}{d\theta} = e^{\phi-\theta}\sec(\phi)(1+\theta^2)\ \ \ \colon\ \  \phi(0) = 0$</div>
-        <br>
-        ...it's everywhere now: Electron is using it to build desktop apps, massive graphical frameworks exploit its accessibility, and even pratical neural networks have been formed from its core.
-      </blockquote>
-
-      <br>
-
-      <span class="shell">
-        <%= prompt %> from ru import ms
-      </span>
-    </div>
-  </div>
-</div>
-
-<div class="scroll-container three">
-  <div class="header">
-    <div class="wave"></div>
-  </div>
-  <div class="center-display">
-    <%= render {{ PARTIAL[:whale] }} %>
-  </div>
-
-  <span class="center-display shell">
-    <%= prompt %> id(me,[dl,ms])
-  </span>
-
-  <span class="info">
-    <span class="octicon <%= octicon_device %>"></span>
-    <span class="year"><%= Time.now.year %></span>
-    <div class="mouse <%= touch_scroll? %>"></div>
-  </span>
-</div>
-
-<div class="scroll-container self">
-  <div class="mobile-text social">
-    <% if mobile %>
-      <%= email %><%= twitter %>
-    <% else %>
-      <div class="desktop left"><%= email %></div>
-      <div class="desktop right"><%= twitter %></div>
-    <% end %>
-  </div>
-</div>
-
-<%- ["top", "right", "bottom", "left"].each do |side| -%>
-  <div class="border <%= side %>"></div>
-<%- end -%>

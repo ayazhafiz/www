@@ -13,19 +13,42 @@ module Util::HTTP
   # Using __DIR__ would be much easier, but the Crystal Heroku buildpack
   # saves directory state so this won't work ):
   PARTIAL = {
-    index_head:  "./views/head/_for-index.ecr",
+    index_head:  "./views/head/_for-index-ui.ecr",
     mathjax:     "./views/head/js/mathjax.ecr",
     meta:        "./views/head/meta.ecr",
     podd_sample: "./views/includes/podd-sample.ecr",
     projects:    "./views/includes/projects.ecr",
     webapp:      "./views/head/webapp.ecr",
     whale:       "./views/includes/whale.ecr",
+    section:     [
+      {
+        tag:   "projects",
+        title: "Projects 📦",
+        view:  "./views/includes/sections/projects.ecr",
+      },
+      {
+        tag:   "work",
+        title: "Work 👩‍🔬",
+        view:  "./views/includes/sections/work.ecr",
+      },
+      {
+        tag:   "about",
+        title: "About 🥤",
+        view:  "./views/includes/sections/about.ecr",
+      },
+      {
+        tag:   "links",
+        title: "Links 🔗",
+        view:  "./views/includes/sections/links.ecr",
+      },
+    ],
   }
 
   # Table of page views
   PAGE = {
     error:      "./views/pages/error.ecr",
     index:      "./views/pages/index.ecr",
+    index_ui:   "./views/pages/index-ui.ecr",
     mail:       "./views/pages/mail.ecr",
     mail_login: "./views/pages/mail-login.ecr",
     try:        "./views/pages/try.ecr",
@@ -54,6 +77,8 @@ module Util::HTTP
                  "error.js"       => "error.js",
                  "index.css"      => "index.css",
                  "index.js"       => "index.js",
+                 "index_ui.css"   => "index_ui.css",
+                 "index_ui.js"    => "index_ui.js",
                  "mail.css"       => "mail.css",
                  "mail.js"        => "mail.js",
                  "mail_login.css" => "mail_login.css",
