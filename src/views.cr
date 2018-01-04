@@ -1,9 +1,11 @@
 require "kemal"
 require "is_mobile"
 require "./util/http"
+require "./util/index"
 require "./emoji/http_emoji"
 
 include Util::HTTP
+include Util::Index
 
 # Renders landing page.
 get "/" do |env|
@@ -12,6 +14,7 @@ get "/" do |env|
 
   title = "Ayaz Hafiz"
   mobile = is_mobile? env.request.headers["user-agent"]?
+  apple? = /iPad|iPhone|iPod|Mac OS X/ =~ env.request.headers["user-agent"]?
 
   if ui?
     render {{ PAGE[:index_ui] }}, {{ LAYOUT[:standard] }}

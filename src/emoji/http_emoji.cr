@@ -15,7 +15,10 @@ module HTTP::Emoji
   private BASE_URL = "https://assets-cdn.github.com/images/icons/emoji"
 
   # Renders an emoji image in HTML.
-  def render(emoji : String, base_url : String = BASE_URL)
+  def render(emoji : String,
+             base_url : String = BASE_URL,
+             raw? = false) : String
+    return emoji if raw?
     path = url emoji, base_url
     <<-HTML
     <img class="emoji" src="#{path}">

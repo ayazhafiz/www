@@ -40,6 +40,10 @@ body {
   & div.content {
     overflow: auto;
     padding-left: 10%;
+
+    > p {
+      margin: 0;
+    }
   }
 }
 
@@ -67,6 +71,10 @@ small {
   body {
     & div.content {
       padding: 1em;
+
+      > p:not(:first-of-type) {
+        margin-top: 0.5em;
+      }
     }
   }
 

@@ -1,37 +1,9 @@
 <p>
+  <% LANGUAGES.each do |lang, ext| %>
   <span class="language">
-    <span class="color cr"></span>Crystal
+    <span class="color <%= ext %>"></span><%= lang %>
   </span>
-  <span class="language">
-    <span class="color java"></span>Java
-  </span>
-  <span class="language">
-    <span class="color js"></span>JavaScript
-  </span>
-  <span class="language">
-    <span class="color ts"></span>TypeScript
-  </span>
-  <span class="language">
-    <span class="color rb"></span>Ruby
-  </span>
-  <span class="language">
-    <span class="color rs"></span>Rust
-  </span>
-  <span class="language">
-    <span class="color c"></span>C
-  </span>
-  <span class="language">
-    <span class="color cpp"></span>C++
-  </span>
-  <span class="language">
-    <span class="color py"></span>Python
-  </span>
-  <span class="language">
-    <span class="color r"></span>R
-  </span>
-  <span class="language">
-    <span class="color sql"></span>SQL
-  </span>
+  <% end %>
 </p>
 <p>
   Besides having non-toy experience with all the languages above, I am also
@@ -42,8 +14,8 @@
 </p>
 <p>
   Nonprofessionally, I am an avid skier
-  <%= HTTP::Emoji.render "⛷" %>, burrito eater
-  <%= HTTP::Emoji.render "🌯" %>, 4/4 beat maker
-  <%= HTTP::Emoji.render "🎛" %>, and bad-dance-moves enthusiast
-  <%= HTTP::Emoji.render "🕺" %>.
+  <%= HTTP::Emoji.render "⛷", raw?: apple? %>, burrito eater
+  <%= HTTP::Emoji.render "🌯", raw?: apple? %>, 4/4 beat maker
+  <%= HTTP::Emoji.render "🎛", raw?: apple? %>, and bad-dance-moves enthusiast
+  <%= HTTP::Emoji.render "🕺", raw?: apple? %>.
 </p>

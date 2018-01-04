@@ -1,42 +1,9 @@
+<% PROJECTS.each do |project| %>
 <p>
-  <span class="emoji"><%= HTTP::Emoji.render "📍" %></span>
-  <a href="https://github.com/ayazhafiz/meetHere">meetHere</a>
+  <span class="emoji"><%= HTTP::Emoji.render project[:emoji], raw?: apple? %></span>
+  <a href="<%= project[:link] %>"><%= project[:title] %></a>
   <quote>
-    A hyper-efficient JavaScript library for handling locations.
+    <%= project[:desc] %>
   </quote>
 </p>
-<p>
-  <span class="emoji"><%= HTTP::Emoji.render "🐘" %></span>
-  <a href="https://github.com/ayazhafiz/rcalc">rcalc</a>
-  <quote>
-    Glorified calculator with a lexer, parser, and interpreter written in Rust.
-  </quote>
-</p>
-<p>
-  <span class="emoji"><%= HTTP::Emoji.render "🏇" %></span>
-  <a href="https://ayaz.shinyapps.io/svd-image">R-svd</a>
-  <quote>
-    SVD-based image compression.
-  </quote>
-</p>
-<p>
-  <span class="emoji"><%= HTTP::Emoji.render "🌷" %></span>
-  <a href="https://github.com/ayazhafiz/30-Days-of-Crystal">30 Days of Crystal</a>
-  <quote>
-    30 exercises in the Crystal programming language.
-  </quote>
-</p>
-<p>
-  <span class="emoji"><%= HTTP::Emoji.render "🎣" %></span>
-  <a href="https://github.com/ayazhafiz/rod">rod</a>
-  <quote>
-    Another esoteric language.
-  </quote>
-</p>
-<p>
-  <span class="emoji"><%= HTTP::Emoji.render "🍉" %></span>
-  <a href="https://github.com/ayazhafiz/calc-cli">calc-cli</a>
-  <quote>
-    Calculus (and other stuff) in your terminal.
-  </quote>
-</p>
+<% end %>
