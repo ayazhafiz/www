@@ -5,16 +5,26 @@ require "./http_client_emoji"
 require "./http_request_emoji"
 require "../util/emoji"
 
-# Descibes methods for internal handling of the Enoji API
+# Descibes methods for internal handling of the Enoji API.
 module HTTP::Emoji
   extend self
 
   include Util::Emoji
   include Util::Emoji::Alias
 
-  # Handles all emoji queries
+  private BASE_URL = "https://assets-cdn.github.com/images/icons/emoji"
+
+  # Renders an emoji image in HTML.
+  def render(emoji : String, base_url : String = BASE_URL)
+    path = url emoji, base_url
+    <<-HTML
+    <img class="emoji" src="#{path}">
+    HTML
+  end
+
+  # Handles all emoji queries.
   #
-  # Sources handling different data types via type inference
+  # Sources handling different data types via type inference.
   def like(query : Query,
            path = DEF_PATH) : Any | Array(Any)
     if query.is_a? Err
@@ -34,13 +44,29 @@ module HTTP::Emoji
     end
   end
 
-  # Retrieves one, random emoji
+  # Retrieves one, random emoji.
   private def process
     emoji = EMOJI.sample(1)[0]
     define emoji: emoji
   end
 
-  # Retrieves emoji relevant to some specified query
+  # Returns the filename of an emoji image.
+  private def url(emoji : String, base_url : String) : String
+    "#{base_url}/unicode/#{codepoint(emoji)}.png"
+  end
+
+  # Returns the codepoint of some emoji character.
+  private def codepoint(emoji : String) : String
+    res = [] of String
+
+    emoji.each_char do |c|
+      res << c.ord.to_s(16).rjust(4, '0')
+    end
+
+    res.join('-').gsub(/-(fe0f|200d)\b/, "")
+  end
+
+  # Retrieves emoji relevant to some specified query.
   private def process(query : String,
                       path = DEF_PATH) : MassJSON | Err
     emoji = HTTP::Client::Emoji.get(
@@ -57,7 +83,7 @@ module HTTP::Emoji
     end
   end
 
-  # Processes a JSON Array of multiple emoji requests concurrently
+  # Processes a JSON Array of multiple emoji requests concurrently.
   private def process(body,
                       path = DEF_PATH) : Err | Array(Any)
     ch = Channel(Nil).new
@@ -82,7 +108,7 @@ module HTTP::Emoji
   end
 
   # Generates Array of relevant emoji information by comparing and compiling
-  # relevant emoji to base list
+  # relevant emoji to base list.
   private def process(response relevant : JSON::Any,
                       query : String) : MassJSON
     response = [] of HashJSON
@@ -100,7 +126,7 @@ module HTTP::Emoji
   end
 
   # Generates defenition of an emoji given its master list key and optional
-  # relevance to specified query
+  # relevance to specified query.
   private def define(emoji : NamedTuple,
                      base : JSON::Any? = nil) : HashJSON
     entry = {} of String => String | JSON::Any
@@ -111,7 +137,7 @@ module HTTP::Emoji
     entry
   end
 
-  # Bundles specified query with some given value
+  # Bundles specified query with some given value.
   private def bundle(value : HashJSON | Array(HashJSON),
                      query : String) : MassJSON
     {

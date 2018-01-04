@@ -114,6 +114,11 @@ a {
   }
 }
 
+img.emoji {
+  height: 1.2em;
+  vertical-align: -8%;
+}
+
 .quasi {
   border-bottom: 1px solid rgba(254, 158, 160, 0.75);
 
@@ -183,6 +188,12 @@ label {
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.35s;
+
+  &.projects {
+    span.emoji {
+      margin-right: 0.25em;
+    }
+  }
 
   &.work {
     p:not(:first-of-type) {

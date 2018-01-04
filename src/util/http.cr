@@ -22,23 +22,23 @@ module Util::HTTP
     whale:       "./views/includes/whale.ecr",
     section:     [
       {
+        emoji: "📦",
         tag:   "projects",
-        title: "Projects 📦",
         view:  "./views/includes/sections/projects.ecr",
       },
       {
+        emoji: "👩‍🔬",
         tag:   "work",
-        title: "Work 👩‍🔬",
         view:  "./views/includes/sections/work.ecr",
       },
       {
+        emoji: "🍍",
         tag:   "about",
-        title: "About 🥤",
         view:  "./views/includes/sections/about.ecr",
       },
       {
+        emoji: "🔗",
         tag:   "links",
-        title: "Links 🔗",
         view:  "./views/includes/sections/links.ecr",
       },
     ],

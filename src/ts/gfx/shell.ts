@@ -417,6 +417,14 @@ const clearMobilePaths = (container: string): void => {
 };
 
 /**
+ * Remove breaking characters in a string.
+ * This prevents text overflow on the mobile scroller.
+ * @function
+ */
+const removeBreakingChars = (str: string): string =>
+  str.replace(/-/g, '\u2011');
+
+/**
  * Add a suggested path on mobile
  * @function
  */
@@ -457,7 +465,7 @@ const addMobilePaths = (container: string): void => {
   $(container).appendChild(wrapper);
   for (const path of paths) {
     const div = document.createElement('div');
-    div.innerText = path;
+    div.innerText = removeBreakingChars(path);
     div.addClass('path');
     div.addEventListener('click', handleMobilePathClick);
     State.mobile.pathEls.push(div);

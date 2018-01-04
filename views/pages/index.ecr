@@ -10,25 +10,45 @@
 
   <div id="<%= PARTIAL[:section][0][:tag] %>" class="tab">
     <input id="tab-0" type="checkbox" name="<%= PARTIAL[:section][0][:tag] %>">
-    <label for="tab-0"><h3><span class="hash">###</span> <%= PARTIAL[:section][0][:title] %></h3></label>
-    <div class="tab-content <%= PARTIAL[:section][0][:tag] %>"><%= render {{ PARTIAL[:section][0][:view] }} %></div>
+    <label for="tab-0"><h3><span class="hash">###</span>
+      <%= PARTIAL[:section][0][:tag].capitalize %>
+      <%= HTTP::Emoji.render PARTIAL[:section][0][:emoji] %>
+    </h3></label>
+    <div class="tab-content <%= PARTIAL[:section][0][:tag] %>">
+      <%= render {{ PARTIAL[:section][0][:view] }} %>
+    </div>
   </div>
 
   <div id="<%= PARTIAL[:section][1][:tag] %>" class="tab">
     <input id="tab-1" type="checkbox" name="<%= PARTIAL[:section][1][:tag] %>">
-    <label for="tab-1"><h3><span class="hash">###</span> <%= PARTIAL[:section][1][:title] %></h3></label>
-    <div class="tab-content <%= PARTIAL[:section][1][:tag] %>"><%= render {{ PARTIAL[:section][1][:view] }} %></div>
+    <label for="tab-1"><h3><span class="hash">###</span>
+      <%= PARTIAL[:section][1][:tag].capitalize %>
+      <%= HTTP::Emoji.render PARTIAL[:section][1][:emoji] %>
+    </h3></label>
+    <div class="tab-content <%= PARTIAL[:section][1][:tag] %>">
+      <%= render {{ PARTIAL[:section][1][:view] }} %>
+    </div>
   </div>
 
   <div id="<%= PARTIAL[:section][2][:tag] %>" class="tab">
     <input id="tab-2" type="checkbox" name="<%= PARTIAL[:section][2][:tag] %>">
-    <label for="tab-2"><h3><span class="hash">###</span> <%= PARTIAL[:section][2][:title] %></h3></label>
-    <div class="tab-content <%= PARTIAL[:section][2][:tag] %>"><%= render {{ PARTIAL[:section][2][:view] }} %></div>
+    <label for="tab-2"><h3><span class="hash">###</span>
+      <%= PARTIAL[:section][2][:tag].capitalize %>
+      <%= HTTP::Emoji.render PARTIAL[:section][2][:emoji] %>
+    </h3></label>
+    <div class="tab-content <%= PARTIAL[:section][2][:tag] %>">
+      <%= render {{ PARTIAL[:section][2][:view] }} %>
+    </div>
   </div>
 
   <div id="<%= PARTIAL[:section][3][:tag] %>" class="tab">
     <input id="tab-3" type="checkbox" name="<%= PARTIAL[:section][3][:tag] %>">
-    <label for="tab-3"><h3><span class="hash">###</span> <%= PARTIAL[:section][3][:title] %></h3></label>
-    <div class="tab-content <%= PARTIAL[:section][3][:tag] %>"><%= render {{ PARTIAL[:section][3][:view] }} %></div>
+    <label for="tab-3"><h3><span class="hash">###</span>
+      <%= PARTIAL[:section][3][:tag].capitalize %>
+      <%= HTTP::Emoji.render PARTIAL[:section][3][:emoji] %>
+    </h3></label>
+    <div class="tab-content <%= PARTIAL[:section][3][:tag] %>">
+      <%= render {{ PARTIAL[:section][3][:view] }} %>
+    </div>
   </div>
 </div>

@@ -1,10 +1,11 @@
 require "kemal"
 require "is_mobile"
 require "./util/http"
+require "./emoji/http_emoji"
 
 include Util::HTTP
 
-# Renders landing page
+# Renders landing page.
 get "/" do |env|
   ui? = env.request.query === "ui"
   page = ui? ? "index_ui" : "index"
