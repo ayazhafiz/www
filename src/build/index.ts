@@ -1,43 +1,29 @@
-(window as any).__forceSmoothScrollPolyfill__ = true;
-
-import { $, $$ } from '../ts/util/el';
-import { polyfill } from 'smoothscroll-polyfill';
-
-polyfill();
+import { particles } from '../ts/gfx/particles';
+import { scroll as scrollify } from '../ts/page/scrollify';
+import { page as currentPage } from '../ts/page/currentPage';
+import { pageMove } from '../ts/page/pageMove';
+import { tween } from '../ts/gfx/tween';
 
 import './index.scss';
 
-function toggleQuasiText() {
-  this.classList.toggle('mobile-touch');
+const PARTICLE_DENSITY = 135;
+const NUM_CIRCLES = 20;
+const SCROLL_SPEED = 750;
+
+/**
+ * Build the pages of the index view
+ * @event
+ */
+function build() {
+  // apply gfx
+  particles(PARTICLE_DENSITY);
+  tween(NUM_CIRCLES);
+
+  // apply scrollables
+  scrollify(SCROLL_SPEED);
+  pageMove(currentPage());
+
+  // breakdown
+  document.removeEventListener('DOMContentLoaded', build);
 }
-
-function openResearch() {
-  const inputs = $$('input');
-  for (let input of inputs) (input as HTMLInputElement).checked = false;
-  ($('input#tab-1') as HTMLInputElement).checked = true;
-  scrollIntoView.bind(this);
-}
-
-function scrollIntoView() {
-  if (this.checked) {
-    setTimeout(
-      () => $(`#${this.name}`).scrollIntoView({ behavior: 'smooth' }),
-      50
-    );
-  }
-}
-
-function addListeners() {
-  const quasis = $$('.quasi');
-  for (let quasi of quasis) {
-    quasi.addEventListener('touchstart', toggleQuasiText);
-    quasi.addEventListener('touchend', toggleQuasiText);
-  }
-
-  const inputs = $$('input');
-  for (let input of inputs) input.addEventListener('change', scrollIntoView);
-
-  $('a.tonglab').addEventListener('click', openResearch);
-}
-
-document.addEventListener('DOMContentLoaded', addListeners);
+document.addEventListener('DOMContentLoaded', build);
