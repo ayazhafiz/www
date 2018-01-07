@@ -7,8 +7,8 @@ module Util::Index
     {
       title: "meetHere",
       link:  "https://github.com/ayazhafiz/meetHere",
-      desc:  " A blazing-fast JavaScript library for handling locations on" +
-            "and off maps.",
+      desc:  "A blazing-fast JavaScript library for handling locations on and" +
+            "off maps.",
       emoji: "📍",
     },
     {
@@ -49,26 +49,26 @@ module Util::Index
     {
       title: "Vanderbilt Tong Lab",
       desc:  <<-HTML
-   Machine modeling of human
-   <a href="http://www.psy.vanderbilt.edu/tonglab/web/research.html">vision and object recognition</a>
-   patterns.
-   HTML,
+      Machine modeling of human
+      <a href="http://www.psy.vanderbilt.edu/tonglab/web/research.html">vision and object recognition</a>
+      patterns.
+      HTML,
     },
     {
       title: "meetHere",
       desc:  <<-HTML
-   Full-stack development for an
-   <a href="https://genglobal.org/global-entrepreneurship-week-startup-open/gen-announces-top-10-startup-open-finalists">internationally-recognized</a>
-   startup.
-   HTML,
+      Full-stack development for an
+      <a href="https://genglobal.org/global-entrepreneurship-week-startup-open/gen-announces-top-10-startup-open-finalists">internationally-recognized</a>
+      startup.
+      HTML,
     },
     {
       title: "UTD Berkner Lab",
       desc:  <<-HTML
-   Research intern exploring
-   <a href="http://asa.scitation.org/doi/abs/10.1121/1.4969616">viable applications</a>
-   of multi-walled carbon nanotubes.
-   HTML,
+      Research intern exploring
+      <a href="http://asa.scitation.org/doi/abs/10.1121/1.4969616">viable applications</a>
+      of multi-walled carbon nanotubes.
+      HTML,
     },
   ]
 
