@@ -1,4 +1,4 @@
-import * as Typed from 'typed.js';
+import Typed from 'typed.js';
 import '../util/array';
 import { $ } from '../util/el';
 import {
@@ -12,7 +12,7 @@ import {
   knownSubPaths,
   knownFullPaths,
   matchClass,
-  animClass
+  animClass,
 } from '../env/error';
 
 /**
@@ -27,7 +27,7 @@ const KEY = {
   delete: 46,
   digits: [48, 57].range(),
   letters: [65, 90].range(),
-  extraneous: [186, 192].range().concat([219, 222].range())
+  extraneous: [186, 192].range().concat([219, 222].range()),
 };
 /**
  * Required keystroke timeout
@@ -45,37 +45,56 @@ class State {
    * Stores the current buffer
    * @static
    */
-  static buffer = '';
+  private static privBuffer: string = '';
+
+  static get buffer() {
+    return State.privBuffer;
+  }
+
   /**
    * Stores the current subPath
    * @static
    */
-  static subPath = '';
+  private static privSubPath: string = '';
+
+  static get subPath() {
+    return State.privSubPath;
+  }
+
   /**
    * Stores the current suggestions, and which suggestion is currently shown
    * @static
    */
-  static sug: { paths: string[]; index: number } = {
+  private static sug: { paths: string[]; index: number } = {
     paths: knownPaths,
-    index: 0
+    index: 0,
   };
+
   /**
    * Stores current paths and subpaths for mobile view
    * @static
    */
-  static mobile = {
+  public static mobile: {
+    pathEls: HTMLDivElement[];
+    subPaths: string[];
+  } = {
     pathEls: [],
-    subPaths: ['']
+    subPaths: [''],
   };
+
   /**
    * Stores whether a key was pressed, the time it was pressed, and its last
    * keycode value
    * @static
    */
-  static key: { pressed: boolean; timePressed: number; lastKey: number } = {
+  public static key: {
+    pressed: boolean;
+    timePressed: number;
+    lastKey: number;
+  } = {
     pressed: null,
     timePressed: 0,
-    lastKey: KEY['tab']
+    lastKey: KEY.tab,
   };
 
   /**
@@ -85,9 +104,10 @@ class State {
   static get el(): { cursor: string; shell: string } {
     return {
       cursor: cursorEl,
-      shell: shellEl
+      shell: shellEl,
     };
   }
+
   /**
    * Resets the KeystrokeBuffer index
    * @private @static @function
@@ -95,6 +115,7 @@ class State {
   private static resetIndex(): void {
     this.sug.index = 0;
   }
+
   /**
    * Resets the KeystrokeBuffer index
    * @private @static @function
@@ -105,6 +126,7 @@ class State {
       this.sug.index = 0;
     }
   }
+
   /**
    * Gets the next suggested path of the KeystrokeBuffer
    * @static @function
@@ -112,25 +134,86 @@ class State {
   static get nextPath(): string {
     const path = this.sug.paths[this.sug.index];
     State.incIndex();
+
     return path || '';
   }
+
   /**
    * Gets suggested paths of the KeystrokeBuffer
    * @static @function
    */
   static set pathsLike(query: string) {
-    this.sug.paths = knownPaths.filter(pt => pt.startsWith(query));
+    this.sug.paths = knownPaths.filter((pt) => pt.startsWith(query));
     const idx = query.lastIndexOf('/');
     const subPath = idx === 0 ? query : query.substring(0, idx);
     if (knownSubPaths[subPath]) {
       query = idx === 0 ? '' : query.substring(idx);
-      this.sug.paths = knownSubPaths[subPath].filter(pt =>
-        pt.startsWith(query)
+      this.sug.paths = knownSubPaths[subPath].filter((pt) =>
+        pt.startsWith(query),
       );
     }
-    this.subPath = knownSubPaths[subPath] ? subPath : '';
+    this.privSubPath = knownSubPaths[subPath] ? subPath : '';
 
     State.resetIndex();
+  }
+
+  /**
+   * Updates the buffer to its closest path suggestion
+   * @function
+   */
+  private static tabBuffer(el: string): void {
+    const sanitizedPath = sanitize(el);
+    const leadingSlash = hasLeadingSlash(getPath(el));
+    if (State.key.lastKey !== KEY.tab) {
+      State.pathsLike = sanitizedPath;
+    }
+    const oldBuffer = State.buffer;
+    const newBuffer = `${State.subPath}${State.nextPath}`;
+    if (newBuffer) {
+      this.privBuffer =
+        leadingSlash || oldBuffer === '' ? newBuffer : newBuffer.slice(1);
+    }
+  }
+
+  /**
+   * Updates the KeystrokeBuffer based on a user's keystroke
+   * @static @function
+   */
+  public static updateBuffer(evt: KeyboardEvent, el: string): void {
+    const code = evt.keyCode || evt.which;
+    const sanitizedPath = sanitize(el);
+
+    if (
+      (evt.ctrlKey || evt.metaKey || evt.altKey) &&
+      !(code === KEY.backspace || code === KEY.delete)
+    ) {
+      // do nothing
+    } else if (code === KEY.enter) {
+      // if enter, redirect user to new path
+      redirect(encodeURI(sanitizedPath));
+    } else if (code === KEY.tab) {
+      // if tab, attempt to match-to-path buffer
+      this.tabBuffer(el);
+    } else if (code === KEY.space) {
+      // if space, add to buffer
+      this.privBuffer += ' ';
+    } else if (code === KEY.backspace || code === KEY.delete) {
+      // if backspace/delete, remove character (whole line, if modifier is active)
+      this.privBuffer = this.privBuffer.slice(0, -1);
+      if (evt.ctrlKey || evt.metaKey) {
+        this.privBuffer = '';
+      }
+    } else if (
+      [...KEY.digits, ...KEY.letters, ...KEY.extraneous].includes(code)
+    ) {
+      // if operable character, add to buffer
+      let st = evt.key || String.fromCharCode(code);
+      if (!evt.shiftKey) {
+        st = st.toLowerCase();
+      }
+      this.privBuffer += st;
+    }
+    this.key.lastKey = code;
   }
 }
 
@@ -152,6 +235,7 @@ const getPath = (el: string): string => $(el).innerText;
  */
 const sanitize = (el: string): string => {
   const path = getPath(el);
+
   return hasLeadingSlash(path) ? path : `${SLASH}${path}`;
 };
 
@@ -173,7 +257,7 @@ const update = (el: string): void => {
  * @function
  */
 const checkForMatch = (el: string, path: string): void => {
-  if (knownFullPaths.some(pt => pt.startsWith(path))) {
+  if (knownFullPaths.some((pt) => pt.startsWith(path))) {
     $(el).addClass(matchClass);
   } else {
     $(el).removeClass(matchClass);
@@ -184,7 +268,7 @@ const checkForMatch = (el: string, path: string): void => {
  * Checks for match between the KeystrokeBuffer and current known subpaths
  * @function
  */
-const checkForShadow = (el: string, path: string): void => {
+const checkForShadow = (_: string, path: string): void => {
   $(cursorEl)
     .removeClass(shadowSlashClass)
     .text(' ');
@@ -192,24 +276,6 @@ const checkForShadow = (el: string, path: string): void => {
     $(cursorEl)
       .addClass(shadowSlashClass)
       .text('');
-  }
-};
-
-/**
- * Updates the buffer to its closest path suggestion
- * @function
- */
-const tabBuffer = (el: string): void => {
-  const sanitizedPath = sanitize(el);
-  const leadingSlash = hasLeadingSlash(getPath(el));
-  if (State.key.lastKey !== KEY['tab']) {
-    State.pathsLike = sanitizedPath;
-  }
-  const oldBuffer = State.buffer;
-  const newBuffer = `${State.subPath}${State.nextPath}`;
-  if (newBuffer) {
-    State.buffer =
-      leadingSlash || oldBuffer === '' ? newBuffer : newBuffer.slice(1);
   }
 };
 
@@ -222,54 +288,14 @@ const redirect = (path: string): void => {
 };
 
 /**
- * Updates the KeystrokeBuffer based on a user's keystroke
- * @function
- */
-const updateBuffer = (evt: KeyboardEvent, el: string): void => {
-  let code = evt.keyCode || evt.which;
-  const sanitizedPath = sanitize(el);
-
-  if (
-    (evt.ctrlKey || evt.metaKey || evt.altKey) &&
-    !(code === KEY['backspace'] || code === KEY['delete'])
-  ) {
-  } else if (code === KEY['enter']) {
-    // if enter, redirect user to new path
-    redirect(encodeURI(sanitizedPath));
-  } else if (code === KEY['tab']) {
-    // if tab, attempt to match-to-path buffer
-    tabBuffer(el);
-  } else if (code === KEY['space']) {
-    // if space, add to buffer
-    State.buffer += ' ';
-  } else if (code === KEY['backspace'] || code === KEY['delete']) {
-    // if backspace/delete, remove character (whole line, if modifier is active)
-    State.buffer = State.buffer.slice(0, -1);
-    if (evt.ctrlKey || evt.metaKey) State.buffer = '';
-  } else if (
-    KEY['digits'].includes(code) || // digits
-    KEY['letters'].includes(code) || // letters
-    KEY['extraneous'].includes(code) // extraneous
-  ) {
-    // if operable character, add to buffer
-    let st = evt.key || String.fromCharCode(code);
-    if (!evt.shiftKey) {
-      st = st.toLowerCase();
-    }
-    State.buffer += st;
-  }
-  State.key.lastKey = code;
-};
-
-/**
  * Process user's keydown
  * @function
  */
 const handleKeyDown = (evt: KeyboardEvent): void => {
   evt.preventDefault();
   State.key.pressed = true;
-  pauseCursor();
-  updateBuffer(evt, State.el.shell);
+  pauseCursorWhileTyping();
+  State.updateBuffer(evt, State.el.shell);
   update(State.el.shell);
   scrollIntoView(shellParentEl, State.el.cursor);
 };
@@ -287,12 +313,16 @@ const handleKeyUp = (): void => {
  * @function
  */
 const scrollIntoView = (shell: string, cursor: string): void => {
-  if ($(shell)) $(shell).scrollLeft = 0;
-  if ($(cursor)) $(cursor).scrollIntoView();
+  if ($(shell)) {
+    $(shell).scrollLeft = 0;
+  }
+  if ($(cursor)) {
+    $(cursor).scrollIntoView();
+  }
 };
 
 /**
- * Show cursor blinking if no key has been pressed for `some` time
+ * Show cursor blinking if no key has been pressed for _some_ time
  * @function
  */
 const blinkCursorWhileNotTyping = (): void => {
@@ -334,19 +364,21 @@ const pauseCursor = (): void => {
  * Motivate user to type in shell
  * @function
  */
-const motivateShell = (): void => {
+const motivateShell = (): Typed => {
   $(State.el.cursor).remove();
-  new Typed(State.el.shell, {
+  const typed = new Typed(State.el.shell, {
     strings: ['key a path and press enter!', ''],
-    typedSpeed: 80,
+    typeSpeed: 80,
     backSpeed: 10,
     backDelay: 600,
     showCursor: true,
     cursorChar: cursorChar,
     onComplete: (): void => {
       init();
-    }
+    },
   });
+
+  return typed;
 };
 
 /**
@@ -441,7 +473,7 @@ const addSubPathEl = (sub: string): void => {
  */
 const addBackEl = (container: string, sub: string): void => {
   if (knownSubPaths[sub]) {
-    let backWrap = document.createElement('div');
+    const backWrap = document.createElement('div');
     $(container).appendChild(backWrap);
     const div = document.createElement('div');
     div.innerText = '<';
@@ -461,7 +493,7 @@ const addMobilePaths = (container: string): void => {
   const subPath = State.mobile.subPaths[State.mobile.subPaths.length - 1];
   const paths = knownSubPaths[subPath] || knownPaths;
   addSubPathEl(subPath);
-  let wrapper = document.createElement('div');
+  const wrapper = document.createElement('div');
   $(container).appendChild(wrapper);
   for (const path of paths) {
     const div = document.createElement('div');
@@ -488,7 +520,7 @@ const mobile = (container: string): void => {
  * Handle press of suggested paths on mobile
  * @function
  */
-function handleMobilePathClick(): void {
+function handleMobilePathClick(this: HTMLDivElement): void {
   processAnimations(mobileSelectorEl, 'finally');
   if (knownSubPaths[this.innerText]) {
     State.mobile.subPaths.push(this.innerText);
@@ -497,7 +529,7 @@ function handleMobilePathClick(): void {
     $(shellEl).text(
       `${State.mobile.subPaths[State.mobile.subPaths.length - 1]}${
         this.innerText
-      }`
+      }`,
     );
     redirect($(shellEl).innerText);
   }

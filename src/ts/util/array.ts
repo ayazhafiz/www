@@ -1,15 +1,15 @@
 declare global {
   interface Array<T> {
-    max: T;
-    min: T;
-    range;
+    max(): T;
+    min(): T;
+    range(): T[];
   }
 }
 /**
  * Finds the maximum value of an array
  * @extends Array
  */
-Array.prototype.max = function(): number {
+Array.prototype.max = function(this: number[]): number {
   return Math.max.apply(null, this);
 };
 
@@ -17,7 +17,7 @@ Array.prototype.max = function(): number {
  * Finds the minimum value of an array
  * @extends Array
  */
-Array.prototype.min = function(): number {
+Array.prototype.min = function(this: number[]): number {
   return Math.min.apply(null, this);
 };
 
@@ -25,10 +25,10 @@ Array.prototype.min = function(): number {
  * Generates an Array of a numeric range
  * @extends Array
  */
-Array.prototype.range = function(): number[] {
+Array.prototype.range = function(this: number[]): number[] {
   return Array.from(
     new Array(this.max() - this.min() + 1),
-    (n, i) => this.min() + i
+    (_, i) => this.min() + i,
   );
 };
 

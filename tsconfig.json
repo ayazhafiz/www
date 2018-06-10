@@ -2,11 +2,13 @@
   "compilerOptions": {
     "module": "commonjs",
     "target": "es5",
-    "lib": ["ES2016", "ES2017", "DOM"],
+    "lib": ["es6", "ES2016", "ES2017", "DOM"],
     "noImplicitAny": false,
     "sourceMap": false,
     "alwaysStrict": true,
-    "allowJs": true
+    "allowJs": true,
+    "forceConsistentCasingInFileNames": true,
+    "esModuleInterop": true
   },
   "exclude": ["node_modules"]
 }

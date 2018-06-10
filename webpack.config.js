@@ -13,59 +13,59 @@ module.exports = {
     mail: path.join(__dirname, 'src/build/mail'),
     mail_login: path.join(__dirname, 'src/build/mail_login'),
     'try.anoop': path.join(__dirname, 'src/build/try.anoop'),
-    'try.rod': path.join(__dirname, 'src/build/try.rod')
+    'try.rod': path.join(__dirname, 'src/build/try.rod'),
   },
   output: {
     path: path.join(__dirname, 'public/js'),
-    filename: ENV === 'production' ? '[name].[chunkhash].js' : '[name].js'
+    filename: ENV === 'production' ? '[name].[chunkhash].js' : '[name].js',
   },
   resolve: {
-    extensions: ['.js', '.ts']
+    extensions: ['.js', '.ts'],
   },
   resolveLoader: {
-    modules: [path.join(__dirname, 'node_modules')]
+    modules: [path.join(__dirname, 'node_modules')],
   },
   module: {
     rules: [
       {
         test: /\.ts$/,
         use: {
-          loader: 'ts-loader'
-        }
+          loader: 'ts-loader',
+        },
       },
       {
         test: /\.scss$/,
         use: ExtractTextPlugin.extract({
           use: [
             {
-              loader: 'css-loader'
+              loader: 'css-loader',
             },
             {
-              loader: 'postcss-loader'
+              loader: 'postcss-loader',
             },
             {
               loader: 'sass-loader',
               options: {
-                outputStyle: 'compressed'
-              }
-            }
-          ]
-        })
-      }
-    ]
+                outputStyle: 'compressed',
+              },
+            },
+          ],
+        }),
+      },
+    ],
   },
   plugins: [
     new ExtractTextPlugin(
       ENV === 'production'
         ? '../css/[name].[chunkhash].css'
-        : '../css/[name].css'
+        : '../css/[name].css',
     ),
     new ManifestPlugin({
       fileName: path.join(__dirname, './src/build/webpack-manifest.json'),
-      map: obj => {
+      map: (obj) => {
         obj.path = obj.path.split('/').slice(-1)[0];
         return obj;
-      }
-    })
-  ]
+      },
+    }),
+  ],
 };

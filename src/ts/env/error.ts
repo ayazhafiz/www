@@ -27,15 +27,16 @@ const knownPaths = [
   '/meethere',
   '/movie-emoji',
   '/try',
-  '/vector'
+  '/vector',
 ];
 const knownSubPaths = {
-  '/try': ['/anoop', '/rod']
+  '/try': ['/anoop', '/rod'],
 };
 const knownFullPaths = knownPaths.reduce((full, path) => {
   if (knownSubPaths[path]) {
-    return full.concat(knownSubPaths[path].map(sub => `${path}${sub}`));
+    return full.concat(knownSubPaths[path].map((sub) => `${path}${sub}`));
   }
+
   return full.concat([path]);
 }, []);
 
@@ -64,5 +65,5 @@ export {
   knownFullPaths,
   cursorChar,
   pathString,
-  openString
+  openString,
 };

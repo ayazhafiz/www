@@ -1,5 +1,5 @@
 import { $ } from '../ts/util/el';
-import { SubmitButton, toggleSpinner } from '../ts/gfx/submit-button';
+import { submitButton, toggleSpinner } from '../ts/gfx/submit-button';
 
 import './mail_login.scss';
 
@@ -13,36 +13,14 @@ type loginAttempt = { valid: boolean };
  * Stores the login elements of the mail server
  * @constant
  */
-const Login: {
-  attr: { username: string; password: string };
+const LOGIN: {
+  attr: { username: HTMLInputElement; password: HTMLInputElement };
 } = {
   attr: {
-    username: 'input#username',
-    password: 'input#password'
-  }
+    username: <HTMLInputElement>$('input#username'),
+    password: <HTMLInputElement>$('input#password'),
+  },
 };
-
-document.addEventListener('DOMContentLoaded', addListeners, false);
-
-/**
- * Adds listeners for the mail login server
- * @event
- */
-function addListeners(): void {
-  Object.entries(Login.attr).forEach(list => {
-    ($(list[1]) as HTMLInputElement).onfocus = function() {
-      (this as HTMLInputElement).placeholder = '';
-    };
-
-    ($(list[1]) as HTMLInputElement).onblur = function() {
-      (this as HTMLInputElement).placeholder = list[0];
-    };
-  });
-
-  ($(SubmitButton.el) as HTMLElement).onclick = attemptLogin;
-
-  document.removeEventListener('DOMContentLoaded', addListeners, false);
-}
 
 /**
  * Submits a mail login request
@@ -52,14 +30,14 @@ async function submitLoginRequest(): Promise<loginAttempt> {
   return fetch('/mail/verify', {
     headers: new Headers({
       Accept: 'application/json',
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     }),
     method: 'POST',
     body: JSON.stringify({
-      username: ($(Login.attr.username) as HTMLInputElement).value,
-      password: ($(Login.attr.password) as HTMLInputElement).value
-    })
-  }).then(data => data.json());
+      username: LOGIN.attr.username.value,
+      password: LOGIN.attr.password.value,
+    }),
+  }).then((data) => data.json());
 }
 
 /**
@@ -78,12 +56,8 @@ async function attemptLogin() {
 function redirectToMail(): void {
   window.location.href =
     `/mail/` +
-    `${encodeURIComponent(
-      ($(Login.attr.username) as HTMLInputElement).value
-    )}?` +
-    `key=${encodeURIComponent(
-      ($(Login.attr.password) as HTMLInputElement).value
-    )}`;
+    `${encodeURIComponent(LOGIN.attr.username.value)}?` +
+    `key=${encodeURIComponent(LOGIN.attr.password.value)}`;
 }
 
 /**
@@ -92,9 +66,27 @@ function redirectToMail(): void {
  */
 function showIncorrect(): void {
   toggleSpinner('none', 'block', '#fff');
-  Object.values(Login.attr).forEach(el => {
-    ($(el) as HTMLInputElement).value = '';
-    $(el).addClass('wrong');
-    setTimeout(() => $(el).removeClass('wrong'), 500);
+  Object.values(LOGIN.attr).forEach((el) => {
+    el.value = '';
+    el.addClass('wrong');
+    setTimeout(() => el.removeClass('wrong'), 500);
   });
 }
+
+/**
+ * Adds listeners for the mail login server
+ * @event
+ */
+(() => {
+  Object.entries(LOGIN.attr).forEach((list) => {
+    list[1].onfocus = function(this: HTMLInputElement) {
+      this.placeholder = '';
+    };
+
+    list[1].onblur = function(this: HTMLInputElement) {
+      this.placeholder = list[0];
+    };
+  });
+
+  $(submitButton.el).onclick = attemptLogin;
+})();

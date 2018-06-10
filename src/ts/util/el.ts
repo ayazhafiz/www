@@ -1,70 +1,91 @@
 declare global {
-  interface Element {
-    hide;
-    show;
-    mask;
-    unmask;
-    innerText;
-    text;
-    addClass;
-    removeClass;
+  interface HTMLElement {
+    hide(): HTMLElement;
+    show(): HTMLElement;
+    mask(): HTMLElement;
+    unmask(): HTMLElement;
+    text(str: string): HTMLElement;
+    addClass(klass: string): HTMLElement;
+    removeClass(klass: string): HTMLElement;
   }
 }
 
 /**
  * Hides an element
- * @extends Element
+ * @extends HTMLElement
  */
-Element.prototype.hide = function(): Element {
+HTMLElement.prototype.hide = function(this: HTMLElement) {
   this.style.display = 'none';
+
   return this;
 };
+
 /**
  * Shows an element
- * @extends Element
+ * @extends HTMLElement
  */
-Element.prototype.show = function(): Element {
+HTMLElement.prototype.show = function(this: HTMLElement): HTMLElement {
   this.style.display = '';
+
   return this;
 };
+
 /**
  * Masks an element
- * @extends Element
+ * @extends HTMLElement
  */
-Element.prototype.mask = function(): Element {
+HTMLElement.prototype.mask = function(this: HTMLElement): HTMLElement {
   this.style.visibility = 'hidden';
+
   return this;
 };
+
 /**
  * Unmasks an element
- * @extends Element
+ * @extends HTMLElement
  */
-Element.prototype.unmask = function(): Element {
+HTMLElement.prototype.unmask = function(this: HTMLElement): HTMLElement {
   this.style.visibility = '';
+
   return this;
 };
+
 /**
  * Sets the text content of an element
- * @extends Element
+ * @extends HTMLElement
  */
-Element.prototype.text = function(str: string): Element {
+HTMLElement.prototype.text = function(
+  this: HTMLElement,
+  str: string,
+): HTMLElement {
   this.textContent = str;
+
   return this;
 };
+
 /**
  * Adds a class to an element
- * @extends Element
+ * @extends HTMLElement
  */
-Element.prototype.addClass = function(cl: string): Element {
-  this.classList.add(cl);
+HTMLElement.prototype.addClass = function(
+  this: HTMLElement,
+  klass: string,
+): HTMLElement {
+  this.classList.add(klass);
+
   return this;
 };
+
 /**
  * Removes a class from an element
- * @extends Element
+ * @extends HTMLElement
  */
-Element.prototype.removeClass = function(cl: string): Element {
-  this.classList.remove(cl);
+HTMLElement.prototype.removeClass = function(
+  this: HTMLElement,
+  klass: string,
+): HTMLElement {
+  this.classList.remove(klass);
+
   return this;
 };
 
@@ -72,7 +93,7 @@ Element.prototype.removeClass = function(cl: string): Element {
  * Queries an element in the document
  * @function
  */
-const $ = (el: string): Element => {
+const $ = (el: string): HTMLElement => {
   return document.querySelector(el);
 };
 
@@ -80,7 +101,7 @@ const $ = (el: string): Element => {
  * Queries multiple elements in the document
  * @function
  */
-const $$ = (el: string): Element[] => {
+const $$ = (el: string): HTMLElement[] => {
   return Array.from(document.querySelectorAll(el));
 };
 

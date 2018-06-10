@@ -1,4 +1,4 @@
-declare const CodeMirror: any;
+declare const CodeMirror;
 
 CodeMirror.defineSimpleMode('rod', {
   start: [
@@ -7,6 +7,6 @@ CodeMirror.defineSimpleMode('rod', {
     { regex: /\/|_|>/, token: 'attribute' },
     { regex: /-|\+|\^|\*/, token: 'number' },
     { regex: /;;.*/, token: 'comment' },
-    { regex: /<|:|!/, token: 'tag' }
-  ]
+    { regex: /<|:|!/, token: 'tag' },
+  ],
 });

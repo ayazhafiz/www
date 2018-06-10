@@ -1,21 +1,20 @@
-// remove particlesJS if needed
 import 'particles.js';
 
 declare const particlesJS;
 
 /**
- * Loads an arbitrary particles.js canvas
+ * Renders particles on a canvas
  * @function
  */
-const particles = (num: number): void =>
-  particlesJS('particles', {
+const renderParticles = (id: string, num: number): void =>
+  particlesJS(id, {
     particles: {
       number: {
         value: num,
         density: {
           enable: true,
-          value_area: 1000
-        }
+          value_area: 1000,
+        },
       },
       color: {
         value: [
@@ -25,11 +24,11 @@ const particles = (num: number): void =>
           '#cfecd0',
           '#ffc5ca',
           '#f598a8',
-          '#aea4e3'
-        ]
+          '#aea4e3',
+        ],
       },
       shape: {
-        type: 'circle'
+        type: 'circle',
       },
       opacity: {
         value: 0.9,
@@ -38,22 +37,22 @@ const particles = (num: number): void =>
           enable: false,
           speed: 1,
           opacity_min: 0.25,
-          sync: false
-        }
+          sync: false,
+        },
       },
       size: {
         value: 2.5,
         random: true,
         anim: {
-          enable: false
-        }
+          enable: false,
+        },
       },
       line_linked: {
         enable: true,
         distance: 120,
         color: '#ffffff',
         opacity: 0.4,
-        width: 1
+        width: 1,
       },
       move: {
         enable: true,
@@ -61,42 +60,42 @@ const particles = (num: number): void =>
         random: true,
         direction: 'top-right',
         straight: false,
-        bounce: false
-      }
+        bounce: false,
+      },
     },
     interactivity: {
       detect_on: 'window',
       events: {
         onhover: {
           enable: true,
-          mode: ['grab', 'repulse']
+          mode: ['grab', 'repulse'],
         },
         onclick: {
           enable: true,
-          mode: 'push'
+          mode: 'push',
         },
-        resize: true
+        resize: true,
       },
       modes: {
         grab: {
           distance: 175,
           line_linked: {
-            opacity: 1
-          }
+            opacity: 1,
+          },
         },
         repulse: {
           distance: 150,
-          duration: 0.4
+          duration: 0.4,
         },
         push: {
-          particles_nb: 8
+          particles_nb: 8,
         },
         remove: {
-          particles_nb: 2
-        }
-      }
+          particles_nb: 2,
+        },
+      },
     },
-    retina_detect: true
+    retina_detect: true,
   });
 
-export { particles };
+export { renderParticles };

@@ -7,26 +7,18 @@
     <%- if page === "index_ui" -%>
       <%= render {{ PARTIAL[:index_head] }} %>
     <%- end -%>
-    <link href=<%= "/css/#{MANIFEST["#{page}.css"]}" %> rel="stylesheet" type="text/css" media="all">
-    <%- unless (env.request.path.split('/')[1]? === "try" &&
-      ![404, 500].includes? title) || page === "mail" -%>
-      <script src=<%= "/js/#{MANIFEST["#{page}.js"]}" %>></script>
+
+    <%- if env.request.path.split('/')[1] === "try" && ![404, 500].includes? title -%>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.28.0/codemirror.css" type="text/css" />
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.28.0/theme/material.css" type="text/css" />
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.28.0/codemirror.js" defer></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.28.0/addon/mode/simple.js" defer></script>
     <%- end -%>
+
+    <link href=<%= "/css/#{MANIFEST["#{page}.css"]}" %> rel="stylesheet" type="text/css" media="all">
+    <script src=<%= "/js/#{MANIFEST["#{page}.js"]}" %> defer></script>
   </head>
   <body>
     <%= content %>
-
-    <%- if env.request.path.split('/')[1] === "try" &&
-      ![404, 500].includes? title -%>
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.28.0/codemirror.css" type="text/css" />
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.28.0/theme/material.css" type="text/css" />
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.28.0/codemirror.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.28.0/addon/mode/simple.js"></script>
-      <script src=<%= "/js/#{MANIFEST["#{page}.js"]}" %>></script>
-    <%- end -%>
-
-    <%- if page === "mail" -%>
-      <script src=<%= "/js/#{MANIFEST["#{page}.js"]}" %>></script>
-    <%- end -%>
   </body>
 </html>

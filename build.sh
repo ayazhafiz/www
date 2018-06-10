@@ -14,6 +14,6 @@ if [ "$KEMAL_ENV" == "production" ]; then
   KEMAL_ENV=$KEMAL_ENV ./app --port "$PORT"
 else
   webpack -w &
-  ./sentry -w './src/**/*.cr' -w './views/**/*.ecr' -w './lib/**/*.cr' &&
+  ./sentry -w './src/**/*.cr' -w './views/**/*.ecr' &&
   fg
 fi
