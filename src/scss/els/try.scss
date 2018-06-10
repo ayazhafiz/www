@@ -1,0 +1,58 @@
+@import '../base/vars';
+
+$codemirror-shadow: 1px 0 0 rgba($shell-shadow, 0.5),
+  -1px 0 0 rgba($shell-shadow, 0.5), 0 1px 0 rgba($shell-shadow, 0.5),
+  0 -1px 0 rgba($shell-shadow, 0.5), 0 3px 13px rgba(26, 27, 34, 0.5);
+$codemirror-eval-bg-color: rgba($material-bg, 0.5);
+$codemirror-gutter-bg-color: rgba($material-bg, 0);
+
+body {
+  align-content: center;
+  align-items: center;
+  background: $shell-bg;
+  display: flex;
+  justify-content: center;
+}
+
+.CodeMirror {
+  box-shadow: $codemirror-shadow;
+  height: auto;
+  line-height: 1em;
+  max-height: 80%;
+  max-width: 60%;
+  min-height: 40%;
+  min-width: 20%;
+  padding-top: 1em;
+  position: static;
+  width: auto;
+
+  &:first-of-type {
+    margin-right: 2%;
+  }
+
+  &.cm-s-material {
+    &.eval {
+      background-color: $codemirror-eval-bg-color;
+
+      & .CodeMirror-gutters {
+        background-color: $codemirror-gutter-bg-color;
+      }
+    }
+  }
+}
+
+.run {
+  background: $material-red;
+  bottom: 0;
+  cursor: pointer;
+  line-height: 1em;
+  padding: 0.5em;
+  position: absolute;
+  right: 0;
+  vertical-align: middle;
+  z-index: 9999999999999;
+
+  &.download {
+    background: $material-dark;
+  }
+}

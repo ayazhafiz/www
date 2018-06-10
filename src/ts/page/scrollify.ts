@@ -1,7 +1,7 @@
 import { $ } from '../util/el';
 import { page as getPage } from './currentPage';
 import { whale } from '../gfx/whale';
-import * as scrollify from 'jquery-scrollify';
+import scrollify from 'jquery-scrollify';
 
 /**
  * Manages memory and application load during pagination of the index view
@@ -28,25 +28,28 @@ const scroll = (speed: number): void => {
         $('#particles canvas').show();
         $('#tween-svg').hide();
       } else if (currentPage === 1 && page === 2) {
-        whale.forEach(el => el.show());
+        whale.forEach((el) => el.show());
         $('#tween-svg').hide();
       } else if (currentPage === 2 && page === 1) {
-        whale.forEach(el => el.hide());
+        whale.forEach((el) => el.hide());
         $('#tween-svg').show();
       } else if (currentPage === 2 && page === 3) {
         $('.info').addClass('slid-up');
-        whale.forEach(el => el.addClass('pause'));
+        whale.forEach((el) => el.addClass('pause'));
       } else if (currentPage === 3 && page === 2) {
         $('.info').removeClass('slid-up');
-        whale.forEach(el => el.removeClass('pause'));
+        whale.forEach((el) => el.removeClass('pause'));
       }
       currentPage = page;
-    }
+    },
   });
   // allow for arrow pagination
-  document.addEventListener('mousedown', function(e): void {
-    e.preventDefault();
-  });
+  document.addEventListener(
+    'mousedown',
+    (e): void => {
+      e.preventDefault();
+    },
+  );
 };
 
 export { scroll };

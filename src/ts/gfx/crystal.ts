@@ -1,4 +1,3 @@
-import { $ } from '../util/el';
 import { Viewer3D } from '../third-party/viewer3D';
 
 /**
@@ -11,14 +10,14 @@ const LOGO_PATH =
   '62baf9411714ede982ded0f992f6f3ec37a17165/xml/polyhedron/icosahedron.xml';
 
 /**
- * Loads the Crystal logo on an arbitrary element model
+ * Renders the Crystal logo on a canvas
  * @function
  */
-const loadCrystalLogo = (element: HTMLCanvasElement): void => {
+const renderCrystalLogo = (element: HTMLCanvasElement): void => {
   const model = new Viewer3D(element);
   model.shader('flat', 255, 255, 255);
-  model.insertModel(LOGO_PATH);
   model.contrast(0.9);
+  model.insertModel(LOGO_PATH);
 };
 
-export { loadCrystalLogo };
+export { renderCrystalLogo };

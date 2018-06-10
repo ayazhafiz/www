@@ -1,7 +1,7 @@
-import * as Typed from 'typed.js';
+import Typed from 'typed.js';
 import { $ } from '../ts/util/el';
 import * as Shell from '../ts/gfx/shell';
-import { loadCrystalLogo } from '../ts/gfx/crystal';
+import { renderCrystalLogo } from '../ts/gfx/crystal';
 import {
   shellEl,
   shellParentEl,
@@ -16,7 +16,7 @@ import {
   userPromptEl,
   cursorChar,
   pathString,
-  openString
+  openString,
 } from '../ts/env/error';
 
 import './error.scss';
@@ -42,9 +42,9 @@ const verifyScrollPosition = (): void => {
  * Types the first command into the shell
  * @function
  */
-const firstType = (): void => {
+const firstType = (): Typed => {
   verifyScrollPosition();
-  new Typed(firstEl, {
+  const typed = new Typed(firstEl, {
     strings: openString,
     typeSpeed: TYPE_SPEED,
     backDelay: 0,
@@ -60,16 +60,18 @@ const firstType = (): void => {
     onComplete: (): void => {
       $(cursorEl).remove();
       secondType();
-    }
+    },
   });
+
+  return typed;
 };
 
 /**
  * Types the second command into the shell
  * @function
  */
-const secondType = (): void => {
-  new Typed(secondEl, {
+const secondType = (): Typed => {
+  const typed = new Typed(secondEl, {
     strings: pathString,
     typeSpeed: TYPE_SPEED,
     showCursor: true,
@@ -83,16 +85,18 @@ const secondType = (): void => {
         $(userPromptEl).unmask();
         thirdType();
       }, 200);
-    }
+    },
   });
+
+  return typed;
 };
 
 /**
  * Types the third command into the shell
  * @function
  */
-const thirdType = (): void => {
-  new Typed(thirdEl, {
+const thirdType = (): Typed => {
+  const typed = new Typed(thirdEl, {
     strings: openString,
     typeSpeed: TYPE_SPEED,
     backDelay: 0,
@@ -108,18 +112,20 @@ const thirdType = (): void => {
     onComplete: (): void => {
       $(cursorEl).remove();
       shellType();
-    }
+    },
   });
+
+  return typed;
 };
 
 /**
  * Initiates typing in the shell
  * @function
  */
-const shellType = (): void => {
-  new Typed(shellEl, {
+const shellType = (): Typed => {
+  const typed = new Typed(shellEl, {
     strings: [''],
-    typedSpeed: 80,
+    typeSpeed: 80,
     showCursor: true,
     cursorChar: cursorChar,
     onComplete: (): void => {
@@ -128,22 +134,18 @@ const shellType = (): void => {
       } else {
         Shell.init(shellEl);
       }
-    }
+    },
   });
+
+  return typed;
 };
 
 /**
  * Loads Crystal logo and Shell
  * @event
  */
-document.addEventListener(
-  'DOMContentLoaded',
-  (): void => {
-    for (let el of [loadErrorEl, loadMessageEl, userPromptEl]) {
-      $(el).mask();
-    }
-    loadCrystalLogo($(crystalLogoEl) as HTMLCanvasElement);
-    firstType();
-  },
-  false
-);
+for (const el of [loadErrorEl, loadMessageEl, userPromptEl]) {
+  $(el).mask();
+}
+renderCrystalLogo(<HTMLCanvasElement>$(crystalLogoEl));
+firstType();

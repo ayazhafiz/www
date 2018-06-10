@@ -1,0 +1,10 @@
+$particles-bg: #181b1e;
+
+.particles {
+  background: $particles-bg;
+  height: 100%;
+  overflow: hidden;
+  position: absolute;
+  width: 100%;
+  z-index: -1;
+}

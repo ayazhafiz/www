@@ -7,37 +7,39 @@ polyfill();
 
 import './index.scss';
 
-function toggleQuasiText() {
+function toggleQuasiText(this: HTMLElement) {
   this.classList.toggle('mobile-touch');
 }
 
-function openResearch() {
+function openResearch(this: HTMLInputElement) {
   const inputs = $$('input');
-  for (let input of inputs) (input as HTMLInputElement).checked = false;
-  ($('input#tab-1') as HTMLInputElement).checked = true;
+  for (const input of inputs) {
+    (<HTMLInputElement>input).checked = false;
+  }
+  (<HTMLInputElement>$('input#tab-1')).checked = true;
   scrollIntoView.bind(this);
 }
 
-function scrollIntoView() {
+function scrollIntoView(this: HTMLInputElement) {
   if (this.checked) {
     setTimeout(
       () => $(`#${this.name}`).scrollIntoView({ behavior: 'smooth' }),
-      50
+      50,
     );
   }
 }
 
-function addListeners() {
+(() => {
   const quasis = $$('.quasi');
-  for (let quasi of quasis) {
+  for (const quasi of quasis) {
     quasi.addEventListener('touchstart', toggleQuasiText);
     quasi.addEventListener('touchend', toggleQuasiText);
   }
 
   const inputs = $$('input');
-  for (let input of inputs) input.addEventListener('change', scrollIntoView);
+  for (const input of inputs) {
+    input.addEventListener('change', scrollIntoView);
+  }
 
   $('a.tonglab').addEventListener('click', openResearch);
-}
-
-document.addEventListener('DOMContentLoaded', addListeners);
+})();

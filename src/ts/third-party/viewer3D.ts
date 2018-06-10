@@ -1,3 +1,4 @@
+/* tslint:disable */
 function Viewer3D(container) {
   var _container = container;
   var self = this;
@@ -18,8 +19,6 @@ function Viewer3D(container) {
   var _distance = 4;
   var _scale = self.width * (4 / 3);
   var _r = [[1, 0, 0], [0, 1, 0], [0, 0, 1]];
-  var _loaded = false;
-  var _start;
   var _contrast = 0;
 
   self.insertModel = function(url) {
@@ -36,17 +35,17 @@ function Viewer3D(container) {
         _shader = new TransparentShader(r, g, b);
         break;
       case 'flat':
-        _shader = new FlatShader(r, g, b);
+        _shader = new FlatShader();
         break;
     }
   };
 
   self.toScreenX = function(x, z) {
-    return self.width / 2 + _scale * x / (_distance - z);
+    return self.width / 2 + (_scale * x) / (_distance - z);
   };
 
   self.toScreenY = function(y, z) {
-    return self.height / 2 + _scale * y / (_distance - z);
+    return self.height / 2 + (_scale * y) / (_distance - z);
   };
 
   self.contrast = function(value) {
@@ -83,8 +82,8 @@ function Viewer3D(container) {
       var xp = vertex.x * _r[0][0] + vertex.y * _r[0][1] + vertex.z * _r[0][2];
       var yp = vertex.x * _r[1][0] + vertex.y * _r[1][1] + vertex.z * _r[1][2];
       var zp = vertex.x * _r[2][0] + vertex.y * _r[2][1] + vertex.z * _r[2][2];
-      vertex.screenX = self.width / 2 + _scale * xp / (_distance - zp);
-      vertex.screenY = self.height / 2 + _scale * yp / (_distance - zp);
+      vertex.screenX = self.width / 2 + (_scale * xp) / (_distance - zp);
+      vertex.screenY = self.height / 2 + (_scale * yp) / (_distance - zp);
     }
   }
 
@@ -152,19 +151,19 @@ function Viewer3D(container) {
     var a = {
       x: vertex1.x - vertex0.x,
       y: vertex1.y - vertex0.y,
-      z: vertex1.z - vertex0.z
+      z: vertex1.z - vertex0.z,
     };
     var b = {
       x: vertex2.x - vertex0.x,
       y: vertex2.y - vertex0.y,
-      z: vertex2.z - vertex0.z
+      z: vertex2.z - vertex0.z,
     };
     var normal: { x?: number; y?: number; z?: number } = new Object();
     normal.x = a.y * b.z - a.z * b.y;
     normal.y = a.z * b.x - a.x * b.z;
     normal.z = a.x * b.y - a.y * b.x;
     var magnitude = Math.sqrt(
-      normal.x * normal.x + normal.y * normal.y + normal.z * normal.z
+      normal.x * normal.x + normal.y * normal.y + normal.z * normal.z,
     );
     normal.x /= magnitude;
     normal.y /= magnitude;
@@ -194,17 +193,17 @@ function Viewer3D(container) {
       [
         [Math.cos(_yaw), 0, -Math.sin(_yaw)],
         [0, 1, 0],
-        [Math.sin(_yaw), 0, Math.cos(_yaw)]
+        [Math.sin(_yaw), 0, Math.cos(_yaw)],
       ],
-      _r
+      _r,
     );
     _r = matrixMultiply(
       [
         [1, 0, 0],
         [0, Math.cos(_pitch), -Math.sin(_pitch)],
-        [0, Math.sin(_pitch), Math.cos(_pitch)]
+        [0, Math.sin(_pitch), Math.cos(_pitch)],
       ],
-      _r
+      _r,
     );
     render();
     if (_dragging) {
@@ -274,7 +273,7 @@ function Viewer3D(container) {
     };
   }
 
-  function FlatShader(r, g, b) {
+  function FlatShader() {
     var _lights = new Array();
     _lights.push(new Light(-5, -5, 20, 140, 140, 140));
 
@@ -292,22 +291,22 @@ function Viewer3D(container) {
           0,
           Math.min(
             255,
-            Math.round(applyContrast(r + cos * _lights[i].r, _contrast))
-          )
+            Math.round(applyContrast(r + cos * _lights[i].r, _contrast)),
+          ),
         );
         g = Math.max(
           0,
           Math.min(
             255,
-            Math.round(applyContrast(g + cos * _lights[i].g, _contrast))
-          )
+            Math.round(applyContrast(g + cos * _lights[i].g, _contrast)),
+          ),
         );
         b = Math.max(
           0,
           Math.min(
             255,
-            Math.round(applyContrast(b + cos * _lights[i].b, _contrast))
-          )
+            Math.round(applyContrast(b + cos * _lights[i].b, _contrast)),
+          ),
         );
         //}
       }
@@ -422,7 +421,7 @@ function Viewer3D(container) {
     window.addEventListener('mouseup', mouseUpHandler, false);
   }
 
-  function mouseUpHandler(event) {
+  function mouseUpHandler() {
     _dragging = false;
     window.removeEventListener('mousemove', mouseMoveHandler, false);
     window.removeEventListener('mouseup', mouseUpHandler, false);

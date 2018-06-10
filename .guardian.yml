@@ -10,5 +10,5 @@ run: npm run compile:js
 files: ./src/**/*.cr
 run: crystal build ./src/site.cr && ./site
 ---
-files: ./views/**/*.ecr
+files: ./components/**/*.ecr
 run: crystal build ./src/site.cr && ./site

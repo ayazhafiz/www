@@ -1,9 +1,9 @@
-@import '../css/fonts/dejavusansmono/font';
+@import '../scss/fonts/dejavusansmono/font';
 
-@import '../css/base/global';
+@import '../scss/base/global';
 
-@import '../css/els/error';
-@import '../css/els/custom-els';
+@import '../scss/els/error';
+@import '../scss/els/custom-els';
 
-@import '../css/views/typed';
-@import '../css/views/shell';
+@import '../scss/components/typed';
+@import '../scss/components/shell';

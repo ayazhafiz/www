@@ -1,19 +1,18 @@
-@import '../css/fonts/dejavusansmono/font';
-@import '../css/fonts/quicksand/font';
+@import '../scss/fonts/dejavusansmono/font';
+@import '../scss/fonts/quicksand/font';
 
-@import '../css/base/global';
-@import '../css/base/resp';
+@import '../scss/base/global';
+@import '../scss/base/resp';
 
-@import '../css/third-party/octicons';
+@import '../scss/third-party/octicons';
 
-@import '../css/views/projects';
-@import '../css/views/podd-sample';
-@import '../css/views/mouse';
-@import '../css/views/particles';
-@import '../css/views/whale';
+@import '../scss/components/projects';
+@import '../scss/components/podd-sample';
+@import '../scss/components/mouse';
+@import '../scss/components/particles';
+@import '../scss/components/whale';
 
-@import '../css/els/els';
-@import '../css/els/prism';
+@import '../scss/els/els';
+@import '../scss/els/prism';
 
-@import '../css/els/index_ui';
-
+@import '../scss/els/index_ui';

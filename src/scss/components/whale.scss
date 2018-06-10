@@ -1,0 +1,243 @@
+@import './whale-anim';
+
+$whale-primary: #fff;
+$whale-secondary: #d3d3d3;
+
+$sky-bg-color: #dcdcdc;
+$speech-bubble-bg-color: #f8f8ff;
+
+$whale-fin-border-radius: 30px 0 30px 0;
+$whale-tail-split-bg-color: #a9a9a9;
+
+.pause {
+  animation-play-state: paused;
+}
+
+.outer-wrapper {
+  height: 27.5vmin;
+  margin: auto;
+  position: relative;
+  width: 100vmin;
+}
+
+.header {
+  animation: tide 3s infinite;
+  background: $sky-bg-color;
+  height: 25%;
+  position: absolute;
+  top: -5%;
+  transform: rotate(-2deg);
+  width: 100%;
+}
+
+.wave {
+  background: url('/img/wave.svg');
+  background-position: -60px 0;
+  bottom: 0;
+  height: 20px;
+  left: 0;
+  position: absolute;
+  right: 0;
+}
+
+.wrapper {
+  animation: float 3s cubic-bezier(0.5, 0.5, 0.5, 0.5) infinite;
+  height: 100%;
+  margin: auto;
+  position: relative;
+  width: 80%;
+
+  .whale-body {
+    background: $whale-primary;
+    border-radius: 250px 80px 10px 10px;
+    float: right;
+    height: 100%;
+    position: relative;
+    width: 54%;
+
+    .whale-blow-hole {
+      background: $whale-secondary;
+      border: 2px solid $whale-secondary;
+      border-radius: 0 0 10px 10px;
+      border-top: 0;
+      height: 3%;
+      opacity: 0.5;
+      position: absolute;
+      right: 27.5%;
+      top: 0;
+      width: 6.25%;
+    }
+
+    .whale-mouth {
+      background: $whale-secondary;
+      border-radius: 10px 0 0 10px;
+      bottom: 10%;
+      height: 4%;
+      position: absolute;
+      right: 0;
+      width: 50%;
+    }
+
+    .whale-eye {
+      background: $whale-secondary;
+      border-radius: 100%;
+      height: 7%;
+      position: absolute;
+      right: 43%;
+      top: 70%;
+      width: 4.5%;
+    }
+  }
+
+  .connect {
+    background: $whale-primary;
+    border-radius: 30px;
+    height: 30%;
+    opacity: 0;
+    position: absolute;
+    right: -10%;
+    top: -35%;
+    transform: translateY(20%);
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+      opacity 0.1s;
+    width: 65%;
+  }
+
+  .whale-tail-split-1,
+  .whale-tail-split-2 {
+    -webkit-transform: rotate(-120deg);
+    animation: spin-less 3s linear infinite;
+    background: $whale-tail-split-bg-color;
+    border-radius: 30px 0 30px 25%;
+    bottom: 18%;
+    height: 30%;
+    left: 0%;
+    margin-left: 20%;
+    position: absolute;
+    width: 20%;
+  }
+
+  .whale-tail-split-2 {
+    animation: spin 3s linear infinite;
+    background: $whale-primary;
+    border-radius: 0 30px 50%;
+    bottom: -2%;
+    left: 0%;
+    transform: rotate(-15deg);
+
+    .shadow {
+      border: 3px solid $whale-secondary;
+      border-bottom: 0;
+      border-left: 0;
+      border-radius: 0 30px 50%;
+      border-top: 0;
+      height: 92.5%;
+      position: absolute;
+      right: 0;
+      width: 50%;
+    }
+  }
+}
+
+.whale-body {
+  &:hover ~ .connect {
+    &,
+    &:hover {
+      opacity: 1;
+      transform: translateY(0);
+      transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+        opacity 0.1s;
+    }
+  }
+}
+
+.whale-fin {
+  animation: fin-spin 4s linear infinite;
+  background: $whale-primary;
+  border-radius: $whale-fin-border-radius;
+  bottom: -10%;
+  height: 15%;
+  left: 60%;
+  position: absolute;
+  transform: rotate(-110deg);
+  width: 10%;
+  z-index: 1;
+
+  .curve {
+    border: 3px solid $whale-secondary;
+    border-left: 0;
+    border-radius: 30px 0;
+    border-top: 0;
+    bottom: -3px;
+    height: 100%;
+    position: absolute;
+    right: -3px;
+    width: 51%;
+  }
+
+  .line {
+    border-top: 3px solid $whale-secondary;
+    bottom: 0;
+    height: 100%;
+    position: absolute;
+    right: -4%;
+    width: 40%;
+  }
+
+  .dot {
+    background: $whale-secondary;
+    height: 3px;
+    position: absolute;
+    right: -3px;
+    top: -3px;
+    width: 3px;
+  }
+}
+
+.white-tail-1,
+.white-tail-2 {
+  background: $whale-primary;
+  border-radius: 0 80% 0 100%;
+  bottom: 0;
+  height: 7%;
+  left: 30%;
+  position: absolute;
+  transform: rotate(0deg);
+  width: 20%;
+}
+
+.white-tail-2 {
+  height: 30%;
+  left: 35%;
+  transform: rotate(-34deg);
+
+  .shadow {
+    border-radius: 0 80% 30% 0;
+    border-right: 3px solid $whale-secondary;
+    height: 120%;
+    left: 45%;
+    position: absolute;
+    top: 13%;
+    width: 50%;
+  }
+}
+
+.speech-bubble {
+  animation: normalize-float cubic-bezier(0.5, 0.5, 0.5, 0.5) 3s infinite;
+  background: $speech-bubble-bg-color;
+  border-radius: 20px 20px 20px 0;
+  bottom: 20%;
+  height: 50%;
+  position: absolute;
+  right: -29%;
+  width: 25%;
+}
+
+.speech-bubble-handle {
+  background: $speech-bubble-bg-color;
+  border-radius: 0 0 80%;
+  bottom: calc(-10% + 1px);
+  height: 10%;
+  position: absolute;
+  width: 10%;
+}

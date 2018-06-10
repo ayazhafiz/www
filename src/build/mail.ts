@@ -1,6 +1,6 @@
-import * as dragula from 'dragula';
-import { $ } from '../ts/util/el';
-import { SubmitButton, toggleSpinner } from '../ts/gfx/submit-button';
+import dragula from 'dragula';
+import { $, $$ } from '../ts/util/el';
+import { submitButton, toggleSpinner } from '../ts/gfx/submit-button';
 
 import './mail.scss';
 
@@ -8,53 +8,28 @@ import './mail.scss';
  * Represents an upload attempt
  * @type
  */
-type uploadAttempt = { file?: string; successful: boolean; error?: string };
+type UploadAttempt = { file?: string; successful: boolean; error?: string };
 
 /**
  * Stores the data elements of the mail client
  * @constant
  */
-const Data = {
-  form: 'div.box',
-  label: 'div.box span',
-  file: 'input#file',
-  recipient: 'input#to',
-  submit: 'div.next'
+const DATA = {
+  form: $('div.box'),
+  label: $('div.box span'),
+  file: <HTMLInputElement>$('input#file'),
+  recipient: <HTMLInputElement>$('input#to'),
+  submit: $('div.next'),
 };
-
-document.addEventListener('DOMContentLoaded', init, false);
-
-/**
- * Initializes the mail client
- * @event
- */
-function init() {
-  setTimeout(function() {
-    removeEntryAnims();
-  }, 500);
-  allowDragging();
-  enableDragnDrop();
-
-  ($(SubmitButton.el) as HTMLElement).onclick = function() {
-    if (($(Data.file) as HTMLInputElement).files.length > 0) {
-      attemptSubmission();
-    } else {
-      $(Data.form).addClass('nofile');
-      setTimeout(() => $(Data.form).removeClass('nofile'), 500);
-    }
-  };
-}
 
 /**
  * Removes entry animations
  * @function
  */
 function removeEntryAnims() {
-  const divs = document.querySelectorAll(
-    '.col div.title, .col > div:not(.title)'
-  );
-  for (let i = 0; i < divs.length; ++i) {
-    (divs[i] as HTMLDivElement).style.animation = 'none';
+  const divs = <HTMLDivElement[]>$$('.col div.title, .col > div:not(.title)');
+  for (const div of divs) {
+    div.style.animation = 'none';
   }
 }
 
@@ -64,7 +39,7 @@ function removeEntryAnims() {
  */
 function allowDragging(): void {
   dragula([$('body')], {
-    direction: 'horizontal'
+    direction: 'horizontal',
   });
 }
 
@@ -73,61 +48,61 @@ function allowDragging(): void {
  * @function
  */
 function enableDragnDrop(): void {
-  for (let event of [
+  for (const event of [
     'drag',
     'dragstart',
     'dragend',
     'dragover',
     'dragenter',
     'dragleave',
-    'drop'
+    'drop',
   ]) {
-    $(Data.form).addEventListener(event, function(e) {
+    DATA.form.addEventListener(event, (e) => {
       e.preventDefault();
       e.stopPropagation();
     });
   }
-  for (let event of ['dragover', 'dragenter']) {
-    $(Data.form).addEventListener(event, function() {
-      $(Data.form).addClass('is-dragover');
+  for (const event of ['dragover', 'dragenter']) {
+    DATA.form.addEventListener(event, () => {
+      DATA.form.addClass('is-dragover');
     });
   }
-  for (let event of ['dragleave', 'dragend', 'drop']) {
-    $(Data.form).addEventListener(event, function() {
-      $(Data.form).removeClass('is-dragover');
+  for (const event of ['dragleave', 'dragend', 'drop']) {
+    DATA.form.addEventListener(event, () => {
+      DATA.form.removeClass('is-dragover');
     });
   }
 
-  ($(Data.file) as HTMLInputElement).onchange = updateFileValue;
+  DATA.file.onchange = updateFileValue;
 }
 
 /**
  * Displays the file uploaded
  * @function
  */
-function updateFileValue() {
+function updateFileValue(this: HTMLInputElement) {
   const label = this.value.replace(/\\/g, '/').replace(/.*\//, '');
-  $(Data.label).innerText = label;
+  DATA.label.innerText = label;
 }
 
 /**
  * Uploads a file to the mail server
  * @async @function
  */
-async function uploadFile(): Promise<uploadAttempt> {
-  let form = new FormData();
-  form.append('file', ($(Data.file) as HTMLInputElement).files[0]);
+async function uploadFile(): Promise<UploadAttempt> {
+  const form = new FormData();
+  form.append('file', DATA.file.files[0]);
   form.append('user', window.location.pathname.split('/mail/')[1]);
   form.append('escaped-key', decodeURI(window.location.search.split('=')[1]));
-  form.append('recipient', ($(Data.recipient) as HTMLInputElement).value);
+  form.append('recipient', DATA.recipient.value);
 
   return fetch('/mail/send', {
     headers: new Headers({
-      Accept: 'application/json'
+      Accept: 'application/json',
     }),
     method: 'POST',
-    body: form
-  }).then(data => data.json());
+    body: form,
+  }).then((data) => data.json());
 }
 
 /**
@@ -138,13 +113,13 @@ async function attemptSubmission() {
   toggleSpinner('block', 'none', 'transparent');
   const result = await uploadFile();
   if (result.successful) {
-    showUploadSuccess.bind($(Data.recipient) as HTMLInputElement)();
+    showUploadSuccess.bind(DATA.recipient)();
+  } else if (result.error === 'recipient dne') {
+    showIncorrect.bind(DATA.recipient)();
   } else if (result.error === 'invalid credentials') {
     window.location.href = `/mail/${
       window.location.pathname.split('/mail/')[1]
     }`;
-  } else if (result.error === 'recipient dne') {
-    showIncorrect.bind($(Data.recipient) as HTMLInputElement)();
   }
 }
 
@@ -153,18 +128,18 @@ async function attemptSubmission() {
  * @function
  */
 function resetFileInput() {
-  ($(Data.file) as HTMLInputElement).type = 'text';
-  ($(Data.file) as HTMLInputElement).type = 'file';
+  DATA.file.type = 'text';
+  DATA.file.type = 'file';
 }
 
 /**
  * Displays UI notifications of successful file upload
  * @function
  */
-function showUploadSuccess(): void {
+function showUploadSuccess(this: HTMLInputElement): void {
   toggleSpinner('none', 'block', '#fff');
   resetFileInput();
-  $(Data.label).innerText = 'Drop file';
+  DATA.label.innerText = 'Drop file';
   this.value = '';
   this.addClass('success');
   setTimeout(() => {
@@ -176,7 +151,7 @@ function showUploadSuccess(): void {
  * Displays UI notifications of failed file upload
  * @function
  */
-function showIncorrect(): void {
+function showIncorrect(this: HTMLInputElement): void {
   toggleSpinner('none', 'block', '#fff');
   this.value = '';
   this.placeholder = 'User not found';
@@ -186,3 +161,22 @@ function showIncorrect(): void {
     this.placeholder = 'recipient';
   }, 1000);
 }
+
+/**
+ * Initializes the mail client
+ * @event
+ */
+(() => {
+  setTimeout(removeEntryAnims, 500);
+  allowDragging();
+  enableDragnDrop();
+
+  $(submitButton.el).onclick = () => {
+    if (DATA.file.files.length > 0) {
+      attemptSubmission();
+    } else {
+      DATA.form.addClass('nofile');
+      setTimeout(() => DATA.form.removeClass('nofile'), 500);
+    }
+  };
+})();

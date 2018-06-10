@@ -6,16 +6,19 @@ import { TweenLite, Power2 } from 'gsap';
  * @constant
  */
 const MAX: number = 0.25;
+
 /**
  * Width deviation
  * @constant
  */
 const DVT: number = MAX / 2;
+
 /**
  * Width padding, derived from border width
  * @constant
  */
 const PAD: number = 15;
+
 /**
  * Object colors
  * @constant
@@ -25,7 +28,7 @@ const COLORS: string[] = [
   '#70C1B3',
   '#B2DBBF',
   '#F3FFBD',
-  '#FF1654'
+  '#FF1654',
 ];
 
 let WINDOW_WIDTH: number;
@@ -39,7 +42,7 @@ let SVG_EL: SVGElement;
 const initLoadedVars = (): void => {
   WINDOW_WIDTH = window.innerWidth;
   WINDOW_HEIGHT = window.innerHeight;
-  SVG_EL = $('#tween-svg') as SVGElement;
+  SVG_EL = (<any>$('#tween-svg')) as SVGElement;
   SVG_EL.style.width = `${WINDOW_WIDTH}px`;
   SVG_EL.style.height = `${WINDOW_HEIGHT}px`;
 };
@@ -48,9 +51,11 @@ const initLoadedVars = (): void => {
  * Describes an SVG Object
  * @interface
  */
-interface SVG {}
+interface SVG {
+  el: SVGElement;
+}
 
-/**
+/*
  * Describes an SVG Shape
  * @abstract @class @implements SVG
  */
@@ -72,8 +77,9 @@ abstract class Shape implements SVG {
   protected updateColor(): this {
     this.el.setAttribute(
       'fill',
-      COLORS[Math.floor(Math.random() * COLORS.length)]
+      COLORS[Math.floor(Math.random() * COLORS.length)],
     );
+
     return this;
   }
 }
@@ -89,11 +95,10 @@ class Blob extends Shape implements SVG {
   private x3: number;
   private y0: number;
   private y1: number;
-  private color: string;
 
   /**
    * Creates a Blob given some starting (x, y) coordinates
-   * @constructs Shape
+   * @constructs Blob
    */
   constructor(x: number, y: number) {
     super();
@@ -103,7 +108,6 @@ class Blob extends Shape implements SVG {
     this.x0 = x - this.x3 / 2;
     this.y0 = y;
     this.y1 = 0;
-    this.color = COLORS[Math.floor(Math.random() * COLORS.length)];
     this.el = document.createElementNS('http://www.w3.org/2000/svg', 'path');
     this.updateColor()
       .updateEl()
@@ -114,13 +118,14 @@ class Blob extends Shape implements SVG {
    * Dynamically updates Blob element path
    * @private @method
    */
-  private updateEl(): this {
+  private updateEl(): Blob {
     this.el.setAttribute(
       'd',
       `M${this.x0},${this.y0} c${this.x1},${this.y1} ${this.x2},${this.y1} ${
         this.x3
-      },0`
+      },0`,
     );
+
     return this;
   }
 
@@ -129,30 +134,29 @@ class Blob extends Shape implements SVG {
    * @private @method
    */
   private animate(): void {
-    const __this = this;
     const time = 0.3 + Math.random() * 1.2;
 
-    TweenLite.to(__this, time, {
+    TweenLite.to(this, time, {
       x1: Blob.getDifferential(),
-      x2: __this.x1 + Blob.getDifferential(),
-      x3: __this.x2 + Blob.getDifferential(),
-      x0: WINDOW_WIDTH * MAX * 2 - __this.x3 / 2,
+      x2: this.x1 + Blob.getDifferential(),
+      x3: this.x2 + Blob.getDifferential(),
+      x0: WINDOW_WIDTH * MAX * 2 - this.x3 / 2,
       y1: -WINDOW_HEIGHT * MAX * 1.5 * Math.random() - WINDOW_HEIGHT * MAX * 2,
       ease: Power2.easeInOut,
-      onUpdate: (): Blob => __this.updateEl(),
-      onComplete: (): void =>
-        TweenLite.to(__this, time, {
+      onUpdate: (): Blob => this.updateEl(),
+      onComplete: (): TweenLite =>
+        TweenLite.to(this, time, {
           x1: Blob.getDifferential(),
-          x2: __this.x1 + Blob.getDifferential(),
-          x3: __this.x2 + Blob.getDifferential(),
-          x0: WINDOW_WIDTH * MAX * 2 - __this.x3 / 2,
+          x2: this.x1 + Blob.getDifferential(),
+          x3: this.x2 + Blob.getDifferential(),
+          x0: WINDOW_WIDTH * MAX * 2 - this.x3 / 2,
           y1: 0,
-          onUpdate: (): Blob => __this.updateEl(),
+          onUpdate: (): Blob => this.updateEl(),
           onComplete: (): void => {
-            __this.animate();
-            __this.updateColor();
-          }
-        })
+            this.animate();
+            this.updateColor();
+          },
+        }),
     });
   }
 }
@@ -170,20 +174,31 @@ class Circle extends Shape implements SVG {
   /**
    * Stores all created Circles
    * @static
+   * @readonly
    */
-  static circles: Circle[] = [];
+  private static allCircles: Circle[] = [];
+
+  /**
+   * Allow accessing created circles
+   */
+  public static get circles() {
+    return Circle.allCircles;
+  }
 
   /**
    * Checks if a Circle intersects any existing Circles
    * @private @static @method
    */
-  private static intersects(circle: Circle): boolean {
-    for (let _circle of Circle.circles) {
+  public static intersects(circle: Circle): boolean {
+    for (const existingCircle of Circle.allCircles) {
       const distance = Math.sqrt(
-        (_circle.x - circle.x) ** 2 + (_circle.y - circle.y) ** 2
+        (existingCircle.x - circle.x) ** 2 + (existingCircle.y - circle.y) ** 2,
       );
-      if (distance <= _circle.radius + circle.radius) return true;
+      if (distance <= existingCircle.radius + circle.radius) {
+        return true;
+      }
     }
+
     return false;
   }
 
@@ -191,12 +206,12 @@ class Circle extends Shape implements SVG {
    * Creates `n` Circles
    * @static @method
    */
-  static make(amt: number): void {
+  public static generate(amt: number): void {
     for (let i = 0; i < amt; ++i) {
       const circle = new Circle();
 
       if (!Circle.intersects(circle)) {
-        Circle.circles.push(circle);
+        Circle.allCircles.push(circle);
         circle
           .updateColor()
           .updateEl()
@@ -231,11 +246,12 @@ class Circle extends Shape implements SVG {
    * Dynamically updates Circle element attributes
    * @private @method
    */
-  private updateEl(): this {
+  private updateEl(): Circle {
     this.el.setAttribute('cx', `${this.x}`);
     this.el.setAttribute('cy', `${this.y}`);
     this.el.setAttribute('r', `${this.radius}`);
     this.el.style.opacity = `${this.opacity}`;
+
     return this;
   }
 
@@ -251,7 +267,7 @@ class Circle extends Shape implements SVG {
       ease: Power2.easeInOut,
       onUpdate: (): Circle => this.updateEl(),
 
-      onComplete: (): void =>
+      onComplete: (): TweenLite =>
         TweenLite.to(this, time, {
           opacity: 0,
           onUpdate: (): Circle => this.updateEl(),
@@ -267,8 +283,8 @@ class Circle extends Shape implements SVG {
             this.updateColor()
               .updateEl()
               .animate();
-          }
-        })
+          },
+        }),
     });
   }
 }
@@ -280,14 +296,14 @@ class Circle extends Shape implements SVG {
 const tween = (
   num: number,
   makeCircles: boolean = true,
-  makeBlob: boolean = true
+  makeBlob: boolean = true,
 ): void => {
   // redefine environment variables for document.load
   initLoadedVars();
 
   if (makeCircles) {
-    Circle.make(num);
-    Circle.circles.forEach(circle => SVG_EL.appendChild(circle.el));
+    Circle.generate(num);
+    Circle.circles.forEach((circle) => SVG_EL.appendChild(circle.el));
   }
 
   if (makeBlob) {

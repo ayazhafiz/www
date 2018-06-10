@@ -1,11 +1,26 @@
-@import '../css/base/vars';
+@import '../scss/base/vars';
+
+$homepage-bg-color: #fff;
+$homepage-text-color: #172b4c;
+$h3-section-hover-color: #55919d;
+$h3-section-hash-hover-color: #000;
+$h3-section-opened-color: #55919d;
+
+$link-color: #55919d;
+$personal-link-color: #0366d6;
+$quote-border-left: 0.1em solid #dfe2e5;
+
+$quasi-text-border-bottom: 1px solid rgba(254, 158, 160, 0.75);
+$work-old-positions-color: #8995a2;
+$prog-language-text-color: #586069;
+$chemistry-tags-color: #8995a2;
 
 html,
 body {
   height: 100%;
-  width: 100%;
-  padding: 0;
   margin: 0;
+  padding: 0;
+  width: 100%;
 }
 
 html {
@@ -31,13 +46,13 @@ html {
 }
 
 body {
-  background: white;
-  color: #172b4c;
+  background: $homepage-bg-color;
+  color: $homepage-text-color;
   font-family: $system-font;
   font-weight: 300;
   line-height: 2em;
 
-  & div.content {
+  & .content {
     overflow: auto;
     padding-left: 10%;
 
@@ -48,16 +63,16 @@ body {
 }
 
 h3 {
-  letter-spacing: 0.2em;
   font-weight: 400;
+  letter-spacing: 0.2em;
   margin-bottom: 0;
 
   &:hover {
-    color: #55919d;
+    color: $h3-section-hover-color;
   }
 
-  span.hash {
-    color: #000;
+  .hash {
+    color: $h3-section-hash-hover-color;
     opacity: 0.2;
     text-decoration: none;
   }
@@ -69,11 +84,13 @@ small {
 
 @media only screen and (max-width: 660px) {
   body {
-    & div.content {
+    & .content {
       padding: 1em;
 
-      > p:not(:first-of-type) {
-        margin-top: 0.5em;
+      > p {
+        &:not(:first-of-type) {
+          margin-top: 0.5em;
+        }
       }
     }
   }
@@ -96,48 +113,52 @@ small {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    resize: vertical;
     overflow: auto;
+    resize: vertical;
   }
 
-  br.mobile {
+  .mobile {
     display: none;
   }
 
-  div.content {
+  .content {
     padding-top: 5em;
   }
 
+  // sass-lint:disable no-ids
   #links {
     padding-bottom: 5em;
   }
 }
 
 a {
-  color: #55919d;
+  &,
   &:active,
   &:hover,
   &:visited {
-    color: #55919d;
+    color: $link-color;
   }
 }
 
-img.emoji {
-  height: 1.2em;
-  vertical-align: -8%;
+img {
+  &.emoji {
+    height: 1.2em;
+    vertical-align: -8%;
+  }
 }
 
 .quasi {
-  border-bottom: 1px solid rgba(254, 158, 160, 0.75);
+  border-bottom: $quasi-text-border-bottom;
 
   &.name {
     &::before {
       content: 'Ayaz';
     }
 
-    &:hover::before,
-    &.mobile-touch::before {
-      content: 'hafiz';
+    &:hover &.mobile-touch {
+      &::before {
+        content: 'hafiz';
+      }
     }
   }
 
@@ -146,9 +167,11 @@ img.emoji {
       content: 'Computer Science and Chemistry.';
     }
 
-    &:hover::before,
-    &.mobile-touch::before {
-      content: 'an unusual combination, I know!';
+    &:hover,
+    &.mobile-touch {
+      &::before {
+        content: 'an unusual combination, I know!';
+      }
     }
   }
 
@@ -157,39 +180,41 @@ img.emoji {
       content: 'find some of';
     }
 
-    &:hover::before,
-    &.mobile-touch::before {
-      content: 'click to expand';
+    &:hover,
+    &.mobile-touch {
+      &::before {
+        content: 'click to expand';
+      }
     }
   }
 }
 
 .tab {
+  overflow: hidden;
   position: relative;
   width: 100%;
-  overflow: hidden;
 }
 
 input {
-  position: absolute;
-  opacity: 0;
-  z-index: -1;
   display: none;
+  opacity: 0;
+  position: absolute;
+  z-index: -1;
 
   &:checked ~ .tab-content {
     max-height: 40em;
   }
 
   &:checked ~ label > h3 {
-    color: #55919d;
+    color: $h3-section-opened-color;
   }
 }
 
 label {
-  position: relative;
+  cursor: pointer;
   display: block;
   font-weight: bold;
-  cursor: pointer;
+  position: relative;
 }
 
 .tab-content {
@@ -198,47 +223,53 @@ label {
   transition: max-height 0.35s;
 
   &.projects {
-    span.emoji {
-      margin-right: 0.25em;
+    span {
+      &.emoji {
+        margin-right: 0.25em;
+      }
     }
   }
 
   &.work {
-    p:not(:first-of-type) {
-      color: #8995a2;
+    p {
+      &:not(:first-of-type) {
+        color: $work-old-positions-color;
+      }
     }
   }
 
   &.about {
-    p:not(:first-of-type) {
-      font-weight: 300;
+    p {
+      &:not(:first-of-type) {
+        font-weight: 300;
+      }
     }
   }
 
   p {
+    font-weight: 400;
     margin-bottom: 0;
     padding: 0 1em;
-    font-weight: 400;
 
     > a,
     > span,
-    span.l,
-    span.mr {
+    .l,
+    .mr {
       margin-right: 1em;
     }
 
-    span.l {
-      width: 5em;
-      margin-left: 2em;
+    .l {
       display: inline-block;
+      margin-left: 2em;
+      width: 5em;
     }
 
-    span.nl {
+    .nl {
       margin-left: 1em;
     }
 
     a {
-      color: #0366d6;
+      color: $personal-link-color;
       text-decoration: none;
 
       &:hover {
@@ -247,82 +278,98 @@ label {
     }
 
     quote {
+      border-left: $quote-border-left;
       display: inline-block;
-      padding: 0 1em;
-      border-left: 0.1em solid #dfe2e5;
-      //color: #6a737d;
       font-weight: 300;
+      //color: #6a737d;
+      padding: 0 1em;
     }
 
     .language {
-      color: #586069;
+      color: $prog-language-text-color;
       margin-right: 1em;
 
       .color {
+        border-radius: 50%;
+        display: inline-block;
+        height: 12px;
+        margin-right: 0.5em;
         position: relative;
         top: 1px;
-        display: inline-block;
         width: 12px;
-        height: 12px;
-        border-radius: 50%;
-        margin-right: 0.5em;
+
+        $c: #555;
+        $cpp: #f34b7d;
+        $cr: #776791;
+        $css: #563d7c;
+        $html: #e34c26;
+        $java: #b07219;
+        $js: #f1e05a;
+        $py: #3572a5;
+        $r: #198ce7;
+        $rb: #701516;
+        $rs: #dea584;
+        $sql: #ccc;
+        $ts: #2b7489;
 
         &.c {
-          background-color: #555555;
+          background-color: $c;
         }
+
         &.cpp {
-          background-color: #f34b7d;
+          background-color: $cpp;
         }
+
         &.cr {
-          background-color: #776791;
+          background-color: $cr;
         }
+
         &.css {
-          background-color: #563d7c;
+          background-color: $css;
         }
+
         &.html {
-          background-color: #e34c26;
+          background-color: $html;
         }
+
         &.java {
-          background-color: #b07219;
+          background-color: $java;
         }
+
         &.js {
-          background-color: #f1e05a;
+          background-color: $js;
         }
+
         &.py {
-          background-color: #3572a5;
+          background-color: $py;
         }
+
         &.r {
-          background-color: #198ce7;
+          background-color: $r;
         }
+
         &.rb {
-          background-color: #701516;
+          background-color: $rb;
         }
+
         &.rs {
-          background-color: #dea584;
+          background-color: $rs;
         }
+
         &.sql {
-          background-color: #ccc;
+          background-color: $sql;
         }
+
         &.ts {
-          background-color: #2b7489;
+          background-color: $ts;
         }
       }
     }
 
     .chem {
-      color: #8995a2;
+      color: $chemistry-tags-color;
       font-weight: 400;
       margin: 0;
-    }
-  }
-}
-
-@media only screen and (max-width: 660px) {
-  .tab-content.projects {
-    p {
-      quote {
-        display: block;
-      }
     }
   }
 }
