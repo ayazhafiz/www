@@ -15,7 +15,7 @@
     "lint:scss": "sass-lint -v -q",
     "lint:scss:fix": "sass-lint-auto-fix",
     "validate":
-      "yarn lint:js && yarn lint:rust && yarn lint:scss --max-warnings 0 && yarn test"
+      "yarn lint:js && yarn lint:rust && yarn lint:scss --max-warnings 0 && webpack && yarn test"
   },
   "repository": {
     "type": "git",
