@@ -35,7 +35,7 @@
     "file-saver": "^1.3.3",
     "global": "^4.3.2",
     "gsap": "^1.19.1",
-    "jquery-scrollify": "^1.0.14",
+    "jquery-scrollify": "^1.0.19",
     "node-sass": "4.5.3",
     "particles.js": "^2.0.0",
     "postcss-loader": "^2.0.6",
