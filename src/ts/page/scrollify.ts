@@ -1,5 +1,5 @@
 import { $ } from '../util/el';
-import { page as getPage } from './currentPage';
+import { currentPage } from './current';
 import { whale } from '../gfx/whale';
 import scrollify from 'jquery-scrollify';
 
@@ -7,42 +7,43 @@ import scrollify from 'jquery-scrollify';
  * Manages memory and application load during pagination of the index view
  * @function
  */
-const scroll = (speed: number): void => {
-  let currentPage = getPage();
+const initScrollify = (speed: number): void => {
+  let lastPage = currentPage();
   scrollify({
     section: '.scroll-container',
     easing: 'easeOutExpo',
     scrollSpeed: speed,
     setHeights: false,
     overflowScroll: false,
-    before: (page: number): void => {
-      // on scroll, update page number
+    before: (newPage: number): void => {
+      // on scroll, update newPage number
       $('.mouse')
         .addClass('scrolled')
-        .text((page === 3 ? '3.1' : `${page + 1}`) + ' | 3');
+        .text((newPage === 3 ? '3.1' : `${newPage + 1}`) + ' | 3');
 
-      if (currentPage === 0 && page === 1) {
+      if (lastPage === 0 && newPage === 1) {
         $('#particles canvas').hide();
         $('#tween-svg').show();
-      } else if (currentPage === 1 && page === 0) {
+      } else if (lastPage === 1 && newPage === 0) {
         $('#particles canvas').show();
         $('#tween-svg').hide();
-      } else if (currentPage === 1 && page === 2) {
+      } else if (lastPage === 1 && newPage === 2) {
         whale.forEach((el) => el.show());
         $('#tween-svg').hide();
-      } else if (currentPage === 2 && page === 1) {
+      } else if (lastPage === 2 && newPage === 1) {
         whale.forEach((el) => el.hide());
         $('#tween-svg').show();
-      } else if (currentPage === 2 && page === 3) {
+      } else if (lastPage === 2 && newPage === 3) {
         $('.info').addClass('slid-up');
         whale.forEach((el) => el.addClass('pause'));
-      } else if (currentPage === 3 && page === 2) {
+      } else if (lastPage === 3 && newPage === 2) {
         $('.info').removeClass('slid-up');
         whale.forEach((el) => el.removeClass('pause'));
       }
-      currentPage = page;
+      lastPage = newPage;
     },
   });
+
   // allow for arrow pagination
   document.addEventListener(
     'mousedown',
@@ -52,4 +53,4 @@ const scroll = (speed: number): void => {
   );
 };
 
-export { scroll };
+export { initScrollify };
