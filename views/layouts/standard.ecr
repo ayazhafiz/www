@@ -15,8 +15,8 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.28.0/addon/mode/simple.js" defer></script>
     <%- end -%>
 
-    <link href=<%= "/css/#{MANIFEST["#{page}.css"]}" %> rel="stylesheet" type="text/css" media="all">
-    <script src=<%= "/js/#{MANIFEST["#{page}.js"]}" %> defer></script>
+    <link href=<%= "/css/#{read_manifest "#{page}.css"}" %> rel="stylesheet" type="text/css" media="all">
+    <script src=<%= "/js/#{read_manifest "#{page}.js"}" %> defer></script>
   </head>
   <body>
     <%= content %>
