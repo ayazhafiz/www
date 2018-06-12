@@ -1,1 +1,1 @@
-require "./recipes.cr"
+require "./recipes/*"
