@@ -51,6 +51,7 @@ module Util::HTTP
     index_ui:   "./views/pages/index-ui.ecr",
     mail:       "./views/pages/mail.ecr",
     mail_login: "./views/pages/mail-login.ecr",
+    recipes:    "./views/pages/recipes.ecr",
     try:        "./views/pages/try.ecr",
   }
 
@@ -69,24 +70,13 @@ module Util::HTTP
   }
 
   # Manifest of compiled assets
-  MANIFEST = if File.file? "./src/build/webpack-manifest.json"
+  MANIFEST = if File.readable? "./src/build/webpack-manifest.json"
                JSON.parse File.read "./src/build/webpack-manifest.json"
-             else
-               {
-                 "error.css"      => "error.css",
-                 "error.js"       => "error.js",
-                 "index.css"      => "index.css",
-                 "index.js"       => "index.js",
-                 "index_ui.css"   => "index_ui.css",
-                 "index_ui.js"    => "index_ui.js",
-                 "mail.css"       => "mail.css",
-                 "mail.js"        => "mail.js",
-                 "mail_login.css" => "mail_login.css",
-                 "mail_login.js"  => "mail_login.js",
-                 "try.rod.css"    => "try.rod.css",
-                 "try.rod.js"     => "try.rod.js",
-               }
              end
+
+  def read_manifest(file : String)
+    (man = MANIFEST) ? man[file] : file
+  end
 
   # Describes methods for handling ECR on the web server
   module ECR

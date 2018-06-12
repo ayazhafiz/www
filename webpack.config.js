@@ -1,20 +1,22 @@
 const webpack = require('webpack');
 const path = require('path');
+const glob = require('glob');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const ENV = process.env.NODE_ENV || 'development';
 
 module.exports = {
-  entry: {
-    index: path.join(__dirname, 'src/build/index'),
-    index_ui: path.join(__dirname, 'src/build/index_ui'),
-    error: path.join(__dirname, 'src/build/error'),
-    mail: path.join(__dirname, 'src/build/mail'),
-    mail_login: path.join(__dirname, 'src/build/mail_login'),
-    'try.anoop': path.join(__dirname, 'src/build/try.anoop'),
-    'try.rod': path.join(__dirname, 'src/build/try.rod'),
-  },
+  entry: glob.sync('./src/build/*.ts').reduce(
+    (entries, entry) =>
+      Object.assign(entries, {
+        [entry.replace('./src/build/', '').replace('.ts', '')]: path.join(
+          __dirname,
+          entry.replace('.ts', ''),
+        ),
+      }),
+    {},
+  ),
   output: {
     path: path.join(__dirname, 'public/js'),
     filename: ENV === 'production' ? '[name].[chunkhash].js' : '[name].js',
