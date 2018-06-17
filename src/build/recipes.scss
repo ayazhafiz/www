@@ -5,12 +5,16 @@
 $bg-color: rgb(37, 37, 37);
 $text-color: #fff;
 $bq-border-color: #e6e6e6;
+$padding: 4vmin;
 
-body,
-html {
-  background-color: $bg-color;
-  color: $text-color;
-  padding: 2vmin;
+body {
+  padding: 0 $padding;
+
+  &,
+  html {
+    background-color: $bg-color;
+    color: $text-color;
+  }
 }
 
 h1,
@@ -21,6 +25,10 @@ i {
 
 h1 {
   margin: 0;
+
+  &:first-of-type {
+    padding-top: $padding;
+  }
 
   &:not(:first-of-type) {
     margin-top: calc(0.67em * 2);

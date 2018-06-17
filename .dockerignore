@@ -12,7 +12,6 @@
 # binaries
 podddina
 sentry
-guardian
 /site
 /dev/
 *.dwarf
