@@ -17,10 +17,10 @@ dependencies:
     version: ~> 0.1.0
   kemal:
     github: kemalcr/kemal
-    branch: master
+    commit: 58bf05b8b1c626bfb86aa991d5abe59e678b8a7e
   pg:
     github: will/crystal-pg
-    version: ~> 0.14.0
+    version: ~> 0.15.0
   rod:
     github: ayazhafiz/rod
     version: ~> 0.2.0
@@ -31,6 +31,6 @@ dependencies:
     github: ayazhafiz/crystal-vector
     branch: master
 
-crystal: 0.24.1
+crystal: 0.25.0
 
 license: MIT

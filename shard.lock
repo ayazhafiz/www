@@ -18,7 +18,7 @@ shards:
 
   kemal:
     github: kemalcr/kemal
-    commit: c2236acf3a630e844928edd607699e8738992a5c
+    commit: a5870e7d24e5ec75c956bcf3e4423f55a2c4ff78
 
   kilt:
     github: jeromegn/kilt
@@ -26,7 +26,7 @@ shards:
 
   pg:
     github: will/crystal-pg
-    version: 0.14.1
+    version: 0.15.0
 
   radix:
     github: luislavena/radix
