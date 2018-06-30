@@ -13,6 +13,7 @@ include Util::HTTP
 
 Kemal::Session.config do |config|
   config.secret = ENV["CRYSTALAH_SESSION_SECRET"]
+  config.secure = Kemal.config.env === "production"
   config.timeout = Time::Span.new 1, 0, 0
 end
 
@@ -58,7 +59,7 @@ DB.open ENV["HAFIZMAIL_DB"] do |db|
 
   get "/mail/unwrap" do |env|
     env.session.destroy if env.session.string?("user")
-    ({} of String => String).to_json
+    render_login env
   end
 
   # Verifies user during login
@@ -67,11 +68,12 @@ DB.open ENV["HAFIZMAIL_DB"] do |db|
     password = env.params.body["password"]?
 
     if username && password
+      username, password = URI.unescape(username), URI.unescape(password)
       valid_user? = HTTP::Mail::User.valid?(
-        username: URI.unescape(username),
-        password: URI.unescape(password),
+        username,
+        password,
         database: db)
-      env.session.string("user", URI.unescape(username)) if valid_user?
+      env.session.string("user", username) if valid_user?
       env.session.string("uuid", UUID.random.to_s)
       env.session.int("rand_num", rand(10000))
 
