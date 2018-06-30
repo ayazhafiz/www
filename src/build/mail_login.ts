@@ -27,16 +27,18 @@ const LOGIN: {
  * @async @function
  */
 async function submitLoginRequest(): Promise<loginAttempt> {
-  return fetch('/mail/verify', {
+  const form = new FormData();
+  form.append('username', LOGIN.attr.username.value);
+  form.append('password', LOGIN.attr.password.value);
+
+  return fetch(`/mail/verify`, {
+    method: 'POST',
     headers: new Headers({
       Accept: 'application/json',
-      'Content-Type': 'application/json',
+      Cache: 'no-cache',
     }),
-    method: 'POST',
-    body: JSON.stringify({
-      username: LOGIN.attr.username.value,
-      password: LOGIN.attr.password.value,
-    }),
+    credentials: 'include',
+    body: form,
   }).then((data) => data.json());
 }
 
@@ -54,10 +56,7 @@ async function attemptLogin() {
  * @function
  */
 function redirectToMail(): void {
-  window.location.href =
-    `/mail/` +
-    `${encodeURIComponent(LOGIN.attr.username.value)}?` +
-    `key=${encodeURIComponent(LOGIN.attr.password.value)}`;
+  window.location.href = '/mail';
 }
 
 /**
@@ -67,7 +66,9 @@ function redirectToMail(): void {
 function showIncorrect(): void {
   toggleSpinner('none', 'block', '#fff');
   Object.values(LOGIN.attr).forEach((el) => {
-    el.value = '';
+    if (el === LOGIN.attr.password) {
+      el.value = '';
+    }
     el.addClass('wrong');
     setTimeout(() => el.removeClass('wrong'), 500);
   });
@@ -89,4 +90,12 @@ function showIncorrect(): void {
   });
 
   $(submitButton.el).onclick = attemptLogin;
+  Object.values(LOGIN.attr).forEach(
+    (input) =>
+      (input.onkeydown = (e) => {
+        if (e.key === 'Enter') {
+          attemptLogin();
+        }
+      }),
+  );
 })();
