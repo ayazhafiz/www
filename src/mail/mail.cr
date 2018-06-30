@@ -22,14 +22,19 @@ module HTTP::Mail
   # Sends a file to S3 storage
   def send(file : Kemal::FileUpload,
            filename : String?,
-           from user : String,
+           from user : String?,
            to recipient : String,
            key : String,
            database db)
-    if !filename.is_a? String
+    if !user
       {
-        successful: true,
-        error:      "no filename",
+        successful: false,
+        error:      "Unauthorized access.",
+      }
+    elsif !filename.is_a? String
+      {
+        successful: false,
+        error:      "No filename specified.",
       }
     elsif recipient === user
       {
@@ -42,12 +47,12 @@ module HTTP::Mail
             database: db)
       {
         successful: false,
-        error:      "invalid credentials",
+        error:      "Invalid credentials sent.",
       }
     elsif !HTTP::Mail::User.exists? username: recipient, database: db
       {
         successful: false,
-        error:      "recipient dne",
+        error:      "Recepient does not exist.",
       }
     else
       file_path = File.join [Kemal.config.public_folder, "uploads/", filename]

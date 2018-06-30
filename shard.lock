@@ -20,6 +20,10 @@ shards:
     github: kemalcr/kemal
     commit: a5870e7d24e5ec75c956bcf3e4423f55a2c4ff78
 
+  kemal-session:
+    github: kemalcr/kemal-session
+    version: 0.10.0
+
   kilt:
     github: jeromegn/kilt
     version: 0.4.0

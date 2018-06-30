@@ -1,12 +1,20 @@
 require "db"
 require "pg"
 require "kemal"
+require "kemal-session"
 require "is_mobile"
 require "json"
+require "uri"
+require "uuid"
 require "./mail/*"
 require "./util/http"
 
 include Util::HTTP
+
+Kemal::Session.config do |config|
+  config.secret = ENV["CRYSTALAH_SESSION_SECRET"]
+  config.timeout = Time::Span.new 1, 0, 0
+end
 
 # Render login page
 private def render_login(env, username : String = "")
@@ -22,13 +30,13 @@ private def render_mail(env, username : String, database db)
   title = "#{username}'s Mail"
   files, links, senders, dates = HTTP::Mail.load for: username, database: db
 
-  render {{ PAGE[:mail] }}, {{LAYOUT[:standard]}}
+  render {{ PAGE[:mail] }}, {{ LAYOUT[:standard] }}
 end
 
 # Open Database and REST APIs
 DB.open ENV["HAFIZMAIL_DB"] do |db|
   # Redirect to home if on mobile
-  ["/mail", "/mail/:username"].each do |path|
+  ["/mail"].each do |path|
     before_all path do |env|
       mobile = is_mobile? env.request.headers["user-agent"]?
       env.redirect "/" if mobile
@@ -37,39 +45,52 @@ DB.open ENV["HAFIZMAIL_DB"] do |db|
 
   # Renders mail login page
   get "/mail" do |env|
-    render_login env
+    if user = env.session.string?("user")
+      render_mail env, username: user, database: db
+    else
+      render_login env
+    end
   end
 
-  # Renders mail viewing page
   get "/mail/:username" do |env|
-    username = env.params.url["username"].as String
-    key = env.params.query["key"]?
+    render_login env, env.params.url["username"]
+  end
 
-    if res = HTTP::Mail::User.valid?(
-         username: username,
-         password: key,
-         database: db)
-      render_mail env, username: username, database: db
-    else
-      render_login env, username: username
-    end
+  get "/mail/unwrap" do |env|
+    env.session.destroy if env.session.string?("user")
+    ({} of String => String).to_json
   end
 
   # Verifies user during login
   post "/mail/verify" do |env|
-    username = env.params.json["username"].as String
-    password = env.params.json["password"].as String
+    username = env.params.body["username"]?
+    password = env.params.body["password"]?
 
-    {
-      valid: HTTP::Mail::User.valid? username, password, db,
-    }.to_json
+    if username && password
+      valid_user? = HTTP::Mail::User.valid?(
+        username: URI.unescape(username),
+        password: URI.unescape(password),
+        database: db)
+      env.session.string("user", URI.unescape(username)) if valid_user?
+      env.session.string("uuid", UUID.random.to_s)
+      env.session.int("rand_num", rand(10000))
+
+      {
+        valid: valid_user?,
+      }.to_json
+    else
+      {
+        valid: false,
+        error: "Either username or password not specified.",
+      }.to_json
+    end
   end
 
   # Attempts file upload
   post "/mail/send" do |env|
     file = env.params.files["file"]
     recipient = env.params.body["recipient"]
-    user = env.params.body["user"]
+    user = env.session.string?("user")
     escaped_key = env.params.body["escaped-key"]
 
     HTTP::Mail.send(

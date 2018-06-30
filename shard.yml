@@ -18,6 +18,9 @@ dependencies:
   kemal:
     github: kemalcr/kemal
     commit: 58bf05b8b1c626bfb86aa991d5abe59e678b8a7e
+  kemal-session:
+    github: kemalcr/kemal-session
+    version: ~> 0.10.0
   pg:
     github: will/crystal-pg
     version: ~> 0.15.0

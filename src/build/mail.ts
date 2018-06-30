@@ -92,15 +92,16 @@ function updateFileValue(this: HTMLInputElement) {
 async function uploadFile(): Promise<UploadAttempt> {
   const form = new FormData();
   form.append('file', DATA.file.files[0]);
-  form.append('user', window.location.pathname.split('/mail/')[1]);
   form.append('escaped-key', decodeURI(window.location.search.split('=')[1]));
   form.append('recipient', DATA.recipient.value);
 
   return fetch('/mail/send', {
+    method: 'POST',
     headers: new Headers({
       Accept: 'application/json',
+      Cache: 'no-cache',
     }),
-    method: 'POST',
+    credentials: 'include',
     body: form,
   }).then((data) => data.json());
 }
