@@ -7,19 +7,6 @@ polyfill();
 
 import './index.scss';
 
-function toggleQuasiText(this: HTMLElement) {
-  this.classList.toggle('mobile-touch');
-}
-
-function openResearch(this: HTMLInputElement) {
-  const inputs = $$('input');
-  for (const input of inputs) {
-    (<HTMLInputElement>input).checked = false;
-  }
-  (<HTMLInputElement>$('input#tab-1')).checked = true;
-  scrollIntoView.bind(this);
-}
-
 function scrollIntoView(this: HTMLInputElement) {
   if (this.checked) {
     setTimeout(
@@ -29,17 +16,20 @@ function scrollIntoView(this: HTMLInputElement) {
   }
 }
 
+function toggleQuasiText(this: HTMLElement) {
+  this.classList.toggle('mobile-touch');
+}
+
+function openResearch(this: HTMLInputElement) {
+  $$('input').forEach(i => (<HTMLInputElement>i).checked = false);
+  (<HTMLInputElement>$('input#tab-1')).checked = true;
+  scrollIntoView.bind(this);
+}
+
 (() => {
-  const quasis = $$('.quasi');
-  for (const quasi of quasis) {
-    quasi.addEventListener('touchstart', toggleQuasiText);
-    quasi.addEventListener('touchend', toggleQuasiText);
-  }
-
-  const inputs = $$('input');
-  for (const input of inputs) {
-    input.addEventListener('change', scrollIntoView);
-  }
-
+  $$('.quasi').forEach(q => ['touchstart', 'touchend'].forEach(
+    e => q.addEventListener(e, toggleQuasiText)
+  ));
+  $$('input').forEach(i => i.addEventListener('change', scrollIntoView);
   $('a.tonglab').addEventListener('click', openResearch);
 })();
