@@ -47,4 +47,3 @@ shards:
   vector:
     github: ayazhafiz/crystal-vector
     commit: 0eae7014f4e496dff2b80aacbd66c2efe53f78bd
-
