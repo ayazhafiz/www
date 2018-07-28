@@ -21,15 +21,17 @@ function toggleQuasiText(this: HTMLElement) {
 }
 
 function openResearch(this: HTMLInputElement) {
-  $$('input').forEach(i => (<HTMLInputElement>i).checked = false);
+  $$('input').forEach((i) => ((<HTMLInputElement>i).checked = false));
   (<HTMLInputElement>$('input#tab-1')).checked = true;
   scrollIntoView.bind(this);
 }
 
 (() => {
-  $$('.quasi').forEach(q => ['touchstart', 'touchend'].forEach(
-    e => q.addEventListener(e, toggleQuasiText)
-  ));
-  $$('input').forEach(i => i.addEventListener('change', scrollIntoView);
+  $$('.quasi').forEach((q) =>
+    ['touchstart', 'touchend'].forEach((e) =>
+      q.addEventListener(e, toggleQuasiText),
+    ),
+  );
+  $$('input').forEach((i) => i.addEventListener('change', scrollIntoView));
   $('a.tonglab').addEventListener('click', openResearch);
 })();

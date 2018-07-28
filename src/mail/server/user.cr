@@ -2,7 +2,7 @@ require "crypto/bcrypt/password"
 require "uri"
 
 # Describes methods for internal handling of the mail API's users
-module HTTP::Mail::User
+module HTTP::Mail::Server::User
   extend self
 
   # Verifies whether a user exists
@@ -24,7 +24,7 @@ module HTTP::Mail::User
         "SELECT key FROM users WHERE username=$1;",
         user,
         as: String))
-      return valid_key == URI.unescape pass
+      return valid_key === URI.unescape pass
     rescue
       return false
     end

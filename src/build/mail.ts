@@ -8,7 +8,12 @@ import './mail.scss';
  * Represents an upload attempt
  * @type
  */
-type UploadAttempt = { file?: string; successful: boolean; error?: string };
+type UploadAttempt = {
+  successful: boolean;
+  file_name?: string;
+  error?: string;
+  upload_url?: string;
+};
 
 /**
  * Stores the data elements of the mail client
@@ -20,6 +25,7 @@ const DATA = {
   file: <HTMLInputElement>$('input#file'),
   recipient: <HTMLInputElement>$('input#to'),
   submit: $('div.next'),
+  uploadFile: null,
 };
 
 /**
@@ -89,13 +95,14 @@ function updateFileValue(this: HTMLInputElement) {
  * Uploads a file to the mail server
  * @async @function
  */
-async function uploadFile(): Promise<UploadAttempt> {
+async function authorizeUpload(): Promise<string> {
   const form = new FormData();
-  form.append('file', DATA.file.files[0]);
-  form.append('escaped-key', decodeURI(window.location.search.split('=')[1]));
+  DATA.uploadFile = DATA.file.files[0];
   form.append('recipient', DATA.recipient.value);
+  form.append('file-name', DATA.uploadFile.name);
+  form.append('file-type', DATA.uploadFile.type);
 
-  return fetch('/mail/send', {
+  return fetch('/mail/auth-upload', {
     method: 'POST',
     headers: new Headers({
       Accept: 'application/json',
@@ -107,21 +114,63 @@ async function uploadFile(): Promise<UploadAttempt> {
 }
 
 /**
+ * Uploads file to S3
+ * @async @function
+ */
+async function uploadFile(signedUrl: string) {
+  return fetch(signedUrl, {
+    method: 'PUT',
+    headers: new Headers({
+      Accept: 'application/json',
+    }),
+    body: DATA.uploadFile,
+  });
+}
+
+/**
  * Attempts to submit a file to the mail service
  * @async @function
  */
 async function attemptSubmission() {
   toggleSpinner('block', 'none', 'transparent');
-  const result = await uploadFile();
+  const result: UploadAttempt = JSON.parse(await authorizeUpload());
   if (result.successful) {
-    showUploadSuccess.bind(DATA.recipient)();
-  } else if (result.error === 'recipient dne') {
-    showIncorrect.bind(DATA.recipient)();
-  } else if (result.error === 'invalid credentials') {
-    window.location.href = `/mail/${
-      window.location.pathname.split('/mail/')[1]
-    }`;
+    const res = await uploadFile(result.upload_url);
+    if (res.status === 200) {
+      saveToServer();
+    } else {
+      showIncorrect.bind(DATA.recipient, 'Upload Failed')();
+    }
+  } else if (result.error === 'Unauthorized access.') {
+    window.location.href = '/mail';
+  } else {
+    showIncorrect.bind(DATA.recipient, result.error)();
   }
+}
+
+/**
+ * Save file uploader and reciever to server
+ * @function
+ */
+async function saveToServer() {
+  const form = new FormData();
+  form.append('recipient', DATA.recipient.value);
+  form.append('file-name', DATA.uploadFile.name);
+  form.append('file-type', DATA.uploadFile.type);
+
+  const resp = await fetch('/mail/save-upload', {
+    method: 'POST',
+    headers: new Headers({
+      Accept: 'application/json',
+      Cache: 'no-cache',
+    }),
+    credentials: 'include',
+    body: form,
+  }).then((data) => data.json());
+
+  resp.successful
+    ? showUploadSuccess.bind(DATA.recipient)()
+    : showIncorrect.bind(DATA.recipient, 'File save failed.')();
 }
 
 /**
@@ -152,15 +201,60 @@ function showUploadSuccess(this: HTMLInputElement): void {
  * Displays UI notifications of failed file upload
  * @function
  */
-function showIncorrect(this: HTMLInputElement): void {
+function showIncorrect(
+  this: HTMLInputElement,
+  error: string = 'User not found',
+): void {
   toggleSpinner('none', 'block', '#fff');
   this.value = '';
-  this.placeholder = 'User not found';
+  this.placeholder = error;
   this.addClass('wrong');
   setTimeout(() => {
     this.removeClass('wrong');
     this.placeholder = 'recipient';
   }, 1000);
+}
+
+/**
+ * Attempts to upload files from the client
+ * @function
+ */
+function processUpload() {
+  if (DATA.file.files.length === 0) {
+    DATA.form.addClass('nofile');
+    setTimeout(() => DATA.form.removeClass('nofile'), 500);
+  } else if (DATA.recipient.value.length === 0) {
+    DATA.recipient.addClass('wrong');
+    setTimeout(() => DATA.recipient.removeClass('wrong'), 500);
+  } else {
+    attemptSubmission();
+  }
+}
+
+/**
+ * Get and set file URL on a link
+ * @function
+ */
+async function getFile(this: HTMLAnchorElement, e: MouseEvent) {
+  e.preventDefault();
+
+  const form = new FormData();
+  const dataset = this.dataset;
+  form.append('sender', dataset.sender);
+  form.append('file-name', this.innerText);
+  form.append('date-created', dataset.date);
+
+  const resp = await fetch('/mail/get-file', {
+    method: 'POST',
+    headers: new Headers({
+      Accept: 'application/json',
+      Cache: 'no-cache',
+    }),
+    credentials: 'include',
+    body: form,
+  }).then((data) => data.json());
+
+  window.open(resp.link, '_blank');
 }
 
 /**
@@ -172,12 +266,12 @@ function showIncorrect(this: HTMLInputElement): void {
   allowDragging();
   enableDragnDrop();
 
-  $(submitButton.el).onclick = () => {
-    if (DATA.file.files.length > 0) {
-      attemptSubmission();
-    } else {
-      DATA.form.addClass('nofile');
-      setTimeout(() => DATA.form.removeClass('nofile'), 500);
+  $(submitButton.el).onclick = processUpload;
+  DATA.recipient.onkeydown = (e) => {
+    if (e.key === 'Enter') {
+      processUpload();
     }
   };
+
+  $$('a').forEach((a) => a.addEventListener('click', getFile));
 })();

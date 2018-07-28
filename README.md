@@ -10,13 +10,13 @@ feature (X.x) introduction.
 
 TODO:
 
-* [x] finish modularization
-* [x] add Node as build service
-* [x] add API
-  * [x] Vector
-  * [x] Emoji
-  * [x] Math
-* [ ] mail service
-  * [x] UI
-  * [x] file transaction
-  * [ ] S3 storage
+- [x] finish modularization
+- [x] add Node as build service
+- [x] add API
+  - [x] Vector
+  - [x] Emoji
+  - [x] Math
+- [x] mail service
+  - [x] UI
+  - [x] file transaction
+  - [x] S3 storage
