@@ -5,6 +5,12 @@ require "uri"
 module HTTP::Mail::Server::User
   extend self
 
+  # Add new user
+  def insert(username user : String, password pass : String, database db)
+    hash = Crypto::Bcrypt::Password.create pass
+    db.exec "INSERT INTO users (username, key) VALUES ($1, $2)", user, hash
+  end
+
   # Verifies whether a user exists
   def exists?(username user : String, database db) : Bool
     rs = db.query "SELECT username FROM users WHERE username=$1", user

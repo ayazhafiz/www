@@ -1,6 +1,7 @@
 import dragula from 'dragula';
 import { $, $$ } from '../ts/util/el';
 import { submitButton, toggleSpinner } from '../ts/gfx/submit-button';
+import axios from 'axios';
 
 import './mail.scss';
 
@@ -26,6 +27,7 @@ const DATA = {
   recipient: <HTMLInputElement>$('input#to'),
   submit: $('div.next'),
   uploadFile: null,
+  savedRecipient: null,
 };
 
 /**
@@ -118,13 +120,26 @@ async function authorizeUpload(): Promise<string> {
  * @async @function
  */
 async function uploadFile(signedUrl: string) {
-  return fetch(signedUrl, {
-    method: 'PUT',
-    headers: new Headers({
-      Accept: 'application/json',
-    }),
-    body: DATA.uploadFile,
-  });
+  DATA.recipient.addClass('progress').blur();
+  DATA.recipient.disabled = true;
+  DATA.savedRecipient = DATA.recipient.value;
+
+  return axios
+    .request({
+      method: 'PUT',
+      url: signedUrl,
+      headers: new Headers(),
+      data: DATA.uploadFile,
+      onUploadProgress: (p) => {
+        DATA.recipient.value = `${((p.loaded / p.total) * 100).toFixed(2)}%`;
+      },
+    })
+    .then((data) => {
+      DATA.recipient.removeClass('progress');
+      DATA.recipient.disabled = false;
+
+      return data;
+    });
 }
 
 /**
@@ -154,7 +169,7 @@ async function attemptSubmission() {
  */
 async function saveToServer() {
   const form = new FormData();
-  form.append('recipient', DATA.recipient.value);
+  form.append('recipient', DATA.savedRecipient);
   form.append('file-name', DATA.uploadFile.name);
   form.append('file-type', DATA.uploadFile.type);
 
@@ -232,32 +247,6 @@ function processUpload() {
 }
 
 /**
- * Get and set file URL on a link
- * @function
- */
-async function getFile(this: HTMLAnchorElement, e: MouseEvent) {
-  e.preventDefault();
-
-  const form = new FormData();
-  const dataset = this.dataset;
-  form.append('sender', dataset.sender);
-  form.append('file-name', this.innerText);
-  form.append('date-created', dataset.date);
-
-  const resp = await fetch('/mail/get-file', {
-    method: 'POST',
-    headers: new Headers({
-      Accept: 'application/json',
-      Cache: 'no-cache',
-    }),
-    credentials: 'include',
-    body: form,
-  }).then((data) => data.json());
-
-  window.open(resp.link, '_blank');
-}
-
-/**
  * Initializes the mail client
  * @event
  */
@@ -273,5 +262,5 @@ async function getFile(this: HTMLAnchorElement, e: MouseEvent) {
     }
   };
 
-  $$('a').forEach((a) => a.addEventListener('click', getFile));
+  setTimeout(() => window.location.reload(), 3 * (60 * 60 * 1000));
 })();

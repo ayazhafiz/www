@@ -14,8 +14,7 @@
     "lint:rust": "cargo test all",
     "lint:scss": "sass-lint -v -q",
     "lint:scss:fix": "sass-lint-auto-fix",
-    "validate":
-      "yarn lint:js && yarn lint:rust && yarn lint:scss --max-warnings 0 && webpack && yarn test"
+    "validate": "yarn lint:js && yarn lint:rust && yarn lint:scss --max-warnings 0 && webpack && yarn test"
   },
   "repository": {
     "type": "git",
@@ -29,6 +28,7 @@
   "homepage": "https://ayazhafiz.com",
   "dependencies": {
     "autoprefixer": "^7.1.1",
+    "axios": "^0.18.0",
     "css-loader": "^0.28.4",
     "dragula": "^3.7.2",
     "extract-text-webpack-plugin": "^3.0.0",

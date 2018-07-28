@@ -5,7 +5,6 @@ require "kemal-session"
 require "is_mobile"
 require "json"
 require "uri"
-require "uuid"
 require "./mail/http"
 require "./util/http"
 
@@ -15,7 +14,7 @@ Kemal::Session.config do |config|
   config.secret = ENV["CRYSTALAH_SESSION_SECRET"]
   config.cookie_name = "sessid"
   config.secure = Kemal.config.env === "production"
-  config.timeout = Time::Span.new 1, 0, 0
+  config.timeout = Time::Span.new 3, 0, 0 # 3 hours
 end
 
 # Render login page
@@ -55,12 +54,48 @@ DB.open ENV["HAFIZMAIL_DB"] do |db|
   end
 
   get "/mail/:username" do |env|
-    render_login env, env.params.url["username"]
+    if user = env.session.string?("user")
+      env.redirect "/mail"
+    else
+      render_login env, env.params.url["username"]
+    end
   end
 
-  get "/mail/unwrap" do |env|
+  get "/mail/logout" do |env|
     env.session.destroy if env.session.string?("user")
-    ({} of String => String).to_json
+    env.redirect "/mail"
+  end
+
+  get "/mail/signup" do |env|
+    if user = env.session.string?("user")
+      env.redirect "/mail"
+    else
+      page = "mail_signup"
+      title = "Signup"
+      username = ""
+
+      render {{ PAGE[:mail_login] }}, {{ LAYOUT[:standard] }}
+    end
+  end
+
+  post "/mail/signup" do |env|
+    env.response.content_type = "application/json"
+
+    username = env.params.body["username"]?
+    password = env.params.body["password"]?
+
+    if username && password
+      username, password = URI.unescape(username), URI.unescape(password)
+
+      res = HTTP::Mail.signup(username, password, database: db)
+      env.session.string("user", username) if res[:successful]
+      res.to_json
+    else
+      {
+        successful: false,
+        error:      "Either username or password not specified.",
+      }.to_json
+    end
   end
 
   # Verifies user during login
@@ -76,9 +111,7 @@ DB.open ENV["HAFIZMAIL_DB"] do |db|
         username,
         password,
         database: db)
-      env.session.string("user", URI.unescape(username)) if valid_user?
-      env.session.string("uuid", UUID.random.to_s)
-      env.session.int("rand_num", rand(10000))
+      env.session.string("user", username) if valid_user?
 
       {
         valid: valid_user?,

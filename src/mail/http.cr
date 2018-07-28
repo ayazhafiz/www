@@ -6,18 +6,46 @@ module HTTP::Mail
 
   include HTTP::Mail::Server
 
+  MIN_PASSWORD_LEN = 8
+
+  # Create new user
+  def signup(username user : String, password pass : String, database db)
+    error = if Server::User.exists? user, database: db
+              "User #{user} already exists"
+            elsif pass.size < MIN_PASSWORD_LEN
+              "Password length < #{MIN_PASSWORD_LEN}"
+            end
+
+    unless error
+      Server::User.insert user, pass, database: db
+      {
+        successful: true,
+      }
+    else
+      {
+        successful: false,
+        error:      error,
+      }
+    end
+  end
+
   # Loads file mail for a user
   def load(for user : String, database db)
     files, links, senders, dates = {
       [] of String, [] of String, [] of String, [] of String,
     }
-    db.query("SELECT file, link, u_from, date FROM files WHERE u_to=$1;",
-      user) do |rs|
+    db.query(
+      "SELECT u_from, date, file, content_type, is_url, link \
+       FROM files WHERE u_to=$1;", user) do |rs|
       rs.each do
-        files << rs.read String
-        links << rs.read String
         senders << rs.read String
         dates << rs.read String
+        files << (file = rs.read String)
+        ctype = rs.read String
+        is_url = rs.read Bool
+        link = rs.read String
+
+        links << (is_url ? link : Server::Store.get_s3_file(file, ctype))
       end
     end
     return {files, links, senders, dates}
