@@ -21,7 +21,9 @@
 	<div class="title">File</div>
   <% files.size.times do |idx| %>
     <div>
-      <a href="<%= links[idx] %>"><%= files[idx] %></a>
+      <a href="<%= links[idx] %>" target="_blank"
+        data-sender="<%= senders[idx] %>"
+        data-date="<%= dates[idx] %>"><%= files[idx] %></a>
       <span>&nbsp;-&nbsp;<%= (URI.parse links[idx]).host %></span>
     </div>
 	<% end %>

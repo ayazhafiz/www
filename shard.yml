@@ -11,13 +11,13 @@ targets:
 dependencies:
   awscr-s3:
     github: taylorfinnell/awscr-s3
-    version: ~> 0.1.2
+    version: ~> 0.3.2
   is_mobile:
     github: ayazhafiz/is_mobile
     version: ~> 0.1.0
   kemal:
     github: kemalcr/kemal
-    commit: 58bf05b8b1c626bfb86aa991d5abe59e678b8a7e
+    version: ~> 0.23.0
   kemal-session:
     github: kemalcr/kemal-session
     version: ~> 0.10.0

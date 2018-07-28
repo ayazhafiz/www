@@ -2,11 +2,11 @@ version: 1.0
 shards:
   awscr-s3:
     github: taylorfinnell/awscr-s3
-    version: 0.1.2
+    version: 0.3.2
 
   awscr-signer:
     github: taylorfinnell/awscr-signer
-    version: 0.3.9
+    version: 0.5.2
 
   db:
     github: crystal-lang/crystal-db
@@ -18,7 +18,7 @@ shards:
 
   kemal:
     github: kemalcr/kemal
-    commit: a5870e7d24e5ec75c956bcf3e4423f55a2c4ff78
+    version: 0.23.0
 
   kemal-session:
     github: kemalcr/kemal-session
