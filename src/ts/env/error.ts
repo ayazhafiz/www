@@ -22,14 +22,15 @@ const knownPaths = [
   '/atomas',
   '/blog',
   '/cc',
-  '/emoji',
   '/mail',
   '/meethere',
   '/movie-emoji',
+  '/recipes',
   '/try',
   '/vector',
 ];
 const knownSubPaths = {
+  '/mail': ['/signup'],
   '/try': ['/anoop', '/rod'],
 };
 const knownFullPaths = knownPaths.reduce((full, path) => {

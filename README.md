@@ -8,15 +8,17 @@ My personal site, written in [Crystal](https://crystal-lang.org),
 The repo is reset to an initial commit after each 100 commits, or after major
 feature (X.x) introduction.
 
-TODO:
-
-- [x] finish modularization
-- [x] add Node as build service
-- [x] add API
-  - [x] Vector
-  - [x] Emoji
-  - [x] Math
-- [x] mail service
-  - [x] UI
-  - [x] file transaction
-  - [x] S3 storage
+- [ ] [hafiz](https://ayazhafiz.com)
+  - [x] [/atomas](https://ayazhafiz.github.io/atomas)
+  - [x] [/blog](https://cc.ayazhafiz.com)
+  - [x] [/cc](https://cc.ayazhafiz.com)
+  - [x] [/mail](https://ayazhafiz.com/mail)
+    - [x] [/signup](https://ayazhafiz.com/mail/signup)
+  - [x] [/meethere](https://meethere.js.org)
+  - [x] [/movie-emoji](https://ayazhafiz.github.io/movie-emoji)
+  - [x] [/recipes](https://ayazhafiz.com/recipes)
+  - [ ] /try
+    - [x] [/anoop](https://ayazhafiz.com/try/anoop)
+    - [x] [/rod](https://ayazhafiz.com/try/rod)
+    - [ ] /xela
+  - [x] [/vector](https://ayazhafiz.com/vector)

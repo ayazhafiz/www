@@ -1,9 +1,11 @@
-<div class="lock">
-  <div class="bottom"></div>
-  <div class="top">
-    <div class="hole"></div>
+<% if page === "mail_login" %>
+  <div class="lock">
+    <div class="bottom"></div>
+    <div class="top">
+      <div class="hole"></div>
+    </div>
   </div>
-</div>
+<% end %>
 
 <div class="login">
   <input id="username" value="<%= username %>" type="text" autocomplete="off" placeholder="username">
