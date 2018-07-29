@@ -3,12 +3,29 @@
 
   <div class="box has-advanced-upload">
     <span>Drop file</span>
-    <input id="file" type="file" />
+    <input id="upload-file" type="file" />
   </div>
 
-  <div class="recipient">
-      <input id="to" type="text" autocomplete="off" placeholder="recipient" />
-      <div class="next">
+  <div class="recipient file-scope">
+      <input id="upload-file-recipient" type="text" autocomplete="off"
+             placeholder="recipient" />
+      <div id="upload-file-submit" class="next">
+        <div class="double-bounce1" style="display:none"></div>
+        <div class="double-bounce2" style="display:none"></div>
+        <div class="arrow"></div>
+        <div class="arrow-head"></div>
+      </div>
+  </div>
+
+  <div class="title">Send Links</div>
+
+  <div class="recipient link-scope">
+      <input id="upload-link" type="text" autocomplete="off"
+             placeholder="link" />
+      <br />
+      <input id="upload-link-recipient" type="text" autocomplete="off"
+             placeholder="recipient" />
+      <div id="upload-link-submit" class="next">
         <div class="double-bounce1" style="display:none"></div>
         <div class="double-bounce2" style="display:none"></div>
         <div class="arrow"></div>
@@ -22,7 +39,9 @@
   <% files.size.times do |idx| %>
     <div>
       <a href="<%= links[idx] %>" target="_blank"><%= files[idx] %></a>
-      <span>&nbsp;-&nbsp;<%= (URI.parse links[idx]).host %></span>
+      <span>&nbsp;-&nbsp;<%=
+        (URI.parse links[idx]).host || links[idx].split('/')[0]
+      %></span>
     </div>
 	<% end %>
 </div>

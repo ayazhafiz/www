@@ -1,6 +1,6 @@
 import dragula from 'dragula';
 import { $, $$ } from '../ts/util/el';
-import { submitButton, toggleSpinner } from '../ts/gfx/submit-button';
+import { toggleSpinner } from '../ts/gfx/submit-button';
 import axios from 'axios';
 
 import './mail.scss';
@@ -23,9 +23,12 @@ type UploadAttempt = {
 const DATA = {
   form: $('div.box'),
   label: $('div.box span'),
-  file: <HTMLInputElement>$('input#file'),
-  recipient: <HTMLInputElement>$('input#to'),
-  submit: $('div.next'),
+  file: <HTMLInputElement>$('#upload-file'),
+  fileRecipient: <HTMLInputElement>$('#upload-file-recipient'),
+  link: <HTMLInputElement>$('#upload-link'),
+  linkRecipient: <HTMLInputElement>$('#upload-link-recipient'),
+  submitFile: $('#upload-file-submit'),
+  submitLink: $('#upload-link-submit'),
   uploadFile: null,
   savedRecipient: null,
 };
@@ -81,6 +84,14 @@ function enableDragnDrop(): void {
     });
   }
 
+  DATA.form.addEventListener(
+    'drop',
+    (e: DragEvent) => {
+      DATA.file.files = e.dataTransfer.files;
+    },
+    false,
+  );
+
   DATA.file.onchange = updateFileValue;
 }
 
@@ -100,7 +111,7 @@ function updateFileValue(this: HTMLInputElement) {
 async function authorizeUpload(): Promise<string> {
   const form = new FormData();
   DATA.uploadFile = DATA.file.files[0];
-  form.append('recipient', DATA.recipient.value);
+  form.append('recipient', DATA.fileRecipient.value);
   form.append('file-name', DATA.uploadFile.name);
   form.append('file-type', DATA.uploadFile.type);
 
@@ -120,9 +131,9 @@ async function authorizeUpload(): Promise<string> {
  * @async @function
  */
 async function uploadFile(signedUrl: string) {
-  DATA.recipient.addClass('progress').blur();
-  DATA.recipient.disabled = true;
-  DATA.savedRecipient = DATA.recipient.value;
+  DATA.fileRecipient.addClass('progress').blur();
+  DATA.fileRecipient.disabled = true;
+  DATA.savedRecipient = DATA.fileRecipient.value;
 
   return axios
     .request({
@@ -131,12 +142,14 @@ async function uploadFile(signedUrl: string) {
       headers: new Headers(),
       data: DATA.uploadFile,
       onUploadProgress: (p) => {
-        DATA.recipient.value = `${((p.loaded / p.total) * 100).toFixed(2)}%`;
+        DATA.fileRecipient.value = `${((p.loaded / p.total) * 100).toFixed(
+          2,
+        )}%`;
       },
     })
     .then((data) => {
-      DATA.recipient.removeClass('progress');
-      DATA.recipient.disabled = false;
+      DATA.fileRecipient.removeClass('progress');
+      DATA.fileRecipient.disabled = false;
 
       return data;
     });
@@ -154,12 +167,12 @@ async function attemptSubmission() {
     if (res.status === 200) {
       saveToServer();
     } else {
-      showIncorrect.bind(DATA.recipient, 'Upload Failed')();
+      showIncorrect.bind(DATA.fileRecipient, 'Upload Failed')();
     }
   } else if (result.error === 'Unauthorized access.') {
     window.location.href = '/mail';
   } else {
-    showIncorrect.bind(DATA.recipient, result.error)();
+    showIncorrect.bind(DATA.fileRecipient, result.error)();
   }
 }
 
@@ -184,8 +197,8 @@ async function saveToServer() {
   }).then((data) => data.json());
 
   resp.successful
-    ? showUploadSuccess.bind(DATA.recipient)()
-    : showIncorrect.bind(DATA.recipient, 'File save failed.')();
+    ? showUploadSuccess.bind(DATA.fileRecipient)()
+    : showIncorrect.bind(DATA.fileRecipient, 'File save failed.')();
 }
 
 /**
@@ -219,6 +232,7 @@ function showUploadSuccess(this: HTMLInputElement): void {
 function showIncorrect(
   this: HTMLInputElement,
   error: string = 'User not found',
+  placeholder: string = 'recipient',
 ): void {
   toggleSpinner('none', 'block', '#fff');
   this.value = '';
@@ -226,7 +240,7 @@ function showIncorrect(
   this.addClass('wrong');
   setTimeout(() => {
     this.removeClass('wrong');
-    this.placeholder = 'recipient';
+    this.placeholder = placeholder;
   }, 1000);
 }
 
@@ -238,11 +252,55 @@ function processUpload() {
   if (DATA.file.files.length === 0) {
     DATA.form.addClass('nofile');
     setTimeout(() => DATA.form.removeClass('nofile'), 500);
-  } else if (DATA.recipient.value.length === 0) {
-    DATA.recipient.addClass('wrong');
-    setTimeout(() => DATA.recipient.removeClass('wrong'), 500);
+  } else if (DATA.fileRecipient.value.length === 0) {
+    DATA.fileRecipient.addClass('wrong');
+    setTimeout(() => DATA.fileRecipient.removeClass('wrong'), 500);
   } else {
     attemptSubmission();
+  }
+}
+
+/**
+ * Attempts to upload link from the client
+ * @function
+ */
+async function processLink() {
+  if (DATA.link.value.length === 0) {
+    DATA.link.addClass('wrong');
+    setTimeout(() => DATA.link.removeClass('wrong'), 500);
+  } else if (DATA.linkRecipient.value.length === 0) {
+    DATA.linkRecipient.addClass('wrong');
+    setTimeout(() => DATA.linkRecipient.removeClass('wrong'), 500);
+  } else {
+    toggleSpinner('block', 'none', 'transparent', '.link-scope');
+
+    const form = new FormData();
+    form.append('recipient', DATA.linkRecipient.value);
+    form.append('file-name', DATA.link.value);
+    form.append('file-type', '__hfMAIL_URL__');
+
+    const resp = await fetch('/mail/save-upload', {
+      method: 'POST',
+      headers: new Headers({
+        Accept: 'application/json',
+        Cache: 'no-cache',
+      }),
+      credentials: 'include',
+      body: form,
+    }).then((data) => data.json());
+
+    if (resp.successful) {
+      showUploadSuccess.bind(DATA.link)();
+      showUploadSuccess.bind(DATA.linkRecipient)();
+    } else {
+      showIncorrect.bind(
+        resp.error_with === 'link' ? DATA.link : DATA.linkRecipient,
+        resp.error,
+        resp.error_with === 'link' ? 'link' : 'recipient',
+      )();
+    }
+
+    toggleSpinner('none', 'block', '#fff', '.link-scope');
   }
 }
 
@@ -255,12 +313,22 @@ function processUpload() {
   allowDragging();
   enableDragnDrop();
 
-  $(submitButton.el).onclick = processUpload;
-  DATA.recipient.onkeydown = (e) => {
+  DATA.submitFile.onclick = processUpload;
+  DATA.fileRecipient.onkeydown = (e) => {
     if (e.key === 'Enter') {
       processUpload();
     }
   };
+
+  DATA.submitLink.onclick = processLink;
+  [DATA.link, DATA.linkRecipient].forEach(
+    (l) =>
+      (l.onkeydown = (e) => {
+        if (e.key === 'Enter') {
+          processLink();
+        }
+      }),
+  );
 
   setTimeout(() => window.location.reload(), 3 * (60 * 60 * 1000));
 })();
