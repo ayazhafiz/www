@@ -18,14 +18,15 @@ function toggleSpinner(
   spinnerDisplay: string,
   arrowDisplay: string,
   buttonColor: string,
+  scope: string = '.file-scope',
 ) {
   for (const spinner of submitButton.spinners) {
-    $(spinner).style.display = spinnerDisplay;
+    $(`${scope} ${spinner}`).style.display = spinnerDisplay;
   }
   for (const arrow of submitButton.arrows) {
-    $(arrow).style.display = arrowDisplay;
+    $(`${scope} ${arrow}`).style.display = arrowDisplay;
   }
-  $(submitButton.el).style.background = buttonColor;
+  $(`${scope} ${submitButton.el}`).style.background = buttonColor;
 }
 
 export { submitButton, toggleSpinner };

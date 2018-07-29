@@ -47,7 +47,7 @@ async function submitLoginRequest(): Promise<loginAttempt> {
  * @async @function
  */
 async function attemptLogin() {
-  toggleSpinner('block', 'none', 'transparent');
+  toggleSpinner('block', 'none', 'transparent', '.login-scope');
   (await submitLoginRequest()).valid ? redirectToMail() : showIncorrect();
 }
 
@@ -64,7 +64,7 @@ function redirectToMail(): void {
  * @function
  */
 function showIncorrect(): void {
-  toggleSpinner('none', 'block', '#fff');
+  toggleSpinner('none', 'block', '#fff', '.login-scope');
   Object.values(LOGIN.attr).forEach((el) => {
     if (el === LOGIN.attr.password) {
       el.value = '';

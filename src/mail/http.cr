@@ -8,6 +8,26 @@ module HTTP::Mail
 
   MIN_PASSWORD_LEN = 8
 
+  private def check_upload_error(sender : String?,
+                                 recipient : String?,
+                                 file_name : String?,
+                                 file_type : String?,
+                                 database db) : String?
+    if !sender
+      "Unauthorized access."
+    elsif !recipient
+      "No recipient pecified."
+    elsif !file_name
+      "No filename specified."
+    elsif !file_type
+      "File content type not specified."
+    elsif sender === recipient
+      "The sender may not be the recipient."
+    elsif !Server::User.exists? username: recipient, database: db
+      "Recepient does not exist."
+    end
+  end
+
   # Create new user
   def signup(username user : String, password pass : String, database db)
     error = if Server::User.exists? user, database: db
@@ -57,19 +77,7 @@ module HTTP::Mail
                   file_name : String?,
                   file_type : String?,
                   database db)
-    error = if !sender
-              "Unauthorized access."
-            elsif !recipient
-              "No recipient pecified."
-            elsif !file_name
-              "No filename specified."
-            elsif !file_type
-              "File content type not specified."
-            elsif sender === recipient
-              "The sender may not be the recipient."
-            elsif !Server::User.exists? username: recipient, database: db
-              "Recepient does not exist."
-            end
+    error = check_upload_error(sender, recipient, file_name, file_type, db)
 
     if file_name && file_type && !error
       {
@@ -91,20 +99,54 @@ module HTTP::Mail
                   file_name : String,
                   file_type : String,
                   database db)
-    db.exec(
-      "INSERT INTO files (file, link, u_from, u_to, date, content_type, is_url)\
-       VALUES ($1, $2, $3, $4, $5, $6, $7)",
-      file_name,
-      "https://s3.amazonaws.com",
-      sender,
-      recipient,
-      Time.now.to_utc.to_s,
-      file_type,
-      false)
+    is_url = file_type === "__hfMAIL_URL__"
 
-    {
-      successful: true,
-    }
+    error = check_upload_error(sender, recipient, file_name, file_type, db)
+    error_with = "recipient"
+    link = ""
+    if is_url && !error
+      link = file_name
+      begin
+        resp = HTTP::Client.get link
+        body = if resp.success?
+                 resp.body
+               else
+                 error = "Link status #{resp.status_code}"
+                 error_with = "link"
+                 nil
+               end
+        match = body.match /(<title>)(.*)(<\/title>)/ if body
+        file_name = match ? match[2] : "Unknown Link"
+      rescue
+        error = "Cannot load link"
+        error_with = "link"
+        nil
+      end
+    end
+
+    unless error
+      db.exec(
+        "INSERT INTO files (file, link, u_from, u_to, \
+         date, content_type, is_url) \
+         VALUES ($1, $2, $3, $4, $5, $6, $7)",
+        file_name,
+        link,
+        sender,
+        recipient,
+        Time.now.to_utc.to_s,
+        file_type,
+        is_url)
+
+      {
+        successful: true,
+      }
+    else
+      {
+        successful: false,
+        error:      error,
+        error_with: error_with,
+      }
+    end
   end
 
   # Get file url

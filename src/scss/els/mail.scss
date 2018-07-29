@@ -159,10 +159,14 @@ a {
   }
 }
 
-div > .title {
+.title {
   border-bottom: 0.2em solid $white;
   color: $white;
   padding-bottom: 0.5em;
+
+  &:not(:first-child) {
+    margin-top: 10em;
+  }
 }
 
 .upload {
