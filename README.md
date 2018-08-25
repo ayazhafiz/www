@@ -16,6 +16,7 @@ feature (X.x) introduction.
     - [x] [/signup](https://ayazhafiz.com/mail/signup)
   - [x] [/meethere](https://meethere.js.org)
   - [x] [/movie-emoji](https://ayazhafiz.github.io/movie-emoji)
+  - [x] [/notes](https://ayazhafiz.com/notes)
   - [x] [/recipes](https://ayazhafiz.com/recipes)
   - [ ] /try
     - [x] [/anoop](https://ayazhafiz.com/try/anoop)
