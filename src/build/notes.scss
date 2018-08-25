@@ -1,0 +1,40 @@
+@import '../scss/base/vars';
+
+body,
+html {
+  font-family: $code-font;
+  margin: 1em;
+}
+
+body {
+  display: flex;
+}
+
+a,
+span {
+  display: inline-block;
+
+  &:not(:first-child) {
+    margin-top: 2rem;
+  }
+}
+
+a {
+  &,
+  &:hover,
+  &:active,
+  &:visited {
+    border-bottom: 1px solid;
+    color: $podd-bg;
+    text-decoration: none;
+  }
+}
+
+.course-codes,
+.course-names {
+  display: inline;
+}
+
+.course-names {
+  margin-left: 1rem;
+}

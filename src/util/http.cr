@@ -51,6 +51,7 @@ module Util::HTTP
     index_ui:   "./views/pages/index-ui.ecr",
     mail:       "./views/pages/mail.ecr",
     mail_login: "./views/pages/mail-login.ecr",
+    notes:      "./views/pages/notes.ecr",
     recipes:    "./views/pages/recipes.ecr",
     try:        "./views/pages/try.ecr",
   }
