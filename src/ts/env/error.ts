@@ -25,6 +25,7 @@ const knownPaths = [
   '/mail',
   '/meethere',
   '/movie-emoji',
+  '/notes',
   '/recipes',
   '/try',
   '/vector',

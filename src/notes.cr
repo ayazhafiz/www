@@ -1,19 +1,11 @@
 require "kemal"
+require "./notes/*"
 
 # Renders notes page
 get "/notes" do |env|
   page = "notes"
   title = "Notes"
-  classes = [
-    {
-      code: "EECE 2116",
-      name: "Digital Logic",
-    },
-    {
-      code: "CS 2201",
-      name: "Data Structures",
-    },
-  ]
+  classes = HTTP::Notes::CLASSES
 
   render {{ PAGE[:notes] }}, {{ LAYOUT[:standard] }}
 end
