@@ -12,6 +12,7 @@ body {
 
 a,
 span {
+  border-bottom: 1px solid transparent;
   display: inline-block;
 
   &:not(:first-child) {
@@ -24,7 +25,7 @@ a {
   &:hover,
   &:active,
   &:visited {
-    border-bottom: 1px solid;
+    border-color: $podd-bg;
     color: $podd-bg;
     text-decoration: none;
   }
