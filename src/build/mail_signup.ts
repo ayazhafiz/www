@@ -47,7 +47,7 @@ async function submitSignupRequest(): Promise<signupAttempt> {
  * @async @function
  */
 async function attemptLogin() {
-  toggleSpinner('block', 'none', 'transparent');
+  toggleSpinner('block', 'none', 'transparent', '.login-scope');
   const resp = await submitSignupRequest();
   resp.successful ? redirectToMail() : showIncorrect(resp.error);
 }
@@ -65,7 +65,7 @@ function redirectToMail(): void {
  * @function
  */
 function showIncorrect(error: string): void {
-  toggleSpinner('none', 'block', '#fff');
+  toggleSpinner('none', 'block', '#fff', '.login-scope');
   Object.values(SIGNUP.attr).forEach((el) => {
     el.value = '';
     el.addClass('wrong');

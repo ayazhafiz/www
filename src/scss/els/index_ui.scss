@@ -74,17 +74,17 @@ $last-name-color: #66cdaa;
     }
   }
 
-  .twitter {
+  .instagram {
     &,
     &:hover,
     &:active,
     &:visited {
-      color: $twitter;
+      color: $instagram;
       margin-left: 5%;
       z-index: 1;
 
       &::after {
-        background-color: $twitter;
+        background-color: $instagram;
       }
     }
   }
