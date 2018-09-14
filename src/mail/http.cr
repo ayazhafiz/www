@@ -94,17 +94,17 @@ module HTTP::Mail
   end
 
   # Saves upload to DB
-  def save_upload(from sender : String,
-                  to recipient : String,
-                  file_name : String,
-                  file_type : String,
+  def save_upload(from sender : String?,
+                  to recipient : String?,
+                  file_name : String?,
+                  file_type : String?,
                   database db)
     is_url = file_type === "__hfMAIL_URL__"
 
     error = check_upload_error(sender, recipient, file_name, file_type, db)
     error_with = "recipient"
     link = ""
-    if is_url && !error
+    if is_url && !error && file_name
       link = file_name
       begin
         resp = HTTP::Client.get link
