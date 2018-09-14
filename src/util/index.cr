@@ -67,6 +67,12 @@ module Util::Index
       HTML
     },
     {
+      title: "Principal Financial Group",
+      desc:  <<-HTML
+     Front-end development and API design as a software engineering intern.
+     HTML
+    },
+    {
       title: "meetHere",
       desc:  <<-HTML
       Full-stack development for an
@@ -103,7 +109,7 @@ module Util::Index
     },
     {
       title: "resume",
-      link:  "/self/resume.pdf",
+      link:  "https://ayazhafiz.com/self/resume",
       emoji: "💼",
     },
   ]

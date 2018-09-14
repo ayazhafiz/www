@@ -34,6 +34,60 @@ private def render_mail(env, username : String, database db)
   render {{ PAGE[:mail] }}, {{ LAYOUT[:standard] }}
 end
 
+private def parse_credentials(request)
+  username = nil
+  password = nil
+
+  HTTP::FormData.parse(request) do |part|
+    case part.name
+    when "username"
+      username = part.body.gets_to_end
+    when "password"
+      password = part.body.gets_to_end
+    end
+  end
+
+  {username, password}
+end
+
+private def parse_upload(request)
+  recipient = nil
+  file_name = nil
+  file_type = nil
+
+  HTTP::FormData.parse(request) do |part|
+    case part.name
+    when "recipient"
+      recipient = part.body.gets_to_end
+    when "file-name"
+      file_name = part.body.gets_to_end
+    when "file-type"
+      file_type = part.body.gets_to_end
+    end
+  end
+
+  {recipient, file_name, file_type}
+end
+
+private def parse_download(request)
+  sender = ""
+  file_name = ""
+  date_created = ""
+
+  HTTP::FormData.parse(request) do |part|
+    case part.name
+    when "sender"
+      sender = part.body.gets_to_end
+    when "file-name"
+      file_name = part.body.gets_to_end
+    when "date-created"
+      date_created = part.body.gets_to_end
+    end
+  end
+
+  {sender, file_name, date_created}
+end
+
 # Open Database and REST APIs
 DB.open ENV["HAFIZMAIL_DB"] do |db|
   # Redirect to home if on mobile
@@ -81,8 +135,7 @@ DB.open ENV["HAFIZMAIL_DB"] do |db|
   post "/mail/signup" do |env|
     env.response.content_type = "application/json"
 
-    username = env.params.body["username"]?
-    password = env.params.body["password"]?
+    username, password = parse_credentials env.request
 
     if username && password
       username, password = URI.unescape(username), URI.unescape(password)
@@ -102,8 +155,7 @@ DB.open ENV["HAFIZMAIL_DB"] do |db|
   post "/mail/verify" do |env|
     env.response.content_type = "application/json"
 
-    username = env.params.body["username"]?
-    password = env.params.body["password"]?
+    username, password = parse_credentials env.request
 
     if username && password
       username, password = URI.unescape(username), URI.unescape(password)
@@ -129,9 +181,7 @@ DB.open ENV["HAFIZMAIL_DB"] do |db|
     env.response.content_type = "application/json"
 
     user = env.session.string?("user")
-    recipient = env.params.body["recipient"]?
-    file_name = env.params.body["file-name"]?
-    file_type = env.params.body["file-type"]?
+    recipient, file_name, file_type = parse_upload env.request
 
     HTTP::Mail.auth_upload(
       from: user,
@@ -147,9 +197,7 @@ DB.open ENV["HAFIZMAIL_DB"] do |db|
     env.response.content_type = "application/json"
 
     user = env.session.string("user")
-    recipient = env.params.body["recipient"]
-    file_name = env.params.body["file-name"]
-    file_type = env.params.body["file-type"]
+    recipient, file_name, file_type = parse_upload env.request
 
     HTTP::Mail.save_upload(
       from: user,
@@ -164,10 +212,8 @@ DB.open ENV["HAFIZMAIL_DB"] do |db|
   post "/mail/get-file" do |env|
     env.response.content_type = "application/json"
 
-    sender = env.params.body["sender"]
     recipient = env.session.string("user")
-    file_name = env.params.body["file-name"]
-    date_created = env.params.body["date-created"]
+    sender, file_name, date_created = parse_download env.request
 
     HTTP::Mail.get_file(
       from: sender,
