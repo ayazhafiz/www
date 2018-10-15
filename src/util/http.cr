@@ -13,6 +13,7 @@ module Util::HTTP
   # Using __DIR__ would be much easier, but the Crystal Heroku buildpack
   # saves directory state so this won't work ):
   PARTIAL = {
+    analytics:   "./views/head/analytics.ecr",
     index_head:  "./views/head/_for-index-ui.ecr",
     mathjax:     "./views/head/js/mathjax.ecr",
     meta:        "./views/head/meta.ecr",
