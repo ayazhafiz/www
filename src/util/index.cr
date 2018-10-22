@@ -12,10 +12,10 @@ module Util::Index
       emoji: "📍",
     },
     {
-      title: "xela",
-      link:  "https://github.com/ayazhafiz/xela",
-      desc:  "An elegant, performant programming language.",
-      emoji: "🎍",
+      title: "mail",
+      link:  "https://ayazhafiz.com/mail/signup",
+      desc:  "A secure, minimalist file-sharing app backed by S3.",
+      emoji: "📨",
     },
     {
       title: "rcalc",
@@ -55,38 +55,32 @@ module Util::Index
     {
       title: "Vanderbilt Tong Lab",
       desc:  <<-HTML
-      Machine modeling of human
-      <a href="http://www.psy.vanderbilt.edu/tonglab/web/research.html">vision and object recognition</a>
-      patterns.
-      HTML
+Machine modeling of human
+<a href="http://www.psy.vanderbilt.edu/tonglab/web/research.html">vision and object recognition</a>
+patterns.
+HTML
     },
     {
       title: "Principal Financial Group",
       desc:  <<-HTML
-      Front-end development and API design as a software engineering intern.
-      HTML
-    },
-    {
-      title: "Principal Financial Group",
-      desc:  <<-HTML
-     Front-end development and API design as a software engineering intern.
-     HTML
+Front-end development and API design as a software engineering intern.
+HTML
     },
     {
       title: "meetHere",
       desc:  <<-HTML
-      Full-stack development for an
-      <a href="https://genglobal.org/global-entrepreneurship-week-startup-open/gen-announces-top-10-startup-open-finalists">internationally-recognized</a>
-      startup.
-      HTML
+Full-stack development for an
+<a href="https://genglobal.org/global-entrepreneurship-week-startup-open/gen-announces-top-10-startup-open-finalists">internationally-recognized</a>
+startup.
+HTML
     },
     {
       title: "UTD Berkner Lab",
       desc:  <<-HTML
-      Research intern exploring
-      <a href="http://asa.scitation.org/doi/abs/10.1121/1.4969616">viable applications</a>
-      of multi-walled carbon nanotubes.
-      HTML
+Research intern exploring
+<a href="http://asa.scitation.org/doi/abs/10.1121/1.4969616">viable applications</a>
+of multi-walled carbon nanotubes.
+HTML
     },
   ]
 
@@ -116,14 +110,14 @@ module Util::Index
 
   # Languages and their shorthands for `about` section.
   LANGUAGES = {
-    "Crystal"    => "cr",
-    "Java"       => "java",
+    "C++"        => "cpp",
     "JavaScript" => "js",
     "TypeScript" => "ts",
+    "Crystal"    => "cr",
     "Ruby"       => "rb",
     "Rust"       => "rs",
     "C"          => "c",
-    "C++"        => "cpp",
+    "Java"       => "java",
     "Python"     => "py",
     "R"          => "r",
     "SQL"        => "sql",

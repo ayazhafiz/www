@@ -155,7 +155,8 @@ img {
       content: 'Ayaz';
     }
 
-    &:hover &.mobile-touch {
+    &:hover,
+    &.mobile-touch {
       &::before {
         content: 'hafiz';
       }
