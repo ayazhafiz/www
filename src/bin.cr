@@ -8,7 +8,7 @@ get "/bin/:script" do |env|
 
   if password
     if ENV["HAFIZ_#{script.upcase}_PASSWORD"] === password
-      env.redirect ENV["HAFIZ_#{script}_URL"]
+      env.redirect ENV["HAFIZ_#{script.upcase}_URL"]
     else
       "echo 'Incorrect password!'"
     end
