@@ -47,6 +47,7 @@ module Util::HTTP
 
   # Table of page views
   PAGE = {
+    bios:       "./views/pages/bios.ecr",
     error:      "./views/pages/error.ecr",
     index:      "./views/pages/index.ecr",
     index_ui:   "./views/pages/index-ui.ecr",

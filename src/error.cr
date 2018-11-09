@@ -1,9 +1,6 @@
 require "kemal"
 require "uri"
 require "is_mobile"
-require "./util/http"
-
-include Util::HTTP
 
 # Renders error 404, 500 pages
 [404, 500].each do |code|
