@@ -2,15 +2,15 @@ version: 1.0
 shards:
   awscr-s3:
     github: taylorfinnell/awscr-s3
-    version: 0.3.2
+    version: 0.3.3
 
   awscr-signer:
     github: taylorfinnell/awscr-signer
-    version: 0.5.2
+    version: 0.5.3
 
   db:
     github: crystal-lang/crystal-db
-    version: 0.5.0
+    version: 0.5.1
 
   exception_page:
     github: crystal-loot/exception_page
@@ -22,11 +22,11 @@ shards:
 
   kemal:
     github: kemalcr/kemal
-    version: 0.24.0
+    version: 0.25.1
 
   kemal-session:
     github: kemalcr/kemal-session
-    version: 0.10.0
+    version: 0.11.0
 
   kilt:
     github: jeromegn/kilt
