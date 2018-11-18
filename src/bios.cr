@@ -8,7 +8,7 @@ get "/bios" do |env|
   page = "bios"
   title = "GoodBios"
 
-  bios_data = Array(String).from_json(File.read("./src/bios/data.json"))
+  data_file = "./src/bios/data.txt"
 
   render {{ PAGE[:bios] }}, {{ LAYOUT[:standard] }}
 end
