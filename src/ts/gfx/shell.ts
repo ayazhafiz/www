@@ -29,6 +29,7 @@ const KEY = {
   letters: [65, 90].range(),
   extraneous: [186, 192].range().concat([219, 222].range()),
 };
+
 /**
  * Required keystroke timeout
  * @constant
