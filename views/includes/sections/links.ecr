@@ -1,6 +1,6 @@
 <% LINKS.each do |link| %>
 <p>
-  <span class="mr"><%= HTTP::Emoji.render link[:emoji], display_native?: apple? %></span>
+  <span class="mr"><%= HTTP::Emoji.render link[:emoji], native_display?: apple? %></span>
   <quote>
     <a href="<%= link[:link] %>"><%= link[:title] %></a>
   </quote>
