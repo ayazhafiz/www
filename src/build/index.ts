@@ -1,11 +1,10 @@
-(window as any).__forceSmoothScrollPolyfill__ = true;
-
 import { $, $$ } from '../ts/util/el';
-import { polyfill } from 'smoothscroll-polyfill';
-
-polyfill();
+import { polyfill as invokePolyfill } from 'smoothscroll-polyfill';
 
 import './index.scss';
+
+(window as any).__forceSmoothScrollPolyfill__ = true;
+invokePolyfill();
 
 function scrollIntoView(this: HTMLInputElement) {
   if (this.checked) {

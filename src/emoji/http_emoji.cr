@@ -7,13 +7,14 @@ module HTTP::Emoji
   # Renders an emoji image in HTML.
   def render(emoji : String,
              base_url : String = BASE_URL,
-             display_native? = false) : String
-    return emoji if display_native?
-
-    path = get_url emoji
-    <<-HTML
-    <img class="emoji" src="#{path}">
-    HTML
+             native_display? = false) : String
+    if native_display?
+      emoji
+    else
+      <<-HTML
+      <img class="emoji" src="#{get_url emoji}">
+      HTML
+    end
   end
 
   # Returns the filename of an emoji image.
