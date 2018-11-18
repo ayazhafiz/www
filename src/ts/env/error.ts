@@ -21,6 +21,8 @@ const knownPaths = [
   '/',
   '/atomas',
   '/blog',
+  '/bin',
+  '/bios',
   '/cc',
   '/mail',
   '/meethere',
@@ -31,6 +33,7 @@ const knownPaths = [
   '/vector',
 ];
 const knownSubPaths = {
+  '/bin': ['/enroll'],
   '/mail': ['/signup'],
   '/try': ['/anoop', '/rod'],
 };
