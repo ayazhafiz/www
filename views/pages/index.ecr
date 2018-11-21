@@ -1,55 +1,54 @@
 <div class="content">
-  <p> Hey! I'm <span class="quasi name"></span>. I make stuff, currently at
-  <a href="https://vanderbilt.edu">Vanderbilt</a>, where my studies concentrate in <span class="quasi major"></span>
-  <br /> <p> My current research is focused on <a class="tonglab" href="#TongLab">designing neural networks</a> to model human vision.
+  <%= HEADER[:intro][render_lang] %>
+  <%= HEADER[:current_work][render_lang] %>
   <br />
-  <br /> <p> Work speaks louder than words, so below you can <span class="quasi expand"></span> the things I've done (and see who I'm about).
-  <br /> <p> To get started, <a href="/?ui">here's a feel for my style</a>.
-  <br />
+  <%= HEADER[:learn_more][render_lang] %>
+  <%= HEADER[:eccentric_me][render_lang] %>
   <br />
 
-  <% # Can't be done iteratively because `render` requires a constant. %>
+  <% # Can't be done iteratively because `render` requires a constant.
+  %>
 
-  <div id="<%= PARTIAL[:section][0][:tag] %>" class="tab">
-    <input id="tab-0" type="checkbox" name="<%= PARTIAL[:section][0][:tag] %>">
+  <div id="<%= PARTIAL[:section][0][:tag]["en"] %>" class="tab">
+    <input id="tab-0" type="checkbox" name="<%= PARTIAL[:section][0][:tag]["en"] %>">
     <label for="tab-0"><h3><span class="hash">###</span>
-      <%= PARTIAL[:section][0][:tag].capitalize %>
-      <%= HTTP::Emoji.render PARTIAL[:section][0][:emoji], native_display?: apple? %>
+      <%= PARTIAL[:section][0][:tag][render_lang].capitalize %>
+      <%= Util::Emoji.render PARTIAL[:section][0][:emoji], native_display?: apple? %>
     </h3></label>
-    <div class="tab-content <%= PARTIAL[:section][0][:tag] %>">
+    <div class="tab-content <%= PARTIAL[:section][0][:tag]["en"] %>">
       <%= render {{ PARTIAL[:section][0][:view] }} %>
     </div>
   </div>
 
-  <div id="<%= PARTIAL[:section][1][:tag] %>" class="tab">
-    <input id="tab-1" type="checkbox" name="<%= PARTIAL[:section][1][:tag] %>">
+  <div id="<%= PARTIAL[:section][1][:tag]["en"] %>" class="tab">
+    <input id="tab-1" type="checkbox" name="<%= PARTIAL[:section][1][:tag]["en"] %>">
     <label for="tab-1"><h3><span class="hash">###</span>
-      <%= PARTIAL[:section][1][:tag].capitalize %>
-      <%= HTTP::Emoji.render PARTIAL[:section][1][:emoji], native_display?: apple? %>
+      <%= PARTIAL[:section][1][:tag][render_lang].capitalize %>
+      <%= Util::Emoji.render PARTIAL[:section][1][:emoji], native_display?: apple? %>
     </h3></label>
-    <div class="tab-content <%= PARTIAL[:section][1][:tag] %>">
+    <div class="tab-content <%= PARTIAL[:section][1][:tag]["en"] %>">
       <%= render {{ PARTIAL[:section][1][:view] }} %>
     </div>
   </div>
 
-  <div id="<%= PARTIAL[:section][2][:tag] %>" class="tab">
-    <input id="tab-2" type="checkbox" name="<%= PARTIAL[:section][2][:tag] %>">
+  <div id="<%= PARTIAL[:section][2][:tag]["en"] %>" class="tab">
+    <input id="tab-2" type="checkbox" name="<%= PARTIAL[:section][2][:tag]["en"] %>">
     <label for="tab-2"><h3><span class="hash">###</span>
-      <%= PARTIAL[:section][2][:tag].capitalize %>
-      <%= HTTP::Emoji.render PARTIAL[:section][2][:emoji], native_display?: apple? %>
+      <%= PARTIAL[:section][2][:tag][render_lang].capitalize %>
+      <%= Util::Emoji.render PARTIAL[:section][2][:emoji], native_display?: apple? %>
     </h3></label>
-    <div class="tab-content <%= PARTIAL[:section][2][:tag] %>">
+    <div class="tab-content <%= PARTIAL[:section][2][:tag]["en"] %>">
       <%= render {{ PARTIAL[:section][2][:view] }} %>
     </div>
   </div>
 
-  <div id="<%= PARTIAL[:section][3][:tag] %>" class="tab">
-    <input id="tab-3" type="checkbox" name="<%= PARTIAL[:section][3][:tag] %>">
+  <div id="<%= PARTIAL[:section][3][:tag]["en"] %>" class="tab">
+    <input id="tab-3" type="checkbox" name="<%= PARTIAL[:section][3][:tag]["en"] %>">
     <label for="tab-3"><h3><span class="hash">###</span>
-      <%= PARTIAL[:section][3][:tag].capitalize %>
-      <%= HTTP::Emoji.render PARTIAL[:section][3][:emoji], native_display?: apple? %>
+      <%= PARTIAL[:section][3][:tag][render_lang].capitalize %>
+      <%= Util::Emoji.render PARTIAL[:section][3][:emoji], native_display?: apple? %>
     </h3></label>
-    <div class="tab-content <%= PARTIAL[:section][3][:tag] %>">
+    <div class="tab-content <%= PARTIAL[:section][3][:tag]["en"] %>">
       <%= render {{ PARTIAL[:section][3][:view] }} %>
     </div>
   </div>

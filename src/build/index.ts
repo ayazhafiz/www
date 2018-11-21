@@ -31,6 +31,8 @@ function openResearch(this: HTMLInputElement) {
       q.addEventListener(e, toggleQuasiText),
     ),
   );
+
   $$('input').forEach((i) => i.addEventListener('change', scrollIntoView));
+
   $('a.tonglab').addEventListener('click', openResearch);
 })();

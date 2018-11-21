@@ -1,5 +1,5 @@
 # Descibes methods for internal handling of the Enoji API.
-module HTTP::Emoji
+module Util::Emoji
   extend self
 
   private BASE_URL = "https://assets-cdn.github.com/images/icons/emoji"

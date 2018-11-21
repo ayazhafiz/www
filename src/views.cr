@@ -1,24 +1,17 @@
 require "kemal"
-require "is_mobile"
-require "./util/http"
-require "./util/index"
-require "./emoji/http_emoji"
+require "./views/*"
 
-include Util::HTTP
-include Util::Index
+# Determine landing page language by routes.
+# Landing page is English by default.
+get "/:lang" do |env|
+  case env.params.url["lang"]
+  when "en"; env.redirect "/"
+  when "ru"; HTTP::Views.render_home env, "ru"
+  else       env.redirect "/" # language not localized
 
-# Renders landing page.
-get "/" do |env|
-  ui? = env.request.query === "ui"
-  page = ui? ? "index_ui" : "index"
-
-  title = "Ayaz Hafiz"
-  mobile = is_mobile? env.request.headers["user-agent"]?
-  apple? = /iPad|iPhone|iPod|Mac OS X/ =~ env.request.headers["user-agent"]?
-
-  if ui?
-    render {{ PAGE[:index_ui] }}, {{ LAYOUT[:standard] }}
-  else
-    render {{ PAGE[:index] }}, {{ LAYOUT[:standard] }}
   end
+end
+
+get "/" do |env|
+  HTTP::Views.render_home env, "en"
 end

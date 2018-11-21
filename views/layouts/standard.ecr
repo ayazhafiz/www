@@ -19,7 +19,8 @@
     <link href=<%= "/css/#{read_manifest "#{page}.css"}" %> rel="stylesheet" type="text/css" media="all">
     <script src=<%= "/js/#{read_manifest "#{page}.js"}" %> defer></script>
   </head>
-  <body>
+
+  <body lang="<%= env.response.headers["Content-Language"] %>">
     <%= content %>
   </body>
 </html>
