@@ -24,23 +24,35 @@ module Util::HTTP
     section:     [
       {
         emoji: "📦",
-        tag:   "projects",
-        view:  "./views/includes/sections/projects.ecr",
+        tag:   {
+          "en" => "projects",
+          "ru" => "проекты",
+        },
+        view: "./views/includes/sections/projects.ecr",
       },
       {
         emoji: "👩‍🔬",
-        tag:   "work",
-        view:  "./views/includes/sections/work.ecr",
+        tag:   {
+          "en" => "work",
+          "ru" => "работа",
+        },
+        view: "./views/includes/sections/work.ecr",
       },
       {
         emoji: "🍍",
-        tag:   "about",
-        view:  "./views/includes/sections/about.ecr",
+        tag:   {
+          "en" => "about",
+          "ru" => "насчет",
+        },
+        view: "./views/includes/sections/about.ecr",
       },
       {
         emoji: "🔗",
-        tag:   "links",
-        view:  "./views/includes/sections/links.ecr",
+        tag:   {
+          "en" => "links",
+          "ru" => "ссылки",
+        },
+        view: "./views/includes/sections/links.ecr",
       },
     ],
   }

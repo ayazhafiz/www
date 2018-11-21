@@ -1,13 +1,12 @@
 <% LINKS.each do |link| %>
 <p>
-  <span class="mr"><%= HTTP::Emoji.render link[:emoji], display_native?: apple? %></span>
+  <span class="mr"><%= Util::Emoji.render link[:emoji], native_display?: apple? %></span>
   <quote>
-    <a href="<%= link[:link] %>"><%= link[:title] %></a>
+    <a href="<%= link[:link] %>"><%= link[:title][render_lang] %></a>
   </quote>
   <% if link === LINKS.last? %>
   <br />
-  <small>If you wanna edit or view the "secret" APIs of this website, check out
-  <a href="https://github.com/ayazhafiz/crystal-ah">the source</a>.</small>
+  <small><%= API_EDIT_MSG[render_lang] %></small>
   <% end %>
 </p>
 <% end %>

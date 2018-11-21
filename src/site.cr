@@ -2,6 +2,7 @@ require "./*"
 
 # Sets secure headers for the entire web server
 before_all do |env|
+  env.response.headers["Content-Language"] = "en"
   env.response.headers.delete "X-Powered-By"
   env.response.headers["X-Content-Type-Options"] = "nosniff"
   env.response.headers["X-Frame-Options"] = "deny"

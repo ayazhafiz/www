@@ -151,40 +151,85 @@ img {
   border-bottom: $quasi-text-border-bottom;
 
   &.name {
-    &::before {
-      content: 'Ayaz';
+    &.en {
+      &::before {
+        content: 'Ayaz';
+      }
+
+      &:hover,
+      &.mobile-touch {
+        &::before {
+          content: 'hafiz';
+        }
+      }
     }
 
-    &:hover,
-    &.mobile-touch {
+    &.ru {
       &::before {
-        content: 'hafiz';
+        content: 'Аяз';
+      }
+
+      &:hover,
+      &.mobile-touch {
+        &::before {
+          content: 'хафиз';
+        }
       }
     }
   }
 
   &.major {
-    &::before {
-      content: 'Computer Science and Chemistry.';
+    &.en {
+      &::before {
+        content: 'Computer Science and Chemistry.';
+      }
+
+      &:hover,
+      &.mobile-touch {
+        &::before {
+          content: 'an unusual combination, I know!';
+        }
+      }
     }
 
-    &:hover,
-    &.mobile-touch {
+    &.ru {
       &::before {
-        content: 'an unusual combination, I know!';
+        content: 'информатике и химии.';
+      }
+
+      &:hover,
+      &.mobile-touch {
+        &::before {
+          content: 'необычной комбинации, я знаю!';
+        }
       }
     }
   }
 
   &.expand {
-    &::before {
-      content: 'find some of';
+    &.en {
+      &::before {
+        content: 'find some of';
+      }
+
+      &:hover,
+      &.mobile-touch {
+        &::before {
+          content: 'click to expand';
+        }
+      }
     }
 
-    &:hover,
-    &.mobile-touch {
+    &.ru {
       &::before {
-        content: 'click to expand';
+        content: 'найти некоторые из';
+      }
+
+      &:hover,
+      &.mobile-touch {
+        &::before {
+          content: 'нажать, чтобы открыть';
+        }
       }
     }
   }
