@@ -15,9 +15,9 @@ describe "Redirect::302" do
       response.headers["Location"].should eq "https://cc.ayazhafiz.com"
     end
   end
-  it "redirects meetHere" do
-    get "/meethere"
-    response.headers["Location"].should eq "https://meethere.js.org"
+  it "redirects position" do
+    get "/position"
+    response.headers["Location"].should eq "https://ayazhafiz.github.io/position"
   end
   it "redirects Movie Emoji" do
     get "/movie-emoji"
