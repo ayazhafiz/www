@@ -71,8 +71,8 @@ module Util::Index
   # Array of selected projects.
   PROJECTS = [
     {
-      title: "meetHere",
-      link:  "https://github.com/ayazhafiz/meetHere",
+      title: "position",
+      link:  "https://github.com/ayazhafiz/position",
       desc:  {
         "en" => "Blazing-fast JavaScript library for handling locations on " +
                 "and off maps.",
