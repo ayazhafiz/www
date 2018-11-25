@@ -3,6 +3,7 @@ declare global {
     max(): T;
     min(): T;
     range(): T[];
+    flat(): T[];
   }
 }
 /**
@@ -30,6 +31,14 @@ Array.prototype.range = function(this: number[]): number[] {
     new Array(this.max() - this.min() + 1),
     (_, i) => this.min() + i,
   );
+};
+
+/**
+ * Flattens an array
+ * @extends Array
+ */
+Array.prototype.flat = function(this: any[]): any[] {
+  return this.reduce((a, b) => a.concat(Array.isArray(b) ? b.flat() : b), []);
 };
 
 export {};
