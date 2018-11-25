@@ -29,6 +29,7 @@ const KEY = {
   letters: [65, 90].range(),
   extraneous: [186, 192].range().concat([219, 222].range()),
 };
+const KEY_ARRAY = Object.values(KEY).flat();
 
 /**
  * Required keystroke timeout
@@ -110,6 +111,14 @@ class State {
   }
 
   /**
+   * Returns the last index of suggested paths
+   * @private @static @function
+   */
+  private static get lastIndex(): number {
+    return State.sug.paths.length - 1;
+  }
+
+  /**
    * Resets the KeystrokeBuffer index
    * @private @static @function
    */
@@ -121,20 +130,34 @@ class State {
    * Resets the KeystrokeBuffer index
    * @private @static @function
    */
-  private static incIndex(): void {
-    ++this.sug.index;
+  public static updateNextPath(goBack: boolean): number {
+    this.sug.index += goBack ? -1 : +1;
     if (this.sug.index >= this.sug.paths.length) {
-      this.sug.index = 0;
+      this.resetIndex();
+    } else if (this.sug.index < 0) {
+      this.sug.index = State.lastIndex;
     }
+    return this.sug.index;
   }
 
   /**
    * Gets the next suggested path of the KeystrokeBuffer
    * @static @function
    */
-  static get nextPath(): string {
-    const path = this.sug.paths[this.sug.index];
-    State.incIndex();
+  public static getNextPath(goBack: boolean): string {
+    let idx;
+    if (State.key.timePressed === 0) {
+      idx = this.sug.index;
+      if (goBack) {
+        --idx;
+        if (idx < 0) {
+          idx = State.lastIndex;
+        }
+      }
+    } else {
+      idx = State.updateNextPath(goBack);
+    }
+    const path = this.sug.paths[idx];
 
     return path || '';
   }
@@ -162,14 +185,14 @@ class State {
    * Updates the buffer to its closest path suggestion
    * @function
    */
-  private static tabBuffer(el: string): void {
+  private static tabBuffer(el: string, shiftBack: boolean): void {
     const sanitizedPath = sanitize(el);
     const leadingSlash = hasLeadingSlash(getPath(el));
     if (State.key.lastKey !== KEY.tab) {
       State.pathsLike = sanitizedPath;
     }
     const oldBuffer = State.buffer;
-    const newBuffer = `${State.subPath}${State.nextPath}`;
+    const newBuffer = `${State.subPath}${State.getNextPath(shiftBack)}`;
     if (newBuffer) {
       this.privBuffer =
         leadingSlash || oldBuffer === '' ? newBuffer : newBuffer.slice(1);
@@ -194,7 +217,7 @@ class State {
       redirect(encodeURI(sanitizedPath));
     } else if (code === KEY.tab) {
       // if tab, attempt to match-to-path buffer
-      this.tabBuffer(el);
+      this.tabBuffer(el, evt.shiftKey);
     } else if (code === KEY.space) {
       // if space, add to buffer
       this.privBuffer += ' ';
@@ -214,7 +237,9 @@ class State {
       }
       this.privBuffer += st;
     }
-    this.key.lastKey = code;
+    if (KEY_ARRAY.includes(code)) {
+      this.key.lastKey = code;
+    }
   }
 }
 
@@ -514,7 +539,6 @@ const addMobilePaths = (container: string): void => {
 const mobile = (container: string): void => {
   addMobilePaths(container);
   $(container).addClass('finally');
-  $(cursorEl).addClass('anim');
 };
 
 /**

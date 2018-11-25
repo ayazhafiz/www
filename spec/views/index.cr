@@ -18,10 +18,9 @@ describe "renders in the correct language" do
     response.headers["Content-Language"].should eq "ru"
   end
 
-  it "gives English for untranslated language" do
+  it "renders 404 for unsupported languages" do
     get "/esketit"
     response.headers["Content-Language"].should eq "en"
-    response.headers["Location"].should eq "/"
-    response.status_code.should eq 302
+    response.status_code.should eq 404
   end
 end
