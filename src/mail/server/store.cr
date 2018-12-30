@@ -15,7 +15,6 @@ module HTTP::Mail::Server::Store
       object: "/#{file_name}",
       expires: ((put ? 0.5 : 3) * 60 * 60).to_i32,
       additional_options: {
-        "x-amz-acl"    => "public-read",
         "Content-Type" => content_type,
       }
     )
