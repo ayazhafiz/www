@@ -1,14 +1,16 @@
 @import '../base/vars';
 
-.typed-cursor {
-  animation: none;
-  color: $shell-prompt;
-  line-height: 1.25em;
-  text-decoration: underline;
-  vertical-align: top;
+pre {
+  .typed-cursor {
+    animation: none;
+    color: $shell-prompt;
+    line-height: 1.25em;
+    text-decoration: underline;
+    vertical-align: top;
 
-  &.anim {
-    animation: blink 1s step-start 0s infinite;
+    &.typed-cursor--blink {
+      animation: blink 1s step-start 0s infinite;
+    }
   }
 }
 

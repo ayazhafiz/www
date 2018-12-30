@@ -80,7 +80,7 @@ module Util::HTTP
     "/atomas"      => "https://ayazhafiz.github.io/atomas",
     "/blog"        => "https://cc.ayazhafiz.com",
     "/cc"          => "https://cc.ayazhafiz.com",
-    "/meethere"    => "https://meethere.js.org",
+    "/position"    => "https://ayazhafiz.github.io/position",
     "/movie-emoji" => "https://ayazhafiz.github.io/movie-emoji",
   }
 

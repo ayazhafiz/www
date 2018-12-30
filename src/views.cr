@@ -7,7 +7,7 @@ get "/:lang" do |env|
   case env.params.url["lang"]
   when "en"; env.redirect "/"
   when "ru"; HTTP::Views.render_home env, "ru"
-  else       env.redirect "/" # language not localized
+  else       env.response.status_code = 404 # language not localized
 
   end
 end
