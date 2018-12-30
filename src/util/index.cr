@@ -92,6 +92,15 @@ module Util::Index
       emoji: "📨",
     },
     {
+      title: "sherpa_41",
+      link:  "https://github.com/ayazhafiz/sherpa_41",
+      desc:  {
+        "en" => "Well-architectured, trivial browser engine.",
+        "ru" => "Хорошо спроектированный, тривиальный браузер.",
+      },
+      emoji: "⛰",
+    },
+    {
       title: "rcalc",
       link:  "https://github.com/ayazhafiz/rcalc",
       desc:  {
