@@ -17,5 +17,8 @@ $CMAKE_EXE \
   
 make
 ./sherpa_41-test
-mkdir --parents $BUILD_DIR/bin
-mv ./sherpa_41 $BUILD_DIR/bin/sherpa_41
+mkdir -p "$BUILD_DIR/bin"
+cd "$BUILD_DIR"
+cp deps/sherpa_41/sherpa_41 "bin/sherpa_41"
+export SHERPA_ORIGINAL_DIR="$BUILD_DIR/deps/sherpa_41"
+echo "SHERPA_ORIGINAL_DIR=$SHERPA_ORIGINAL_DIR"
