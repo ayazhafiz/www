@@ -2,7 +2,6 @@
 
 CMAKE_EXE=${CMAKE:=cmake}
 
-ls -l /app/vendor/imagemagick/include/ImageMagick-6
 echo "CXX is $CXX"
 git clone --recursive https://github.com/ayazhafiz/sherpa_41 deps/sherpa_41
 cd deps/sherpa_41
