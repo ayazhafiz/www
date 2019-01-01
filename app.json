@@ -24,12 +24,6 @@
     "CRYSTALAH_SESSION_SECRET": {
       "required": true
     },
-    "GIT_REPO_URL": {
-      "required": true
-    },
-    "GIT_SSH_KEY": {
-      "required": true
-    },
     "HAFIZ_ENROLL_PASSWORD": {
       "required": true
     },
