@@ -16,6 +16,4 @@ $CMAKE_EXE \
   
 make
 ./sherpa_41-test
-mv ./sherpa_41 ../../bin/sherpa_41
-cd ../..
-rm -rf deps
+mv ./sherpa_41 ../../sherpa_41
