@@ -2,6 +2,7 @@
 
 CMAKE_EXE=${CMAKE:=cmake}
 
+echo "CXX is $CXX"
 git clone --recursive https://github.com/ayazhafiz/sherpa_41 deps/sherpa_41
 cd deps/sherpa_41 && $CMAKE_EXE .
 make
