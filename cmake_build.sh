@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-cd deps/sherpa_41 && cmake .
+CMAKE=${VARIABLE:=cmake}
+
+cd deps/sherpa_41 && $CMAKE .
 make
 ./sherpa_41-test
 mv ./sherpa_41 ../../bin/sherpa_41
