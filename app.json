@@ -1,0 +1,87 @@
+{
+  "name": "crystal-ah",
+  "scripts": {
+  },
+  "env": {
+    "AWS_ACCESS_KEY_ID": {
+      "required": true
+    },
+    "AWS_S3_HM_ACCESS_KEY_ID": {
+      "required": true
+    },
+    "AWS_S3_HM_BUCKET": {
+      "required": true
+    },
+    "AWS_S3_HM_REGION": {
+      "required": true
+    },
+    "AWS_S3_HM_SECRET_ACCESS_KEY": {
+      "required": true
+    },
+    "AWS_SECRET_ACCESS_KEY": {
+      "required": true
+    },
+    "CRYSTALAH_SESSION_SECRET": {
+      "required": true
+    },
+    "HAFIZ_ENROLL_PASSWORD": {
+      "required": true
+    },
+    "HAFIZ_ENROLL_URL": {
+      "required": true
+    },
+    "HAFIZMAIL_DB": {
+      "required": true
+    },
+    "HEROKU_POSTGRESQL_COPPER_URL": {
+      "required": true
+    },
+    "LIBRATO_PASSWORD": {
+      "required": true
+    },
+    "LIBRATO_TOKEN": {
+      "required": true
+    },
+    "LIBRATO_USER": {
+      "required": true
+    },
+    "PAPERTRAIL_API_TOKEN": {
+      "required": true
+    },
+    "RECIPES_DB": {
+      "required": true
+    },
+    "S3_BUCKET_NAME": {
+      "required": true
+    }
+  },
+  "formation": {
+    "podd": {
+      "quantity": 1
+    },
+    "web": {
+      "quantity": 1
+    }
+  },
+  "addons": [
+    "librato",
+    "papertrail",
+    "heroku-postgresql",
+    "heroku-postgresql"
+  ],
+  "stack": "heroku-18",
+  "buildpacks": [
+    {
+      "url": "https://github.com/Starkast/heroku-buildpack-cmake"
+    },
+    {
+      "url": "https://github.com/crystal-lang/heroku-buildpack-crystal.git"
+    },
+    {
+      "url": "heroku/nodejs"
+    },
+    {
+      "url": "https://github.com/ayazhafiz/heroku-buildpack-rust"
+    }
+  ]
+}
