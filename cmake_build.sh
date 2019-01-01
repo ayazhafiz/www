@@ -2,6 +2,7 @@
 
 CMAKE_EXE=${CMAKE:=cmake}
 
+git clone https://github.com/ayazhafiz/sherpa_41 deps/sherpa_41
 cd deps/sherpa_41 && $CMAKE_EXE .
 make
 ./sherpa_41-test
