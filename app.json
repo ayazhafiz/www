@@ -78,9 +78,6 @@
   "stack": "heroku-18",
   "buildpacks": [
     {
-      "url": "https://github.com/ayazhafiz/heroku-buildpack-git-submodule"
-    },
-    {
       "url": "https://github.com/ayazhafiz/heroku-buildpack-rust"
     },
     {
