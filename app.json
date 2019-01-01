@@ -72,16 +72,13 @@
   "stack": "heroku-18",
   "buildpacks": [
     {
-      "url": "https://github.com/Starkast/heroku-buildpack-cmake"
+      "url": "https://github.com/ayazhafiz/heroku-buildpack-rust"
     },
     {
-      "url": "https://github.com/crystal-lang/heroku-buildpack-crystal.git"
+      "url": "https://github.com/crystal-lang/heroku-buildpack-crystal"
     },
     {
       "url": "heroku/nodejs"
-    },
-    {
-      "url": "https://github.com/ayazhafiz/heroku-buildpack-rust"
     }
   ]
 }
