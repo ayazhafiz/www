@@ -24,6 +24,12 @@
     "CRYSTALAH_SESSION_SECRET": {
       "required": true
     },
+    "GIT_REPO_URL": {
+      "required": true
+    },
+    "GIT_SSH_KEY": {
+      "required": true
+    },
     "HAFIZ_ENROLL_PASSWORD": {
       "required": true
     },
@@ -71,6 +77,9 @@
   ],
   "stack": "heroku-18",
   "buildpacks": [
+    {
+      "url": "https://github.com/SectorLabs/heroku-buildpack-git-submodule"
+    },
     {
       "url": "https://github.com/ayazhafiz/heroku-buildpack-rust"
     },
