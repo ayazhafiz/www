@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 CMAKE_EXE=${CMAKE:=cmake}
+BUILD_DIR=${1:-}
 
 git clone --recursive https://github.com/ayazhafiz/sherpa_41 deps/sherpa_41
 cd deps/sherpa_41
@@ -16,4 +17,5 @@ $CMAKE_EXE \
   
 make
 ./sherpa_41-test
-mv ./sherpa_41 ../../sherpa_41
+mkdir --parents $BUILD_DIR/bin
+mv ./sherpa_41 $BUILD_DIR/bin/sherpa_41
