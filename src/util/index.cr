@@ -28,15 +28,15 @@ module Util::Index
     },
     current_work: {
       "en" => <<-HTML,
-              <p> My current research is focused on
-                  <a class="tonglab" href="#TongLab">designing neural networks</a>
-                  to model human vision.
+              <p> This summer I will be working at
+                <a href="https://cloud.google.com">Google</a>, but am currently
+                <span class="quasi contact-proj en"></span> side projects.
               </p>
               HTML
       "ru" => <<-HTML,
-              <p> Сейчас, мое исследование сосредоточено на
-                  <a class="tonglab" href="#TongLab">разработке нейронных сетей</a>
-                  для моделирования человеческого зрения.
+              <p> Этим летом я буду работать в
+                <a href="https://cloud.google.com">Google</a>
+                на Angular и их платформе cloud.
               </p>
               HTML
     },
@@ -98,7 +98,8 @@ module Util::Index
         "en" => "Well-architectured, trivial browser engine.",
         "ru" => "Хорошо спроектированный, тривиальный браузер.",
       },
-      emoji: "⛰",
+      emoji:  "⛰",
+      latest: true,
     },
     {
       title: "rcalc",
@@ -164,6 +165,7 @@ module Util::Index
                 <a href="http://www.psy.vanderbilt.edu/tonglab/web/research.html">зрения и распознавания объектов</a>.
                 HTML
       },
+      first_latest: true,
     },
     {
       title: "Principal Financial Group",
@@ -175,6 +177,7 @@ module Util::Index
                 Разработка интерфейса и дизайн API в качестве программист-интерн.
                 HTML
       },
+      first_previous: true,
     },
     {
       title: "meetHere",
