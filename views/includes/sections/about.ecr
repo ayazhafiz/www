@@ -1,7 +1,7 @@
 <p>
-  <% ABOUT[:languages].each do |lang, ext| %>
-  <span class="language">
-    <span class="color <%= ext %>"></span><%= lang %>
+  <% ABOUT[:languages].each do |lang| %>
+  <span class="language" style="opacity: <%= lang[:proficiency] %>">
+    <span class="color <%= lang[:short] %>"></span><%= lang[:name] %>
   </span>
   <% end %>
 </p>

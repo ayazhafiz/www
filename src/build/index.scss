@@ -14,7 +14,7 @@ $quote-border-left: 0.1em solid $quote-border-color;
 $quasi-text: rgb(254, 158, 160);
 $quasi-text-border-bottom: 1px solid rgba($quasi-text, 0.75);
 $work-previous-color: #8995a2;
-$prog-language-text-color: #586069;
+$prog-language-text-color: #111;
 $chemistry-tags-color: #8995a2;
 
 html,
@@ -101,104 +101,74 @@ img {
 }
 
 .quasi {
+  @mixin content-values($normal, $hover) {
+    &::before {
+      content: $normal;
+    }
+
+    &:hover,
+    &.mobile-touch {
+      &::before {
+        content: $hover;
+      }
+    }
+  }
   border-bottom: $quasi-text-border-bottom;
 
   &.name {
     &.en {
-      &::before {
-        content: 'Ayaz';
-      }
-
-      &:hover,
-      &.mobile-touch {
-        &::before {
-          content: 'hafiz';
-        }
-      }
+      @include content-values('Ayaz',
+                              'hafiz')
     }
 
     &.ru {
-      &::before {
-        content: 'Аяз';
-      }
-
-      &:hover,
-      &.mobile-touch {
-        &::before {
-          content: 'хафиз';
-        }
-      }
+      @include content-values('Аяз',
+                              'хафиз')
     }
   }
 
   &.major {
     &.en {
-      &::before {
-        content: 'Computer Science and Chemistry.';
-      }
-
-      &:hover,
-      &.mobile-touch {
-        &::before {
-          content: 'an unusual combination, I know!';
-        }
-      }
+      @include content-values('Computer Science and Chemistry.',
+                              'an unusual combination, I know!')
     }
 
     &.ru {
-      &::before {
-        content: 'информатике и химии.';
-      }
-
-      &:hover,
-      &.mobile-touch {
-        &::before {
-          content: 'необычной комбинации, я знаю!';
-        }
-      }
+    @include content-values('информатике и химии.',
+                            'необычной комбинации, я знаю!')
     }
   }
 
   &.expand {
     &.en {
-      &::before {
-        content: 'find some of';
-      }
-
-      &:hover,
-      &.mobile-touch {
-        &::before {
-          content: 'click to expand';
-        }
-      }
+      @include content-values('find some of',
+                              'click to expand')
     }
 
     &.ru {
-      &::before {
-        content: 'найти некоторые из';
-      }
-
-      &:hover,
-      &.mobile-touch {
-        &::before {
-          content: 'нажать, чтобы открыть';
-        }
-      }
+      @include content-values('найти некоторые из',
+                              'нажать, чтобы открыть')
     }
   }
 
   &.contact-proj {
     &.en {
-      &::before {
-        content: 'open to';
-      }
+      @include content-values('open to',
+                              'email me about')
+    }
+  }
 
-      &:hover,
-      &.mobile-touch {
-        &::before {
-          content: 'email me about';
-        }
-      }
+  &.langs {
+    margin: 0;
+
+    &.en {
+      @include content-values('my proficiency with them',
+                              'position and opacity')
+    }
+
+    &.ru {
+      @include content-values('моему знанию с ними',
+                              'позиции и прозрачности')
     }
   }
 }
@@ -391,7 +361,6 @@ label {
       border-left: $quote-border-left;
       display: inline-block;
       font-weight: 300;
-      //color: #6a737d;
       padding: 0 1em;
     }
 

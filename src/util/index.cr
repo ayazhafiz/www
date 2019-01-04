@@ -214,33 +214,73 @@ module Util::Index
   # Info for the `About` section
   ABOUT = {
     languages: {
-      "C++"        => "cpp",
-      "JavaScript" => "js",
-      "TypeScript" => "ts",
-      "Crystal"    => "cr",
-      "Ruby"       => "rb",
-      "Rust"       => "rs",
-      "C"          => "c",
-      "Java"       => "java",
-      "Python"     => "py",
-      "R"          => "r",
-      "SQL"        => "sql",
+      {
+        name:        "C++",
+        short:       "cpp",
+        proficiency: 1,
+      },
+      {
+        name:        "JavaScript",
+        short:       "js",
+        proficiency: 1,
+      },
+      {
+        name:        "TypeScript",
+        short:       "ts",
+        proficiency: 1,
+      },
+      {
+        name:        "Crystal",
+        short:       "cr",
+        proficiency: 0.9,
+      },
+      {
+        name:        "Ruby",
+        short:       "rb",
+        proficiency: 0.8,
+      },
+      {
+        name:        "Rust",
+        short:       "rs",
+        proficiency: 0.8,
+      },
+      {
+        name:        "C",
+        short:       "c",
+        proficiency: 0.7,
+      },
+      {
+        name:        "Python",
+        short:       "py",
+        proficiency: 0.6,
+      },
+      {
+        name:        "Java",
+        short:       "java",
+        proficiency: 0.5,
+      },
+      {
+        name:        "R",
+        short:       "r",
+        proficiency: 0.5,
+      },
+      {
+        name:        "SQL",
+        short:       "sql",
+        proficiency: 0.4,
+      },
     },
     experiences: {
       "en" => <<-HTML,
-              Besides having non-toy experience with all the languages above,
-              I am also well-versed in
-              <span class="chem">#analytical</span>,
-              <span class="chem">#fundamental</span>,
-              <span class="chem">#laboratory</span>, and
+              The languages above are ordered by <span class="quasi langs en"></span>.
+              Besides the CS stuff, I am well-versed in
+              <span class="chem">#analytical</span> and
               <span class="chem">#organic</span> chemistry.
               HTML
       "ru" => <<-HTML,
-              Кроме реальным опыта работы со всеми вышеперечисленными языками,
-              я также хорошо разбираюсь в
-              <span class="chem">#аналитической</span>,
-              <span class="chem">#фундаментальной</span>,
-              <span class="chem">#лабораторной</span> и
+              Языки выше упорядочены по <span class="quasi langs en"></span>.
+              Кроме информатике, я также хорошо разбираюсь в
+              <span class="chem">#аналитической</span> и
               <span class="chem">#органической</span> химии.
               HTML
     },
