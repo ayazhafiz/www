@@ -1,11 +1,9 @@
 <% WORK.each do |opp| %>
-<p
-  <% if opp[:first_latest]? %>
-    class="side-text work-latest"
-  <% elsif opp[:first_previous]? %>
-    class="side-text work-previous"
-  <% end %>
->
+<p <% if opp[:first_latest]? %>
+    class="side-text latest work <%= render_lang %>"
+<% elsif opp[:first_previous]? %>
+    class="side-text previous work <%= render_lang %>"
+<% end %>>
   <span><%= opp[:title] %></span>
   <quote>
     <%= opp[:desc][render_lang] %>

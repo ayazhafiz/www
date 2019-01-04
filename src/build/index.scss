@@ -204,9 +204,9 @@ img {
 }
 
 .tab {
-  margin-left: -100px;
+  margin-left: -150px;
   overflow: hidden;
-  padding-left: 100px;
+  padding-left: 150px;
   position: relative;
   width: 100%;
 }
@@ -272,36 +272,61 @@ label {
       width: 100px;
     }
 
-    &.project-latest {
-      &::before {
-        $border-color: rgba($link-color, 0.5);
-        $text-color: rgba($link-color, 0.8);
+    &.latest {
+      &.en {
+        &::before {
+          content: 'latest';
+        }
+      }
 
-        border-color: $border-color;
-        color: $text-color;
-        content: 'latest';
+      &.ru {
+        &::before {
+          content: 'последний';
+        }
+      }
+
+      &.project {
+        &::before {
+          $border-color: rgba($link-color, 0.5);
+          $text-color: rgba($link-color, 0.8);
+
+          border-color: $border-color;
+          color: $text-color;
+        }
+      }
+
+      &.work {
+        &::before {
+          $border-color: rgba($homepage-text-color, 0.35);
+          $text-color: rgba($homepage-text-color, 0.8);
+
+          border-color: $border-color;
+          color: $text-color;
+        }
       }
     }
 
-    &.work-latest {
-      &::before {
-        $border-color: rgba($homepage-text-color, 0.35);
-        $text-color: rgba($homepage-text-color, 0.8);
-
-        border-color: $border-color;
-        color: $text-color;
-        content: 'latest';
+    &.previous {
+      &.en {
+        &::before {
+          content: 'previous';
+        }
       }
-    }
 
-    &.work-previous {
-      &::before {
-        $border-color: rgba($work-previous-color, 0.35);
-        $text-color: rgba($work-previous-color, 0.8);
+      &.ru {
+        &::before {
+          content: 'предыдущий';
+        }
+      }
 
-        border-color: $border-color;
-        color: $text-color;
-        content: 'previous';
+      &.previous {
+        &::before {
+          $border-color: rgba($work-previous-color, 0.35);
+          $text-color: rgba($work-previous-color, 0.8);
+
+          border-color: $border-color;
+          color: $text-color;
+        }
       }
     }
   }
