@@ -1,5 +1,7 @@
 <% PROJECTS.each do |project| %>
-<p>
+<p <% if project[:latest]? %>
+    class="side-text latest project <%= render_lang %>"
+<% end %>>
   <span class="emoji"><%= Util::Emoji.render project[:emoji], native_display?: apple? %></span>
   <a href="<%= project[:link] %>"><%= project[:title] %></a>
   <quote>
