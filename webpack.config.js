@@ -57,11 +57,12 @@ module.exports = {
     ],
   },
   plugins: [
-    new ExtractTextPlugin(
-      ENV === 'production'
-        ? '../css/[name].[chunkhash].css'
+    new ExtractTextPlugin({
+      filename: ENV === 'production'
+        ? '../css/[name].[contenthash].css'
         : '../css/[name].css',
-    ),
+      allChunks: true
+    }),
     new ManifestPlugin({
       fileName: path.join(__dirname, './src/build/webpack-manifest.json'),
       map: (obj) => {

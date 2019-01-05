@@ -367,6 +367,7 @@ label {
     .language {
       color: $prog-language-text-color;
       margin-right: 1em;
+      white-space: nowrap;
 
       .color {
         border-radius: 50%;
