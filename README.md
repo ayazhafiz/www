@@ -13,12 +13,15 @@ There has been __1__ reset so far.
 - [ ] [hafiz](https://ayazhafiz.com)
   - [x] [/atomas](https://ayazhafiz.github.io/atomas)
   - [x] [/blog](https://cc.ayazhafiz.com)
+  - [x] /bin
+    - [x] [/enroll](https://ayazhafiz.com/bin/enroll)
+  - [x] [/bios](https://ayazhafiz.com/bios)
   - [x] [/cc](https://cc.ayazhafiz.com)
   - [x] [/mail](https://ayazhafiz.com/mail)
     - [x] [/signup](https://ayazhafiz.com/mail/signup)
-  - [x] [/meethere](https://meethere.js.org)
   - [x] [/movie-emoji](https://ayazhafiz.github.io/movie-emoji)
   - [x] [/notes](https://ayazhafiz.com/notes)
+  - [x] [/position](https://ayazhafiz.github.io/position)
   - [x] [/recipes](https://ayazhafiz.com/recipes)
   - [ ] /try
     - [x] [/anoop](https://ayazhafiz.com/try/anoop)
