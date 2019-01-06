@@ -6,7 +6,9 @@ My personal site, written in [Crystal](https://crystal-lang.org),
 (amongst other languages).
 
 The repo is reset to an initial commit after each 100 commits, or after major
-feature (X.x) introduction.
+feature (X.0.0) introduction. This is done because big numbers scare or because
+I am not an image of my past, whichever sounds better.
+There has been __1__ reset so far.
 
 - [ ] [hafiz](https://ayazhafiz.com)
   - [x] [/atomas](https://ayazhafiz.github.io/atomas)

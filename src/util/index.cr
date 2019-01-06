@@ -29,7 +29,7 @@ module Util::Index
     current_work: {
       "en" => <<-HTML,
               <p> This summer I will be working at
-                <a href="https://cloud.google.com">Google</a>, but am currently
+                <a href="https://cloud.google.com">Google</a>, but
                 <span class="quasi contact-proj en"></span> side projects.
               </p>
               HTML

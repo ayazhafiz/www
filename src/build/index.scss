@@ -153,7 +153,7 @@ img {
 
   &.contact-proj {
     &.en {
-      @include content-values('open to',
+      @include content-values('am currently open to',
                               'email me about')
     }
   }
