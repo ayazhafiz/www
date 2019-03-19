@@ -1,6 +1,6 @@
 <div class="content">
   <%= HEADER[:intro][render_lang] %>
-  <%= HEADER[:current_work][render_lang] %>
+  <%= HEADER[:future][render_lang] %>
   <br />
   <%= HEADER[:learn_more][render_lang] %>
   <%= HEADER[:eccentric_me][render_lang] %>
@@ -52,4 +52,8 @@
       <%= render {{ PARTIAL[:section][3][:view] }} %>
     </div>
   </div>
+
+  <p class="hash">
+    <a class="pgp" href="/keys/pgp-pub.asc">my pgp key</a>
+  </p>
 </div>

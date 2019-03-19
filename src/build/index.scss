@@ -91,6 +91,14 @@ a {
   &:visited {
     color: $link-color;
   }
+
+  &.pgp {
+    color: $black;
+    font-family: $code-font;
+    font-size: 0.7em;
+    opacity: 0.2;
+    text-decoration: none;
+  }
 }
 
 img {
@@ -117,44 +125,43 @@ img {
 
   &.name {
     &.en {
-      @include content-values('Ayaz',
-                              'hafiz')
+      @include content-values('Ayaz', 'hafiz');
     }
 
     &.ru {
-      @include content-values('Аяз',
-                              'хафиз')
+      @include content-values('Аяз', 'хафиз');
     }
   }
 
   &.major {
     &.en {
-      @include content-values('Computer Science and Chemistry.',
-                              'an unusual combination, I know!')
+      @include content-values(
+        'Computer Science and Chemistry.',
+        'an unusual combination, I know!'
+      );
     }
 
     &.ru {
-    @include content-values('информатике и химии.',
-                            'необычной комбинации, я знаю!')
+      @include content-values(
+        'информатике и химии.',
+        'необычной комбинации, я знаю!'
+      );
     }
   }
 
   &.expand {
     &.en {
-      @include content-values('find some of',
-                              'click to expand')
+      @include content-values('find some of', 'click to expand');
     }
 
     &.ru {
-      @include content-values('найти некоторые из',
-                              'нажать, чтобы открыть')
+      @include content-values('найти некоторые из', 'нажать, чтобы открыть');
     }
   }
 
   &.contact-proj {
     &.en {
-      @include content-values('am currently open to',
-                              'email me about')
+      @include content-values('am open to', 'email me about');
     }
   }
 
@@ -162,13 +169,14 @@ img {
     margin: 0;
 
     &.en {
-      @include content-values('my proficiency with them',
-                              'position and opacity')
+      @include content-values(
+        'my proficiency with them',
+        'position and opacity'
+      );
     }
 
     &.ru {
-      @include content-values('моему знанию с ними',
-                              'позиции и прозрачности')
+      @include content-values('моему знанию с ними', 'позиции и прозрачности');
     }
   }
 }
@@ -454,6 +462,13 @@ label {
   }
 }
 
+p {
+  &.hash {
+    // sass-lint:disable no-important
+    margin-top: 2em !important;
+  }
+}
+
 @media only screen and (max-width: 660px) {
   body {
     & .content {
@@ -509,9 +524,10 @@ label {
     padding-top: 5em;
   }
 
-  // sass-lint:disable no-ids
-  #links {
-    padding-bottom: 5em;
+  p {
+    .hash {
+      padding-bottom: 5em;
+    }
   }
 }
 

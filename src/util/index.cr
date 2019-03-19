@@ -14,8 +14,10 @@ module Util::Index
       "en" => <<-HTML,
               <p> Hey! I'm <span class="quasi name en"></span>.
                   I make stuff, currently at
-                  <a href="https://vanderbilt.edu">Vanderbilt</a>,
-                  where my studies concentrate in <span class="quasi major en"></span>
+                  <a href="https://vanderbilt.edu">Vanderbilt</a>.
+                  This summer I will be working at
+                  <a href="https://cloud.google.com">Google</a>, but
+                  <span class="quasi contact-proj en"></span> side projects.
               </p>
               HTML
       "ru" => <<-HTML,
@@ -26,11 +28,11 @@ module Util::Index
               </p>
               HTML
     },
-    current_work: {
+    future: {
       "en" => <<-HTML,
-              <p> This summer I will be working at
-                <a href="https://cloud.google.com">Google</a>, but
-                <span class="quasi contact-proj en"></span> side projects.
+              <p> My social and developmental career interests are in
+                  diversification and
+                  <a href="https://en.wikipedia.org/wiki/Ownership_(psychology)">ownership</a>.
               </p>
               HTML
       "ru" => <<-HTML,
