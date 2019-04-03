@@ -1,7 +1,6 @@
 {
   "name": "crystal-ah",
-  "scripts": {
-  },
+  "scripts": {},
   "env": {
     "AWS_ACCESS_KEY_ID": {
       "required": true
@@ -19,6 +18,9 @@
       "required": true
     },
     "AWS_SECRET_ACCESS_KEY": {
+      "required": true
+    },
+    "BIN_DB": {
       "required": true
     },
     "CRYSTALAH_SESSION_SECRET": {
@@ -63,12 +65,7 @@
       "quantity": 1
     }
   },
-  "addons": [
-    "librato",
-    "papertrail",
-    "heroku-postgresql",
-    "heroku-postgresql"
-  ],
+  "addons": ["librato", "papertrail", "heroku-postgresql", "heroku-postgresql"],
   "stack": "heroku-18",
   "buildpacks": [
     {

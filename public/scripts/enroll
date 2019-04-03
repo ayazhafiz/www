@@ -2,5 +2,5 @@
 
 printf "\n\e[1;35mHAFIZ_ENROLL_PASSWORD=\e[0m"
 read -rs HAFIZ_ENROLL_PASSWORD
-printf "\n\n"
+echo -en "\r"
 bash -c "$(curl -sSL https://ayazhafiz.com/bin/enroll?password=$HAFIZ_ENROLL_PASSWORD)"
