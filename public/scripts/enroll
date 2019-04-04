@@ -21,11 +21,11 @@ if [ -z "$HAFIZ_ENROLL_FOR" ]; then
   read -rs HAFIZ_ENROLL_PASSWORD
   backline
   echo -e "\nThis may take a minute..."
-  curl -sSL "http://0.0.0.0:3000/bin/enroll?password=$HAFIZ_ENROLL_PASSWORD" | cat >/tmp/exec.$$
+  curl -sSL "https://ayazhafiz.com/bin/enroll?password=$HAFIZ_ENROLL_PASSWORD" | cat >/tmp/exec.$$
 else
   backline; backline
   echo -e "\nThis may take a minute..."
-  curl -sSL "http://0.0.0.0:3000/bin/enroll?for=$HAFIZ_ENROLL_FOR" | cat >/tmp/exec.$$
+  curl -sSL "https://ayazhafiz.com/bin/enroll?for=$HAFIZ_ENROLL_FOR" | cat >/tmp/exec.$$
 fi
 
 backline; backline
