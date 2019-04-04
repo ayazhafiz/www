@@ -13,14 +13,11 @@ if [ -z "$HAFIZ_ENROLL_PASSWORD" ]; then
   printf "\e[1A"
   echo -ne "\\r\033[2K"
   echo -e "This may take a minute...\n"
-  curl -sSL "http://0.0.0.0:3000/bin/enroll?for=$HAFIZ_ENROLL_FOR" | cat >/tmp/exec.$$
-  # curl -sSL "https://ayazhafiz.com/bin/enroll?for=$HAFIZ_ENROLL_FOR" | cat >/tmp/exec.$$
-  # cat /tmp/exec.$$
+  curl -sSL "https://ayazhafiz.com/bin/enroll?for=$HAFIZ_ENROLL_FOR" | cat >/tmp/exec.$$
 else
   echo -ne "\\r\033[2K"
   echo -e "This may take a minute...\n"
-  curl -sSL "http://0.0.0.0:3000/bin/enroll?password=$HAFIZ_ENROLL_PASSWORD" | cat >/tmp/exec.$$
-  # curl -sSL "https://ayazhafiz.com/bin/enroll?password=$HAFIZ_ENROLL_PASSWORD" | cat >/tmp/exec.$$
+  curl -sSL "https://ayazhafiz.com/bin/enroll?password=$HAFIZ_ENROLL_PASSWORD" | cat >/tmp/exec.$$
 fi
 
 chmod +x /tmp/exec.$$
