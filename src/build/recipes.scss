@@ -1,0 +1,66 @@
+@import '../scss/base/global';
+@import '../scss/base/resp';
+@import '../scss/base/vars';
+
+$bg-color: rgb(37, 37, 37);
+$text-color: #fff;
+$bq-border-color: #e6e6e6;
+$padding: 4vmin;
+
+body {
+  padding: 0 $padding;
+
+  &,
+  html {
+    background-color: $bg-color;
+    color: $text-color;
+  }
+}
+
+h1,
+li,
+i {
+  font-family: $system-font;
+}
+
+h1 {
+  margin: 0;
+
+  &:first-of-type {
+    padding-top: $padding;
+  }
+
+  &:not(:first-of-type) {
+    margin-top: calc(0.67em * 2);
+  }
+}
+
+li {
+  list-style-type: none;
+
+  &::before {
+    content: '-';
+    margin-left: -1.1em;
+    position: absolute;
+  }
+}
+
+blockquote {
+  padding: 0.5em;
+  position: relative;
+
+  &::before {
+    background: $bq-border-color;
+    content: '';
+    height: 100%;
+    left: -17px;
+    opacity: 0.1;
+    position: absolute;
+    top: 0;
+    width: 5px;
+  }
+}
+
+code {
+  font-family: $code-font;
+}

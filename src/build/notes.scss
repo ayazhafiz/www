@@ -1,0 +1,45 @@
+@import '../scss/base/vars';
+
+body,
+html {
+  font-family: $code-font;
+  margin: 1em;
+}
+
+body {
+  display: flex;
+}
+
+a,
+span {
+  border-bottom: 1px solid transparent;
+  display: inline-block;
+
+  &:not(:first-child) {
+    margin-top: 2rem;
+  }
+}
+
+a {
+  &,
+  &:hover,
+  &:active,
+  &:visited {
+    border-color: $podd-bg;
+    color: $podd-bg;
+    text-decoration: none;
+  }
+}
+
+.course-codes,
+.course-names {
+  display: inline;
+}
+
+.course-codes {
+  text-align: right;
+}
+
+.course-names {
+  margin-left: 1rem;
+}

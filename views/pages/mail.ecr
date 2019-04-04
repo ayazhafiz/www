@@ -1,0 +1,68 @@
+<div class="col upload">
+	<div class="title">Send Files</div>
+
+  <div class="box has-advanced-upload">
+    <span>Drop file</span>
+    <input id="upload-file" type="file" />
+  </div>
+
+  <div class="recipient file-scope">
+      <input id="upload-file-recipient" type="text" autocomplete="off"
+             placeholder="recipient" />
+      <div id="upload-file-submit" class="next">
+        <div class="double-bounce1" style="display:none"></div>
+        <div class="double-bounce2" style="display:none"></div>
+        <div class="arrow"></div>
+        <div class="arrow-head"></div>
+      </div>
+  </div>
+
+  <div class="title">Send Links</div>
+
+  <div class="recipient link-scope">
+      <input id="upload-link" type="text" autocomplete="off"
+             placeholder="link" />
+      <br />
+      <input id="upload-link-recipient" type="text" autocomplete="off"
+             placeholder="recipient" />
+      <div id="upload-link-submit" class="next">
+        <div class="double-bounce1" style="display:none"></div>
+        <div class="double-bounce2" style="display:none"></div>
+        <div class="arrow"></div>
+        <div class="arrow-head"></div>
+      </div>
+  </div>
+</div>
+
+<div class="col file">
+	<div class="title">File</div>
+  <% files.size.times do |idx| %>
+    <div>
+      <a href="<%= links[idx] %>" target="_blank"><%= files[idx] %></a>
+      <span>&nbsp;-&nbsp;<%=
+        (URI.parse links[idx]).host || links[idx].split('/')[0]
+      %></span>
+    </div>
+	<% end %>
+</div>
+
+<div class="col from">
+	<div class="title">From</div>
+  <% senders.each do |sendee| %>
+    <div><%= sendee %></div>
+  <% end %>
+</div>
+
+<div class="col date">
+	<div class="title">Date</div>
+  <% dates.each do |time| %>
+    <div><%= time %></div>
+  <% end %>
+</div>
+
+<div class="col trash">
+	<div class="title">Trash</div>
+  <% files.size.times do |idx| %>
+    <div>n/a</div>
+	<% end %>
+</div>

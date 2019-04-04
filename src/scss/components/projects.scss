@@ -1,0 +1,131 @@
+@import '../base/vars';
+
+$p: #d30044;
+$r: #ff6418;
+$o: #186418;
+$j: #0081ab;
+$x: #808080;
+$prxnt: #f5f5dc;
+
+@mixin img-def {
+  background-size: cover;
+  display: inline-block;
+  line-height: 1em;
+  margin-bottom: 2px;
+  vertical-align: middle;
+}
+
+@mixin brand-margin {
+  margin-left: 2.5%;
+  margin-right: 2.5%;
+}
+
+pre {
+  &[class*='language-'] {
+    &.brand {
+      background: transparent;
+      border: 0;
+      font-size: 1.2em;
+      padding-left: 0;
+      padding-right: 0;
+      position: static;
+
+      code {
+        white-space: nowrap;
+
+        &.podddina {
+          @include brand-margin;
+          background: $podd-bg;
+          border: 1px solid $podd-border;
+          border-radius: 5px;
+          color: $white;
+          font-family: $code-font;
+          font-size: 0.8em;
+          line-height: 1.8em;
+          padding: 0 0.25em;
+          vertical-align: top;
+          white-space: nowrap;
+        }
+      }
+
+      .krew {
+        @include img-def;
+        @include brand-margin;
+        background-image: url('/img/krew.png');
+        font-size: 1em;
+        height: 1.3em;
+        width: 1em;
+      }
+
+      .meet-here {
+        @include img-def;
+        @include brand-margin;
+        background-image: url('/img/meetHere.svg');
+        font-size: 0.95em;
+        height: 1.5em;
+        width: 1.05em;
+      }
+
+      .coit {
+        @include img-def;
+        @include brand-margin;
+        background-image: url('/img/coit.png');
+        font-size: 1.1em;
+        height: 1.03em;
+        width: 2.08em;
+      }
+
+      .lano {
+        @include brand-margin;
+        color: $white;
+        font-family: 'Dejavu Sans Mono';
+      }
+
+      .pwnhs {
+        @include brand-margin;
+        color: inherit;
+        font-family: 'Montserrat', sans-serif;
+
+        & .pw {
+          color: $black;
+        }
+
+        & .nhs {
+          color: $west;
+        }
+      }
+
+      .projx {
+        @include brand-margin;
+        color: inherit;
+        font-family: 'Montserrat', sans-serif;
+
+        & .p {
+          color: $p;
+        }
+
+        & .r {
+          color: $r;
+        }
+
+        & .o {
+          color: $o;
+        }
+
+        & .j {
+          color: $j;
+        }
+
+        & .x {
+          color: $x;
+        }
+      }
+
+      .prxnt {
+        @include brand-margin;
+        color: $prxnt;
+        font-family: 'Montserrat', sans-serif;
+      }
+    }
+  }
+}

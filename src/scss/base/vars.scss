@@ -1,0 +1,45 @@
+$white: #fff;
+$black: #000;
+$west: #035299;
+$slate: #8597a4;
+$shadow: rgba(128, 128, 128, 0.5);
+$podd-bg: #0070c9;
+$podd-border: #07c;
+$bq-border: #008000;
+$twitter: #1da1f2;
+$instagram: #cd486b;
+$no-color: rgba(0, 0, 0, 0);
+$highlighter: rgba(133, 151, 164, 0.3);
+
+$base-px: 16px;
+$base-break: 767px;
+
+$base-font: Quicksand;
+$code-font: 'Dejavu Sans Mono', Menlo, Monaco, Consolas, 'Courier New',
+  monospace;
+$system-font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+  'Helvetica Neue', Helvetica, Arial, sans-serif, 'Apple Color Emoji',
+  'Segoe UI Emoji', 'Segoe UI Symbol';
+
+$material-bg: rgb(38, 50, 56);
+$material-red: rgb(247, 118, 105);
+$material-dark: rgb(84, 110, 122);
+$mail-bg: #333;
+
+$shell-dir: rgb(93, 200, 253);
+$shell-branch: rgb(108, 108, 108);
+$shell-known: rgb(98, 245, 146);
+$shell-prompt: rgb(253, 109, 192);
+$shell-inner: #d87093;
+$shell-emp: rgb(255, 253, 56);
+$shell-err: rgb(252, 93, 91);
+$shell-mtd: rgb(157, 237, 253);
+$shell-cmd: rgb(239, 240, 235);
+$shell-bg: rgb(40, 42, 54);
+$shell-shadow: rgb(32, 34, 43);
+$shell-tab-shadow: $shell-shadow;
+$shell-font: Menlo, $code-font;
+
+$code-base: rgb(39, 40, 34);
+$code-interp: rgb(228, 85, 70);
+$code-string: rgb(81, 162, 77);

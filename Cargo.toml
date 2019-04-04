@@ -1,0 +1,14 @@
+[package]
+authors = ["hafiz <ayaz.hafiz.1@gmail.com>"]
+name = "site"
+version = "0.1.0"
+publish = false
+
+[lib]
+name = "rcalc"
+path = "src/rust/lib.rs"
+crate-type = ["dylib"]
+
+[dependencies]
+libc = "~0.2"
+rcalc = "0.1.1"

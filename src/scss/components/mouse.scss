@@ -1,0 +1,81 @@
+@import '../base/vars';
+
+$mouse-border: 1px solid #fff;
+$mouse-before-bg-color: #fff;
+
+.mouse {
+  border: $mouse-border;
+  border-radius: 0.8em;
+  bottom: -5px;
+  font-family: $code-font;
+  height: 1.6em;
+  left: 50%;
+  position: absolute;
+  transform: translateX(-50%);
+  vertical-align: bottom;
+  width: 0.8em;
+
+  &::before {
+    animation: scroll 4s infinite;
+    background: $mouse-before-bg-color;
+    border-radius: 2px;
+    content: '';
+    height: 5px;
+    left: 50%;
+    position: absolute;
+    top: 25%;
+    transform: translate(-50%, -50%);
+    width: 1px;
+  }
+
+  &.scrolled {
+    &,
+    &::before {
+      background: transparent;
+      border: 0;
+      bottom: 2px;
+      font-size: 0.8em;
+      text-align: center;
+      transition: border 1s ease;
+      width: 5em;
+    }
+  }
+
+  &.touch {
+    border: 0;
+    bottom: 2px;
+
+    &::before {
+      animation: touch-scroll 4s infinite;
+      border-radius: 3px;
+      height: 5px;
+      width: 5px;
+    }
+  }
+}
+
+@keyframes touch-scroll {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, 350%);
+  }
+
+  25%,
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%);
+  }
+}
+
+@keyframes scroll {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+
+  25%,
+  100% {
+    opacity: 0;
+    transform: translate(-50%, 50%);
+  }
+}

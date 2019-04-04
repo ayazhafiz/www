@@ -1,0 +1,542 @@
+@import '../scss/base/vars';
+
+$homepage-bg-color: #fff;
+$homepage-text-color: #172b4c;
+$h3-section-hover-color: #55919d;
+$h3-section-hash-hover-color: #000;
+$h3-section-opened-color: #55919d;
+
+$link-color: #55919d;
+$personal-link-color: #0366d6;
+$quote-border-color: #dfe2e5;
+$quote-border-left: 0.1em solid $quote-border-color;
+
+$quasi-text: rgb(254, 158, 160);
+$quasi-text-border-bottom: 1px solid rgba($quasi-text, 0.75);
+$work-previous-color: #8995a2;
+$prog-language-text-color: #111;
+$chemistry-tags-color: #8995a2;
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+html {
+  font-size: 13px;
+}
+
+@media screen and (min-width: 350px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+@media screen and (min-width: 900px) {
+  html {
+    font-size: 15px;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+body {
+  background: $homepage-bg-color;
+  color: $homepage-text-color;
+  font-family: $system-font;
+  font-weight: 300;
+  line-height: 2em;
+
+  & .content {
+    overflow: auto;
+    padding-left: 10%;
+
+    > p {
+      margin: 0;
+    }
+  }
+}
+
+h3 {
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  margin-bottom: 0;
+
+  &:hover {
+    color: $h3-section-hover-color;
+  }
+
+  .hash {
+    color: $h3-section-hash-hover-color;
+    opacity: 0.2;
+    text-decoration: none;
+  }
+}
+
+small {
+  font-size: 0.7em;
+}
+
+a {
+  &,
+  &:active,
+  &:hover,
+  &:visited {
+    color: $link-color;
+  }
+
+  &.pgp {
+    color: $black;
+    font-family: $code-font;
+    font-size: 0.7em;
+    opacity: 0.2;
+    text-decoration: none;
+  }
+}
+
+img {
+  &.emoji {
+    height: 1.2em;
+    vertical-align: -8%;
+  }
+}
+
+.quasi {
+  @mixin content-values($normal, $hover) {
+    &::before {
+      content: $normal;
+    }
+
+    &:hover,
+    &.mobile-touch {
+      &::before {
+        content: $hover;
+      }
+    }
+  }
+  border-bottom: $quasi-text-border-bottom;
+
+  &.name {
+    &.en {
+      @include content-values('Ayaz', 'hafiz');
+    }
+
+    &.ru {
+      @include content-values('Аяз', 'хафиз');
+    }
+  }
+
+  &.major {
+    &.en {
+      @include content-values(
+        'Computer Science and Chemistry.',
+        'an unusual combination, I know!'
+      );
+    }
+
+    &.ru {
+      @include content-values(
+        'информатике и химии.',
+        'необычной комбинации, я знаю!'
+      );
+    }
+  }
+
+  &.expand {
+    &.en {
+      @include content-values('find some of', 'click to expand');
+    }
+
+    &.ru {
+      @include content-values('найти некоторые из', 'нажать, чтобы открыть');
+    }
+  }
+
+  &.contact-proj {
+    &.en {
+      @include content-values('am open to', 'email me about');
+    }
+  }
+
+  &.langs {
+    margin: 0;
+
+    &.en {
+      @include content-values(
+        'my proficiency with them',
+        'position and opacity'
+      );
+    }
+
+    &.ru {
+      @include content-values('моему знанию с ними', 'позиции и прозрачности');
+    }
+  }
+}
+
+.tab {
+  margin-left: -150px;
+  overflow: hidden;
+  padding-left: 150px;
+  position: relative;
+  width: 100%;
+}
+
+input {
+  display: none;
+  opacity: 0;
+  position: absolute;
+  z-index: -1;
+
+  &:checked ~ .tab-content {
+    &.projects {
+      max-height: 25em;
+    }
+
+    &.work,
+    &.links {
+      max-height: 17.5em;
+    }
+
+    &.about {
+      max-height: 15em;
+    }
+
+    .side-text {
+      &::before {
+        opacity: 1;
+        transition: visibility 0.5s, opacity 0.5s;
+        visibility: visible;
+      }
+    }
+  }
+
+  &:checked ~ label > h3 {
+    color: $h3-section-opened-color;
+  }
+}
+
+label {
+  cursor: pointer;
+  display: block;
+  font-weight: bold;
+  position: relative;
+}
+
+.tab-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s;
+
+  .side-text {
+    &::before {
+      border-right: 0.1em dashed;
+      display: none;
+      font-weight: 400;
+      margin-left: -140px;
+      opacity: 0;
+      padding-right: 1em;
+      position: absolute;
+      text-align: right;
+      transition: visibility 0.2s, opacity 0.2s;
+      visibility: hidden;
+      width: 100px;
+    }
+
+    &.latest {
+      &.en {
+        &::before {
+          content: 'latest';
+        }
+      }
+
+      &.ru {
+        &::before {
+          content: 'последний';
+        }
+      }
+
+      &.project {
+        &::before {
+          $border-color: rgba($link-color, 0.5);
+          $text-color: rgba($link-color, 0.8);
+
+          border-color: $border-color;
+          color: $text-color;
+        }
+      }
+
+      &.work {
+        &::before {
+          $border-color: rgba($homepage-text-color, 0.35);
+          $text-color: rgba($homepage-text-color, 0.8);
+
+          border-color: $border-color;
+          color: $text-color;
+        }
+      }
+    }
+
+    &.previous {
+      &.en {
+        &::before {
+          content: 'previous';
+        }
+      }
+
+      &.ru {
+        &::before {
+          content: 'предыдущий';
+        }
+      }
+
+      &.previous {
+        &::before {
+          $border-color: rgba($work-previous-color, 0.35);
+          $text-color: rgba($work-previous-color, 0.8);
+
+          border-color: $border-color;
+          color: $text-color;
+          height: 100%;
+        }
+      }
+    }
+  }
+
+  &.projects {
+    span {
+      &.emoji {
+        margin-right: 0.25em;
+      }
+    }
+  }
+
+  &.work {
+    p {
+      &:not(:first-of-type) {
+        color: $work-previous-color;
+      }
+    }
+  }
+
+  &.about {
+    p {
+      &:not(:first-of-type) {
+        font-weight: 300;
+      }
+    }
+  }
+
+  p {
+    font-weight: 400;
+    margin-bottom: 0;
+    padding: 0 1em;
+
+    > a,
+    > span,
+    .l,
+    .mr {
+      margin-right: 1em;
+    }
+
+    .l {
+      display: inline-block;
+      margin-left: 2em;
+      width: 5em;
+    }
+
+    .nl {
+      margin-left: 1em;
+    }
+
+    a {
+      color: $personal-link-color;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    quote {
+      border-left: $quote-border-left;
+      display: inline-block;
+      font-weight: 300;
+      padding: 0 1em;
+    }
+
+    .language {
+      color: $prog-language-text-color;
+      margin-right: 1em;
+      white-space: nowrap;
+
+      .color {
+        border-radius: 50%;
+        display: inline-block;
+        height: 12px;
+        margin-right: 0.5em;
+        position: relative;
+        top: 1px;
+        width: 12px;
+
+        $c: #555;
+        $cpp: #f34b7d;
+        $cr: #000100;
+        $css: #563d7c;
+        $html: #e34c26;
+        $java: #b07219;
+        $js: #f1e05a;
+        $py: #3572a5;
+        $r: #198ce7;
+        $rb: #701516;
+        $rs: #dea584;
+        $sql: #ccc;
+        $ts: #2b7489;
+
+        &.c {
+          background-color: $c;
+        }
+
+        &.cpp {
+          background-color: $cpp;
+        }
+
+        &.cr {
+          background-color: $cr;
+        }
+
+        &.css {
+          background-color: $css;
+        }
+
+        &.html {
+          background-color: $html;
+        }
+
+        &.java {
+          background-color: $java;
+        }
+
+        &.js {
+          background-color: $js;
+        }
+
+        &.py {
+          background-color: $py;
+        }
+
+        &.r {
+          background-color: $r;
+        }
+
+        &.rb {
+          background-color: $rb;
+        }
+
+        &.rs {
+          background-color: $rs;
+        }
+
+        &.sql {
+          background-color: $sql;
+        }
+
+        &.ts {
+          background-color: $ts;
+        }
+      }
+    }
+
+    .chem {
+      color: $chemistry-tags-color;
+      font-weight: 400;
+      margin: 0;
+    }
+  }
+}
+
+p {
+  &.hash {
+    // sass-lint:disable no-important
+    margin-top: 2em !important;
+  }
+}
+
+@media only screen and (max-width: 660px) {
+  body {
+    & .content {
+      padding: 1em;
+
+      > p {
+        &:not(:first-of-type) {
+          margin-top: 0.5em;
+        }
+      }
+    }
+  }
+
+  input {
+    &:checked ~ .tab-content {
+      &.projects {
+        max-height: 50em;
+      }
+
+      &.work {
+        max-height: 30em;
+      }
+
+      &.links {
+        max-height: 15em;
+      }
+
+      &.about {
+        max-height: 25em;
+      }
+    }
+  }
+
+  small {
+    font-size: 2vw;
+  }
+}
+
+@media only screen and (min-width: 661px) {
+  body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: auto;
+    resize: vertical;
+  }
+
+  .mobile {
+    display: none;
+  }
+
+  .content {
+    padding-top: 5em;
+  }
+
+  p {
+    .hash {
+      padding-bottom: 5em;
+    }
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  .tab-content {
+    .side-text {
+      &::before {
+        display: block;
+      }
+    }
+  }
+}

@@ -1,0 +1,51 @@
+@import '../base/vars';
+
+$input-not-file-border: 1px solid rgba(255, 255, 255, 0.1);
+
+input {
+  &:not([type='file']) {
+    background: transparent;
+    border: $input-not-file-border;
+    border-radius: 0.2em;
+    color: $white;
+    font-size: 0.8em;
+    outline: none;
+    padding: 0.25em 0.5em;
+    transition: 0.2s;
+    width: 15em;
+
+    &.wrong {
+      &,
+      &:focus {
+        border-color: $shell-err;
+      }
+    }
+
+    &.success {
+      &,
+      &:focus {
+        border-color: $shell-known;
+      }
+    }
+
+    &:last-of-type {
+      margin-top: 0.5em;
+    }
+
+    &:focus {
+      border-color: $white;
+      transition: 0.2s;
+    }
+  }
+
+  &.progress {
+    &,
+    &:focus {
+      color: $shell-known;
+    }
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+}

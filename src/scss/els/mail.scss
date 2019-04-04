@@ -1,0 +1,272 @@
+@import '../base/vars';
+
+$secondary-color: #444;
+$subtitle-color: #ddd;
+
+$column-padding: 2em;
+$scrollbar-bg-color: #666;
+$upload-bg-color: #111;
+
+body,
+html {
+  background: $mail-bg;
+  font-family: $code-font;
+  height: 100%;
+  margin: 0;
+  overflow: scroll;
+  padding: 0;
+  position: fixed;
+  user-select: none;
+  width: 100%;
+}
+
+a {
+  &,
+  &:hover,
+  &:active,
+  &:visited {
+    color: $white;
+  }
+}
+
+.col {
+  height: 100%;
+  margin-left: $column-padding;
+
+  &:first-of-type {
+    margin-left: 0;
+  }
+
+  .recipient {
+    margin-top: 0;
+    overflow: visible;
+    position: relative;
+
+    input {
+      width: calc(100% - 5em);
+    }
+
+    .next {
+      align-items: center;
+      background: $white;
+      border-radius: 50%;
+      bottom: -0.5em;
+      cursor: pointer;
+      display: flex;
+      height: 1.75em;
+      justify-content: center;
+      margin: 0;
+      margin-top: 0.125em;
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translatey(-50%);
+      width: 1.75em;
+
+      .arrow {
+        background: $mail-bg;
+        height: 15%;
+        margin: 0;
+        padding: 0;
+        width: 35%;
+      }
+
+      .arrow-head {
+        border-bottom: 0.35em solid transparent;
+        border-left: 0.45em solid $mail-bg;
+        border-top: 0.35em solid transparent;
+        content: '';
+        height: 0;
+        margin: 0;
+        padding: 0;
+        width: 0;
+      }
+
+      .double-bounce1,
+      .double-bounce2 {
+        animation: sk-bounce 2s infinite ease-in-out;
+        background-color: $white;
+        border-radius: 50%;
+        height: 100%;
+        left: 0;
+        margin: 0;
+        opacity: 0.6;
+        position: absolute;
+        top: 0;
+
+        width: 100%;
+      }
+
+      .double-bounce2 {
+        animation-delay: -1s;
+      }
+
+      @keyframes sk-bounce {
+        0%,
+        100% {
+          transform: scale(0);
+        }
+
+        50% {
+          transform: scale(1);
+        }
+      }
+    }
+  }
+
+  & > .title {
+    animation: bounceInLeft 0.5s;
+  }
+
+  & > :not(.title) {
+    animation: bounceInDown 0.5s;
+  }
+
+  div {
+    margin: 2em 2em 0.5em;
+    overflow-x: auto;
+    white-space: nowrap;
+    width: 95%;
+
+    span {
+      color: $secondary-color;
+    }
+
+    &::-webkit-scrollbar {
+      background-color: $scrollbar-bg-color;
+      height: 0.1em;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: $white;
+    }
+  }
+
+  &.from,
+  &.date {
+    & > :not(.title) {
+      color: $subtitle-color;
+    }
+  }
+
+  &.trash > div {
+    border-color: $secondary-color;
+    color: $secondary-color;
+
+    &:not(.title) {
+      font-style: italic;
+    }
+  }
+}
+
+.title {
+  border-bottom: 0.2em solid $white;
+  color: $white;
+  padding-bottom: 0.5em;
+
+  &:not(:first-child) {
+    margin-top: 10em;
+  }
+}
+
+.upload {
+  background-color: $upload-bg-color;
+  float: left;
+  left: 0;
+  position: relative;
+  width: calc(20% - #{$column-padding});
+  z-index: 5;
+}
+
+.file {
+  float: left;
+  position: relative;
+  width: calc(30% - #{$column-padding});
+  z-index: 4;
+}
+
+.from {
+  background: $secondary-color;
+  float: left;
+  position: relative;
+  width: calc(20% - #{$column-padding});
+  z-index: 3;
+}
+
+.date {
+  float: left;
+  position: relative;
+  width: calc(15% - #{$column-padding});
+  z-index: 3;
+}
+
+.trash {
+  float: left;
+  position: relative;
+  width: calc(15% - #{$column-padding});
+  z-index: 3;
+}
+
+@keyframes bounceInLeft {
+  from,
+  60%,
+  75%,
+  90%,
+  to {
+    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+
+  0% {
+    opacity: 0;
+    transform: translate3d(-3000px, 0, 0);
+  }
+
+  60% {
+    opacity: 1;
+    transform: translate3d(25px, 0, 0);
+  }
+
+  75% {
+    transform: translate3d(-10px, 0, 0);
+  }
+
+  90% {
+    transform: translate3d(5px, 0, 0);
+  }
+
+  to {
+    transform: none;
+  }
+}
+
+@keyframes bounceInDown {
+  from,
+  60%,
+  75%,
+  90%,
+  to {
+    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+
+  0% {
+    opacity: 0;
+    transform: translate3d(0, -3000px, 0);
+  }
+
+  60% {
+    opacity: 1;
+    transform: translate3d(0, 25px, 0);
+  }
+
+  75% {
+    transform: translate3d(0, -10px, 0);
+  }
+
+  90% {
+    transform: translate3d(0, 5px, 0);
+  }
+
+  to {
+    transform: none;
+  }
+}

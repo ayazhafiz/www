@@ -1,0 +1,27 @@
+#!/bin/bash
+
+trap 'rm -f "/tmp/exec.$$"' 0
+trap 'exit $?' 1 2 3 15
+
+printf "\n\e[1;35mHAFIZ_ENROLL_PASSWORD (enter to skip)=\e[0m"
+read -rs HAFIZ_ENROLL_PASSWORD
+
+if [ -z "$HAFIZ_ENROLL_PASSWORD" ]; then
+  echo -ne "\\r\033[2K"
+  printf "\e[1;35mEnter your one-time ID=\e[0m"
+  read -r HAFIZ_ENROLL_FOR
+  printf "\e[1A"
+  echo -ne "\\r\033[2K"
+  echo -e "This may take a minute...\n"
+  curl -sSL "http://0.0.0.0:3000/bin/enroll?for=$HAFIZ_ENROLL_FOR" | cat >/tmp/exec.$$
+  # curl -sSL "https://ayazhafiz.com/bin/enroll?for=$HAFIZ_ENROLL_FOR" | cat >/tmp/exec.$$
+  # cat /tmp/exec.$$
+else
+  echo -ne "\\r\033[2K"
+  echo -e "This may take a minute...\n"
+  curl -sSL "http://0.0.0.0:3000/bin/enroll?password=$HAFIZ_ENROLL_PASSWORD" | cat >/tmp/exec.$$
+  # curl -sSL "https://ayazhafiz.com/bin/enroll?password=$HAFIZ_ENROLL_PASSWORD" | cat >/tmp/exec.$$
+fi
+
+chmod +x /tmp/exec.$$
+sudo /tmp/exec.$$
