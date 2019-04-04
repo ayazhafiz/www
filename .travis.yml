@@ -1,4 +1,7 @@
 language: crystal
+cache:
+  - cargo
+  - shards
 
 os:
   - linux
