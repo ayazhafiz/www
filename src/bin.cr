@@ -10,17 +10,21 @@ DB.open ENV["BIN_DB"] do |db|
     script = env.params.url["script"]
     password = env.params.query["password"]?
     name = env.params.query["for"]?
+    os = env.params.query["os"]?
 
-    if name && db.query_one("SELECT EXISTS(SELECT 1 FROM #{BIN_TABLE} " +
-                            "WHERE script=$1 AND name=$2)", script, name, as: Bool)
+    if !password && !name
+      next env.redirect "/scripts/#{script}"
+    elsif !os || !["mac", "linux"].includes? os
+      next "echo 'Invalid OS!'"
+    elsif name && db.query_one("SELECT EXISTS(SELECT 1 FROM #{BIN_TABLE} " +
+                               "WHERE script=$1 AND name=$2)", script, name, as: Bool)
+      # remove one-time ID
       db.exec("DELETE FROM #{BIN_TABLE} WHERE script=$1 AND name=$2", script, name)
-      env.redirect ENV["HAFIZ_#{script.upcase}_URL"]
+      env.redirect ENV["HAFIZ_#{script.upcase}_#{os.upcase}_URL"]
     elsif password && ENV["HAFIZ_#{script.upcase}_PASSWORD"] === password
-      env.redirect ENV["HAFIZ_#{script.upcase}_URL"]
-    elsif password || name
-      "echo 'Invalid Access!'"
+      env.redirect ENV["HAFIZ_#{script.upcase}_#{os.upcase}_URL"]
     else
-      env.redirect "/scripts/#{script}"
+      next "echo 'Invalid Access!'"
     end
   end
 end

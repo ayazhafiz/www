@@ -12,7 +12,11 @@ backline() {
 trap 'rm -f "/tmp/exec.$$"' 0
 trap 'exit $?' 1 2 3 15
 
-printf "\n${mag}[ENTER]${end}${cyn} One-Time ID:${end} "
+printf "\n${mag}[ENTER]${end}${cyn} OS (mac|linux):${end} "
+read -r HAFIZ_ENROLL_OS
+
+backline
+printf "${mag}[ENTER]${end}${cyn} One-Time ID:${end} "
 read -r HAFIZ_ENROLL_FOR
 
 if [ -z "$HAFIZ_ENROLL_FOR" ]; then
@@ -21,11 +25,13 @@ if [ -z "$HAFIZ_ENROLL_FOR" ]; then
   read -rs HAFIZ_ENROLL_PASSWORD
   backline
   echo -e "\nThis may take a minute..."
-  curl -sSL "https://ayazhafiz.com/bin/enroll?password=$HAFIZ_ENROLL_PASSWORD" | cat >/tmp/exec.$$
+  curl -sSL "http://0.0.0.0:3000/bin/enroll?os=$HAFIZ_ENROLL_OS&password=$HAFIZ_ENROLL_PASSWORD" | cat >/tmp/exec.$$
+  # curl -sSL "https://ayazhafiz.com/bin/enroll?os=$HAFIZ_ENROLL_OS&password=$HAFIZ_ENROLL_PASSWORD" | cat >/tmp/exec.$$
 else
   backline; backline
   echo -e "\nThis may take a minute..."
-  curl -sSL "https://ayazhafiz.com/bin/enroll?for=$HAFIZ_ENROLL_FOR" | cat >/tmp/exec.$$
+  curl -sSL "http://0.0.0.0:3000/bin/enroll?os=$HAFIZ_ENROLL_OS&for=$HAFIZ_ENROLL_FOR" | cat >/tmp/exec.$$
+  # curl -sSL "https://ayazhafiz.com/bin/enroll?os=$HAFIZ_ENROLL_OS&for=$HAFIZ_ENROLL_FOR" | cat >/tmp/exec.$$
 fi
 
 backline; backline
