@@ -1,0 +1,37 @@
+@import '../base/vars';
+
+.lock {
+  height: 10em;
+  margin-bottom: 1.5em;
+  position: relative;
+  width: 6.5em;
+
+  .bottom {
+    background: $white;
+    border-radius: 0.5em;
+    bottom: 0;
+    height: 5.25em;
+    position: absolute;
+    width: 6.5em;
+  }
+
+  .top {
+    background: $white;
+    border-radius: 50% 50% 0 0;
+    height: 4.5em;
+    left: 1em;
+    position: absolute;
+    top: 1.5em;
+    width: 4.5em;
+
+    .hole {
+      background: $mail-bg;
+      border-radius: 50% 50% 0 0;
+      height: 2em;
+      left: 1.25em;
+      position: absolute;
+      top: 1.25em;
+      width: 2em;
+    }
+  }
+}

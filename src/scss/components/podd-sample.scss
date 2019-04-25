@@ -1,0 +1,55 @@
+$fn: #ae81ff;
+$def: #d87093;
+$call: #0070c9;
+$fs: #fd971f;
+$blk: #deb887;
+$cmt: default;
+$op: #afeeee;
+$kw: #69b7eb;
+$mod: #e6db74;
+$method: #ff6961;
+
+pre {
+  &[class*='language-'] {
+    .fn {
+      color: $fn;
+    }
+
+    .def {
+      color: $def;
+    }
+
+    .call {
+      color: $call;
+    }
+
+    .fs {
+      color: $fs;
+    }
+
+    .blk {
+      color: $blk;
+    }
+
+    .cmt {
+      color: $cmt;
+      opacity: 0.5;
+    }
+
+    .op {
+      color: $op;
+    }
+
+    .kw {
+      color: $kw;
+    }
+
+    .mod {
+      color: $mod;
+    }
+
+    .method {
+      color: $method;
+    }
+  }
+}

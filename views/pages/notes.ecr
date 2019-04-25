@@ -1,0 +1,14 @@
+<div class="course-codes">
+  <% classes.each do |course| %>
+    <a href="//<%= course[:code].sub(" ", "") %>.ayazhafiz.com">
+      <%= course[:code] %>
+    </a>
+    <br />
+  <% end %>
+</div>
+<div class="course-names">
+  <% classes.each do |course| %>
+    <span><%= course[:name] %></span>
+    <br />
+  <% end %>
+</div>

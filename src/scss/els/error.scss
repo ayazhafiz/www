@@ -1,0 +1,18 @@
+@import '../base/vars';
+
+::selection {
+  background: $no-color;
+}
+
+body {
+  align-items: center;
+  background: $shell-bg;
+  display: flex;
+  font-family: $shell-font;
+  font-size: 3vmin;
+  justify-content: center;
+  @media screen and (max-width: $base-break) {
+    font-size: 5vmin;
+  }
+  user-select: none;
+}

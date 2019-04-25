@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <%= render {{ PARTIAL[:meta] }} %>
+    <%= render {{ PARTIAL[:webapp] }} %>
+    <%= render {{ PARTIAL[:analytics] }} %>
+    <%- if page === "index_ui" -%>
+      <%= render {{ PARTIAL[:index_head] }} %>
+    <%- end -%>
+
+    <%- if env.request.path.split('/')[1] === "try" && ![404, 500].includes? title -%>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.28.0/codemirror.css" type="text/css" />
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.28.0/theme/material.css" type="text/css" />
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.28.0/codemirror.js" defer></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.28.0/addon/mode/simple.js" defer></script>
+    <%- end -%>
+
+    <link href=<%= "/css/#{read_manifest "#{page}.css"}" %> rel="stylesheet" type="text/css" media="all">
+    <script src=<%= "/js/#{read_manifest "#{page}.js"}" %> defer></script>
+  </head>
+
+  <body lang="<%= env.response.headers.fetch "Content-Language", "en" %>">
+    <%= content %>
+  </body>
+</html>

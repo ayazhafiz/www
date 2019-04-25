@@ -1,0 +1,12 @@
+<% LINKS.each do |link| %>
+<p>
+  <span class="mr"><%= Util::Emoji.render link[:emoji], native_display?: apple? %></span>
+  <quote>
+    <a href="<%= link[:link] %>"><%= link[:title][render_lang] %></a>
+  </quote>
+  <% if link === LINKS.last? %>
+  <br />
+  <small><%= API_EDIT_MSG[render_lang] %></small>
+  <% end %>
+</p>
+<% end %>

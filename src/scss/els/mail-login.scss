@@ -1,0 +1,13 @@
+@import '../base/vars';
+
+body,
+html {
+  align-items: center;
+  background: $mail-bg;
+  display: flex;
+  flex-direction: column;
+  font-family: $system-font;
+  height: 100%;
+  justify-content: center;
+  width: 100%;
+}

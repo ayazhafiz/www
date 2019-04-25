@@ -1,0 +1,212 @@
+@import '../base/vars';
+
+$second-page-bg-color: #fffacd;
+$third-page-bg-color: #abdcfb;
+$personal-tab-bg-color: #f0f8ff;
+
+$first-name-color: #d87093;
+$last-name-color: #66cdaa;
+
+.scroll-container {
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+
+  &.two {
+    background-color: $second-page-bg-color;
+  }
+
+  &.three {
+    background-color: $third-page-bg-color;
+
+    .shell {
+      top: 9%;
+    }
+  }
+
+  &.self {
+    background-color: $personal-tab-bg-color;
+    display: flex;
+    height: 10%;
+  }
+}
+
+.sample-container {
+  margin: auto;
+  max-width: 90%;
+  width: 460px;
+}
+
+.social {
+  align-items: center;
+  display: flex;
+  font-family: $base-font;
+  justify-content: center;
+  letter-spacing: 0.1em;
+  top: calc(50% - 5px);
+  width: 100%;
+
+  a {
+    margin-top: -1em;
+  }
+
+  .email {
+    &,
+    &:hover,
+    &:active,
+    &:visited {
+      color: $slate;
+      margin-right: 5%;
+      z-index: 1;
+
+      .interp {
+        color: $code-interp;
+
+        .string {
+          color: $code-string;
+        }
+      }
+
+      &::after {
+        background-color: $slate;
+      }
+    }
+  }
+
+  .instagram {
+    &,
+    &:hover,
+    &:active,
+    &:visited {
+      color: $instagram;
+      margin-left: 5%;
+      z-index: 1;
+
+      &::after {
+        background-color: $instagram;
+      }
+    }
+  }
+
+  .desktop {
+    float: left;
+    width: 50%;
+
+    &.left {
+      text-align: right;
+    }
+
+    &.right {
+      text-align: left;
+    }
+  }
+}
+
+.info {
+  bottom: 3%;
+  color: $white;
+  font-family: $base-font;
+  font-size: 0.8em;
+  left: 3%;
+  line-height: 2em;
+  mix-blend-mode: difference;
+  position: fixed;
+  right: 3%;
+
+  @media screen and (max-width: $base-break) {
+    left: 10%;
+    right: 10%;
+  }
+
+  &.slid-up {
+    bottom: 12%;
+  }
+
+  .octicon {
+    display: block;
+    float: left;
+    font-size: 1em;
+    vertical-align: middle;
+  }
+
+  .year {
+    display: block;
+    float: right;
+    font: 1em/1 $code-font;
+    font-size: 1em;
+    vertical-align: middle;
+  }
+}
+
+.me {
+  display: block;
+  font-family: $code-font;
+  position: absolute;
+  right: 50%;
+  top: 50%;
+  transform: scaleX(-1) translate(-50%, -50%);
+
+  .first {
+    color: $first-name-color;
+  }
+
+  .last {
+    color: $last-name-color;
+  }
+
+  .forall {
+    font-family: $base-font;
+
+    &.desktop {
+      font-size: 1.2em;
+    }
+  }
+}
+
+.shell {
+  font-family: $code-font;
+  font-size: 0.8em;
+
+  .prompt {
+    color: $shell-prompt;
+  }
+}
+
+.difference-filter {
+  color: $white;
+  mix-blend-mode: difference;
+}
+
+.border {
+  background: $white;
+  position: fixed;
+
+  &.top {
+    height: 10px;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
+
+  &.right {
+    height: 100%;
+    right: 0;
+    top: 0;
+    width: 10px;
+  }
+
+  &.bottom {
+    bottom: 0;
+    height: 10px;
+    left: 0;
+    width: 100%;
+  }
+
+  &.left {
+    height: 100%;
+    left: 0;
+    top: 0;
+    width: 10px;
+  }
+}

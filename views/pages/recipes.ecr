@@ -1,0 +1,15 @@
+<% db.query "SELECT * FROM recipes" do |recipe| %>
+  <% recipe.each do %>
+    <h1><%= recipe.read String %></h1>
+    <code><%= recipe.read Int32 %> calories</code>
+    <% over_by = recipe.read Int32 %>
+    <ul>
+      <% recipe.read(Array(String)).each do |ingredient| %>
+        <li><%= ingredient %></li>
+      <% end %>
+    </ul>
+    <blockquote>
+      <i><%= recipe.read String %></i>
+    </blockquote>
+  <% end %>
+<% end %>

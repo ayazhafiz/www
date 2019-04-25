@@ -1,0 +1,39 @@
+name: site
+version: 0.1.0
+
+authors:
+  - hafiz
+
+targets:
+  site:
+    main: src/site.cr
+
+dependencies:
+  awscr-s3:
+    github: taylorfinnell/awscr-s3
+    version: ~> 0.3.2
+  is_mobile:
+    github: ayazhafiz/is_mobile
+    version: ~> 0.1.0
+  kemal:
+    github: kemalcr/kemal
+    version: ~> 0.25.1
+  kemal-session:
+    github: kemalcr/kemal-session
+    version: ~> 0.11.0
+  pg:
+    github: will/crystal-pg
+    version: ~> 0.15.0
+  rod:
+    github: ayazhafiz/rod
+    version: ~> 0.2.0
+  spec-kemal:
+    github: kemalcr/spec-kemal
+    version: ~> 0.4.0
+  vector:
+    github: ayazhafiz/crystal-vector
+    branch: master
+
+crystal: 0.25.0
+
+license: MIT

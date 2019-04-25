@@ -1,0 +1,64 @@
+@import '../base/vars';
+
+$code-base-color: #f8f8f2;
+$code-block-shadow: 0 1px rgba(0, 0, 0, 0.3);
+$code-block-inner-bg-color: rgba(0, 0, 0, 0.25);
+$code-block-border-color: rgba(0, 0, 0, 0.15);
+$code-inline-bg-color: #272822;
+$code-block-bg-color: rgb(26, 28, 34);
+
+code,
+pre {
+  font-family: $code-font;
+
+  &[class*='language-'] {
+    -moz-hyphens: none;
+    -moz-tab-size: 4;
+    -ms-hyphens: none;
+    -o-tab-size: 4;
+    -webkit-hyphens: none;
+    align-content: center;
+    align-items: center;
+    align-self: center;
+    background: none;
+    color: $code-base-color;
+    hyphens: none;
+    line-height: 1.5;
+
+    tab-size: 4;
+    text-align: left;
+    text-shadow: $code-block-shadow;
+
+    white-space: pre;
+    word-break: normal;
+    word-spacing: normal;
+    word-wrap: normal;
+  }
+}
+
+pre {
+  &[class*='language-'] {
+    background-color: $code-block-bg-color;
+    border-radius: 0.3em;
+    margin: 0.5em 0;
+    overflow: auto;
+    padding: 1em;
+
+    &.block {
+      background-color: $code-block-inner-bg-color;
+      border-color: $code-block-border-color;
+      @media screen and (max-width: $base-break) {
+        font-size: 3.25vmin;
+      }
+    }
+  }
+}
+
+:not(pre) > code {
+  &[class*='language-'] {
+    background-color: $code-inline-bg-color;
+    border-radius: 0.3em;
+    padding: 0.1em;
+    white-space: normal;
+  }
+}

@@ -1,0 +1,54 @@
+version: 1.0
+shards:
+  awscr-s3:
+    github: taylorfinnell/awscr-s3
+    version: 0.3.3
+
+  awscr-signer:
+    github: taylorfinnell/awscr-signer
+    version: 0.5.3
+
+  db:
+    github: crystal-lang/crystal-db
+    version: 0.5.1
+
+  exception_page:
+    github: crystal-loot/exception_page
+    version: 0.1.1
+
+  is_mobile:
+    github: ayazhafiz/is_mobile
+    version: 0.1.0
+
+  kemal:
+    github: kemalcr/kemal
+    version: 0.25.1
+
+  kemal-session:
+    github: kemalcr/kemal-session
+    version: 0.11.0
+
+  kilt:
+    github: jeromegn/kilt
+    version: 0.4.0
+
+  pg:
+    github: will/crystal-pg
+    version: 0.15.0
+
+  radix:
+    github: luislavena/radix
+    version: 0.3.8
+
+  rod:
+    github: ayazhafiz/rod
+    version: 0.2.0
+
+  spec-kemal:
+    github: kemalcr/spec-kemal
+    version: 0.4.0
+
+  vector:
+    github: ayazhafiz/crystal-vector
+    commit: 0eae7014f4e496dff2b80aacbd66c2efe53f78bd
+

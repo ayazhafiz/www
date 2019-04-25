@@ -1,0 +1,13 @@
+<p>
+  <% ABOUT[:languages].each do |lang| %>
+  <span class="language" style="opacity: <%= lang[:proficiency] %>">
+    <span class="color <%= lang[:short] %>"></span><%= lang[:name] %>
+  </span>
+  <% end %>
+</p>
+<p>
+  <%= ABOUT[:experiences][render_lang] %>
+</p>
+<p>
+  <%= generate_about_hobbies(render_lang, apple?) %>
+</p>

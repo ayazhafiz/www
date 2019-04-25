@@ -1,0 +1,23 @@
+# development and modules
+/doc/
+/lib/
+/bin/
+/target/
+/node_modules/
+/.shards/
+/public/scripts/
+
+# system files
+.DS_Store
+
+# binaries
+podddina
+sentry
+/site
+/dev/
+*.dwarf
+
+# generated files
+/public/css/*
+/public/js/*
+webpack-manifest.json
