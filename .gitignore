@@ -6,6 +6,7 @@
 /node_modules/
 /.shards/
 /public/scripts/
+.env
 
 # system files
 .DS_Store

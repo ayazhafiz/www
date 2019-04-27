@@ -13,11 +13,9 @@ module Util::Index
     intro: {
       "en" => <<-HTML,
               <p> Hey! I'm <span class="quasi name en"></span>.
-                  I make stuff, currently at
-                  <a href="https://vanderbilt.edu">Vanderbilt</a>.
+                  I am an undergrad at Vanderbilt.
                   This summer I will be working at
-                  <a href="https://cloud.google.com">Google</a>, but
-                  <span class="quasi contact-proj en"></span> side projects.
+                  <a href="https://cloud.google.com">Google</a>.
               </p>
               HTML
       "ru" => <<-HTML,
@@ -29,12 +27,13 @@ module Util::Index
               HTML
     },
     future: {
-      "en" => <<-HTML,
-              <p> My social and developmental career interests are in
-                  diversification and
-                  <a href="https://en.wikipedia.org/wiki/Ownership_(psychology)">ownership</a>.
-              </p>
-              HTML
+      "en" => "",
+              # <<-HTML,
+              # <p> My social and developmental interests are in
+              #     diversification and
+              #     <a href="https://en.wikipedia.org/wiki/Ownership_(psychology)">ownership</a>.
+              # </p>
+              # HTML
       "ru" => <<-HTML,
               <p> Этим летом я буду работать в
                 <a href="https://cloud.google.com">Google</a>
@@ -44,9 +43,9 @@ module Util::Index
     },
     learn_more: {
       "en" => <<-HTML,
-              <p> Work speaks louder than words, so below you can
+              <p> Below you can
                   <span class="quasi expand en"></span> the things I've done
-                  (and see who I'm about).
+                  (and see what I'm about).
               </p>
               HTML
       "ru" => <<-HTML,
