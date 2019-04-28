@@ -1,6 +1,7 @@
 site: clean
+	. .env
 	cargo build --release
-	./build.sh
+	. build.sh
 
 clean:
 	rm -f ./site
