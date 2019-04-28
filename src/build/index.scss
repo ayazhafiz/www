@@ -50,13 +50,17 @@ html {
 body {
   background: $homepage-bg-color;
   color: $homepage-text-color;
+  display: flex;
   font-family: $system-font;
   font-weight: 300;
   line-height: 2em;
 
   & .content {
+    margin: auto;
+    margin-left: 0;
     overflow: auto;
     padding-left: 10%;
+    width: 90%;
 
     > p {
       margin: 0;
@@ -187,6 +191,12 @@ img {
   padding-left: 150px;
   position: relative;
   width: 100%;
+
+  &:first-of-type {
+    & h3 {
+      margin-top: 0;
+    }
+  }
 }
 
 input {
@@ -465,7 +475,7 @@ label {
 p {
   &.hash {
     // sass-lint:disable no-important
-    margin-top: 2em !important;
+    margin-top: 1.5em !important;
   }
 }
 
@@ -518,10 +528,6 @@ p {
 
   .mobile {
     display: none;
-  }
-
-  .content {
-    padding-top: 5em;
   }
 
   p {

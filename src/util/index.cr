@@ -13,7 +13,7 @@ module Util::Index
     intro: {
       "en" => <<-HTML,
               <p> Hey! I'm <span class="quasi name en"></span>.
-                  I am an undergrad at Vanderbilt.
+                  I am a CS/Chemistry undergrad at Vanderbilt.
                   This summer I will be working at
                   <a href="https://cloud.google.com">Google</a>.
               </p>
@@ -27,7 +27,11 @@ module Util::Index
               HTML
     },
     future: {
-      "en" => "",
+      "en" => <<-HTML,
+              <p> I study and engineer codes. My current focus is in language design
+                  and applications of linear algebra.
+              </p>
+              HTML
               # <<-HTML,
               # <p> My social and developmental interests are in
               #     diversification and
@@ -44,7 +48,7 @@ module Util::Index
     learn_more: {
       "en" => <<-HTML,
               <p> Below you can
-                  <span class="quasi expand en"></span> the things I've done
+                  <span class="quasi expand en"></span> my experiences
                   (and see what I'm about).
               </p>
               HTML
@@ -221,6 +225,11 @@ module Util::Index
         proficiency: 1,
       },
       {
+        name:        "Rust",
+        short:       "rs",
+        proficiency: 1,
+      },
+      {
         name:        "JavaScript",
         short:       "js",
         proficiency: 1,
@@ -231,24 +240,19 @@ module Util::Index
         proficiency: 1,
       },
       {
+        name:        "C",
+        short:       "c",
+        proficiency: 0.9,
+      },
+      {
         name:        "Crystal",
         short:       "cr",
-        proficiency: 0.9,
+        proficiency: 0.8,
       },
       {
         name:        "Ruby",
         short:       "rb",
         proficiency: 0.8,
-      },
-      {
-        name:        "Rust",
-        short:       "rs",
-        proficiency: 0.8,
-      },
-      {
-        name:        "C",
-        short:       "c",
-        proficiency: 0.7,
       },
       {
         name:        "Python",
