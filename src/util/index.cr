@@ -28,8 +28,8 @@ module Util::Index
     },
     future: {
       "en" => <<-HTML,
-              <p> I study and engineer codes. My current focus is in language design
-                  and applications of linear algebra.
+              <p> I study and engineer codes. My current foci are in language design
+                  and computer graphics.
               </p>
               HTML
               # <<-HTML,
