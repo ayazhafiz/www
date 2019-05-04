@@ -6,7 +6,7 @@ shards:
 
   awscr-signer:
     github: taylorfinnell/awscr-signer
-    version: 0.5.3
+    commit: e7286e10dffbeeeec5486aca0ec5c7df16e86840
 
   db:
     github: crystal-lang/crystal-db

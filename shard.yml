@@ -9,11 +9,11 @@ targets:
     main: src/site.cr
 
 dependencies:
-  awscr-s3:
-    github: taylorfinnell/awscr-s3
-    branch: master
   awscr-signer:
     github: taylorfinnell/awscr-signer
+    branch: master
+  awscr-s3:
+    github: taylorfinnell/awscr-s3
     branch: master
   is_mobile:
     github: ayazhafiz/is_mobile
