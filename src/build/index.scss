@@ -84,8 +84,14 @@ h3 {
   }
 }
 
+b {
+  font-weight: 400;
+}
+
 small {
-  font-size: 0.7em;
+  display: block;
+  line-height: 1.5em;
+  margin-top: 1em;
 }
 
 a {
@@ -502,12 +508,12 @@ p {
         max-height: 30em;
       }
 
-      &.links {
-        max-height: 15em;
-      }
-
       &.about {
         max-height: 25em;
+      }
+
+      &.links {
+        max-height: 17.5em;
       }
     }
   }

@@ -28,16 +28,16 @@ module Util::Index
     },
     future: {
       "en" => <<-HTML,
-              <p> I study and engineer codes. My current foci are in language design
-                  and computer graphics.
+              <p> I study and engineer codes. My current focus is on
+              <b>language design</b> and <b>graphics rendering</b>.
               </p>
               HTML
-              # <<-HTML,
-              # <p> My social and developmental interests are in
-              #     diversification and
-              #     <a href="https://en.wikipedia.org/wiki/Ownership_(psychology)">ownership</a>.
-              # </p>
-              # HTML
+      # <<-HTML,
+      # <p> My social and developmental interests are in
+      #     diversification and
+      #     <a href="https://en.wikipedia.org/wiki/Ownership_(psychology)">ownership</a>.
+      # </p>
+      # HTML
       "ru" => <<-HTML,
               <p> Этим летом я буду работать в
                 <a href="https://cloud.google.com">Google</a>
@@ -351,8 +351,10 @@ module Util::Index
 
   API_EDIT_MSG = {
     "en" => <<-HTML,
-            If you wanna view or edit the "secret" APIs of this website, check out
+            This website hosts public APIs that can be browsed at
             <a href="https://github.com/ayazhafiz/crystal-ah">the source</a>.
+            If you're here for my workspace configuration,
+            <a href="https://github.com/ayazhafiz/hmcd">see my dotfiles</a>.
             HTML
     "ru" => <<-HTML,
             Если вы хотите просматривать или редактировать «секретные» API этого веб-сайта,
