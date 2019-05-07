@@ -15,8 +15,7 @@ $base-px: 16px;
 $base-break: 767px;
 
 $base-font: Quicksand;
-$code-font: 'Dejavu Sans Mono', Menlo, Monaco, Consolas, 'Courier New',
-  monospace;
+$code-font: SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier, monospace;
 $system-font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
   'Helvetica Neue', Helvetica, Arial, sans-serif, 'Apple Color Emoji',
   'Segoe UI Emoji', 'Segoe UI Symbol';
@@ -38,7 +37,7 @@ $shell-cmd: rgb(239, 240, 235);
 $shell-bg: rgb(40, 42, 54);
 $shell-shadow: rgb(32, 34, 43);
 $shell-tab-shadow: $shell-shadow;
-$shell-font: Menlo, $code-font;
+$shell-font: $code-font;
 
 $code-base: rgb(39, 40, 34);
 $code-interp: rgb(228, 85, 70);

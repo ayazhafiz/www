@@ -6,13 +6,10 @@ $h3-section-hover-color: #55919d;
 $h3-section-hash-hover-color: #000;
 $h3-section-opened-color: #55919d;
 
-$link-color: #55919d;
+$link-color: rgb(3, 102, 214);
 $personal-link-color: #0366d6;
-$quote-border-color: #dfe2e5;
-$quote-border-left: 0.1em solid $quote-border-color;
 
-$quasi-text: rgb(3, 169, 244);
-$quasi-text-border-bottom: 1px solid rgba($quasi-text, 0.75);
+$quasi-color: #025bc0;
 $work-previous-color: #8995a2;
 $prog-language-text-color: #111;
 $chemistry-tags-color: #8995a2;
@@ -69,7 +66,6 @@ body {
 }
 
 h3 {
-  font-weight: 400;
   letter-spacing: 0.2em;
   margin-bottom: 0;
 
@@ -84,7 +80,15 @@ h3 {
   }
 }
 
-b {
+body,
+quote,
+small {
+  font-weight: 300;
+}
+
+a,
+b,
+h3 {
   font-weight: 400;
 }
 
@@ -100,6 +104,16 @@ a {
   &:hover,
   &:visited {
     color: $link-color;
+  }
+
+  &,
+  &:active,
+  &:visited {
+    text-decoration: none;
+  }
+
+  &:hover {
+    text-decoration: underline;
   }
 
   &.pgp {
@@ -131,7 +145,8 @@ img {
       }
     }
   }
-  border-bottom: $quasi-text-border-bottom;
+
+  color: $quasi-color;
 
   &.name {
     &.en {
@@ -354,7 +369,7 @@ label {
     font-weight: 400;
     margin-bottom: 0;
     padding: 0 1em;
-    
+
     .mr {
       display: inline-block;
       width: 1.2em;
@@ -364,7 +379,7 @@ label {
     > span,
     .l,
     .mr {
-      margin-right: 1em;
+      margin-right: 0.25em;
     }
 
     .l {
@@ -387,10 +402,7 @@ label {
     }
 
     quote {
-      border-left: $quote-border-left;
       display: inline-block;
-      font-weight: 300;
-      padding: 0 1em;
     }
 
     .language {

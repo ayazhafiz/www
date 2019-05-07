@@ -14,7 +14,7 @@ module Util::Index
       "en" => <<-HTML,
               <p> Hey! I'm <span class="quasi name en"></span>.
                   I am a CS/Chemistry undergrad at Vanderbilt.
-                  This summer I will be working at
+                  This summer I am working at
                   <a href="https://cloud.google.com">Google</a>.
               </p>
               HTML
