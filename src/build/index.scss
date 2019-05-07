@@ -354,6 +354,11 @@ label {
     font-weight: 400;
     margin-bottom: 0;
     padding: 0 1em;
+    
+    .mr {
+      display: inline-block;
+      width: 1.2em;
+    }
 
     > a,
     > span,
