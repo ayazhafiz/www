@@ -56,7 +56,7 @@ body {
     margin: auto;
     margin-left: 0;
     overflow: auto;
-    padding-left: 10%;
+    padding: 9rem 0 9rem 10%;
     width: 90%;
 
     > p {
@@ -372,13 +372,13 @@ label {
 
     .mr {
       display: inline-block;
+      margin-right: 0.8em;
       width: 1.2em;
     }
 
     > a,
     > span,
-    .l,
-    .mr {
+    .l {
       margin-right: 0.25em;
     }
 
@@ -506,6 +506,7 @@ p {
   body {
     & .content {
       padding: 1em;
+      width: 100%;
 
       > p {
         &:not(:first-of-type) {
