@@ -159,14 +159,14 @@ DB.open ENV["HAFIZMAIL_DB"] do |db|
 
     if username && password
       username, password = URI.unescape(username), URI.unescape(password)
-      valid_user? = HTTP::Mail::Server::User.valid?(
+      valid_user = HTTP::Mail::Server::User.valid?(
         username,
         password,
         database: db)
-      env.session.string("user", username) if valid_user?
+      env.session.string("user", username) if valid_user
 
       {
-        valid: valid_user?,
+        valid: valid_user,
       }.to_json
     else
       {

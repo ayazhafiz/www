@@ -7,8 +7,8 @@ module Util::Emoji
   # Renders an emoji image in HTML.
   def render(emoji : String,
              base_url : String = BASE_URL,
-             native_display? = false) : String
-    if native_display?
+             native_display = false) : String
+    if native_display
       emoji
     else
       <<-HTML

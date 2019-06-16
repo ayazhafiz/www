@@ -305,12 +305,12 @@ module Util::Index
     },
   }
 
-  def generate_about_hobbies(lang, apple?)
+  def generate_about_hobbies(lang, apple)
     ABOUT[:hobbies][lang]
-      .sub(":ski_emoji:", Util::Emoji.render("⛷", native_display?: apple?))
-      .sub(":burrito_emoji:", Util::Emoji.render("🌯", native_display?: apple?))
-      .sub(":controller_emoji:", Util::Emoji.render("🎛", native_display?: apple?))
-      .sub(":dancer_emoji:", Util::Emoji.render("🕺", native_display?: apple?))
+      .sub(":ski_emoji:", Util::Emoji.render("⛷", native_display: apple))
+      .sub(":burrito_emoji:", Util::Emoji.render("🌯", native_display: apple))
+      .sub(":controller_emoji:", Util::Emoji.render("🎛", native_display: apple))
+      .sub(":dancer_emoji:", Util::Emoji.render("🕺", native_display: apple))
   end
 
   # Array of personal links.

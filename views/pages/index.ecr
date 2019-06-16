@@ -13,7 +13,7 @@
     <input id="tab-0" type="checkbox" name="<%= PARTIAL[:section][0][:tag]["en"] %>">
     <label for="tab-0"><h3><span class="hash">###</span>
       <%= PARTIAL[:section][0][:tag][render_lang].capitalize %>
-      <%= Util::Emoji.render PARTIAL[:section][0][:emoji], native_display?: apple? %>
+      <%= Util::Emoji.render PARTIAL[:section][0][:emoji], native_display: apple %>
     </h3></label>
     <div class="tab-content <%= PARTIAL[:section][0][:tag]["en"] %>">
       <%= render {{ PARTIAL[:section][0][:view] }} %>
@@ -24,7 +24,7 @@
     <input id="tab-1" type="checkbox" name="<%= PARTIAL[:section][1][:tag]["en"] %>">
     <label for="tab-1"><h3><span class="hash">###</span>
       <%= PARTIAL[:section][1][:tag][render_lang].capitalize %>
-      <%= Util::Emoji.render PARTIAL[:section][1][:emoji], native_display?: apple? %>
+      <%= Util::Emoji.render PARTIAL[:section][1][:emoji], native_display: apple %>
     </h3></label>
     <div class="tab-content <%= PARTIAL[:section][1][:tag]["en"] %>">
       <%= render {{ PARTIAL[:section][1][:view] }} %>
@@ -35,7 +35,7 @@
     <input id="tab-2" type="checkbox" name="<%= PARTIAL[:section][2][:tag]["en"] %>">
     <label for="tab-2"><h3><span class="hash">###</span>
       <%= PARTIAL[:section][2][:tag][render_lang].capitalize %>
-      <%= Util::Emoji.render PARTIAL[:section][2][:emoji], native_display?: apple? %>
+      <%= Util::Emoji.render PARTIAL[:section][2][:emoji], native_display: apple %>
     </h3></label>
     <div class="tab-content <%= PARTIAL[:section][2][:tag]["en"] %>">
       <%= render {{ PARTIAL[:section][2][:view] }} %>
@@ -46,7 +46,7 @@
     <input id="tab-3" type="checkbox" name="<%= PARTIAL[:section][3][:tag]["en"] %>">
     <label for="tab-3"><h3><span class="hash">###</span>
       <%= PARTIAL[:section][3][:tag][render_lang].capitalize %>
-      <%= Util::Emoji.render PARTIAL[:section][3][:emoji], native_display?: apple? %>
+      <%= Util::Emoji.render PARTIAL[:section][3][:emoji], native_display: apple %>
     </h3></label>
     <div class="tab-content <%= PARTIAL[:section][3][:tag]["en"] %>">
       <%= render {{ PARTIAL[:section][3][:view] }} %>

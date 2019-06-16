@@ -2,7 +2,7 @@
 <p <% if project[:latest]? %>
     class="side-text latest project <%= render_lang %>"
 <% end %>>
-  <span class="emoji"><%= Util::Emoji.render project[:emoji], native_display?: apple? %></span>
+  <span class="emoji"><%= Util::Emoji.render project[:emoji], native_display: apple %></span>
   <a class="quote-title" href="<%= project[:link] %>"><%= project[:title] %></a>
   <quote>
     <%= project[:desc][render_lang] %>
