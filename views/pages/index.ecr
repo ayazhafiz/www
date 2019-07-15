@@ -1,9 +1,17 @@
 <div class="content">
-  <%= HEADER[:intro][render_lang] %>
-  <%= HEADER[:future][render_lang] %>
-  <br />
-  <%= HEADER[:learn_more][render_lang] %>
-  <%= HEADER[:eccentric_me][render_lang] %>
+  <section>
+    <div class="section-text">
+      <%= HEADER[:intro][render_lang] %>
+      <%= HEADER[:future][render_lang] %>
+      <br />
+      <%= HEADER[:learn_more][render_lang] %>
+      <%= HEADER[:eccentric_me][render_lang] %>
+    </div>
+    <div class="section-img">
+      <div class="self-clip"></div>
+      <div class="other-clip"></div>
+    </div>
+  </section>
   <br />
 
   <% # Can't be done iteratively because `render` requires a constant.
