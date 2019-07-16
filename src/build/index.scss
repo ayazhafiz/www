@@ -14,6 +14,24 @@ $work-previous-color: #8995a2;
 $prog-language-text-color: #111;
 $chemistry-tags-color: #8995a2;
 
+section {
+  &.experiment-self-image-placement {
+    flex-direction: column-reverse;
+
+    .section-img {
+      margin: -4em 0 1em;
+      transform: rotate(0);
+
+      .self-clip,
+      .other-clip {
+        &::after {
+          transform: rotate(0);
+        }
+      }
+    }
+  }
+}
+
 html,
 body {
   height: 100%;

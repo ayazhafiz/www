@@ -1,5 +1,5 @@
 <div class="content">
-  <section>
+<section <%= Random.rand(2) % 2 === 0 ? "class=\"experiment-self-image-placement\"" : "" %> >
     <div class="section-text">
       <%= HEADER[:intro][render_lang] %>
       <%= HEADER[:future][render_lang] %>
@@ -7,6 +7,8 @@
       <%= HEADER[:learn_more][render_lang] %>
       <%= HEADER[:eccentric_me][render_lang] %>
     </div>
+    <% # experiment/self-image-placement
+    %>
     <div class="section-img">
       <div class="self-clip" role="button" tabIndex="0"></div>
       <div class="other-clip" role="button" tabIndex="0"></div>
