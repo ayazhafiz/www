@@ -349,16 +349,22 @@ module Util::Index
     },
   ]
 
-  API_EDIT_MSG = {
+  def generate_tail(lang, mobile)
+    TAIL_MSG[lang].sub(":maybe_statement:", mobile ? "<br/><br/>Sorry if the hover's been weird." : "")
+  end
+
+  TAIL_MSG = {
     "en" => <<-HTML,
-            This website hosts public APIs that can be browsed at
+            This website hosts public APIs documented in
             <a href="https://github.com/ayazhafiz/crystal-ah">the source</a>.
-            If you're here for my workspace configuration,
-            <a href="https://github.com/ayazhafiz/hmcd">see my dotfiles</a>.
+            An opinionated workspace configuration is
+            <a href="https://github.com/ayazhafiz/hmcd"><code>hmcd</code></a>.
+            :maybe_statement:
             HTML
     "ru" => <<-HTML,
             Если вы хотите просматривать или редактировать «секретные» API этого веб-сайта,
             <a href="https://github.com/ayazhafiz/crystal-ah">проверьте репозиторий</a>.
+            :maybe_statement:
             HTML
   }
 end

@@ -68,6 +68,10 @@ body {
   }
 }
 
+code {
+  font-family: $code-font;
+}
+
 section {
   display: flex;
   flex-direction: row;
@@ -854,7 +858,7 @@ p {
       }
 
       &.links {
-        max-height: 17.5em;
+        max-height: 20em;
       }
     }
   }
