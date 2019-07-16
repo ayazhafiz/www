@@ -74,7 +74,7 @@ section {
 
   .section-img {
     background-image: url('/img/self.jpg');
-    background-size: cover;
+    background-size: contain;
     clip-path: polygon(
       0% 100%,
       100.09% 99.91%,
@@ -193,6 +193,7 @@ section {
     );
     height: 10em;
     margin-left: -1.5em;
+    min-width: 10em; // force min box size
     opacity: 0.7;
     position: relative;
     transform: rotate(-90deg);
@@ -224,8 +225,6 @@ section {
 
       // Overlay on self image.
       &::before {
-        $overlay: rgba(255, 128, 0, 0.5);
-        background: $overlay;
         content: '';
         height: 100%;
         position: absolute;
@@ -301,6 +300,11 @@ section {
         0% 74.69%
       );
 
+      &::before {
+        $overlay: rgba(255, 128, 0, 0.5); // sorange
+        background: $overlay;
+      }
+
       &::after {
         content: 'me';
       }
@@ -369,6 +373,11 @@ section {
         58.14% 99.91%,
         57.7% 100%
       );
+
+      &::before {
+        $overlay: rgba(225, 45, 190, 0.5); // spink
+        background: $overlay;
+      }
 
       &::after {
         content: 'nme';
@@ -856,6 +865,13 @@ p {
     .section-img {
       margin: -4em 0 1em;
       transform: rotate(0);
+
+      .self-clip,
+      .other-clip {
+        &::after {
+          transform: rotate(0);
+        }
+      }
     }
   }
 }
