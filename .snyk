@@ -6,3 +6,5 @@ patch:
   SNYK-JS-LODASH-450202:
     - eslint > inquirer > lodash:
         patched: '2019-07-15T07:19:48.708Z'
+    - snyk > snyk-nuget-plugin > lodash:
+        patched: '2019-07-16T07:19:51.510Z'
