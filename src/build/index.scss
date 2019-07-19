@@ -14,24 +14,6 @@ $work-previous-color: #8995a2;
 $prog-language-text-color: #111;
 $chemistry-tags-color: #8995a2;
 
-section {
-  &.experiment-self-image-placement {
-    flex-direction: column-reverse;
-
-    .section-img {
-      margin: -4em 0 1em;
-      transform: rotate(0);
-
-      .self-clip,
-      .other-clip {
-        &::after {
-          transform: rotate(0);
-        }
-      }
-    }
-  }
-}
-
 html,
 body {
   height: 100%;
@@ -92,7 +74,7 @@ code {
 
 section {
   display: flex;
-  flex-direction: row;
+  flex-direction: column-reverse;
 
   .section-img {
     background-image: url('/img/self.jpg');
@@ -214,17 +196,14 @@ section {
       0% 74.69%
     );
     height: 10em;
-    margin-left: -1.5em;
+    margin: -3em 0 1em;
     min-width: 10em; // force min box size
     opacity: 0.7;
     position: relative;
-    transform: rotate(-90deg);
-    transition: opacity 0.3s;
     width: 10em;
 
     &:hover {
       opacity: 0.85;
-      transition: opacity 0.3s;
     }
 
     .self-clip,
@@ -258,7 +237,6 @@ section {
         color: $white;
         left: 15%;
         position: absolute;
-        transform: rotate(90deg);
       }
     }
 
@@ -877,22 +855,6 @@ p {
 
       &.links {
         max-height: 20em;
-      }
-    }
-  }
-
-  section {
-    flex-direction: column-reverse;
-
-    .section-img {
-      margin: -4em 0 1em;
-      transform: rotate(0);
-
-      .self-clip,
-      .other-clip {
-        &::after {
-          transform: rotate(0);
-        }
       }
     }
   }
