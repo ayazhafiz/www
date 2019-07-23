@@ -321,7 +321,7 @@ module Util::Index
         "ru" => "блог",
       },
       link:  "https://cc.ayazhafiz.com",
-      emoji: "🥐",
+      emoji: "📮",
     },
     {
       title: {
