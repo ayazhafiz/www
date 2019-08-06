@@ -2,7 +2,7 @@
 module Util::Emoji
   extend self
 
-  private BASE_URL = "https://github.githubassets.com/images/icons/emoji"
+  private BASE_URL = "https://glcdn.githack.com/ayazhafiz/emoji-img/raw/master/public/"
 
   # Renders an emoji image in HTML.
   def render(emoji : String,
