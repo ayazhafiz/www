@@ -1,8 +1,14 @@
 <% PROJECTS.each do |project| %>
 <p <% if project[:latest]? %>
     class="side-text latest project <%= render_lang %>"
-<% end %>>
-  <span class="emoji"><%= Util::Emoji.render project[:emoji], native_display: apple %></span>
+   <% end %>>
+  <span class="emoji">
+    <% if project[:emoji].starts_with?("http") %>
+      <img class="emoji <%= project[:scale]? %>" src="<%= project[:emoji] %>" />
+    <% else %>
+      <%= Util::Emoji.render project[:emoji], native_display: apple %>
+    <% end %>
+  </span>
   <a class="quote-title" href="<%= project[:link] %>"><%= project[:title] %></a>
   <quote>
     <%= project[:desc][render_lang] %>

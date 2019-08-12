@@ -14,8 +14,6 @@ module Util::Index
       "en" => <<-HTML,
               <p> Hey! I'm <span class="quasi name en"></span>.
                   I am a CS/Chemistry undergrad at Vanderbilt.
-                  This summer I am working at
-                  <a href="https://cloud.google.com">Google</a>.
               </p>
               HTML
       "ru" => <<-HTML,
@@ -29,7 +27,7 @@ module Util::Index
     future: {
       "en" => <<-HTML,
               <p> I study and engineer codes. My current focus is on
-              <b>language design</b> and <b>graphics rendering</b>.
+              <b>language and compiler design</b>.
               </p>
               HTML
       # <<-HTML,
@@ -39,34 +37,22 @@ module Util::Index
       # </p>
       # HTML
       "ru" => <<-HTML,
-              <p> Этим летом я буду работать в
-                <a href="https://cloud.google.com">Google</a>
-                на Angular и их платформе cloud.
+              <p> Я инженер-кода. Мой текущий фокус на
+              <b>языках и разработке компиляторов</b>.
               </p>
               HTML
     },
     learn_more: {
       "en" => <<-HTML,
               <p> Below you can
-                  <span class="quasi expand en"></span> my experiences
-                  (and see what I'm about).
+                  <span class="quasi expand en"></span> my experiences. To get started,
+                  <a href="/?ui">here's a feel for my style</a>.
               </p>
               HTML
       "ru" => <<-HTML,
               <p> Работа сильнее слов. По этой причине, ниже вы можете
                   <span class="quasi expand ru"></span> вещей с чем я занимаюсь
-                  (и увидете кто я такой).
-              </p>
-              HTML
-    },
-    eccentric_me: {
-      "en" => <<-HTML,
-              <p> To get started,
-                  <a href="/?ui">here's a feel for my style</a>.
-              </p>
-              HTML
-      "ru" => <<-HTML,
-              <p> Для начала,
+                  (и увидете кто я такой). Для начала,
                   <a href="/?ui">вот мой стиль</a>.
               </p>
               HTML
@@ -75,6 +61,36 @@ module Util::Index
 
   # Array of selected projects.
   PROJECTS = [
+    {
+      title: "Angular",
+      link:  "https://github.com/angular/angular",
+      desc:  {
+        "en" => "Work on the Angular compiler and language analysis tools.",
+        "ru" => "Работа над Angular компилятором и инструментами анализа языка.",
+      },
+      emoji:  "https://angular.io/assets/images/logos/angular/angular.svg",
+      scale:  "scale-12",
+      latest: true,
+    },
+    {
+      title: "Kythe",
+      link:  "https://github.com/kythe/kythe",
+      desc:  {
+        "en" => "Work on TypeScript source code indexer for the Kythe framework.",
+        "ru" => "Работа над Angular компилятором и инструментами анализа языка.",
+      },
+      emoji: "https://avatars3.githubusercontent.com/u/44679334?s=200&v=4",
+      scale: "scale-15",
+    },
+    {
+      title: "sherpa_41",
+      link:  "https://github.com/ayazhafiz/sherpa_41",
+      desc:  {
+        "en" => "Well-architectured, trivial browser engine.",
+        "ru" => "Хорошо спроектированный, тривиальный браузер.",
+      },
+      emoji: "⛰",
+    },
     {
       title: "position",
       link:  "https://github.com/ayazhafiz/position",
@@ -97,16 +113,6 @@ module Util::Index
       emoji: "📨",
     },
     {
-      title: "sherpa_41",
-      link:  "https://github.com/ayazhafiz/sherpa_41",
-      desc:  {
-        "en" => "Well-architectured, trivial browser engine.",
-        "ru" => "Хорошо спроектированный, тривиальный браузер.",
-      },
-      emoji:  "⛰",
-      latest: true,
-    },
-    {
       title: "rcalc",
       link:  "https://github.com/ayazhafiz/rcalc",
       desc:  {
@@ -126,48 +132,20 @@ module Util::Index
       },
       emoji: "🏇",
     },
-    {
-      title: "30 Days of Crystal",
-      link:  "https://github.com/ayazhafiz/30-Days-of-Crystal",
-      desc:  {
-        "en" => "30 exercises in the Crystal programming language.",
-        "ru" => "30 упражнений на языке программирования «Crystal».",
-      },
-      emoji: "🌷",
-    },
-    {
-      title: "rod",
-      link:  "https://github.com/ayazhafiz/rod",
-      desc:  {
-        "en" => "Another esoteric language.",
-        "ru" => "Еще один эзотерический язык.",
-      },
-      emoji: "🎣",
-    },
-    {
-      title: "calc-cli",
-      link:  "https://github.com/ayazhafiz/calc-cli",
-      desc:  {
-        "en" => "Calculus (and other stuff) in your terminal.",
-        "ru" => "Матанализ (и прочее) в вашем терминале.",
-      },
-      emoji: "🍉",
-    },
   ]
 
   # Array of past + current experiences.
   WORK = [
     {
-      title: "Vanderbilt Tong Lab",
+      title: "Google",
       desc:  {
         "en" => <<-HTML,
-                Machine modeling of human
-                <a href="http://www.psy.vanderbilt.edu/tonglab/web/research.html">vision and object recognition</a>
-                patterns.
+                Development of
+                <a href="https://cc.ayazhafiz.com/articles/19/what-i-did-this-summer">source code indexers</a>
+                as a SWE intern on the Angular team.
                 HTML
         "ru" => <<-HTML,
-                Компьютерное моделирование формы человеческого
-                <a href="http://www.psy.vanderbilt.edu/tonglab/web/research.html">зрения и распознавания объектов</a>.
+                Разработал индексаторы кода в качестве программист-интерн под команде Angular.
                 HTML
       },
       first_latest: true,
@@ -183,6 +161,20 @@ module Util::Index
                 HTML
       },
       first_previous: true,
+    },
+    {
+      title: "Vanderbilt Tong Lab",
+      desc:  {
+        "en" => <<-HTML,
+                Machine modeling of human
+                <a href="http://www.psy.vanderbilt.edu/tonglab/web/research.html">vision and object recognition</a>
+                patterns.
+                HTML
+        "ru" => <<-HTML,
+                Компьютерное моделирование формы человеческого
+                <a href="http://www.psy.vanderbilt.edu/tonglab/web/research.html">зрения и распознавания объектов</a>.
+                HTML
+      },
     },
     {
       title: "meetHere",
