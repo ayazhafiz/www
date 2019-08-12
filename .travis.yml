@@ -1,4 +1,6 @@
 language: crystal
+crystal:
+  - 0.29.0
 cache:
   - cargo
   - shards
