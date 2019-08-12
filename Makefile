@@ -1,5 +1,5 @@
 site: clean
-	. .env
+	source .env
 	cargo build --release
 	. build.sh
 

@@ -453,6 +453,14 @@ img {
     height: 1.2em;
     vertical-align: -8%;
   }
+
+  &.scale-12 {
+    transform: scale(1.2);
+  }
+
+  &.scale-15 {
+    transform: scale(1.5);
+  }
 }
 
 .quasi {
