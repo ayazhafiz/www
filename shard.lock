@@ -2,11 +2,11 @@ version: 1.0
 shards:
   awscr-s3:
     github: taylorfinnell/awscr-s3
-    commit: 3ec7eb7df65f756b2e9e187e9c68fe603eab7937
+    commit: 1590ff053168a52d83948616634645ac346667f2
 
   awscr-signer:
     github: taylorfinnell/awscr-signer
-    commit: e7286e10dffbeeeec5486aca0ec5c7df16e86840
+    commit: 6851f3b15d95804a57e677fbe4b9329b20c92088
 
   db:
     github: crystal-lang/crystal-db

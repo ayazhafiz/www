@@ -1,6 +1,6 @@
 language: crystal
 crystal:
-  - 0.29.0
+  - latest
 cache:
   - cargo
   - shards
