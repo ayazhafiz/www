@@ -13,7 +13,10 @@ module Util::Index
     intro: {
       "en" => <<-HTML,
               <p> Hey! I'm <span class="quasi name en"></span>.
-                  I am a CS/Chemistry undergrad at Vanderbilt.
+                  I am a CS/Chemistry undergrad at
+                  <a href="https://vanderbilt.edu">Vanderbilt</a>
+                  and an <a href="https://angular.io">Angular</a>
+                  contributor.
               </p>
               HTML
       "ru" => <<-HTML,
@@ -26,8 +29,10 @@ module Util::Index
     },
     future: {
       "en" => <<-HTML,
-              <p> I study and engineer codes. My current focus is on
-              <b>language and compiler design</b>.
+              <p> My interest is in
+                  <b>compilers and language tools</b>. I previously
+                  <a href="https://cc.ayazhafiz.com/articles/19/what-i-did-this-summer">worked</a>
+                  at Google in this domain.
               </p>
               HTML
       # <<-HTML,
@@ -44,7 +49,7 @@ module Util::Index
     },
     learn_more: {
       "en" => <<-HTML,
-              <p> Below you can
+              <p> Below, you can
                   <span class="quasi expand en"></span> my experiences. To get started,
                   <a href="/?ui">here's a feel for my style</a>.
               </p>
@@ -140,8 +145,7 @@ module Util::Index
       title: "Google",
       desc:  {
         "en" => <<-HTML,
-                Development of
-                <a href="https://cc.ayazhafiz.com/articles/19/what-i-did-this-summer">source code indexers</a>
+                <a href="https://cc.ayazhafiz.com/articles/19/what-i-did-this-summer">Development of source code indexers</a>
                 as a SWE intern on the Angular team.
                 HTML
         "ru" => <<-HTML,
@@ -217,8 +221,8 @@ module Util::Index
         proficiency: 1,
       },
       {
-        name:        "Rust",
-        short:       "rs",
+        name:        "TypeScript",
+        short:       "ts",
         proficiency: 1,
       },
       {
@@ -227,8 +231,8 @@ module Util::Index
         proficiency: 1,
       },
       {
-        name:        "TypeScript",
-        short:       "ts",
+        name:        "Rust",
+        short:       "rs",
         proficiency: 1,
       },
       {
@@ -317,19 +321,27 @@ module Util::Index
     },
     {
       title: {
-        "en" => "github",
-        "ru" => "github",
-      },
-      link:  "https://github.com/ayazhafiz",
-      emoji: "🖥",
-    },
-    {
-      title: {
         "en" => "email",
         "ru" => "емейл",
       },
       link:  "mailto:ayaz.hafiz.1@gmail.com?subject=Hi!",
       emoji: "📧",
+    },
+    {
+      title: {
+        "en" => "GitHub",
+        "ru" => "GitHub",
+      },
+      link:  "https://github.com/ayazhafiz",
+      emoji: "https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg",
+    },
+    {
+      title: {
+        "en" => "LinkedIn",
+        "ru" => "LinkedIn",
+      },
+      link:  "https://linkedin.com/in/ayazhafiz",
+      emoji: "https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png",
     },
     {
       title: {
