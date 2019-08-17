@@ -10,55 +10,39 @@ module Util::Index
   }
 
   HEADER = {
-    intro: {
+    info: {
       "en" => <<-HTML,
-              <p> Hey! I'm <span class="quasi name en"></span>.
-                  I am a CS/Chemistry undergrad at
-                  <a href="https://vanderbilt.edu">Vanderbilt</a>
-                  and an <a href="https://angular.io">Angular</a>
-                  contributor.
+              <p class="name-line"><span class="quasi name en"></span></p>
+              <p>
+                  Hi! I'm a CS/Chemistry undergrad at
+                  <a href="https://vanderbilt.edu">Vanderbilt</a>.
+                  Previously, I
+                  <a class="tag pastel-purple" data-open="work">worked</a>
+                  on Angular and TypeScript at Google.
+              </p>
+              <p>
+                  My current interests are in compilers, language tools, and systems software. I am
+                  an active open-source contributor, especially to
+                  <a href="https://github.com/angular/angular">Angular</a>.
+              </p>
+              <br />
+              <p>
+                  The best way to reach me is via
+                  <a href="mailto:ayaz.hafiz.1@gmail.com?subject=Hi!">email</a>.
+                  More contact information can be found
+                  <a class="tag pastel-yellow" data-open="links">below</a>.
               </p>
               HTML
       "ru" => <<-HTML,
-              <p> Здрасьте! Я <span class="quasi name ru"></span>.
+              <p>
+                  Здрасьте! Я <span class="quasi name ru"></span>.
                   Я создаю вещи, пока в
                   <a href="https://vanderbilt.edu">Vanderbilt</a>,
                   где моя учеба концентрируются в <span class="quasi major ru"></span>
               </p>
-              HTML
-    },
-    future: {
-      "en" => <<-HTML,
-              <p> My interest is in
-                  <b>compilers and language tools</b>. I previously
-                  <a href="https://cc.ayazhafiz.com/articles/19/what-i-did-this-summer">worked</a>
-                  at Google in this domain.
-              </p>
-              HTML
-      # <<-HTML,
-      # <p> My social and developmental interests are in
-      #     diversification and
-      #     <a href="https://en.wikipedia.org/wiki/Ownership_(psychology)">ownership</a>.
-      # </p>
-      # HTML
-      "ru" => <<-HTML,
-              <p> Я инженер-кода. Мой текущий фокус на
-              <b>языках и разработке компиляторов</b>.
-              </p>
-              HTML
-    },
-    learn_more: {
-      "en" => <<-HTML,
-              <p> Below, you can
-                  <span class="quasi expand en"></span> my experiences. To get started,
-                  <a href="/?ui">here's a feel for my style</a>.
-              </p>
-              HTML
-      "ru" => <<-HTML,
-              <p> Работа сильнее слов. По этой причине, ниже вы можете
-                  <span class="quasi expand ru"></span> вещей с чем я занимаюсь
-                  (и увидете кто я такой). Для начала,
-                  <a href="/?ui">вот мой стиль</a>.
+              <p>
+                  Я инженер-кода. Мой текущий фокус на
+                  <b>языках и разработке компиляторов</b>.
               </p>
               HTML
     },

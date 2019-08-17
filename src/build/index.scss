@@ -23,25 +23,7 @@ body {
 }
 
 html {
-  font-size: 15px;
-}
-
-@media screen and (min-width: 350px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-@media screen and (min-width: 900px) {
-  html {
-    font-size: 17px;
-  }
-}
-
-@media screen and (min-width: 1000px) {
-  html {
-    font-size: 18px;
-  }
+  font-size: 100%;
 }
 
 body {
@@ -63,6 +45,10 @@ body {
     > {
       p {
         margin: 0;
+
+        &.name-line {
+          margin-bottom: 1em;
+        }
       }
     }
   }
@@ -75,6 +61,7 @@ code {
 section {
   display: flex;
   flex-direction: column-reverse;
+  width: 90%;
 
   .section-img {
     background-image: url('/img/self.jpg');
@@ -393,7 +380,10 @@ h3 {
   margin-bottom: 0;
 
   &:hover {
-    color: $h3-section-hover-color;
+    .hash {
+      color: $link-color;
+      opacity: 1;
+    }
   }
 
   .hash {
@@ -411,7 +401,8 @@ small {
 
 a,
 b,
-h3 {
+h3,
+.name-line {
   font-weight: 400;
 }
 
@@ -422,6 +413,8 @@ small {
 }
 
 a {
+  cursor: pointer;
+
   &,
   &:active,
   &:hover,
@@ -440,11 +433,14 @@ a {
   }
 
   &.pgp {
-    color: $black;
     font-family: $code-font;
-    font-size: 0.7em;
-    opacity: 0.2;
+    font-size: 0.8em;
     text-decoration: none;
+
+    &:not(:hover) {
+      color: $black;
+      opacity: 0.2;
+    }
   }
 }
 
@@ -461,6 +457,28 @@ img {
   &.scale-15 {
     transform: scale(1.5);
   }
+}
+
+@mixin title-backgrounds($args...) {
+  @each $name, $color in keywords($args) {
+    &.#{$name} {
+      background: $color;
+    }
+  }
+}
+@include title-backgrounds(
+  $pastel-blue: rgb(200, 215, 234),
+  $pastel-purple: rgb(210, 201, 234),
+  $pastel-yellow: rgb(236, 225, 203),
+  $pastel-red: rgb(238, 201, 200),
+  $pastel-green: rgb(202, 217, 213),
+  $pastel-orange: rgb(237, 212, 200)
+);
+
+.tag {
+  border-radius: 0.25em;
+  font-weight: 300;
+  padding: 0.25em 0.5em;
 }
 
 .quasi {
@@ -481,7 +499,10 @@ img {
 
   &.name {
     &.en {
-      @include content-values('Ayaz', 'hafiz');
+      @include content-values('Ayaz Hafiz', 'hafiz');
+      display: inline-block;
+      line-height: 1em;
+      width: 5em;
     }
 
     &.ru {
@@ -581,7 +602,10 @@ input {
   }
 
   &:checked ~ label > h3 {
-    color: $h3-section-opened-color;
+    .hash {
+      color: $link-color;
+      opacity: 1;
+    }
   }
 }
 
@@ -854,15 +878,15 @@ p {
       }
 
       &.work {
-        max-height: 30em;
+        max-height: 42em;
       }
 
       &.about {
-        max-height: 25em;
+        max-height: 30em;
       }
 
       &.links {
-        max-height: 20em;
+        max-height: 25em;
       }
     }
   }
