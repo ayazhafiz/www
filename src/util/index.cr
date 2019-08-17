@@ -12,7 +12,7 @@ module Util::Index
   HEADER = {
     info: {
       "en" => <<-HTML,
-              <p class="name-line"><span class="quasi name en"></span></p>
+              <p class="name-line margin-1"><span class="quasi name en"></span></p>
               <p>
                   Hi! I'm a CS/Chemistry undergrad at
                   <a href="https://vanderbilt.edu">Vanderbilt</a>.
@@ -20,12 +20,11 @@ module Util::Index
                   <a class="tag pastel-purple" data-open="work">worked</a>
                   on Angular and TypeScript at Google.
               </p>
-              <p>
+              <p class="margin-1">
                   My current interests are in compilers, language tools, and systems software. I am
                   an active open-source contributor, especially to
                   <a href="https://github.com/angular/angular">Angular</a>.
               </p>
-              <br />
               <p>
                   The best way to reach me is via
                   <a href="mailto:ayaz.hafiz.1@gmail.com?subject=Hi!">email</a>.
