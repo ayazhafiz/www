@@ -71,6 +71,34 @@ function addOptionsDisplayListeners() {
   checkPositionAndSetDisplay();
 }
 
+interface OptionStore {
+  [id: string]: 'checked'|'unchecked';
+}
+function saveOptionToStorage(this: HTMLInputElement) {
+  const store: OptionStore =
+      JSON.parse(window.localStorage.getItem('options')) || {};
+  const checkValue = this.checked ? 'checked' : 'unchecked';
+  store[this.id] = checkValue;
+
+  window.localStorage.setItem('options', JSON.stringify(store));
+}
+function loadOptionsFromStorage() {
+  const store: OptionStore = JSON.parse(window.localStorage.getItem('options'));
+  if (!store) {
+    return;
+  }
+
+  for (const [id, checkValue] of Object.entries(store)) {
+    switch (checkValue) {
+      case 'checked':
+        $(`#${id}`).click();
+        break;
+      default:
+        break;
+    }
+  }
+}
+
 (() => {
   // Toggle quasi text on touch events.
   $$('.quasi').forEach(
@@ -134,4 +162,11 @@ function addOptionsDisplayListeners() {
   // Hide page options if browser page is too small; show if the browser is
   // large enough.
   addOptionsDisplayListeners();
+
+  // Save options to and load from localStorage as needed.
+  $$('.option input').forEach(option => {
+    option.addEventListener(
+        'change', opt => saveOptionToStorage.bind(opt.target)());
+  });
+  loadOptionsFromStorage();
 })();
