@@ -4,6 +4,15 @@
 My public server, written mostly in [Crystal](https://crystal-lang.org),
 [Rust](https://rust-lang.org), and [TypeScript](https://www.typescriptlang.org).
 
+> A note to the curious explorer: this repository is a monolith that has grown unwieldy
+> in some areas, mostly due to poor architectural choices when I wanted to _get something
+> done_. Please feel free to file issues for problems you observe! I plan to
+> [rewrite this site](https://github.com/ayazhafiz/www/issues/56) and resolve all of these
+> problems.
+>
+> That said, `www` has a lot of good code. I was young and naive, and am now somewhat less
+> young and maybe less naive.
+
 ### Features
 
 `www` is an application server, hosting much more than just my informational page. Most
@@ -34,8 +43,8 @@ of its features are listed below, under the top-level root `hafiz`.
     - [ ] /xela - the `xela` programming language.
   - [x] [/vector](https://ayazhafiz.com/vector) - get information about vectors.
 
-There's a lot of APIs for these things, but I do not currently have the
-bandwidth to document them publically. Please file an issue if it benefits you
+There's a lot of APIs here, but I do not currently have the
+bandwidth to document them. Please file an issue if it benefits you
 for me to do that.
 
 ### Persistence
