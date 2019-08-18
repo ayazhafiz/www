@@ -34,8 +34,8 @@ of its features are listed below, under the top-level root `hafiz`.
     - [ ] /xela - the `xela` programming language.
   - [x] [/vector](https://ayazhafiz.com/vector) - get information about vectors.
 
-There's a lot of APIs for these things, but I do not currently have the
-bandwidth to document them publically. Please file an issue if it benefits you
+There's a lot of APIs here, but I do not currently have the
+bandwidth to document them. Please file an issue if it benefits you
 for me to do that.
 
 ### Persistence
