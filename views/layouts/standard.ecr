@@ -19,7 +19,7 @@
     <script src=<%= "/js/#{read_manifest "#{page}.js"}" %> defer></script>
   </head>
 
-  <body lang="<%= env.response.headers.fetch "Content-Language", "en" %>">
+  <body class="light-mode" lang="<%= env.response.headers.fetch "Content-Language", "en" %>">
     <%= content %>
   </body>
 </html>

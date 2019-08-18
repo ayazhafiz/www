@@ -1,17 +1,10 @@
 @import '../scss/base/vars';
 
-$homepage-bg-color: #fff;
-$homepage-text-color: #172b4c;
-$h3-section-hover-color: #55919d;
-$h3-section-hash-hover-color: #000;
-$h3-section-opened-color: #55919d;
-
 $link-color: rgb(3, 102, 214);
 $personal-link-color: #0366d6;
 
 $quasi-color: #025bc0;
 $work-previous-color: #8995a2;
-$prog-language-text-color: #111;
 $chemistry-tags-color: #8995a2;
 
 html,
@@ -27,8 +20,6 @@ html {
 }
 
 body {
-  background: $homepage-bg-color;
-  color: $homepage-text-color;
   display: flex;
   font-family: $system-font;
   font-weight: 300;
@@ -376,18 +367,21 @@ section {
 }
 
 h3 {
+  font-size: 1em;
+  font-weight: 300;
   letter-spacing: 0.15em;
   margin-bottom: 0;
 
   &:hover {
-    .hash {
-      color: $link-color;
-      opacity: 1;
+    span {
+      &.hash {
+        color: $link-color;
+        opacity: 1;
+      }
     }
   }
 
   .hash {
-    color: $h3-section-hash-hover-color;
     opacity: 0.2;
     text-decoration: none;
   }
@@ -401,7 +395,6 @@ small {
 
 a,
 b,
-h3,
 .name-line {
   font-weight: 400;
 }
@@ -458,22 +451,6 @@ img {
     transform: scale(1.5);
   }
 }
-
-@mixin title-backgrounds($args...) {
-  @each $name, $color in keywords($args) {
-    &.#{$name} {
-      background: $color;
-    }
-  }
-}
-@include title-backgrounds(
-  $pastel-blue: rgb(200, 215, 234),
-  $pastel-purple: rgb(210, 201, 234),
-  $pastel-yellow: rgb(236, 225, 203),
-  $pastel-red: rgb(238, 201, 200),
-  $pastel-green: rgb(202, 217, 213),
-  $pastel-orange: rgb(237, 212, 200)
-);
 
 .tag {
   border-radius: 0.25em;
@@ -573,10 +550,15 @@ img {
 }
 
 input {
-  display: none;
-  opacity: 0;
-  position: absolute;
-  z-index: -1;
+  cursor: pointer;
+  display: inline-block;
+
+  &.expand {
+    display: none;
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+  }
 
   &:checked ~ .tab-content {
     &.projects {
@@ -611,9 +593,11 @@ input {
 
 label {
   cursor: pointer;
-  display: block;
-  font-weight: bold;
   position: relative;
+
+  &.expand {
+    display: block;
+  }
 }
 
 .tab-content {
@@ -626,7 +610,7 @@ label {
       border-right: 0.1em dashed;
       display: none;
       font-weight: 400;
-      margin-left: -140px;
+      margin-left: -130px;
       opacity: 0;
       padding-right: 1em;
       position: absolute;
@@ -649,11 +633,11 @@ label {
         }
       }
 
+      $border-color: rgba($link-color, 0.5);
+      $text-color: rgba($link-color, 0.8);
+
       &.project {
         &::before {
-          $border-color: rgba($link-color, 0.5);
-          $text-color: rgba($link-color, 0.8);
-
           border-color: $border-color;
           color: $text-color;
         }
@@ -661,9 +645,6 @@ label {
 
       &.work {
         &::before {
-          $border-color: rgba($homepage-text-color, 0.35);
-          $text-color: rgba($homepage-text-color, 0.8);
-
           border-color: $border-color;
           color: $text-color;
         }
@@ -696,14 +677,6 @@ label {
     }
   }
 
-  &.projects {
-    span {
-      &.emoji {
-        margin-right: 0.25em;
-      }
-    }
-  }
-
   &.work {
     p {
       &:not(:first-of-type) {
@@ -723,18 +696,16 @@ label {
   p {
     font-weight: 400;
     margin-bottom: 0;
-    padding: 0 1em;
-
-    .mr {
-      display: inline-block;
-      margin-right: 0.8em;
-      width: 1.2em;
-    }
+    padding: 0;
 
     > a,
     > span,
     .l {
       margin-right: 0.25em;
+
+      &.emoji-wrapper {
+        margin-right: 0;
+      }
     }
 
     .l {
@@ -761,7 +732,6 @@ label {
     }
 
     .language {
-      color: $prog-language-text-color;
       margin-right: 1em;
       white-space: nowrap;
 
@@ -857,6 +827,45 @@ p {
   }
 }
 
+span {
+  &.emoji {
+    display: inline-block;
+    margin-right: 0.8em;
+    width: 1.3em;
+  }
+}
+
+.temoji {
+  margin-right: -0.25em;
+}
+
+.emoji-wrapper {
+  vertical-align: middle;
+}
+
+.page-options {
+  bottom: 0;
+  font-size: 0.8em;
+  left: 0;
+  line-height: 1em;
+  padding: 1em 0 1em 0.75em;
+  position: absolute;
+  width: calc(100% - 0.75em);
+
+  .option {
+    margin-left: 1em;
+  }
+
+  &:not(:hover) {
+    background: transparent;
+    opacity: 0.8;
+
+    .option {
+      visibility: hidden;
+    }
+  }
+}
+
 @media only screen and (max-width: 660px) {
   body {
     & .content {
@@ -917,6 +926,107 @@ p {
     .side-text {
       &::before {
         display: block;
+      }
+    }
+  }
+}
+
+// Color Schemes
+@mixin title-backgrounds($args...) {
+  @each $name, $color in keywords($args) {
+    &.#{$name} {
+      background: $color;
+    }
+  }
+}
+@include title-backgrounds(
+  $pastel-blue: rgb(200, 215, 234),
+  $pastel-purple: rgb(210, 201, 234),
+  $pastel-yellow: rgb(236, 225, 203),
+  $pastel-red: rgb(238, 201, 200),
+  $pastel-green: rgb(202, 217, 213),
+  $pastel-orange: rgb(237, 212, 200)
+);
+
+// To make color schemes independent.
+// sass-lint:disable no-mergeable-selectors
+body {
+  // sass-lint:enable no-mergeable-selectors
+
+  &.light-mode {
+    $light-bg: #fff;
+    $primary-text-color: #172b4c;
+    $hash-color: #000;
+    $prog-lang-color: #111;
+
+    background: $light-bg;
+    color: $primary-text-color;
+
+    .hash {
+      color: $hash-color;
+    }
+
+    p {
+      .language {
+        color: $prog-lang-color;
+      }
+    }
+  }
+
+  &.dark-mode {
+    $light-text: rgb(255, 255, 255);
+    $primary-text: rgb(210, 210, 210);
+    $dark-mode-primary: rgb(32, 33, 36);
+    $dark-mode-secondary: rgb(23, 43, 76);
+    $blue-text: rgb(60, 112, 196);
+
+    background: $dark-mode-primary;
+    color: $primary-text;
+
+    h3 {
+      .title {
+        color: $dark-mode-secondary;
+
+        &:not(.tag) {
+          color: $primary-text;
+        }
+      }
+    }
+
+    .hash {
+      color: $light-text;
+    }
+
+    .pgp {
+      &:not(:hover) {
+        color: $light-text;
+      }
+    }
+
+    p {
+      .language {
+        color: $light-text;
+      }
+    }
+
+    .page-options {
+      color: $dark-mode-primary;
+
+      .options-text {
+        color: $blue-text;
+      }
+    }
+
+    // Brighten GitHub logo.
+    .tab {
+      &:last-of-type {
+        p {
+          &:nth-of-type(3) {
+            .emoji-wrapper {
+              filter: brightness(8);
+            }
+          }
+        }
       }
     }
   }

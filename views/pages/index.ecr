@@ -16,8 +16,8 @@
   %>
 
   <div id="<%= PARTIAL[:section][0][:tag]["en"] %>" class="tab">
-    <input id="tab-0" type="checkbox" name="<%= PARTIAL[:section][0][:tag]["en"] %>">
-    <label for="tab-0"><h3><span class="hash">###</span>
+    <input id="tab-0" class="expand" type="checkbox" name="<%= PARTIAL[:section][0][:tag]["en"] %>">
+    <label for="tab-0" class="expand"><h3><span class="hash">###</span>
       <span class="title tag pastel-blue">
         <%= PARTIAL[:section][0][:tag][render_lang].capitalize %>
         <span class="temoji"><%= Util::Emoji.render PARTIAL[:section][0][:emoji], native_display: apple %></span>
@@ -29,8 +29,8 @@
   </div>
 
   <div id="<%= PARTIAL[:section][1][:tag]["en"] %>" class="tab">
-    <input id="tab-1" type="checkbox" name="<%= PARTIAL[:section][1][:tag]["en"] %>">
-    <label for="tab-1"><h3><span class="hash">###</span>
+    <input id="tab-1" class="expand" type="checkbox" name="<%= PARTIAL[:section][1][:tag]["en"] %>">
+    <label for="tab-1" class="expand"><h3><span class="hash">###</span>
       <span class="title tag pastel-purple">
         <%= PARTIAL[:section][1][:tag][render_lang].capitalize %>
         <span class="temoji"><%= Util::Emoji.render PARTIAL[:section][1][:emoji], native_display: apple %></span>
@@ -42,8 +42,8 @@
   </div>
 
   <div id="<%= PARTIAL[:section][2][:tag]["en"] %>" class="tab">
-    <input id="tab-2" type="checkbox" name="<%= PARTIAL[:section][2][:tag]["en"] %>">
-    <label for="tab-2"><h3><span class="hash">###</span>
+    <input id="tab-2" class="expand" type="checkbox" name="<%= PARTIAL[:section][2][:tag]["en"] %>">
+    <label for="tab-2" class="expand"><h3><span class="hash">###</span>
       <span class="title tag pastel-orange">
         <%= PARTIAL[:section][2][:tag][render_lang].capitalize %>
         <span class="temoji"><%= Util::Emoji.render PARTIAL[:section][2][:emoji], native_display: apple %></span>
@@ -55,8 +55,8 @@
   </div>
 
   <div id="<%= PARTIAL[:section][3][:tag]["en"] %>" class="tab">
-    <input id="tab-3" type="checkbox" name="<%= PARTIAL[:section][3][:tag]["en"] %>">
-    <label for="tab-3"><h3><span class="hash">###</span>
+    <input id="tab-3" class="expand" type="checkbox" name="<%= PARTIAL[:section][3][:tag]["en"] %>">
+    <label for="tab-3" class="expand"><h3><span class="hash">###</span>
       <span class="title tag pastel-yellow">
         <%= PARTIAL[:section][3][:tag][render_lang].capitalize %>
         <span class="temoji"><%= Util::Emoji.render PARTIAL[:section][3][:emoji], native_display: apple %></span>
@@ -70,4 +70,24 @@
   <p class="hash">
     <a class="pgp" href="/keys/hafiz_gpg_public.asc">my pgp key</a>
   </p>
+</div>
+
+<div class="page-options pastel-green">
+  <span class="tag options-text">Page Options</span>
+  <span class="option">
+    <input id="dark-mode" data-toggle-color-mode type="checkbox" />
+    <label for="dark-mode">Dark Mode</label>
+  </span>
+  <span class="option">
+    <input id="less-emojis" data-toggle-display=".emoji-wrapper" type="checkbox" />
+    <label for="less-emojis">No Emojis</label>
+  </span>
+  <span class="option">
+    <input id="less-colors" data-toggle-class="tag,pastel-" type="checkbox" />
+    <label for="less-colors">Less Colors</label>
+  </span>
+  <span class="option">
+    <input id="short-headings" data-toggle-display="span.hash" type="checkbox" />
+    <label for="short-headings">Short Headings</label>
+  </span>
 </div>

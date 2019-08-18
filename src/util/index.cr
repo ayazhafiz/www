@@ -17,7 +17,7 @@ module Util::Index
                   Hi! I'm a CS/Chemistry undergrad at
                   <a href="https://vanderbilt.edu">Vanderbilt</a>.
                   Previously, I
-                  <a class="tag pastel-purple" data-open="work">worked</a>
+                  <a class="tag pastel-purple" data-open="#work">worked</a>
                   on Angular and TypeScript at Google.
               </p>
               <p class="margin-1">
@@ -29,7 +29,7 @@ module Util::Index
                   The best way to reach me is via
                   <a href="mailto:ayaz.hafiz.1@gmail.com?subject=Hi!">email</a>.
                   More contact information can be found
-                  <a class="tag pastel-yellow" data-open="links">below</a>.
+                  <a class="tag pastel-yellow" data-open="#links">below</a>.
               </p>
               HTML
       "ru" => <<-HTML,
@@ -286,10 +286,10 @@ module Util::Index
 
   def generate_about_hobbies(lang, apple)
     ABOUT[:hobbies][lang]
-      .sub(":ski_emoji:", Util::Emoji.render("⛷", native_display: apple))
-      .sub(":burrito_emoji:", Util::Emoji.render("🌯", native_display: apple))
-      .sub(":controller_emoji:", Util::Emoji.render("🎛", native_display: apple))
-      .sub(":dancer_emoji:", Util::Emoji.render("🕺", native_display: apple))
+      .sub(" :ski_emoji:", Util::Emoji.render("⛷", wrap_in: {" ", ""}, native_display: apple))
+      .sub(" :burrito_emoji:", Util::Emoji.render("🌯", wrap_in: {" ", ""}, native_display: apple))
+      .sub(" :controller_emoji:", Util::Emoji.render("🎛", wrap_in: {" ", ""}, native_display: apple))
+      .sub(" :dancer_emoji:", Util::Emoji.render("🕺", wrap_in: {" ", ""}, native_display: apple))
   end
 
   # Array of personal links.

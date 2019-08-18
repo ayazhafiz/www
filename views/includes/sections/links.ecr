@@ -1,12 +1,8 @@
 <% LINKS.each do |link| %>
 <p>
-<span class="mr">
-    <% if link[:emoji].starts_with?("http") %>
-      <img class="emoji" src="<%= link[:emoji] %>" />
-    <% else %>
-      <%= Util::Emoji.render link[:emoji], native_display: apple %>
-    <% end %>
-</span>
+  <%= Util::Emoji.render(link[:emoji], 
+                         wrap_in: {"<span class=\"emoji\">", "</span>"},
+                         native_display: apple) %>
   <quote>
     <a href="<%= link[:link] %>"><%= link[:title][render_lang] %></a>
   </quote>

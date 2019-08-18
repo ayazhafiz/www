@@ -4,17 +4,27 @@ module Util::Emoji
 
   private BASE_URL = "https://glcdn.githack.com/ayazhafiz/emoji-img/raw/master/public/emoji"
 
+  def wrap_emoji(emoji : String) : String
+    "<span class=\"emoji-wrapper\">#{emoji}</span>"
+  end
+
   # Renders an emoji image in HTML.
   def render(emoji : String,
-             base_url : String = BASE_URL,
-             native_display = false) : String
-    if native_display
-      emoji
-    else
-      <<-HTML
-      <img class="emoji" src="#{get_url emoji}">
-      HTML
+             wrap_in : Tuple(String, String) = {"", ""},
+             native_display = false,
+             scale : String? = nil) : String
+    result = emoji
+    if emoji.starts_with?("http")
+      result = render_image emoji, scale
+    elsif !native_display
+      result = "<img class=\"emoji\" src=\"#{get_url emoji}\">"
     end
+
+    wrap_emoji "#{wrap_in[0]}#{result}#{wrap_in[1]}"
+  end
+
+  def render_image(url : String, scale : String?) : String
+    "<img class=\"emoji #{scale}\" src=\"#{url}\" />"
   end
 
   # Returns the filename of an emoji image.
