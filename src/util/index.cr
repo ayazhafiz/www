@@ -21,8 +21,8 @@ module Util::Index
                   on Angular and TypeScript at Google.
               </p>
               <p class="margin-1">
-                  My current interests are in compilers, language tools, and systems software. I am
-                  an active open-source contributor, especially to
+                  My interests are in building compilers, language tools, and systems software. I am
+                  an open-source contributor, mostly to
                   <a href="https://github.com/angular/angular">Angular</a>.
               </p>
               <p>
