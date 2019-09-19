@@ -18,13 +18,11 @@ module Util::Index
                   <a href="https://vanderbilt.edu">Vanderbilt</a>.
                   Previously, I
                   <a class="tag pastel-purple" data-open="#work">worked</a>
-                  on Angular and TypeScript at Google.
-              </p>
+                  on programming languages at Google.
               <p class="margin-1">
-                  My interests are in compilers, language tools, and systems software. I am
-                  an open-source contributor, mostly to
+                  My mission, broadly, is to further accessible and free software.
+                  I actively contribute to open-source projects &ndash; especially
                   <a href="https://github.com/angular/angular">Angular</a>.
-              </p>
               <p>
                   The best way to reach me is via
                   <a href="mailto:ayaz.hafiz.1@gmail.com?subject=Hi!">email</a>.
