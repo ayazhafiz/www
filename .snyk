@@ -8,3 +8,8 @@ patch:
         patched: '2019-07-15T07:19:48.708Z'
     - snyk > snyk-nuget-plugin > lodash:
         patched: '2019-07-16T07:19:51.510Z'
+  SNYK-JS-HTTPSPROXYAGENT-469131:
+    - snyk > proxy-agent > https-proxy-agent:
+        patched: '2019-10-04T07:19:52.257Z'
+    - snyk > proxy-agent > pac-proxy-agent > https-proxy-agent:
+        patched: '2019-10-04T07:19:52.257Z'
