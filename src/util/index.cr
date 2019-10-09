@@ -66,7 +66,6 @@ module Util::Index
         "ru" => "Работа над Angular компилятором и инструментами анализа языка.",
       },
       emoji: "https://avatars3.githubusercontent.com/u/44679334?s=200&v=4",
-      scale: "scale-15",
     },
     {
       title: "sherpa_41",
