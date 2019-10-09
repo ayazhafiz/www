@@ -84,6 +84,10 @@ function saveOptionToStorage(this: HTMLInputElement) {
 }
 function loadOptionsFromStorage() {
   const store: OptionStore = JSON.parse(window.localStorage.getItem('options'));
+  if (!store || !store['less-colors']) {
+    // Show less colors by default
+    $('#less-colors').click();
+  }
   if (!store) {
     return;
   }
