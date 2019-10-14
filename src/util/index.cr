@@ -18,7 +18,7 @@ module Util::Index
                   <a href="https://vanderbilt.edu">Vanderbilt</a>.
                   Previously, I
                   <a class="tag pastel-purple" data-open="#work">worked</a>
-                  on programming languages at Google.
+                  on programming languages at Google. In Spring 2020, I am working at Lyft.
               <p class="margin-1">
                   My mission, broadly, is to further accessible and free software.
                   I actively contribute to open-source projects &ndash; especially
