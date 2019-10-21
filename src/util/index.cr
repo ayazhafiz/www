@@ -20,7 +20,8 @@ module Util::Index
                   <a class="tag pastel-purple" data-open="#work">worked</a>
                   on programming languages at Google. In Spring 2020, I am working at Lyft.
               <p class="margin-1">
-                  My mission, broadly, is to further accessible and free software.
+                  My mission, broadly, is to build resources that empower others to succeed in what
+                  they find important.
                   I actively contribute to open-source projects &ndash; especially
                   <a href="https://github.com/angular/angular">Angular</a>.
               <p>
