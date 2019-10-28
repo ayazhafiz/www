@@ -15,7 +15,9 @@ module Util::Index
               <p class="name-line margin-1"><span class="quasi name en"></span></p>
               <p>
                   Hi! I'm a CS/Chemistry undergrad at
-                  <a href="https://vanderbilt.edu">Vanderbilt</a>.
+                  <a href="https://vanderbilt.edu">Vanderbilt</a>. I work on the
+                  open-source <a href="https://github.com/angular/angular">Angular</a>
+                  framework.
               <p>
                   The best way to reach me is via
                   <a href="mailto:ayaz.hafiz.1@gmail.com?subject=Hi!">email</a>.
