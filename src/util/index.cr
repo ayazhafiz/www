@@ -18,6 +18,7 @@ module Util::Index
                   <a href="https://vanderbilt.edu">Vanderbilt</a>. I work on the
                   open-source <a href="https://github.com/angular/angular">Angular</a>
                   framework.
+                  <br />
               <p>
                   The best way to reach me is via
                   <a href="mailto:ayaz.hafiz.1@gmail.com?subject=Hi!">email</a>.
