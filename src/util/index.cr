@@ -15,15 +15,10 @@ module Util::Index
               <p class="name-line margin-1"><span class="quasi name en"></span></p>
               <p>
                   Hi! I'm a CS/Chemistry undergrad at
-                  <a href="https://vanderbilt.edu">Vanderbilt</a>.
-                  Previously, I
-                  <a class="tag pastel-purple" data-open="#work">worked</a>
-                  on programming languages at Google. In Spring 2020, I am working at Lyft.
-              <p class="margin-1">
-                  My mission, broadly, is to build resources that empower others to succeed in what
-                  they find important.
-                  I actively contribute to open-source projects &ndash; especially
-                  <a href="https://github.com/angular/angular">Angular</a>.
+                  <a href="https://vanderbilt.edu">Vanderbilt</a>. I work on the
+                  open-source <a href="https://github.com/angular/angular">Angular</a>
+                  framework.
+                  <br />
               <p>
                   The best way to reach me is via
                   <a href="mailto:ayaz.hafiz.1@gmail.com?subject=Hi!">email</a>.
