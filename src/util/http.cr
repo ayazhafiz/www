@@ -82,6 +82,7 @@ module Util::HTTP
     "/cc"          => "https://cc.ayazhafiz.com",
     "/position"    => "https://ayazhafiz.github.io/position",
     "/movie-emoji" => "https://ayazhafiz.github.io/movie-emoji",
+    "/ideas"       => "https://docs.google.com/document/d/1_Jsv1vtAA-WskSY3fHkX8tMUBehUJjkALxYnm-DhfMM/edit?usp=sharing",
   }
 
   # Manifest of compiled assets
