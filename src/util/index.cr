@@ -13,7 +13,7 @@ module Util::Index
     info: {
       "en" => <<-HTML,
               <p class="name-line margin-1"><span class="quasi name en"></span></p>
-              <p>
+              <p class="margin-1">
                   Hi! I'm a CS/Chemistry undergrad at
                   <a href="https://vanderbilt.edu">Vanderbilt</a>. I work on the
                   open-source <a href="https://github.com/angular/angular">Angular</a>
